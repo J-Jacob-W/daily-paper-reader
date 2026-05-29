@@ -25,3 +25,169 @@ subscriptions:
     stage: A
     diff_threshold_pct: 15
   keyword_recall_mode: or
+  intent_profiles:
+    - tag: EEG-ODE-LN
+      description: 查找EEG解码（最好情绪识别）以及EEG+fNIRs多模态的文章
+      enabled: true
+      paper_sources:
+        - arxiv
+        - biorxiv
+      keywords:
+        - keyword: EEG decoding
+          keyword_cn: 脑电解码
+          query: EEG signal decoding methods
+        - keyword: multimodal EEG fNIRS
+          keyword_cn: EEG+fNIRS多模态
+          query: multimodal EEG and fNIRS for brain activity decoding
+        - keyword: affective computing
+          keyword_cn: 情感计算
+          query: affective computing using EEG
+        - keyword: brain-computer interface
+          keyword_cn: 脑机接口
+          query: brain-computer interface for emotion
+        - keyword: multimodal fusion
+          keyword_cn: 多模态融合
+          query: multimodal fusion of EEG and fNIRS
+        - keyword: deep learning EEG
+          keyword_cn: 深度学习EEG
+          query: deep learning for EEG classification
+      intent_queries:
+        - query: Find papers on EEG decoding for emotion recognition
+          query_cn: 查找关于脑电解码用于情绪识别的论文
+          enabled: true
+          source: manual
+          note: ''
+        - query: Search for multimodal EEG and fNIRS studies
+          query_cn: 搜索多模态脑电和功能性近红外光谱研究
+          enabled: true
+          source: manual
+          note: ''
+        - query: EEG decoding for emotion recognition
+          query_cn: 用于情绪识别的脑电解码
+          enabled: true
+          source: manual
+          note: ''
+        - query: multimodal EEG fNIRS studies
+          query_cn: EEG fNIRS多模态研究
+          enabled: true
+          source: manual
+          note: ''
+      updated_at: '2026-05-29T13:15:36.847Z'
+    - tag: neural-ode
+      description: 帮我查找基于神经ODE/PDE或液态神经网络的2D/3D医学影像分析的文章
+      enabled: true
+      paper_sources:
+        - arxiv
+        - biorxiv
+      keywords:
+        - keyword: neural ordinary differential equation
+          keyword_cn: 神经常微分方程
+          query: neural ordinary differential equation medical image analysis
+        - keyword: neural partial differential equation
+          keyword_cn: 神经偏微分方程
+          query: neural partial differential equation medical imaging
+        - keyword: liquid neural network
+          keyword_cn: 液态神经网络
+          query: liquid neural network medical imaging
+        - keyword: medical image analysis
+          keyword_cn: 医学影像分析
+          query: medical image analysis using neural differential equations
+        - keyword: 2D medical image segmentation
+          keyword_cn: 二维医学图像分析
+          query: 2D medical image segmentation neural ODE
+        - keyword: 3D medical image segmentation
+          keyword_cn: 三维医学图像分析
+          query: 3D medical image segmentation liquid neural network
+      intent_queries:
+        - query: >-
+            medical image analysis using neural ordinary differential equations and neural partial differential
+            equations
+          query_cn: 使用神经常微分方程和神经偏微分方程的医学影像分析
+          enabled: true
+          source: manual
+          note: ''
+        - query: 2D and 3D medical image segmentation with liquid neural networks
+          query_cn: 基于液态神经网络的二维和三维医学图像分析
+          enabled: true
+          source: manual
+          note: ''
+        - query: continuous depth neural network for medical image processing
+          query_cn: 连续深度神经网络在医学图像处理中的应用
+          enabled: true
+          source: manual
+          note: ''
+      updated_at: '2026-05-29T13:17:04.404Z'
+    - tag: multi-modal
+      description: 帮我找一些关于多模态语言模型或多模态融合的研究文章
+      enabled: true
+      paper_sources:
+        - arxiv
+        - biorxiv
+      keywords:
+        - keyword: multimodal language model
+          keyword_cn: 多模态语言模型
+          query: multimodal language model research
+        - keyword: multimodal fusion
+          keyword_cn: 多模态融合
+          query: techniques for multimodal fusion
+        - keyword: vision language model
+          keyword_cn: 视觉语言模型
+          query: vision language model architectures
+        - keyword: cross modal representation
+          keyword_cn: 跨模态表示
+          query: learning cross modal representations
+        - keyword: multimodal learning
+          keyword_cn: 多模态学习
+          query: multimodal learning methods
+        - keyword: multimodal alignment
+          keyword_cn: 多模态对齐
+          query: multimodal alignment approaches
+      intent_queries:
+        - query: What are the latest advances in multimodal language models?
+          query_cn: 多模态语言模型的最新进展是什么？
+          enabled: true
+          source: manual
+          note: ''
+        - query: How is multimodal fusion achieved in deep learning?
+          query_cn: 深度学习中的多模态融合是如何实现的？
+          enabled: true
+          source: manual
+          note: ''
+        - query: Compare different architectures for vision language models.
+          query_cn: 比较不同的视觉语言模型架构。
+          enabled: true
+          source: manual
+          note: ''
+        - query: Find papers on cross modal representation learning.
+          query_cn: 查找关于跨模态表示学习的论文。
+          enabled: true
+          source: manual
+          note: ''
+      updated_at: '2026-05-29T13:18:01.178Z'
+source_backends:
+  arxiv:
+    papers_table: arxiv_papers
+    use_vector_rpc: true
+    vector_rpc: match_arxiv_papers
+    vector_rpc_exact: match_arxiv_papers_exact
+    use_bm25_rpc: true
+    bm25_rpc: match_arxiv_papers_bm25
+    sync_table: arxiv_sync_status
+    sync_success_value: success
+    schema: public
+    kind: supabase
+    enabled: true
+    url: https://lyucdwgefyfbmaiopjbk.supabase.co
+    anon_key: sb_publishable_lX-oi64Uxyd7SIVv3_w2Uw_MTOojeKq
+  biorxiv:
+    papers_table: biorxiv_papers
+    use_vector_rpc: true
+    vector_rpc: match_biorxiv_papers_exact
+    vector_rpc_exact: match_biorxiv_papers_exact
+    use_bm25_rpc: true
+    bm25_rpc: match_biorxiv_papers_bm25
+    schema: public
+    kind: supabase
+    enabled: true
+    url: https://lyucdwgefyfbmaiopjbk.supabase.co
+    anon_key: sb_publishable_lX-oi64Uxyd7SIVv3_w2Uw_MTOojeKq
