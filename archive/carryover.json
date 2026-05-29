@@ -1,6 +1,296 @@
 {
-  "generated_at": "2026-03-06T19:11:18.471356+00:00",
-  "updated_date": "20260306",
+  "generated_at": "2026-05-29T13:36:21.870131+00:00",
+  "updated_date": "20260520-20260529",
   "carryover_days": 9,
-  "items": []
+  "tag_states": {
+    "EEG-ODE-LN": {
+      "updated_date": "20260520-20260529",
+      "carryover_days": 9,
+      "items": []
+    },
+    "neural-ode": {
+      "updated_date": "20260520-20260529",
+      "carryover_days": 9,
+      "items": []
+    },
+    "multi-modal": {
+      "updated_date": "20260520-20260529",
+      "carryover_days": 9,
+      "items": [
+        {
+          "id": "2605.27436v1",
+          "source": "arxiv",
+          "title": "RE-TRIANGLE: Does TRIANGLE Enable Multimodal Alignment Beyond Cosine Similarity in Retrieval?",
+          "abstract": "Multimodal alignment is critical for bridging the semantic gap in information retrieval. However, traditional pairwise strategies introduce a geometric blind spot: while they align anchor modalities (e.g., text) with others, they lack constraints to enforce mutual consistency between peripheral modalities (e.g., video and audio). The TRIANGLE framework addresses this by minimizing the area of modality triplets on a hypersphere to enforce holistic alignment. In this reproducibility study, we verify the robustness of this geometric objective for retrieval tasks. We confirm that TRIANGLE outperforms pairwise baselines in zero-shot settings, achieving Recall@1 gains of up to +8.7 points, though benefits are domain-dependent. However, we fail to reproduce the reported learning-from-scratch results. Analysis using a synthetic toy dataset attributes this to instability when jointly optimizing geometric alignment with Data-Text Matching (DTM) loss. Furthermore, we find that cosine regularization primarily stabilizes text-to-video retrieval, and fine-tuning with domain supervision amplifies geometric benefits but reduces cross-dataset generalization. Our findings support the efficacy of geometric alignment while highlighting critical optimization sensitivities. Code available at https://github.com/ARIJIT00171/RE-TRIANGLE.",
+          "authors": [
+            "Arijit Ghosh",
+            "Aritra Bandyopadhyay",
+            "Chiranjeev Bindra",
+            "Jingfen Qiao"
+          ],
+          "primary_category": "cs.IR",
+          "categories": [
+            "cs.IR",
+            "cs.AI",
+            "cs.CV"
+          ],
+          "published": "2026-05-22T11:11:45+00:00",
+          "link": "https://arxiv.org/pdf/2605.27436v1",
+          "tags": [
+            "keyword:multi-modal"
+          ],
+          "llm_score": 8.0,
+          "llm_evidence_en": "TRIANGLE framework for holistic multimodal alignment via triplet area minimization",
+          "llm_evidence_cn": "TRIANGLE框架通过三元组面积最小化实现整体多模态对齐",
+          "llm_evidence": "TRIANGLE框架通过三元组面积最小化实现整体多模态对齐",
+          "canonical_evidence": "TRIANGLE框架通过三元组面积最小化实现整体多模态对齐",
+          "llm_tldr_en": "Reproduces TRIANGLE multimodal alignment using triplet area minimization, showing gains in zero-shot retrieval but domain dependence.",
+          "llm_tldr_cn": "复现了TRIANGLE多模态对齐框架，通过最小化模态三元组面积实现全局对齐，在零样本检索中Recall@1提升达8.7点，但效果因领域而异，验证了几何对齐的有效性。",
+          "llm_tldr": "复现了TRIANGLE多模态对齐框架，通过最小化模态三元组面积实现全局对齐，在零样本检索中Recall@1提升达8.7点，但效果因领域而异，验证了几何对齐的有效性。",
+          "llm_tags": [
+            "query:multi-modal"
+          ],
+          "matched_query_tag": "query:multi-modal",
+          "matched_query_text": "multimodal alignment approaches",
+          "matched_requirement_id": "req-25",
+          "selection_source": "carryover_cache",
+          "paper_id": "2605.27436v1",
+          "carry_days": 1
+        },
+        {
+          "id": "2605.28820v1",
+          "source": "arxiv",
+          "title": "From Pixels to Words -- Towards Native One-Vision Models at Scale",
+          "abstract": "Current vision-language models (VLMs) typically stitch together separate image encoders and language decoders via multi-stage alignment, a modular framework that inevitably fragments pixel-level signals across frames and scatters early pixel-word interactions. In parallel, native VLMs, despite impressive performance on single images, remain largely unexplored in multi-image, video understanding, and spatial intelligence. Hence, we introduce NEO-ov, a native foundation model that learns cross-frame and pixel-word correspondence end-to-end, without any external encoders, auxiliary adapters, or post-hoc fusion. By eliminating module boundaries entirely, NEO-ov enables fine-grained and unified spatiotemporal modeling to emerge natively inside the model. Notably, NEO-ov largely narrows the gap to modular counterparts while excelling at fine-grained visual perception, validating that native \"one-vision\" architectures are not only feasible but competitive at scale. Beyond empirical performance, we unveil systematic architectural analyses and detailed training recipes to facilitate subsequent native multimodal modeling. Our code and models are publicly available at: https://github.com/EvolvingLMMs-Lab/NEO.",
+          "authors": [
+            "Haiwen Diao",
+            "Jiahao Wang",
+            "Penghao Wu",
+            "Yuhao Dong",
+            "Yuwei Niu",
+            "Yue Zhu",
+            "Zhongang Cai",
+            "Weichen Fan",
+            "Linjun Dai",
+            "Silei Wu",
+            "Xuanyu Zheng",
+            "Mingxuan Li",
+            "Yuanhan Zhang",
+            "Bo Li",
+            "Hanming Deng",
+            "Huchuan Lu",
+            "Quan Wang",
+            "Lei Yang",
+            "Lewei Lu",
+            "Dahua Lin",
+            "Ziwei Liu"
+          ],
+          "primary_category": "cs.CV",
+          "categories": [
+            "cs.CV"
+          ],
+          "published": "2026-05-27T17:59:55+00:00",
+          "link": "https://arxiv.org/pdf/2605.28820v1",
+          "tags": [
+            "keyword:EEG-ODE-LN",
+            "keyword:multi-modal",
+            "keyword:neural-ode",
+            "query:multi-modal",
+            "query:neural-ode"
+          ],
+          "llm_score": 8.0,
+          "llm_evidence_en": "proposes native vision-language model without modular boundaries",
+          "llm_evidence_cn": "提出无模块边界的原生视觉语言模型",
+          "llm_evidence": "提出无模块边界的原生视觉语言模型",
+          "canonical_evidence": "提出无模块边界的原生视觉语言模型",
+          "llm_tldr_en": "NEO-ov learns cross-frame and pixel-word correspondence end-to-end, enabling unified spatiotemporal modeling without external encoders.",
+          "llm_tldr_cn": "当前视觉语言模型多采用模块化拼接，导致像素级信号碎片化。本文提出NEO-ov，一种原生基础模型，端到端学习跨帧和像素-词对应，无需外部编码器或适配器。通过消除模块边界，NEO-ov实现了细粒度的统一时空建模，在多图像和视频理解方面表现优异。该工作为原生多模态模型提供新范式。",
+          "llm_tldr": "当前视觉语言模型多采用模块化拼接，导致像素级信号碎片化。本文提出NEO-ov，一种原生基础模型，端到端学习跨帧和像素-词对应，无需外部编码器或适配器。通过消除模块边界，NEO-ov实现了细粒度的统一时空建模，在多图像和视频理解方面表现优异。该工作为原生多模态模型提供新范式。",
+          "llm_tags": [
+            "query:multi-modal"
+          ],
+          "matched_query_tag": "query:multi-modal",
+          "matched_query_text": "vision language model architectures",
+          "matched_requirement_id": "req-22",
+          "selection_source": "carryover_cache",
+          "paper_id": "2605.28820v1",
+          "carry_days": 1
+        },
+        {
+          "id": "2605.26283v1",
+          "source": "arxiv",
+          "title": "Benchmarking Convolutional, Transformer, Hybrid, and Vision Language Models for Multi Disease Retinal Screening",
+          "abstract": "Modern deep learning offers powerful tools for automated retinal screening, but it remains unclear how different visual model families compare in realistic multi-disease settings and under domain shift. In this work, we benchmark twelve architectures across four model families: convolutional neural networks, vision transformers, hybrid CNN-transformer backbones, and vision-language models, using the Retinal Fundus Multi-disease Image Dataset (RFMiD). We evaluate two tasks: binary screening for any retinal disease and multi-label classification across 28 disease classes. Using standardized training, calibration, and evaluation protocols, we report AUC, F1, precision, recall, and sensitivity at a clinically relevant operating point with specificity near 80%. On RFMiD, all architectures perform well on binary screening, with AUC above 84%, but attention-based models perform best. SwinTiny and the hybrid CoAtNet0 and MaxViTTiny models achieve the strongest binary screening results and improve macro and micro F1 in the multi-label setting. Vision-language models, including CLIP ViT-B/16 and SigLIP-Base384, are competitive with CNN baselines but do not surpass the best transformer and hybrid backbones. In external validation on Messidor-2 for referable diabetic retinopathy, AUC ranges from 66.8% to 84.7%, with hybrid and transformer models again showing strong performance. These results provide a reproducible reference for model selection in multi-disease retinal screening and guide future automated screening tools for clinical deployment.",
+          "authors": [
+            "Durjoy Dey",
+            "Aymane Ajbar",
+            "Yuhong Yan"
+          ],
+          "primary_category": "cs.CV",
+          "categories": [
+            "cs.CV",
+            "cs.LG"
+          ],
+          "published": "2026-05-25T19:09:35+00:00",
+          "link": "https://arxiv.org/pdf/2605.26283v1",
+          "tags": [
+            "keyword:EEG-ODE-LN",
+            "keyword:multi-modal",
+            "keyword:neural-ode",
+            "query:EEG-ODE-LN",
+            "query:multi-modal",
+            "query:neural-ode"
+          ],
+          "llm_score": 8.0,
+          "llm_evidence_en": "Benchmarking vision-language models for medical image analysis",
+          "llm_evidence_cn": "视觉语言模型在医学图像分析中的基准测试",
+          "llm_evidence": "视觉语言模型在医学图像分析中的基准测试",
+          "canonical_evidence": "视觉语言模型在医学图像分析中的基准测试",
+          "llm_tldr_en": "Benchmarks 12 architectures including VLMs on retinal multi-disease classification, showing comparative performance across model families.",
+          "llm_tldr_cn": "为评估不同视觉模型在真实多疾病视网膜筛查中的表现，对包括视觉语言模型在内的12种架构进行标准化基准测试，使用RFMiD数据集进行二元筛查和28类多标签分类，报告AUC、F1等指标，揭示了各模型家族在域偏移下的性能差异，为临床模型选择提供了参考。",
+          "llm_tldr": "为评估不同视觉模型在真实多疾病视网膜筛查中的表现，对包括视觉语言模型在内的12种架构进行标准化基准测试，使用RFMiD数据集进行二元筛查和28类多标签分类，报告AUC、F1等指标，揭示了各模型家族在域偏移下的性能差异，为临床模型选择提供了参考。",
+          "llm_tags": [
+            "query:multi-modal"
+          ],
+          "matched_query_tag": "query:multi-modal",
+          "matched_query_text": "vision language model architectures",
+          "matched_requirement_id": "req-22",
+          "selection_source": "carryover_cache",
+          "paper_id": "2605.26283v1",
+          "carry_days": 1
+        },
+        {
+          "id": "2605.28348v1",
+          "source": "arxiv",
+          "title": "Toward Semantic-Agnostic and Shape-Aware Vision-Language Segmentation Models",
+          "abstract": "Vision-language segmentation models have recently achieved strong performance by leveraging high-level semantic object categories expressed in natural language. However, this semantic dependence limits their ability to reason about intrinsic visual properties such as shape, geometry, or texture, which are essential in many real-world applications. In this work, we introduce Semantic-Agnostic aNd Shape-Aware (SANSA) segmentation, a new paradigm that requires segmentation models to operate solely from non-semantic textual descriptions. To this end, we propose two strategies to generate SANSA segmentation prompts based on either dictionary constraints or example guidance, both generating semantic-agnostic textual descriptions. These prompts are then used to finetune segmentation models under semantic-agnostic supervision. Experiments show that finetuning on SANSA prompts yields up to a 20% mIoU improvement on this new segmentation task, compared to pretrained state-of-the-art models, while maintaining strong performance on standard semantic prompts. These results highlight the importance of low- and mid-level visual reasoning for improving the generalization and controllability of vision-language segmentation models.",
+          "authors": [
+            "Corentin Seutin",
+            "Mohamed Amine Ettaki",
+            "Michaël Clément",
+            "Pierrick Coupé",
+            "Rémi Giraud"
+          ],
+          "primary_category": "cs.CV",
+          "categories": [
+            "cs.CV"
+          ],
+          "published": "2026-05-27T11:51:33+00:00",
+          "link": "https://arxiv.org/pdf/2605.28348v1",
+          "tags": [
+            "keyword:multi-modal",
+            "keyword:neural-ode",
+            "query:multi-modal",
+            "query:neural-ode"
+          ],
+          "llm_score": 8.0,
+          "llm_evidence_en": "Vision-language segmentation with shape awareness",
+          "llm_evidence_cn": "具有形状感知的视觉语言分割",
+          "llm_evidence": "具有形状感知的视觉语言分割",
+          "canonical_evidence": "具有形状感知的视觉语言分割",
+          "llm_tldr_en": "Introduces SANSA segmentation, a new paradigm requiring models to segment based on non-semantic shape descriptions, improving shape reasoning.",
+          "llm_tldr_cn": "针对现有视觉语言分割模型依赖语义类别而忽视形状、几何等内在属性的局限，提出语义无关形状感知分割范式，通过字典约束或示例指导生成非语义文本描述，使模型仅从形状描述进行分割，在保持语义精度的同时大幅提升形状推理能力，拓展了视觉语言模型的应用范围。",
+          "llm_tldr": "针对现有视觉语言分割模型依赖语义类别而忽视形状、几何等内在属性的局限，提出语义无关形状感知分割范式，通过字典约束或示例指导生成非语义文本描述，使模型仅从形状描述进行分割，在保持语义精度的同时大幅提升形状推理能力，拓展了视觉语言模型的应用范围。",
+          "llm_tags": [
+            "query:multi-modal"
+          ],
+          "matched_query_tag": "query:multi-modal",
+          "matched_query_text": "vision language model architectures",
+          "matched_requirement_id": "req-22",
+          "selection_source": "carryover_cache",
+          "paper_id": "2605.28348v1",
+          "carry_days": 1
+        },
+        {
+          "id": "2605.26111v1",
+          "source": "arxiv",
+          "title": "Squeezing Capacity from Multimodal Large Language Models for Subject-driven Generation",
+          "abstract": "Subject-driven image generation aims to synthesize new images that preserve the identity of the given subject while following textual instructions. Existing approaches often encode text and reference images separately. This limits cross-modal reasoning abilities and causes copy-paste artifacts. Recent frameworks that connect multimodal models and diffusion models improve instruction following, but largely overlook identity preservation. To address these limitations, we condition diffusion models on Multimodal Large Language Models (MLLMs) that jointly encode text and reference images, and augment it with VAE-based identity conditioning. A novel Dual Layer Aggregation (DLA) module is designed to aggregate multi-level MLLM features for optimal conditioning, and a multi-stage denoising strategy is applied to progressively balance the semantic information from MLLM and fine-detail identity from VAE during inference. Extensive experiments demonstrate that our approach harmonizes multimodal understanding with identity preservation, mitigates copy-paste issues, and achieves superior performance regarding human preference on subject-driven image generation. Our project website is available at https://zsh2000.github.io/squeeze-mllm-subject-gen/.",
+          "authors": [
+            "Shuhong Zheng",
+            "Aashish Kumar Misraa",
+            "Yu-Teng Li",
+            "Yu-Jhe Li",
+            "Igor Gilitschenski"
+          ],
+          "primary_category": "cs.CV",
+          "categories": [
+            "cs.CV",
+            "cs.AI",
+            "cs.GR",
+            "cs.LG",
+            "cs.MM"
+          ],
+          "published": "2026-05-25T17:59:35+00:00",
+          "link": "https://arxiv.org/pdf/2605.26111v1",
+          "tags": [
+            "keyword:EEG-ODE-LN",
+            "keyword:multi-modal",
+            "keyword:neural-ode",
+            "query:multi-modal"
+          ],
+          "llm_score": 8.0,
+          "llm_evidence_en": "multimodal large language model for subject-driven generation",
+          "llm_evidence_cn": "多模态大语言模型用于主体驱动生成",
+          "llm_evidence": "多模态大语言模型用于主体驱动生成",
+          "canonical_evidence": "多模态大语言模型用于主体驱动生成",
+          "llm_tldr_en": "Proposes to condition diffusion models on Multimodal Large Language Models (MLLMs) that jointly encode text and reference images, with a Dual Layer Aggregation module, to improve subject-driven image generation.",
+          "llm_tldr_cn": "针对现有方法将文本和参考图像分开编码导致跨模态推理能力受限的问题，本文提出将扩散模型条件于多模态大语言模型（MLLM），使其联合编码文本和参考图像，并设计双层级聚合模块（DLA）聚合多级MLLM特征。实验表明该方法在保持主体身份的同时显著提升了指令跟随能力，推动了多模态生成模型的发展。",
+          "llm_tldr": "针对现有方法将文本和参考图像分开编码导致跨模态推理能力受限的问题，本文提出将扩散模型条件于多模态大语言模型（MLLM），使其联合编码文本和参考图像，并设计双层级聚合模块（DLA）聚合多级MLLM特征。实验表明该方法在保持主体身份的同时显著提升了指令跟随能力，推动了多模态生成模型的发展。",
+          "llm_tags": [
+            "query:multi-modal"
+          ],
+          "matched_query_tag": "query:multi-modal",
+          "matched_query_text": "multimodal language model research",
+          "matched_requirement_id": "req-20",
+          "selection_source": "carryover_cache",
+          "paper_id": "2605.26111v1",
+          "carry_days": 1
+        },
+        {
+          "id": "2605.23482v1",
+          "source": "arxiv",
+          "title": "Multimodal Distribution Matching for Vision-Language Dataset Distillation",
+          "abstract": "Dataset distillation compresses large training sets into compact synthetic datasets while preserving downstream performance. As modern systems increasingly operate on paired vision-language inputs, multimodal distillation must preserve representation quality and cross-modal alignment under tight compute and memory budgets, yet prior methods often require heavy computes and overlook their correlations. To address this, we present Multimodal Distribution Matching (MDM), a geometry-aware framework for efficient and generalizable multimodal distillation. Specifically, MDM integrates complementary components at the data, model, and loss levels. At the data level, it initializes synthetic image-text pairs by sampling from clusters in the joint embedding space. At the model level, it forms a mixed teacher by interpolating independently fine-tuned models in weight space according to their angular deviation from the pretrained anchor. At the loss level, it matches joint distributions on the unit hypersphere using a geometry-aware matching objective that exploits the joint features in the cross-modal agreement and discrepancy directions along with symmetric contrastive learning. Across image-text retrieval benchmarks with cross-architecture evaluation, MDM yields compact synthetic sets that preserve multimodal semantics, substantially reduce distillation cost, and remain robust across architectures.",
+          "authors": [
+            "Jongoh Jeong",
+            "Hoyong Kwon",
+            "Minseok Kim",
+            "Kuk-Jin Yoon"
+          ],
+          "primary_category": "cs.CV",
+          "categories": [
+            "cs.CV",
+            "cs.AI"
+          ],
+          "published": "2026-05-22T10:41:58+00:00",
+          "link": "https://arxiv.org/pdf/2605.23482v1",
+          "tags": [
+            "keyword:EEG-ODE-LN",
+            "keyword:multi-modal",
+            "keyword:neural-ode",
+            "query:multi-modal",
+            "query:neural-ode"
+          ],
+          "llm_score": 8.0,
+          "llm_evidence_en": "multimodal distribution matching for vision-language dataset distillation",
+          "llm_evidence_cn": "多模态分布匹配用于视觉-语言数据集蒸馏",
+          "llm_evidence": "多模态分布匹配用于视觉-语言数据集蒸馏",
+          "canonical_evidence": "多模态分布匹配用于视觉-语言数据集蒸馏",
+          "llm_tldr_en": "Proposes Multimodal Distribution Matching (MDM), a geometry-aware framework for efficient vision-language dataset distillation that preserves cross-modal alignment.",
+          "llm_tldr_cn": "针对多模态数据集蒸馏中计算开销大且忽视跨模态相关性的问题，本文提出多模态分布匹配（MDM），一种几何感知框架，在数据、模型和损失层面融合互补组件，初始化合成图像-文本对并保持跨模态对齐。实验证明MDM在多种下游任务上高效且泛化，为多模态学习提供了新的蒸馏范式。",
+          "llm_tldr": "针对多模态数据集蒸馏中计算开销大且忽视跨模态相关性的问题，本文提出多模态分布匹配（MDM），一种几何感知框架，在数据、模型和损失层面融合互补组件，初始化合成图像-文本对并保持跨模态对齐。实验证明MDM在多种下游任务上高效且泛化，为多模态学习提供了新的蒸馏范式。",
+          "llm_tags": [
+            "query:multi-modal"
+          ],
+          "matched_query_tag": "query:multi-modal",
+          "matched_query_text": "multimodal learning methods",
+          "matched_requirement_id": "req-24",
+          "selection_source": "carryover_cache",
+          "paper_id": "2605.23482v1",
+          "carry_days": 1
+        }
+      ]
+    }
+  }
 }
