@@ -1,0 +1,3141 @@
+Title: Random Neural Network Expressivity for Non-Linear Partial Differential Equations
+
+URL Source: https://arxiv.org/pdf/2605.25057v1
+
+Published Time: Tue, 26 May 2026 01:17:40 GMT
+
+Number of Pages: 29
+
+Markdown Content:
+# Random Neural Network Expressivity for Non-Linear Partial Differential Equations 
+
+Muhammed Ali Mehmood 
+
+Department of Mathematics Imperial College London UK 
+
+muhammed.mehmood21@imperial.ac.uk 
+
+Lukas Gonon 
+
+School of Computer Science University of St. Gallen Switzerland 
+
+lukas.gonon@unisg.ch 
+
+## Abstract 
+
+Neural networks with randomly generated hidden weights (RaNNs) have been extensively studied, both as a standalone learning method and as an initialization for fully trainable deep learning methods. In this work, we study RaNN expressivity for learning solutions to non-linear partial differential equations (PDEs). Despite their widespread use in practical applications, a rigorous theoretical understanding of the approximation properties of RaNNs in this context remains limited. Here, we derive error bounds for RaNN approximations to time-dependent Sobolev functions and obtain a dimension-free approximation rate 12 for sufficiently regular functions. We apply our results to two important classes of non-linear PDEs: Porous Medium Equations and Compressible Navier-Stokes Equations, showing that RaNNs are capable of efficiently approximating solutions to these complex, non-linear PDEs. Our theoretical analysis is supported by numerical experiments, showing that the obtained convergence rates extend beyond the considered setting. 
+
+## 1 Introduction 
+
+Partial Differential Equations (PDEs) are foundational to our understanding of the natural world, with applications across all areas of science and engineering. Many complex phenomena are modelled by non-linear PDEs (e.g. Navier-Stokes, Schrödinger, Porous medium equations), which exhibit disorderly behaviour that renders them intractable to classical analytic/numerical approaches. There-fore, it is crucial to develop numerical methods for solving non-linear PDEs efficiently. In the past years, a variety of deep learning methods for solving PDEs have been introduced and analysed. Neural networks with randomly generated hidden weights (RaNNs) play an important role in many of these methods; either as standalone learning method or as initialization for fully trainable deep neural networks. In both cases, when employing these methods, a precise understanding of the approximation error is crucial for controlling the overall error. In this paper, we are concerned with the expressivity of RaNNs for learning solutions of non-linear PDEs. To tackle this problem, we derive approximation error bounds for time-dependent Sobolev functions, which encompass the solution spaces for many important non-linear PDEs. Our obtained bounds show that sufficiently regular Sobolev functions can be approximated by RaNNs at a dimension-independent rate of 12 . We then apply our results to two important classes of non-linear PDEs: Porous Medium Equations (PME) and Compressible Navier-Stokes Equations. We show that, with high probability, the training error for Physics-Informed Neural Networks (PINNs) [ 53 ] converges to 0 for these PDEs. In particular, our results provide quantitative approximation guarantees for RaNN-based PINNs for learning non-linear PDEs, as have been extensively studied in computational experiments (cf. the references below). We complement our theoretical analysis by numerical experiments for the two benchmark PDEs, validating the obtained convergence rates and showing that these rates may be valid also beyond the considered setting. 
+
+> Preprint.
+> arXiv:2605.25057v1 [math.NA] 24 May 2026
+
+1.1 Related Works 
+
+In recent years, a variety of deep learning-based methods for solving PDEs have been introduced, addressing the challenges of classical mesh-based methods such as finite difference methods. Seminal works include [ 58 ], [ 27 ] [ 53 ], [ 26 ]. We refer, e.g., to the survey articles [ 6 , 29 , 17 , 32 ] for an extensive overview and further references on deep learning methods for PDEs and their theoretical foundations. PINNs [ 53 ] constitute a flexible and widely applicable deep learning-based approach for solving PDEs. PINNs reframe the problem as training a neural network to solve the PDE, by minimising a loss function that encodes the PDE residual along with the boundary/initial conditions. While this approach has been demonstrated to be highly effective in many settings [ 9 , 33 ], for non-linear PDEs the loss landscape may become exceptionally complex. This has motivated the use of RaNN-based PINN methods, for which several recent studies have carried out extensive empirical experiments, see, e.g., [25, 56, 55, 61, 69, 71, 39, 20, 14, 45]. RaNNs [ 34 , 51 , 52 ] are neural networks with randomly generated hidden weights. RaNNs have been used both as standalone learning methods and as means for studying the effects of random initialization for neural networks trained using gradient-based optimization [ 8 , 13 ]. Generalization properties of random feature models have been studied in [ 54 , 41 , 38 , 15 ]. In addition to RaNN-based PINNs, many other RaNNs-based methods have been developed for solving PDEs [ 45 , 30 , 37 , 47 ]. More broadly, RaNNs and related random feature models have demonstrated state-of-the-art performance and speed across various tasks [7, 23, 28, 49, 72]. The reduced number of trainable parameters of RaNNs in comparison to fully trainable models results in a simpler training phase with a reduced computational cost, potentially at the expense of lower expressivity. Therefore, a precise theoretical understanding of RaNN approximation capabilities is crucial. Quantitative approximation properties of RaNNs for functions in the associated reproducing kernel Hilbert space have been studied in [ 52 , 2, 62 ]. For smoothness-based function classes, RaNN approximation error bounds were derived in [ 31 , 30 ] using Barron-type representations and further extended in [ 46 , 21 ]. In the context of PDEs, [ 30 ] obtains a full RaNN learning error analysis free from the curse of dimensionality for a class of linear PDEs. In all these results, the random weight distribution is fixed (e.g. a uniform, normal or Student-t distribution). In contrast, RaNNs also appear as a means of proof for deriving deterministic approximation bounds [ 3, 4, 5 , 57 ], with RaNN weight distributions depending on the function to be approximated. While the approximation results in [ 31 , 30 ] and [ 46 , 21 ] allow to control the RaNN approximation errors in uniform, mean-squared or Sobolev-norms, respectively, in the context of non-linear PDEs these results would either require strict information on the solution (e.g. finiteness in Barron-ridgelet norms and decay on the Fourier transform of u) which is typically not known, or the bounds would be applicable only for approximating PDE solutions at a fixed point in time. However, for time-dependent non-linear PDEs, solutions often have significantly different behaviour in time versus space (e.g. solutions to Navier-Stokes or semi-linear heat equations). In contrast, our results allow to handle time-dependent functions in mixed Sobolev spaces, as arise in the context of non-linear PDEs. This is especially important because neural networks with randomised architectures have proven to be very effective, even for complex tasks such as solving non-linear PDEs [20]. 
+
+1.2 Contributions 
+
+In this paper, we provide RaNN approximation error bounds tailored to the context of time-dependent, non-linear PDEs. We will denote the width of a RaNN by N . Our paper makes the following contributions: 1. RaNN approximation bound with dimension-independent rate N −1/2: We derive RaNN approximation error bounds for sufficiently regular time-dependent Sobolev functions (Theorem 3.4). These functions encompass the solution spaces for many important non-linear PDEs. Our unbiased RaNN estimator approximates functions in mixed Sobolev norms 
+
+Hpt Hqx at the rate N −1/2 independently of dimension, while only requiring minimal extra regularity in time and space. 2. Implications for non-linear PDEs: We showcase the implications of our bounds on two important classes of non-linear PDEs: Porous Medium Equations (PME) and Compressible Navier-Stokes Equations. In particular, we obtain RaNN approximation error bounds for the 2PINN training error in these cases. Our results are supplemented by numerical simulations validating the obtained convergence rates. To prove these results, we obtain a specific ridgelet-based representation for L2 functions (Proposition 3.2) and a higher-order Plancherel-type estimate (Lemma 3.3) that connects Sobolev regularity of u
+
+with its ridgelet transform. Our obtained bounds may serve as building block for generalization error analyses of RaNNs for PINN-based learning as obtained for deterministic networks in [ 22 , 42 , 43 , 1 ]. 
+
+## 2 Preliminaries 
+
+2.1 Random Neural Networks 
+
+A random neural network (RaNN) is a fully connected neural network with one hidden layer in which the weights are randomly sampled, leaving only the output weights trainable. In this paper, we are interested in studying solutions to PDEs, which typically treat time as a separate dimension. Therefore we will consider time-dependent random neural networks of the following form. 
+
+Definition 2.1. A time-dependent random neural network of width N is a function uτ, a,b 
+
+> W
+
+: R×Rd →
+
+R with 
+
+uτ, a,b 
+
+> W
+
+(t, x ) = 
+
+> N
+
+X
+
+> i=1
+
+Wiσ(τit + ai · x + bi), (1) where σ : R → R is an activation function, a1, ..., aN are Rd-valued i.i.d. random variables, 
+
+b1, ..., b N are i.i.d. random variables in R, τ1, ..., τ N are i.i.d. random variables in R and W1, ..., W N
+
+are trainable weights. 1
+
+A RaNN is used as learning system by optimizing the weights W1, ..., W N of uτ, a,b 
+
+> W
+
+with respect to a given loss function. 
+
+2.2 Physics-informed machine learning 
+
+Physics-informed neural networks (PINNs) have been introduced in [ 53 ] as an unsupervised learning method for solving partial differential equations. PINNs approximate the solution u to a PDE 
+
+L[u] = 0 by a neural network uθ , with θ representing the trainable parameters. The solution is approximated by minimising a loss function J [uθ ] encoding the structure of the PDE — including initial/boundary conditions — at collocation points {tip, x ip}Mi=1 in the interior domain (0 , T ) × D,as well as {xiic }Mi=1 , {tibc }Mi=1 on the slices {t = 0 } × D and (0 , T ) × ∂D on which the initial data / boundary conditions are defined, respectively. For example, if we have a PDE on the 1D domain (0 , T ) × (a, b ) given by L[u] = 0 with initial condition u(0 , ·) = u0 and boundary conditions 
+
+u(t, a ) = u(t, b ), the PINN loss function is given by 
+
+J [uθ ] := 1
+
+M
+
+> M
+
+X
+
+> i=1
+
+|L [uθ ]|2(tip, x ip) + 1
+
+M
+
+> M
+
+X
+
+> i=1
+
+|uθ (0 , x iic ) − u0(xiic )|2 + 1
+
+M
+
+> M
+
+X
+
+> i=1
+
+|uθ (tibc , b ) − uθ (tibc , a )|2.
+
+The parameters θ are then iteratively updated using a stochastic optimization algorithm. 
+
+2.3 Ridgelet transform 
+
+The ridgelet transform Rψ u of u : R × Rd → R with respect to ψ : R → R is given by 
+
+Rψ u(τ, a, b ) := 
+
+Z
+
+> Rd+1
+
+u(t, x)ψ(τ t + a · x − b)∥(τ, a)∥s dtd x, (2) where τ ∈ R, x ∈ Rd, b ∈ R. The factor ∥(τ, a)∥s appears for convenience in the literature. We will take s = 0 in this paper. Then the dual ridgelet transform R† 
+
+> η
+
+T of T : Rd+2 → R with respect to 
+
+η : R → R is defined as 
+
+R† 
+
+> η
+
+T (t, x) := 
+
+Z
+
+> Rd+2
+
+T (τ, a, b )η(τ t + a · x − b)∥(τ, a)∥−sdτ d adb. (3)         
+
+> 1Formally, Wi=gi(a1, ..., aN, b 1, . . . , b N)for measurable functions gi.
+
+3The ridgelet transform originates from harmonic analysis in the work of Candès and Donoho [ 12 , 11 ]. Ridgelets can be described as wavelets in the Radon domain. More precisely, the ridgelet transform is obtained by applying a one-dimensional wavelet transform to the Radon transform of a function. This construction is particularly suited to representing functions with singularities concentrated along hyperplanes, in contrast to classical wavelets which are better suited to point singularities. Ridgelets are also closely related to ridge functions of the form x 7 → φ(a · x − b) [24 ], which can be interpreted as a single layer neural network. This connection underlies a second area of work linking ridgelet transforms to integral representations of neural networks and their approximation properties. We refer to [ 44 , 10 , 36 ] for early works that developed this research direction. Recent works [ 64 , 48 , 59 ]have further exploited the connection between ridgelet formulations and neural networks to study approximation rates / reconstruction properties for a broad class of activation functions. We refer to [59 ] for a more comprehensive overview of the ridgelet transform and its properties. In this paper, we extend the ridgelet-based approximation framework to time-dependent Sobolev spaces, which are the natural function spaces for solutions to evolutionary PDEs. We also show how approximation bounds obtained via ridgelet techniques can be propagated to bounds on the PDE residual, which is the quantity minimised in PINN-type methods. 
+
+2.4 Notation and structure of the paper 
+
+We adopt the shorthand notation XtYx for the Bochner space X(R; Y (Rd)) (or X(0 , T ; Y (D)) ,depending on the context). For example, we may write Hpt Hqx for the space Hp(R; Hq (Rd)) . We write bf to denote the Fourier transform of f , with the convention bf (ω) = R e−iωx f (x) dx . We also denote by ∥ · ∥ the ℓ2 norm. In Section 3, we prove a representation formula for general time-dependent Sobolev functions, before proving a key inequality that connects the regularity of the ridgelet transform to the original function. We use this to derive our main result Theorem 3.4. In Section 4 we then apply Theorem 3.4 to RaNN-PINN approximators of two benchmark PDEs. Finally, some numerical experiments are carried out which validate the N −1/2 convergence rate. 
+
+## 3 RaNN approximations of time-dependent Sobolev functions 
+
+Our first step is to obtain an integral representation for u based on the ridgelet transform. This representation will be used later to derive RaNN approximation error bounds for u.
+
+3.1 Obtaining an integral representation 
+
+We first introduce the Lizorkin distribution space S′
+
+> 0
+
+(R), which is the dual space of S0(R); the space of Lizorkin functions. S0(R) is a closed subspace of the space of Schwartz functions S(R) and contains the functions f ∈ S (R) such that all moments vanish, i.e. S0(Rd) = {f ∈ S : R 
+
+> Rd
+
+xαf (x) dx =0 for any α ∈ Nd
+
+> 0
+
+}. The Lizorkin distribution space S′
+
+> 0
+
+(R) itself includes many common activations such as tanh , sigmoid and ReLU . We refer to [ 59 ] for a more detailed description of the S′
+
+> 0
+
+(R)
+
+space. In this paper, we will consider activation functions σ : R → R that belong to the following subspace of S′
+
+> 0
+
+(R) for some k ≥ 0.
+
+Definition 3.1. Let k ∈ N0. We say σ ∈ S ′
+
+> 0
+
+(R) belongs to Tk if (i) there exists C1 > 0 such that 
+
+> k
+
+X
+
+> j=0
+
+|σ(j)(x)| ≤ C1 ∀x ∈ R, (4) and (ii) there exists δ > 0 and β ∈ N0 such that ζβ bσ(ζ) ∈ C(−δ, δ ) and for any α ∈ N0
+
+Jσ := 
+
+Z
+
+> R
+
+ζ2α+β bσ(ζ)e−ζ2/2 dζ ̸ = 0 . (5) Examples of admissible activation functions for which our results hold are tanh , cos and sigmoid 
+
+(each in Tk for all k ≥ 0). This is shown in Remark A.1 in the appendix. For S(R) and m ∈ N we also define the following (possibly infinite) admissibility constant 
+
+Aψ,m := 
+
+Z 1
+
+> −1
+
+| bψ(ω)|2|ω|−m dω. (6) 4We now mention the following integral representation formula, which directly follows from results obtained by [59] using the theory of ridgelet transforms. 
+
+Proposition 3.2. Let m ≥ 0 and σ ∈ T k for some k ≥ 0. A function u ∈ L1(R; L1(Rd)) can be expressed as 
+
+u(t, x) = 
+
+Z
+
+> R
+
+Z
+
+> Rd
+
+Z
+
+> R
+
+(Rψ u)( τ, a, b )σ(τ t + a · x − b) dτ d adb, (7) 
+
+where Rψ u is the ridgelet transform of u with respect to a Schwartz function ψ ∈ S (R) such that 
+
+| bψ(ω)| ≤ C|ω|m ∀ | ω| < 1, (8) 
+
+for some C > 0 independent of u, and therefore Aψ,m < +∞. We also have that (σ, ψ ) is an admissible pair in the sense of [59], meaning that the following constant is finite and non-zero: 
+
+Kψ,σ := (2 π)d−1
+
+Z
+
+> R
+
+ˆψ(ζ)ˆ σ(ζ)
+
+|ζ|m dζ. (9) The construction of an appropriate ψ is given in the proof of Proposition 3.2 in Appendix A.1. From now on, for any activation σ ∈ T k and function u ∈ L1(R; L1(Rd)) we will denote by Rψ u the ridgelet transform of u with respect to ψ ∈ S (R) constructed according to Proposition 3.2. 
+
+3.2 Parseval relation for the ridgelet transform 
+
+In order to derive RaNN approximation error bounds, we will need a Parseval-type result which connects the regularity of Rψ u in parameter space with the regularity of u in cartesian space. For convenience, we give an outline of the proof in Appendix A.2 and the full proof in Appendix A.3. 
+
+Lemma 3.3. Suppose u ∈ Hp(R; Hq (Rd)) for some p, q ≥ 0, and that u is compactly supported in time and space on [−2T, 2T ] × [−2R, 2R]d for some T, R ≥ 0. Then there exists ψ ∈ S (R) with 
+
+Z
+
+> Rd+2
+
+|R ψ u(τ, a, b )|2(1 + |τ |2)p(1 + ∥a∥2)q · (1 + b2) dτ d adb ≤ L ψ ∥u∥2
+
+> Hp+1 (R;Hq+1 (Rd))
+
+, (10) 
+
+where, for M = (2 p + 2 q + d + 3) /2,
+
+Lψ := (4 π + ∥ψ∥L2(R))(1 + 4 T + 4 R) + 4 π(M + 1) 2 + ∥ψ′∥2
+
+> L2(R)
+
+. (11) 
+
+3.3 Random neural network approximation error bounds 
+
+In this subsection we provide our main result for approximating a function u ∈ Hp(0 , T ; Hq (D)) 
+
+using RaNNs. The full proof is deferred to Appendix A.4. 
+
+Theorem 3.4. Fix a bounded subset (0 , T ) × D ⊂ R+ × Rd where D is Lipschitz and let u ∈
+
+Hp+s1 (0 , T ; Hq+s2 (D)) for p, q ≥ 0, s 1 > 3/2 and s2 > (d + 2) /2. Furthermore, let σ ∈ T p+q .There exist weights {Wi}Ni=1 such that the following random neural network is an unbiased estimator of u:
+
+uN (t, x) = 
+
+> N
+
+X
+
+> i=1
+
+Wiσ(τit + aix + bi)
+
+for (τi, ai, b i) ∼ π, where 
+
+π(τ, a, b ) = 1
+
+Cπ
+
+(1 + τ 2)−λτ (1 + ∥a∥2)−λa (1 + b2)−1, (12) 
+
+where λτ > 1/2, λ a > d/ 2 and Cπ is the normalisation constant 
+
+Cπ := 
+
+Z
+
+> R
+
+1(1 + τ 2)λτ dτ 
+
+Z
+
+> Rd
+
+1(1 + ∥a∥2)λa da
+
+Z
+
+> R
+
+1(1 + b2) db. (13) 
+
+The neural network uN satisfies 
+
+EΘ
+
+
+
+∥u − uN ∥2  
+
+> Hp(0 ,T ;Hq(D))
+
+
+
+≤ CΩCπ ∥σ(p+q)∥2
+
+> ∞
+
+T |D|(p + q)Lψ
+
+N ∥u∥2  
+
+> Hp+s1(R;Hq+s2(Rd))
+
+,
+
+(14) 
+
+where CΩ is a constant dependent on p, q, d and the domain, and Lψ is given by (11) .
+
+5Remark 3.5 . Let us note that the space of admissible functions does depend on d through the requirement s2 > (d + 2) /2. Nonetheless, for a given function which satisfies the conditions of the theorem, the rate of decay N −1/2 with respect to the network width N is independent of d.This is an improvement upon the work of [ 21 ] (see Theorem 3.9) which required u ∈ Hs(Rd)
+
+for s ≥ (d + 9) /2 for estimates in H1(Rd) and H2(Rd), with slower rates. Moreover, we obtain estimates in a time-dependent norm, whereas previous results only obtained error rates for solutions at a fixed time (see also Proposition 4.24 of [46]). 
+
+Remark 3.6 (Growth of the coefficient with respect to dimension) . Obtaining a more explicit bound (in terms of d) on the coefficient 
+
+CΩCπ ∥σ(p+q)∥2
+
+> ∞
+
+T |D|(p + q)Lψ (15) appearing in (14) is difficult for general u and arbitrary p, q . Nonetheless, we show in Remark A.2 that this coefficient grows at most polynomially in d in the case where σ ∈ T k and either 
+
+u ∈ Hp(R; Hq (Rd)) (i.e. u is already defined on the full space) or p = q = 0 .
+
+## 4 Applications to non-linear PDEs 
+
+We look at two representative non-linear PDEs (the Porous Medium Equation and compressible Navier-Stokes) in order to understand how one can obtain specific asymptotic bounds on the residual loss and approximation error using the structure of the PDE. 
+
+4.1 Porous Medium Equation 
+
+The porous medium equation (PME) is an important example of a non-linear parabolic PDE that models the flow of gases through porous media. In dimension d ∈ N and for m > 0, a function 
+
+u : R+ × Rd → R is said to solve the porous medium equation if 
+
+∂tu − ∆( um) = 0 , on R+ × Rd.u(0 , ·) = u0, (16) In the case where u0 is positive and in Hk(Rd) for some k ∈ N, the following result is classically known. • [66]: Consider initial data u0 satisfying 
+
+u0 ∈ Hk(Rd), k ∈ N, 0 < c ≤ u0 ≤ C, (17) Then there exists a classical solution u to (16) with c ≤ u(t, x ) ≤ C and 
+
+u ∈ C∞((0 , ∞) × Rd) ∩ C([0 , ∞); Hk(Rd)) .
+
+In practice, we simulate solutions on a bounded domain (0 , T ) × D. In this case, the smoothness of the solution in fact implies that u ∈ Hk((0 , T ) × D) for any k ≥ 0. We can deduce an approximation result on solutions to PME using Theorem 3.4. Before we state the result, let us note that the classical loss function one would use when training a physics-informed neural network to approximate solution 
+
+u is a discretisation of the following metric: 
+
+JP DE (uN ) = 
+
+Z 
+
+> (0 ,T )×D
+
+|∂tuN − ∆( umN )|2 dtdx. (18) 
+
+Corollary 4.1. Suppose u solves (16) with initial data u0 ∈ H1(Rd) satisfying (17) . Then there exists a random neural network uN (t, x ) such that on the domain (0 , T ) × D:1. For any p, q ≥ 0,
+
+EΘ(∥u − uN ∥2  
+
+> HptHqx
+
+) ≤ CΩCπ ∥σ(p+q)∥2
+
+> ∞
+
+T |D|(p + q)Lψ
+
+N ∥u∥2 
+
+> Hp+s1
+> tHq+s2
+> x
+
+=: Mψ
+
+N ∥u∥2 
+
+> Hp+s1
+> tHq+s2
+> x
+
+,
+
+(19) 
+
+for any s1 > 3/2, s 2 > (d + 2) /2.
+
+62. For any δ ∈ (0 , 1) , with probability 1 − δ over the network parameters, the PINN training loss can be bounded as: 
+
+JPDE (uN ) ≤
+
+Cm(L + Cemb ∥u∥2 
+
+> L∞
+> tH2+ kx
+
+)Mψ
+
+N δ ∥u∥2 
+
+> H2
+> tH3+ kx
+
+, (20) 
+
+for k > d/ 2, where L := ∥uN ∥L∞ 
+
+> t,x
+
++∥∇ uN ∥L∞ 
+
+> t,x
+
++∥∆uN ∥L∞ 
+
+> t,x
+
+is finite since uN is smooth. Here, Cemb is the constant arising from the Sobolev embedding Hkx ,→ L∞ 
+
+> x
+
+and Cm is a polynomial in the PME parameter m.In other words, one can find a sequence of neural networks uN which drive the PDE residual to 0.
+
+4.2 Compressible Navier-Stokes Equations 
+
+We now look at a more delicate example, which is a system of equations that does not enjoy the instantaneous regularisation property of the PME. The compressible Navier-Stokes equations in dimension d are given by 
+
+∂tρ + div (ρu) = 0 ,∂t(ρu) + div (ρu ⊗ u) − ∇ (μ(ρ)div u) + ∇p(ρ) = 0 , (21) on (0 , T ) × D, where 
+
+p(ρ) = ργ , γ > 0 and μ(ρ) = ρα, α > 0. (22) The solution is a pair (ρ, u) where the density ρ : R+ × Rd → R is the scalar density and u :
+
+R+ × Rd → Rd is the vector-valued velocity. We look at the one-dimensional setting D = (0 , 1) with periodic boundary conditions, where global-in-time classical solutions exist under mild assumptions. In this case, the following global well-posedness result applies. • Theorem 1.5, [16] Given initial data (ρ0, u 0) satisfying 
+
+(ρ0, u 0) ∈ Hk(D), k ≥ 3, 0 < δ ≤ ρ0 ≤ C, (23) then there exists a unique solution (ρ, u ) on (0 , T ) to (21) with initial data (ρ0, u 0) such that 
+
+ρ ∈ C(0 , T ; Hk(D)) , u ∈ C(0 , T ; Hk(D)) ∩ L2(0 , T ; Hk+1 (D)) . (24) We will take the pressureless case p = 0 and constant viscosity μ(ρ) = μ for simplicity, although our computations can be easily extended to handle a more general setting where p, μ are smooth and convex (e.g. p(ρ) = ργ , μ (ρ) = ρα, for α, γ > 0). In this case, the PINN residual loss is the discretisation of the following loss functions: 
+
+J 1 
+
+> P DE
+
+(vN ) := 
+
+Z 
+
+> (0 ,T )×D
+
+|∂t(ρN ) + ∂x(ρN uN )|2 dxdt, 
+
+J 2 
+
+> P DE
+
+(vN ) := 
+
+Z 
+
+> (0 ,T )×D
+
+|∂t(ρN uN ) + ∂x(ρN u2 
+
+> N
+
+) − μ∂ 2
+
+> x
+
+uN |2 dxdt. 
+
+(25) To apply Theorem 3.4, we first define the product norm ∥(f, g )∥2  
+
+> HptHqx
+
+:= ∥f ∥2  
+
+> HptHqx
+
++ ∥g∥2  
+
+> HptHqx
+
+. We then have the following result whose proof is given in Appendix A.6. 
+
+Corollary 4.2. Suppose (ρ, u ) is a solution to (21) in dimension d = 1 generated by initial data satisfying (ρ0, u 0) ∈ Hk(R), k ≥ 5, 0 < δ ≤ ρ0 ≤ C. Then there exists a random neural network 
+
+vN = ( ρN , u N ) such that 
+
+• For any p, q ≥ 0,
+
+EΘ(∥(ρ, u ) − vN ∥2  
+
+> L2
+> tHqx
+
+) ≤ Mψ
+
+N (∥ρ∥2 
+
+> Hs1
+> tHq+s2
+> x
+
++ ∥u∥2 
+
+> Hs1
+> tHq+s2
+> x
+
+), (26) 
+
+for s1, s 2 > 3/2, where Mψ is the coefficient from (14) , later defined as Mψ in (19) .
+
+7• For any δ ∈ (0 , 1) with probability 1 − δ over the network parameters, the PINN training loss can be bounded as: 
+
+JP DE (vN ) ≤
+
+ CLMψ
+
+N δ 
+
+
+
+(∥ρ∥2 
+
+> H3
+> tH3
+> x
+
++ (2 μ + 1) ∥u∥2 
+
+> H3
+> tH4
+> x
+
+), (27) 
+
+where L := ∥(ρN , u N )∥2 
+
+> W1,∞
+> t,x
+
++ ∥(ρ, u )∥2 
+
+> W1,∞
+> t,x
+
+is finite since ρN , u N , ρ, u are sufficiently smooth, and 
+
+CL := 
+
+h
+
+16 L2 + 80 L + 2 μ + 64( L + 1) ∥u∥2 
+
+> W1,∞
+> t,x
+
+i
+
+.
+
+Remark 4.3 . The choice k ≥ 5 ensures that the norms on the right-hand side of (27) are finite. With this regularity, one can also show that the boundary/initial condition residuals can be controlled similarly to JP DE , using trace inequalities. 
+
+## 5 Numerical illustrations 
+
+In this section, we provide numerical experiments to validate the obtained bounds by studying the effect of network width N on the error in practice. A secondary goal of these experiments is to study whether the convergence rates extend beyond the heavy-tailed distribution considered in Theorem 3.4 to normally-distributed weights. We consider the Porous Medium Equation (PME) in dimensions 
+
+d = 1 − 5 and the compressible Navier-Stokes equations in d = 1 .
+
+5.1 Experiments for PME 
+
+We consider the PME with m = 2 . An exact, self-similar solution to the PME is the Barenblatt-Kompaneets-Zeldovich solution 
+
+u(t, x ) = 1
+
+tα
+
+
+
+b − m − 12m β ∥x∥2
+
+t2β
+
+ 1
+
+> m−1
+> +
+
+, (28) where ∥ · ∥ is the ℓ2 norm, (·)+ is the positive part and α = dd(m−1)+2 and β = 1 
+
+> d(m−1)+2
+
+. This solution is compactly supported but not differentiable at the edges of the support, which causes difficulty for numerical schemes. We now investigate the effect of the network width N on the relative error between the network and the solution u. This allows us to validate the convergence rate obtained in our theoretical results. Theorem 3.4 shows that for given u : (0 , T ) × Rd → R in some Sobolev space, a RaNN ˆuN of width N is able to achieve relative error R(u, ˆu) = ∥ˆu − u∥L2 
+
+> t,x
+
+/∥u∥Hs1 
+
+> tHs2
+> x
+
+bounded by Cd, ΩN −1/2.To validate this convergence rate in practice, we train a RaNN to approximate the PME solution (28) in dimensions d = 1 , ..., 5. In each dimension, we take a set of widths N ∈ { N1, ..., N k}, train the network for each width and plot the relative error of the final network against the true solution. For each dimension d and width N , we sample M = 10 N points ( M ≫ N to ensure the problem remains well-posed) with a mixed strategy; 50% of the points are sampled uniformly on (0 , 1) d
+
+and 50% are sampled uniformly on [0 .2, 0.8] d, which is a box focused on the initial support of the solution. Then we find weights W = {Wi}Ni=1 minimising the Ridge regression loss and evaluate the relative error between RaNN approximation and true solution. The cases d = 4 , 5 are included in Figure 1, while the cases d = 1 , 2, 3 can be found in Appendix B, Figure 3. The error curves are plotted on log-log scales in Figure 4, Appendix B. 
+
+5.2 Experiments for compressible Navier-Stokes 
+
+We now turn to the one-dimensional compressible Navier-Stokes system, given by (21) . As baseline, we consider the travelling shock-wave solutions considered by [ 18 ], where the pressure pϵ(v) = 
+
+ϵ/ (v − 1) γ for γ > 0 is taken, where v = 1 /ρ . The travelling wave solutions can be obtained by taking the ansatz (v, u )( t, x ) = ( v, u)( x − st ), where s is the shock speed. This reduces the PDE to an ODE for v. The velocity u can then be obtained from the relationship v = −su which follows from the conservation of mass. For our experiment, we consider the domain (0 , T ) × (−5, 5) with T = 1 .0, μ = 1 , ϵ = 10 −3, γ = 2 .We then compute RaNN approximations (vN , uN ) for different widths N and measure the relative 80 1000 2000 3000 4000 5000 6000 7000  
+
+> Width ( N)
+> 0.0
+> 0.2
+> 0.4
+> 0.6
+> 0.8
+> 1.0
+> Relative  L2 Error
+> C/N
+> RaNN Error
+
+(a) d = 4 0 1000 2000 3000 4000 5000 6000 7000   
+
+> Width ( N)
+> 0.0
+> 0.2
+> 0.4
+> 0.6
+> 0.8
+> 1.0
+> Relative  L2 Error
+> C/N
+> RaNN Error
+
+(b) d = 5 
+
+Figure 1: Approximation error of RaNNs solving PME in dimensions d = 4 , 5 with varying widths. The shaded band indicates the region within one standard deviation of the mean relative L2 error. 50 100 150 200 250 300  
+
+> Width ( N)
+> 0.000
+> 0.001
+> 0.002
+> 0.003
+> 0.004
+> 0.005
+> 0.006
+> Relative  L2 Error
+> C/N
+> NS RaNN Error
+
+Figure 2: Approximation error of RaNNs solving the compressible NS system with varying widths. The shaded band indicates the region within one standard deviation of the mean relative L2 error. error to the baseline solution (v, u). The results can be seen in Figure 2, which shows that the errors are close to the C/ √N curve, in support of the upper bound of Theorem 3.4. Further experimental details and a visual depiction of the travelling-wave solution can be found in Appendix B.2. 
+
+Dimensionality of experiments To explain the choice of dimensions in our experiments, we note that high-dimensional studies of randomised neural network approximations for solutions to PDEs have been successfully carried out for linear equations (see e.g. [ 30 ]). For non-linear equations, going beyond low-dimensional cases is much more challenging. Finding high quality analytical reference solutions is extremely rare. For example, even constructing travelling wave solutions for compressible Navier-Stokes beyond an effectively one-dimensional setting is highly non-trivial. Secondly, even for the Barenblatt profile, when scaling to higher dimensions the support spreads more slowly which can pronounce sampling errors. 
+
+## 6 Conclusion 
+
+In this work, we have shown that neural networks with randomly generated hidden weights (RaNNs) are capable of efficiently approximating functions that belong to time-dependent Sobolev spaces. Future work may investigate whether our results can be extended to solutions which are less smooth than those considered here. Moreover, our results assume a heavy-tailed weight distribution, while numerical experiments indicate that the same rate also holds for Gaussian weights. It would also be interesting to see whether the constant of proportionality (appearing in (14) ) can be improved, either using the theory of ridgelet transforms or an alternative representation. It will also be important to explore whether RaNNs are prone to the same spectral bias issues that PINNs face, especially for complex PDEs such as compressible Navier-Stokes in the turbulent regime. 9References 
+
+[1] Miguel A. Alejo, Lucrezia Cossetti, Luca Fanelli, Claudio Muñoz, and Nicolás Valenzuela. Error bounds for Physics Informed Neural Networks in Nonlinear Schrödinger equations placed on unbounded domains. arXiv:2409.17938 , page 31 pages, 2024. [2] Francis Bach. Breaking the curse of dimensionality with convex neural networks. Journal of Machine Learning Research , 18(19):1–53, 2017. [3] Andrew R Barron. Universal approximation bounds for superpositions of a sigmoidal function. 
+
+IEEE Transactions on Information theory , 39(3):930–945, 1993. [4] Andrew R. Barron. Approximation and estimation bounds for artificial neural networks. Ma-chine Learning , 14:115–133, 1994. [5] Andrew R. Barron and Jason M. Klusowski. Approximation and estimation for high-dimensional deep learning networks. Preprint, arXiv 1809.03090 , 2018. [6] Christian Beck, Martin Hutzenthaler, Arnulf Jentzen, and Benno Kuckuck. An overview on deep learning-based approximation methods for partial differential equations. arXiv preprint arXiv:2012.12348 , 2020. [7] Erik L Bolager, Iryna Burak, Chinmay Datar, Qing Sun, and Felix Dietrich. Sampling weights of deep neural networks. In Advances in Neural Information Processing Systems , volume 36, pages 63075–63116. Curran Associates, Inc., 2023. [8] Alina Braun, Michael Kohler, Sophie Langer, and Harro Walk. Convergence rates for shallow neural networks learned by gradient descent. Bernoulli , 30(1):475–502, 2024. [9] Shengze Cai, Zhiping Mao, Zhicheng Wang, Minglang Yin, and George Em Karniadakis. Physics-informed neural networks (PINNs) for fluid mechanics: a review. Acta Mech. Sin. ,37(12):1727–1738, 2021. [10] Emmanuel J Candès. Harmonic analysis of neural networks. Applied and Computational Harmonic Analysis , 6(2):197–218, 1999. [11] Emmanuel J Candès and David L Donoho. Ridgelets: A key to higher-dimensional intermit-tency? Philosophical Transactions of the Royal Society of London. Series A: Mathematical, Physical and Engineering Sciences , 357(1760):2495–2509, 1999. [12] Emmanuel Jean Candes. Ridgelets: theory and applications. PhD thesis . Stanford University, 1998. [13] Luigi Carratino, Alessandro Rudi, and Lorenzo Rosasco. Learning with sgd and random features. In Advances in Neural Information Processing Systems , volume 31, 2018. [14] Jingrun Chen, Xurong Chi, Weinan E, and Zhouwang Yang. Bridging traditional and machine learning-based algorithms for solving pdes: The random feature method. arXiv preprint arXiv:2207.13380 , 2022. [15] Tin Sum Cheng, Aurelien Lucchi, Anastasis Kratsios, Ivan Dokmani´ c, and David Belius. A theoretical analysis of the test error of finite-rank kernel ridge regression. In Advances in Neural Information Processing Systems , volume 36, pages 4767–4798. Curran Associates, Inc., 2023. [16] Peter Constantin, Theodore D Drivas, Huy Q Nguyen, and Federico Pasqualotto. Compressible fluids and active potentials. In Annales de l’Institut Henri Poincaré C, Analyse non linéaire ,volume 37, pages 145–180. Elsevier, 2020. [17] Salvatore Cuomo, Vincenzo Schiano Di Cola, Fabio Giampaolo, Gianluigi Rozza, Maziar Raissi, and Francesco Piccialli. Scientific machine learning through physics-informed neural networks: where we are and what’s next. J. Sci. Comput. , 92(3):Paper No. 88, 62, 2022. [18] Anne-Laure Dalibard and Charlotte Perrin. Existence and stability of partially congested propagation fronts in a one-dimensional navier-stokes model. Communications in Mathematical Sciences , 2020. 10 [19] Anne-Laure Dalibard and Charlotte Perrin. Local and global well-posedness of one-dimensional free-congested equations. Annales Henri Lebesgue , 2024. [20] Chinmay Datar, Taniya Kapoor, Abhishek Chandra, Qing Sun, Erik Lien Bolager, Iryna Burak, Anna Veselovska, Massimo Fornasier, and Felix Dietrich. Fast training of accurate physics-informed neural networks without gradient descent. ICLR Oral , 2026. [21] T De Ryck, S Mishra, Y Shang, and F Wang. Approximation theory and applications of ran-domized neural networks for solving high-dimensional pdes. arXiv preprint arXiv:2501.12145 ,2025. [22] Tim De Ryck and Siddhartha Mishra. Numerical analysis of physics-informed neural networks and related models in physics-informed machine learning. Acta Numer. , 33:633–713, 2024. [23] Angus Dempster, Daniel F. Schmidt, and Geoffrey I. Webb. Hydra: competing convolutional kernels for fast and accurate time series classification. Data Mining and Knowledge Discovery ,37(5):1779–1805, Sep 2023. [24] David L Donoho. Ridge functions and orthonormal ridgelets. Journal of Approximation Theory ,111(2):143–179, 2001. [25] Vikas Dwivedi and Balaji Srinivasan. Physics informed extreme learning machine (pielm)–a rapid method for the numerical solution of partial differential equations. Neurocomputing ,391:96–118, 2020. [26] W. E and B. Yu. The Deep Ritz method: A deep learning-based numerical algorithm for solving variational problems. arXiv:1710.00211 , page 14 pages, 2017. [27] Weinan E, Jiequn Han, and Arnulf Jentzen. Deep learning-based numerical methods for high-dimensional parabolic partial differential equations and backward stochastic differential equations. Commun. Math. Stat. , 5(4):349–380, 2017. [28] Guglielmo Gattiglio, Lyudmila Grigoryeva, and Massimiliano Tamborrino. Randnet-parareal: a time-parallel pde solver using random neural networks. Advances in Neural Information Processing Systems , 37:94993–95025, 2024. [29] Maximilien Germain, Huyên Pham, and Xavier Warin. Neural networks-based algorithms for stochastic control and PDEs in finance. arXiv:2101.08068 , page 27 pages, 2021. [30] Lukas Gonon. Random feature neural networks learn black-scholes type pdes without curse of dimensionality. Journal of Machine Learning Research , 24(189):1–51, 2023. [31] Lukas Gonon, Lyudmila Grigoryeva, and Juan-Pablo Ortega. Approximation bounds for random neural networks and reservoir systems. The Annals of Applied Probability , 33(1):28–69, 2023. [32] Lukas Gonon, Arnulf Jentzen, Benno Kuckuck, Siyu Liang, Adrian Riekert, and Philippe von Wurstemberger. An overview on machine learning methods for partial differential equations: from physics informed neural networks to deep operator learning. arXiv:2408.13222 , page 59 pages, 2024. [33] Zheyuan Hu, Khemraj Shukla, George Em Karniadakis, and Kenji Kawaguchi. Tackling the curse of dimensionality with physics-informed neural networks. Neural Networks , 176:106369, 2024. [34] Guang-Bin Huang, Qin-Yu Zhu, and Chee-Kheong Siew. Extreme learning machine: theory and applications. Neurocomputing , 70(1-3):489–501, 2006. [35] Jeffrey Humpherys, Olivier Lafitte, and Kevin Zumbrun. Stability of isentropic navier–stokes shocks in the high-mach number limit. Communications in Mathematical Physics , 293(1):1–36, 2010. [36] Yoshifusa Ito. Representation of functions by superpositions of a step or sigmoid function and their applications to neural network theory. Neural Networks , 4(3):385–394, 1991. 11 [37] Antoine Jacquier and Zan Zuric. Random neural networks for rough volatility. arXiv preprint arXiv:2305.01035 , 2023. [38] Samuel Lanthaler and Nicholas H. Nelsen. Error bounds for learning with vector-valued random features. In Advances in Neural Information Processing Systems , volume 36, pages 71834–71861. Curran Associates, Inc., 2023. [39] Jiale Linghu, Weifeng Gao, Hao Dong, Fei Wang, and Yufeng Nie. Higher-order multi-scale physics-informed randomized neural network method for efficient and high-accuracy simulation of dynamic thermo-mechanical coupling problems. Mathematics and Mechanics of Solids ,0(0):10812865251362165, 2025. [40] Corrado Mascia and Kevin Zumbrun. Stability of large-amplitude viscous shock profiles of hyperbolic-parabolic systems. Archive for rational mechanics and analysis , 172(1):93–131, 2004. [41] Song Mei and Andrea Montanari. The generalization error of random features regression: Precise asymptotics and double descent curve. Preprint, arXiv 1908.05355 , 2019. [42] Siddhartha Mishra and Roberto Molinaro. Estimates on the generalization error of physics-informed neural networks for approximating a class of inverse problems for PDEs. IMA J. Numer. Anal. , 42(2):981–1022, 2022. [43] Siddhartha Mishra and Roberto Molinaro. Estimates on the generalization error of physics-informed neural networks for approximating PDEs. IMA J. Numer. Anal. , 43(1):1–43, 2023. [44] Noboru Murata. An integral representation of functions using three-layered networks and their approximation bounds. Neural Networks , 9(6):947–956, 1996. [45] Nicholas H. Nelsen and Andrew M. Stuart. The random feature model for input-output maps between banach spaces. SIAM Journal on Scientific Computing , 43(5):A3212–A3243, 2021. [46] Ariel Neufeld and Philipp Schmocker. Universal approximation property of banach space-valued random feature models including random neural networks. arXiv preprint arXiv:2312.08410 ,2023. [47] Ariel Neufeld, Philipp Schmocker, and Sizhou Wu. Full error analysis of the random deep splitting method for nonlinear parabolic pdes and pides. Communications in Nonlinear Science and Numerical Simulation , 143:108556, 2025. [48] Greg Ongie, Rebecca Willett, Daniel Soudry, and Nathan Srebro. A function space view of bounded norm infinite width relu nets: The multivariate case. arXiv preprint arXiv:1910.01635 ,2019. [49] Ameya Prabhu, Shiven Sinha, Ponnurangam Kumaraguru, Philip Torr, Ozan Sener, and Puneet K. Dokania. Random representations outperform online continually learned representations. In 
+
+The Thirty-eighth Annual Conference on Neural Information Processing Systems , 2024. [50] Nasim Rahaman, Aristide Baratin, Devansh Arpit, Felix Draxler, Min Lin, Fred Hamprecht, Yoshua Bengio, and Aaron Courville. On the spectral bias of neural networks. In International conference on machine learning , pages 5301–5310. PMLR, 2019. [51] Ali Rahimi and Benjamin Recht. Random features for large-scale kernel machines. Advances in neural information processing systems , 20, 2007. [52] Ali Rahimi and Benjamin Recht. Uniform approximation of functions with random bases. In 2008 46th annual allerton conference on communication, control, and computing , pages 555–561. IEEE, 2008. [53] Maziar Raissi, Paris Perdikaris, and George E Karniadakis. Physics-informed neural networks: A deep learning framework for solving forward and inverse problems involving nonlinear partial differential equations. Journal of Computational physics , 378:686–707, 2019. [54] Alessandro Rudi and Lorenzo Rosasco. Generalization properties of learning with random features. In Advances in Neural Information Processing Systems , pages 3215–3225, 2017. 12 [55] Yong Shang and Fei Wang. Randomized neural networks with petrov–galerkin methods for solving linear elasticity and navier–stokes equations. Journal of Engineering Mechanics ,150(4):04024010, 2024. [56] Yong Shang, Fei Wang, and Jingbo Sun. Randomized neural network with petrov–galerkin methods for solving linear and nonlinear partial differential equations. Communications in Nonlinear Science and Numerical Simulation , 127:107518, 2023. [57] Jonathan W. Siegel and Jinchao Xu. Approximation rates for neural networks with general activation functions. Neural Networks , 128:313–321, 2020. [58] J. Sirignano and K. Spiliopoulos. DGM: A deep learning algorithm for solving partial differential equations. arXiv:1708.07469 , page 31 pages, 2017. [59] Sho Sonoda and Noboru Murata. Neural network with unbounded activation functions is universal approximator. Applied and Computational Harmonic Analysis , 43(2):233–268, 2017. [60] Elias M Stein. Singular integrals and differentiability properties of functions . Number 30 in 1. Princeton university press, 1970. [61] Jingbo Sun, Suchuan Dong, and Fei Wang. Local randomized neural networks with discontinu-ous galerkin methods for partial differential equations. Journal of Computational and Applied Mathematics , 445:115830, 2024. [62] Yitong Sun, Anna Gilbert, and Ambuj Tewari. On the approximation properties of random relu features. arXiv preprint arXiv:1810.04374 , 2018. [63] Matthew Tancik, Pratul Srinivasan, Ben Mildenhall, Sara Fridovich-Keil, Nithin Raghavan, Utkarsh Singhal, Ravi Ramamoorthi, Jonathan Barron, and Ren Ng. Fourier features let networks learn high frequency functions in low dimensional domains. Advances in neural information processing systems , 33:7537–7547, 2020. [64] Michael Unser. Ridges, neural networks, and the radon transform. Journal of Machine Learning Research , 24(37):1–33, 2023. [65] Alexis F Vasseur and Lei Yao. Nonlinear stability of viscous shock wave to one-dimensional compressible isentropic Navier–Stokes equations with density dependent viscous coefficient. 
+
+Communications in Mathematical Sciences , 14(8):2215–2228, 2016. [66] Juan Luis Vázquez. The porous medium equation: mathematical theory . Oxford university press, 2007. [67] Sifan Wang, Shyam Sankaran, and Paris Perdikaris. Respecting causality is all you need for training physics-informed neural networks. arXiv preprint arXiv:2203.07404 , 2022. [68] Sifan Wang, Shyam Sankaran, Hanwen Wang, and Paris Perdikaris. An expert’s guide to training physics-informed neural networks. arXiv preprint arXiv:2308.08468 , 2023. [69] Yiran Wang and Suchuan Dong. An extreme learning machine-based method for computa-tional pdes in higher dimensions. Computer Methods in Applied Mechanics and Engineering ,418:116578, 2024. [70] Zhi-Qin John Xu, Yaoyu Zhang, Tao Luo, Yanyang Xiao, and Zheng Ma. Frequency principle: Fourier analysis sheds light on deep neural networks. arXiv preprint arXiv:1901.06523 , 2019. [71] Jinyong Ying, Jingying Hu, Zuoshunhua Shi, and Jiao Li. An accurate and efficient continuity-preserved method based on randomized neural networks for elliptic interface problems. SIAM Journal on Scientific Computing , 46(5):C633–C657, 2024. [72] Nikita Zozoulenko, Thomas Cass, and Lukas Gonon. Random feature representation boosting. In Forty-second International Conference on Machine Learning , 2025. 13 A Proofs 
+
+A.1 Proof of Proposition 3.2 
+
+Proof. Fix m ≥ 0 and an arbitrary ψ ∈ S (R). Using the definition of the ridgelet transform from [59], we have for any s ≥ 0,
+
+Rψ u(τ, a, b ) := 
+
+Z
+
+> Rd+1
+
+u(t, x)ψ(τ t + a · x − b)∥(τ, a)∥s dtd x. (29) Note that the dual ridgelet transform R† 
+
+> η
+
+T of T : Rd+2 → R with respect to η : R → R is defined as 
+
+R† 
+
+> η
+
+T (t, x) := 
+
+Z
+
+> Rd+2
+
+T (τ, a, b )η(τ t + a · x − b)∥(τ, a)∥−sdτ d adb (30) We will take s = 0 in the above definitions. Recall that σ ∈ S ′
+
+> 0
+
+(R) is a fixed activation. Theorem 5.6 of [ 59 ] says that if we can find a function ψ so that Kψ,σ ∈ (0 , ∞) then the reconstruction formula 
+
+u(t, x) = 1 
+
+> Kψ,σ
+
+R† 
+
+> σ
+
+Rψ u(t, x) holds. Therefore, to finish the proof we need to find ψ so that Kψ,σ = 1 
+
+and | bψ(ω)| ≤ C|ω|m for |ω| < 1 and some C > 0 (condition (8) ). We will make use of Corollary 5.5 of [ 59 ], which says that if ζβ bσ(ζ) ∈ C(−δ, δ ) for some δ > 0, β ∈ N and ψ0 ∈ S (R) is such that 
+
+Jσ := 
+
+Z
+
+> R
+
+ζβ cψ0(ζ)bσ(ζ) dζ ̸ = 0 , (31) then 
+
+ψ = Λ d+1 ψ(β)0
+
+is admissible with σ, where for m ∈ N, Λm is the backprojection filter that satisfies 
+
+[ΛmF (u, ω ) = im|ω|m bF (u, ω ). (32) We let G(z) := exp( −z2/2) be the standardised gaussian and take 
+
+ψ0(z) := d2n
+
+dz 2n G(z), (33) where n is an arbitrary positive integer. Then since we assume σ ∈ T k (see Definition 3.1), we have 
+
+ζβ bσ(ζ) ∈ C(−δ, δ ) for some δ > 0 and 
+
+Jσ =
+
+Z
+
+> R
+
+ζβ \G(2 n)(ζ) bσ(ζ) dζ = √2π(−1) n
+
+Z
+
+> R
+
+ζ2n+β G(ζ) bσ(ζ) dζ ̸ = 0 , (34) where we have used bG(ζ) = √2πG (ζ). It is important to observe that we can take n ∈ Z+ to be as large as we like in this construction, since this is required by the second point in Definition 3.1 (of 
+
+Tk). Thus, using Corollary 5.5 of [ 59 ] we can say that ψ = Λ dψ(β)0 and σ are jointly admissible. We will normalise ψ and therefore we can assume Kψ,σ = 1 . Applying the reconstruction formula (Theorem 5.6 of [59]) gives 
+
+u(t, x) = R† 
+
+> σ
+
+Rψ u(t, x)=
+
+Z
+
+> R
+
+Z
+
+> Rd
+
+Z
+
+> R
+
+Rψ u(τ, a, b )σ(τ t + a · x − b)dbd adτ. 
+
+(35) Lastly, we need to verify that Aψ,m < +∞. Using the property of the backfilter from (32) , we have 
+
+bψ(ω) = id+1 |ω|d+1 cψ′ 
+
+> 0
+
+= −id+2 ω|ω|d+1 cψ0
+
+= √2π i d+2 n+2 ω|ω|d+2 n+1 G(ω).
+
+(36) Taking the absolute value gives | bψ(ω)| = √2π|ω|d+2 n+2 G(ω). Then choosing n so that d+2 n+2 >m (e.g. n > m − d − 2), we have | bψ(ω)| ≤ √2π|ω|m for |ω| < 1.14 Remark A.1 (Proving admissibility of tanh , cos and sigmoid) . We show here that each of these activations belong to Tk for k ≥ 0. Firstly, they each belong to S′
+
+> 0
+
+(R); this is explicitly mentioned in Section 6.1 of [ 59 ]. In the case of σ = tanh , we have [tanh( ζ) = −iπ/ sinh( πζ/ 2) so ζbσ(ζ) is continuous around 0, and 
+
+Jσ = √2π(−1) n+1 iπ 
+
+Z
+
+> R
+
+ζ2n+1 G(ζ)sinh( πζ  
+
+> 2
+
+) dζ ̸ = 0 . (37) Furthermore, tanh and each of its derivatives are bounded uniformly. Therefore tanh ∈ T k for any k ≥ 0. For σ = cos , ζ ccos( ζ) = δ(ζ + 1) − δ(ζ − 1) which is continuous (in fact, zero) in a neighbourhood of 0, and satisfies 
+
+Jσ = √2π(−1) nζ2n+1 bG(ζ)|1 
+
+> −1
+
+= √2π(−1) n [G(1) + G(−1)] ̸ = 0 . (38) Therefore it also belongs to Tk for all k ≥ 0. For σ = sigmoid , the argument is similar; bσ =
+
+−iπ csch (πζ ) + iπδ (ζ), so ζbσ(ζ) is continuous around the origin and Jσ̸ = 0 . Each of its derivatives are also uniformly bounded. 
+
+A.2 Sketching the proof of Lemma 3.3 
+
+For convenience, we start with a sketch of Lemma 3.3. The full proof is provided in A.3 below. 
+
+Proof (Outline). Step 1: Plancherel in b. We apply the Plancherel formula in b to get 
+
+I =
+
+Z
+
+> Rd+2
+
+|[Rψ u(τ, a, ω )|2(1 + |τ |2)p(1 + ∥a∥2)q dτ d adω 
+
++
+
+Z
+
+> Rd+2
+
+|∂ω [Rψ u(τ, a, ω )|2(1 + |τ |2)p(1 + ∥a∥2)q dτ d adω 
+
+(39) Then we show using the definition of the Fourier Transform that dRψ u(ω) = bu(τ ω, aω) bψ(−ω), so I
+
+can be split up as 
+
+I ≤
+
+Z
+
+> R
+
+Z
+
+> Rd
+
+Z
+
+> R
+
+|bu(τ ω, aω) bψ(−ω)|2(1 + |τ |2)p(1 + ∥a∥2)q dωd adτ 
+
++
+
+Z
+
+> R
+
+Z
+
+> Rd
+
+Z
+
+> R
+
+|∂ω
+
+bu(τ ω, aω) bψ(−ω)
+
+
+
+|2(1 + |τ |2)p(1 + ∥a∥2)q dωd adτ =: I1 + I2
+
+(40) The second term I2 is the main obstacle in the proof. 
+
+Step 2: Change of variables. Performing a change of variables s = τ ω, ξ = aω allows us to estimate I2 as 
+
+I2 ≤
+
+Z
+
+> R
+
+Z
+
+> Rd
+
+Z
+
+> R
+
+|bu(s, ξ )∂ω bψ(−ω)|2(1 + ( sω )2)p(1 + ( ∥ξ∥
+
+ω )2)q |ω|−(d+1) dωdξds 
+
++
+
+Z
+
+> R
+
+Z
+
+> Rd
+
+Z
+
+> R
+
+| 1
+
+ω (s∂ s + ξ∇ξ )bu(s, ξ ) bψ(−ω)|2(1 + ( sω )2)p(1 + ( ∥ξ∥
+
+ω )2)q |ω|−(d+1) dωdξds 
+
+=: I2A + I2B
+
+(41) 
+
+Step 3: Estimating I2A and I2B . Here we show that one can find M large enough (but still finite) so that with the corresponding ψ generated from Proposition 3.2, the integrals I2A, I 2B are both bounded by constants depending on the L2 norms of ψ. Most of the difficulty lies in I2B due to the derivatives that appear. Nonetheless, using properties of the Fourier transform and Fubini to exchange the order of integration, I2 can be estimated as 
+
+I2B ≤ Cψ2
+
+Z
+
+> Rd
+
+| \(−it )u)|2(s, ξ )(1 + |s|2)p+r (1 + ∥ξ∥2)q dξds 
+
++ Cψ3
+
+Z
+
+> Rd
+
+| \(−ix)u)|2(s, ξ )(1 + |s|2)p(1 + ∥ξ∥2)q+r dξds, 
+
+(42) 15 where 
+
+Cψ2 =
+
+Z
+
+> R
+
+|∂ω bψ(−ω)|2 max(1 , |ω|−(2 p+2 q))|ω|−(d+1) dω., Cψ3 =
+
+Z
+
+> R
+
+| bψ(−ω)|2 max(1 , |ω|−(2 p+2 q))|ω|−(d+3) dω. 
+
+(43) Then by definition of the space Hp(R; Hq (Rd)) and the compact support of u, we get 
+
+I2B ≤ Cψ3 (2 T + 2 R)( ∥u∥2 
+
+> Hp+1
+> tHqx
+
++ ∥u∥2 
+
+> HptHq+1
+> x
+
+), (44) where Cψ1 is a constant similar in form to Cψ3 , and appears due to I1 (which we did not look at in this outline). Our final job is to show that we can construct ψ so that each of Cψ1 , C ψ2 , C ψ3 can be suitably bounded. This is done for each constant by separating |ω| < 1 and |ω| ≥ 1. On |ω| < 1 we take advantage of Proposition 3.2 which allows us to choose ψ with enough vanishing moments at 
+
+0 to ensure finiteness. On |ω| ≥ 1 we use ψ ∈ S (R). This is the main idea. The full details of the proof are deferred to Appendix A.5. 
+
+A.3 Proof of Lemma 3.3 
+
+Proof. Step 1: Plancherel in b. Firstly, let’s note that using the Plancherel formula in b we have 
+
+Z
+
+> R
+
+|R ψ u(τ, a, b )|2(1 + b2) db =
+
+Z
+
+> R
+
+|R ψ u(τ, a, b )|2 db +
+
+Z
+
+> R
+
+|bRψ u(τ, a, b )|2 db 
+
+=
+
+Z
+
+> R
+
+|[Rψ u(τ, a, ω )|2 dω +
+
+Z
+
+> R
+
+|∂ω [Rψ u(τ, a, ω )|2 dω. 
+
+(45) Then 
+
+I =
+
+Z
+
+> Rd+2
+
+|[Rψ u(τ, a, ω )|2(1 + |τ |2)p(1 + ∥a∥2)q dτ d adω 
+
++
+
+Z
+
+> Rd+2
+
+|∂ω [Rψ u(τ, a, ω )|2(1 + |τ |2)p(1 + ∥a∥2)q dτ d adω 
+
+(46) We now find an expression for [Rψ u. Using the definition of the Fourier transform and the ridgelet transform, 
+
+dRψ u(ω) = 
+
+Z
+
+> R
+
+e−iωb Rψ u db 
+
+=
+
+Z
+
+> R
+
+e−iωb 
+
+Z 
+
+> Rd
+
+Z
+
+> R
+
+u(t, x)ψ(τ t + a · x − b) dtdx 
+
+
+
+db 
+
+=
+
+Z
+
+> Rd
+
+Z
+
+> R
+
+u(t, x)
+
+Z 
+
+> R
+
+e−iωb ψ(τ t + a · x − b) db 
+
+
+
+dtdx, 
+
+(47) where we have also used Fubini to exchange the order of the integrals. This is valid since we assume 
+
+u is compactly supported, and therefore uψ is integrable on Rd+1 . By a change of variables p =
+
+τ t + a · x − b the inner integral is equivalent to e−iω (τ t +a·x) R 
+
+> R
+
+eiωp ψ(p) dp = e−iω (τ t +a·x) bψ(−ω).Therefore 
+
+dRψ u(ω) = bψ(−ω)
+
+Z
+
+> Rd
+
+u(t, x)e−iω (τ t +a·x) dtd x
+
+= bu(τ ω, aω) bψ(−ω).
+
+(48) Inserting this into (46), we have 
+
+I =
+
+Z
+
+> R
+
+Z
+
+> Rd
+
+Z
+
+> R
+
+|bu(τ ω, aω) bψ(−ω)|2(1 + |τ |2)p(1 + ∥a∥2)q dωdτ d a
+
++
+
+Z
+
+> R
+
+Z
+
+> Rd
+
+Z
+
+> R
+
+|∂ω
+
+bu(τ ω, aω) bψ(−ω)
+
+
+
+|2(1 + |τ |2)p(1 + ∥a∥2)q dωdτ d a
+
+=: I1 + I2.
+
+(49) 16 Step 2: Change of variables. We now introduce the change of variables s = τ ω, ξ = aω. The corresponding jacobian is dadτ = |ω|−(d+1) dξds and the operator changes to 
+
+∂ω |(τ, a) = ∂ω |(s,ξ ) + 1
+
+ω (s∂ s + ξ∇ξ )|(s,ξ ) =: ∂ω |(s,ξ ) + D. (50) Therefore, separating the ω terms using Fubini, 
+
+I1 =
+
+Z
+
+> Rd+2
+
+|bu(s, ξ )|2| bψ(−ω)|2(1 + | sω |2)p(1 + ( ∥ξ∥
+
+ω )2)q |ω|−(d+1) dωdsdξ 
+
+≤ Cψ1
+
+Z
+
+> Rd+1
+
+|bu(s, ξ )|2(1 + |s|2)p(1 + ∥ξ∥2)q dsdξ, 
+
+(51) where 
+
+Cψ1 =
+
+Z
+
+> R
+
+| bψ(−ω)|2 max(1 , |ω|−2p) max(1 , |ω|−2q )|ω|−(d+1) dω. (52) We will show the boundedness of this constant at the end of the proof. For I2,
+
+I2 ≤
+
+Z
+
+> R
+
+Z
+
+> Rd
+
+Z
+
+> R
+
+|bu(s, ξ )∂ω bψ(−ω)|2(1 + ( sω )2)p(1 + ( ∥ξ∥
+
+ω )2)q |ω|−(d+1) dωdsdξ 
+
++
+
+Z
+
+> R
+
+Z
+
+> Rd
+
+Z
+
+> R
+
+| 1
+
+ω (s∂ s + ξ∇ξ )bu(s, ξ ) bψ(−ω)|2(1 + ( sω )2)p(1 + ( ∥ξ∥
+
+ω )2)q |ω|−(d+1) dωdsdξ 
+
+=: I2A + I2B
+
+(53) 
+
+Step 3: Estimating I2A and I2B . First note that for any x ∈ Rd and k > 0,
+
+(1 + ∥x∥2
+
+|ω|2 )k ≤ max(1 , |ω|−2k)(1 + ∥x∥2)k. (54) Therefore, for I2A we can separate the ω dependence and write 
+
+I2A ≤ Cψ2
+
+Z
+
+> Rd+1
+
+|bu(s, ξ )|2(1 + s2)p(1 + ∥ξ∥2)q dsdξ, (55) where 
+
+Cψ2 =
+
+Z
+
+> R
+
+|∂ω bψ(−ω)|2 max(1 , |ω|−(2 p+2 q))|ω|−(d+1) dω. (56) We will consider the boundedness of this constant at the end. For I2B , we can estimate the (s, ξ ) part as Z
+
+> Rd+1
+
+| 1
+
+ω (s∂ s + ξ∇ξ )bu(s, ξ )|2 dsdξ ≤ 2|ω|−2
+
+Z 
+
+> Rd+1
+
+|s∂ s bu(s, ξ )|2 +
+
+Z
+
+> Rd+1
+
+|ξ∇ξ bu(s, ξ )|2
+
+
+
+= 2 |ω|−2
+
+Z 
+
+> Rd+1
+
+|s \(−it )u(s, ξ )|2 +
+
+Z
+
+> Rd+1
+
+|ξ \(−ix)u(s, ξ )|2
+
+
+
+≤ 2|ω|−2
+
+Z 
+
+> Rd+1
+
+| \(−it )u(s, ξ )|2(1 + s2) + 
+
+Z
+
+> Rd+1
+
+| \(−ix)u(s, ξ )|2(1 + ∥ξ∥2)
+
+
+
+,
+
+(57) where we used s2 ≤ 1 + s2 to obtain the final line. Thus we have 
+
+I2B ≤ Cψ3
+
+Z
+
+> Rd+1
+
+| \(−it )u)|2(s, ξ )(1 + |s|2)p+1 (1 + ∥ξ∥2)q dξds 
+
++ Cψ3
+
+Z
+
+> Rd+1
+
+| \(−ix)u)|2(s, ξ )(1 + |s|2)p(1 + ∥ξ∥2)q+1 dξds, 
+
+(58) where 
+
+Cψ3 = 2 
+
+Z
+
+> R
+
+| bψ(−ω)|2 max(1 , |ω|−(2 p+2 q))|ω|−(d+3) dω. (59) 17 We will consider this constant at the end of the proof. Next, recall the following equivalence 
+
+Z
+
+> Rd+1
+
+|bu(s, ξ )|2(1 + |s|2)p(1 + ∥ξ∥2)q dξds = ∥u∥2 
+
+> Hp(R;Hq(Rd))
+
+. (60) This gives us (using the compact support of u)
+
+I ≤ (Cψ1 + Cψ2 )∥u∥Hpt Hqx + Cψ3 (∥| t|u∥2 
+
+> Hp+1
+> tHqx
+
++ ∥| x|u∥2 
+
+> HptHq+1
+> x
+
+)
+
+≤ (Cψ1 + Cψ2 )∥u∥Hpt Hqx + Cψ3 (2 T + 2 R)∥| u∥2 
+
+> Hp+1
+> tHq+1
+> x
+
+≤ (Cψ1 + Cψ2 + Cψ3 (2 T + 2 R)) ∥u∥2 
+
+> Hp+1
+> tHq+1
+> x
+
+.
+
+(61) It remains to bound the constants Cψ1 , C ψ2 and Cψ3 . Starting with the most recent Cψ3 , we consider 
+
+|ω| < 1 and |ω| ≥ 1 separately. On |ω| < 1, we have 
+
+Cψ3 = 2 
+
+Z 1
+
+> −1
+
+| bψ(−ω)|2 max(1 , |ω|−(2 p+2 q))|ω|−(d+3) dω ≤ 2
+
+Z 1
+
+> −1
+
+| bψ(−ω)|2|ω|−(2 p+2 q+d+3) dω, 
+
+so letting M = (2 p + 2 q + d + 3) /2 and choosing ψ as per the construction of Proposition 3.2 (see (36)), we have 
+
+| bψ(ω)| ≤ √2π|ω|M for |ω| < 1. (62) This implies that the integral is bounded by R 1 
+
+> −1
+
+2πdω = 4 π. On |ω| ≥ 1 we can bound it by 
+
+∥ψ∥2 
+
+> L2(R)
+
+(by Plancherel), and so Cψ3 ≤ 8π + 2 ∥ψ∥L2(R). We can apply the same estimate to 
+
+Cψ1 to get Cψ1 ≤ 4π + ∥ψ∥2
+
+> L2(R)
+
+. For Cψ2 , recall from (36) that bψ(ω) = √2π i mω|ω|m−1G(ω),for m which we can choose arbitrarily large. A simple computation gives us on |ω| < 1 that 
+
+|∂ω bψ| ≤ √2π(m + 1) ωm−1G(ω). Similarly, on |ω| ≥ 1 we get |∂ω bψ| ≤ √2πmω m+1 G(ω).Therefore on |ω| < 1, by choosing the same m = M ,
+
+Z 1
+
+> −1
+
+|∂ω bψ(−ω)|2 max(1 , |ω|−(2 p+2 q))|ω|−(d+1) dω ≤ 2π(M + 1) 2
+
+Z 1
+
+> −1
+
+|ω|2 dω 
+
+≤ 4π(M + 1) 2.
+
+(63) For |ω| > 1, notice that |∂ω bψ| ≤ | ω|| bψ(ω)| and so 
+
+Z
+
+> R\B1(0)
+
+|∂ω bψ(−ω)|2 max(1 , |ω|−(2 p+2 q))|ω|−(d+1) dω ≤
+
+Z
+
+> R\B1(0)
+
+|ω bψ(ω)|2 dω. (64) and so Cψ2 ≤ 4π(M + 1) 2 + ∥ψ′∥2
+
+> L2(R)
+
+. This leads to 
+
+I ≤
+
+h
+
+(4 π + ∥ψ∥L2(R))(1 + 4 T + 4 R) + 4 π(M + 1) 2 + ∥ψ′∥2
+
+> L2(R)
+
+i
+
+∥u∥2 
+
+> Hp+1
+> tHq+1
+> x
+
+, (65) where M = (2 p + 2 q + d + 3) /2.
+
+A.4 Proof of Theorem 3.4 
+
+Proof. Step 1: extension of u to R × Rd. In order to make use of the previous results, we extend u to the full space R×Rd. Since D is Lipschitz, there exists a bounded extension operator Ex : Hq (D) →
+
+Hq (Rd) (see Theorem 5 in Chapter VI of [ 60 ]). Applying Ex pointwise in time and combining with a standard one-dimensional extension in time, we obtain ¯u ∈ Hp(R; Hq (Rd)) such that ¯u = u on 
+
+(0 , T ) × D and ∥¯u∥Hp(R;Hq (Rd)) ≤ C1∥u∥Hp(0 ,T ;Hq (D)) . Let η ∈ C∞ 
+
+> c
+
+(R) and χ ∈ C∞ 
+
+> c
+
+(Rd) be cut-off functions equal to 1 on [0 , T ] and D respectively. Defining ˜u(t, x ) := η(t)χ(x)¯ u(t, x ) we obtain ˜u ∈ Hpt Hqx(R × Rd) with compact support and ∥˜u∥Hpt Hqx ≤ CΩ∥u∥Hpt Hqx .Then from (7), ˜u can be represented as 
+
+˜u(t, x ) = 
+
+Z
+
+> R
+
+Z
+
+> Rd
+
+Z
+
+> R
+
+(Rψ ˜u)( τ, a, b )σ(τ t + a · x − b) dτ d adb 
+
+=
+
+Z
+
+> R
+
+Z
+
+> Rd
+
+Z
+
+> R
+
+(Rψ ˜u)( τ, a, b )
+
+π(τ, a, b ) σ(τ t + a · x − b)π(τ, a, b )dτ d adb, 
+
+(66) 18 where π : Rd+2 → R+ is the probability density function from (12). 
+
+Step 2: construction of the unbiased estimator uN . Our neural network approximation of u will be denoted uN , and we define it as an unbiased estimator of ˜u, i.e. 
+
+uN (t, x) := 1
+
+N
+
+> N
+
+X
+
+> i=1
+
+Rψ ˜u(τi, ai, b i)
+
+π(τi, ai, b i) σ(τit + ai · x − bi) ≡ 1
+
+N
+
+> N
+
+X
+
+> i=1
+
+Xi(t, x), (67) where (τi, ai, b i) ∼ π. By construction, it is clear that EΘ(uN ) = ˜ u. More generally, for any 
+
+0 ≤ ℓ ≤ p and multi-index β with |β| ≤ q, we have 
+
+EΘ(∂ℓt Dβ 
+
+> x
+
+(uN )) = ∂ℓt Dβ 
+
+> x
+
+(˜ u). (68) In order to estimate u − uN , we have 
+
+EΘ
+
+
+
+∥∂ℓt Dβ 
+
+> x
+
+(˜ u − uN )∥2 
+
+> L2((0 ,T )×D)
+
+
+
+= EΘ
+
+Z 
+
+> (0 ,T )×D
+
+|∂ℓt Dβ 
+
+> x
+
+(˜ u − uN )|2 dxdt 
+
+=
+
+Z 
+
+> (0 ,T )×D
+
+Var Θ
+
+ ∂ℓt Dβ 
+
+> x
+
+(˜ u − uN ) dxdt. 
+
+(69) Let Yi(t, x) := Xi(t, x) − EΘ(X1(t, x)) . Then E(Yi) = 0 and Var (Yi) = Var (Xi). Moreover, we have u − uN = 1
+
+> N
+
+PNi=1 Yi(t, x) and therefore Var (u − uN ) = 1 
+
+> N
+
+Var (Y1(t, x)) = 1 
+
+> N
+
+Var (X1(t, x)) .The same argument works if we replace u − uN with ∂ℓt Dβ 
+
+> x
+
+(u − uN ). As a result, we have (since 
+
+u = ˜ u on (0 , T ) × D)) 
+
+EΘ
+
+
+
+∥∂ℓt Dβ 
+
+> x
+
+(u − uN )∥2 
+
+> L2((0 ,T )×D)
+
+
+
+= EΘ
+
+
+
+∥∂ℓt Dβ 
+
+> x
+
+(˜ u − uN )∥2 
+
+> L2((0 ,T )×D)
+
+
+
+= 1
+
+N
+
+Z 
+
+> (0 ,T )×D
+
+EΘ|∂ℓt Dβ 
+
+> x
+
+Xi|2 dxdt. 
+
+(70) 
+
+Step 3: bounding EΘ(|∂ℓt Dβ 
+
+> x
+
+Xi|2). Let ℓ = 0 , β = 0 to begin with. A direct computation gives 
+
+EΘ(|Xi(t, x)|2)= Cπ
+
+Z
+
+> Rd+2
+
+|Rψ ˜u(τ, a, b )|2|σ(τ t + ax − b)|2(1 + τ 2)λτ (1 + ∥a∥2)λa (1 + b2) dτ d adb 
+
+≤ Cπ ∥σ∥2
+
+> ∞
+
+Lψ ∥˜u∥2  
+
+> Hs1(R;Hs2(Rd))
+
+,
+
+(71) where, since λτ > 1/2 and λa > d/ 2, we have s1 > 3/2, s 2 > (d + 2) /2 using Lemma 3.3. Therefore, we have 
+
+EΘ
+
+
+
+∥u − uN ∥2 
+
+> L2((0 ,T )×D)
+
+
+
+≤ T |D|∥ σ∥2
+
+> ∞
+
+Lψ
+
+N ∥˜u∥2  
+
+> Hs1(R;Hs2(Rd))
+
+. (72) The same argument works if we take a general 0 ≤ ℓ ≤ p and a non-zero multi-index β = ( β1, ..., β d)
+
+with |β| = q. In this case we have 
+
+EΘ(|∂ℓt Dβ 
+
+> x
+
+Xi(t, x)|2)
+
+≤ Cπ
+
+Z
+
+> Rd+2
+
+|Rψ ˜u(τ, a, b )|2|σ(p+q)|2|τ |2p∥a∥2q (1 + τ 2)λτ (1 + ∥a∥2)λa (1 + b2) dτ d adb 
+
+≤ Cπ
+
+Z
+
+> Rd+2
+
+|Rψ ˜u(τ, a, b )|2|σ(p+q)|2(1 + τ 2)p+λτ (1 + ∥a∥2)q+λa (1 + b2) dτ d adb. 
+
+(73) Then using (10), we get 
+
+EΘ(|∂ℓt Dβ 
+
+> x
+
+Xi(t, x)|2) ≤ Cπ ∥σ(p+q)∥2
+
+> ∞
+
+Lψ ∥˜u∥2  
+
+> Hp+s1(R;Hq+s2(Rd))
+
+. (74) By (70) this implies (using ∥˜u∥Hpt Hqx ≤ CΩ∥u∥Hpt Hqx )
+
+EΘ
+
+
+
+∥∂ℓt Dβ 
+
+> x
+
+(u − uN )∥2 
+
+> L2((0 ,T )×D)
+
+
+
+≤ CΩT |D|Cπ ∥σ(p+q)∥2
+
+> ∞
+
+Lψ
+
+N ∥u∥2  
+
+> Hp+s1(R;Hq+s2(Rd))
+
+,
+
+(75) where again s1 > 3/2 and s2 > (d + 2) /2. Summing up this estimate for each of the derivatives up to order (p, q ) leads to the claimed result. 19 Remark A.2 (Growth factor for the leading coefficient) . We can give a more precise description of the constant in the right-hand side of (14) for the case where σ ∈ T k (e.g. tanh ; see Definition 3.1) and either u ∈ Hp(R; Hq (Rd)) (i.e. u is already defined on the full space) or p = q = 0 . The condition 
+
+p = q = 0 ensures that CΩ = 1 since a zero extension suffices. In such a case, we can show that if we let λa = d 
+
+> 2
+
++ α(d) for a suitable choice of α, then the coefficient in the right-hand side of (14) will grow at most polynomially in d. We will denote by C a positive constant independent of dimension and by Γ( ·) the Gamma function. Then note that 
+
+Cπ ≤ C
+
+Z
+
+> Rd
+
+(1 + ∥a∥2)−λa da. (76) Going to spherical coordinates and letting λa = d 
+
+> 2
+
++ α, we find 
+
+Cπ = 2πd/ 2
+
+Γ( d/ 2) 
+
+Z ∞
+
+> 0
+
+rd−1(1 + r2)−λa dr = πd/ 2 Γ( α)Γ( d/ 2 + α) ≤ Cπ d/ 2 αα−1/2
+
+eα . (77) Now, to bound Lψ , we need an estimate for ∥ bψ∥2 
+
+> L2(R)
+
+and ∥( bψ)′∥L2(R). We will use the construction of ψ from the proof of Proposition 3.2. There, we construct ψ with | bψ(ω)| ≤ √2π|ω| for |ω| ≤ 1
+
+and | bψ(ω)| ≤ √2π|ω|d+3 G(ω) for |ω| > 1 (we set n = 1 for this proof but it can be extended to any fixed positive integer n). Then we have ∥ bψ∥2 
+
+> L2(−1,1)
+
+≤ 4π and so 
+
+∥ bψ∥2 
+
+> L2(R)
+
+≤ 4π +
+
+Z
+
+> |ω|>1
+
+ω2( d+2) e−ω2
+
+dω 
+
+= 4 π +
+
+Z ∞
+
+> 1
+
+ud+3 /2e−u du 
+
+≤ 4π + Γ( d + 5 /2) ,
+
+(78) where we have used the substitution u = ω2. For ( bψ)′, we can repeat the same process to find 
+
+∥( bψ)′∥2 
+
+> L2(R)
+
+≤ 4π + Γ( d + 7 /2) . (79) Now we consider the product Cπ Lψ . Notice that the leading term is given by Cπ Γ( d + 7 /2) , or more precisely by 
+
+F (d) := πd/ 2 Γ( α)Γ( d/ 2 + α)
+
+pΓ( d + 7 /2) . (80) We now prove that F (d) grows at most polynomially in d. We will take α = λd for some real number 
+
+λ > 0 to be decided. To this end, we will use the following inequality for the Gamma function 
+
+
+
+x − 12
+
+
+
+ln x−x+ 12 ln(2 π) < ln Γ( x) <
+
+
+
+x − 12
+
+
+
+ln x−x+ 12 ln(2 π)+ 112 x , x > 0. (81) Taking logarithms, 
+
+ln F (d) = d
+
+2 ln π + ln Γ( λd ) + 12 ln Γ( d + 7 /2) − ln Γ(( λ + 1 /2) d). (82) Then using (81), we get 
+
+ln F (d) < d
+
+2 ln π +
+
+
+
+λd − 12
+
+
+
+ln( λd ) − λd + 12 (d + 3) ln 
+
+
+
+d + 72
+
+
+
+− 12
+
+
+
+d + 72
+
+
+
+−
+
+ 
+
+λ + 12
+
+
+
+d − 12
+
+
+
+ln 
+
+ 
+
+λ + 12
+
+
+
+d
+
+
+
++
+
+
+
+λ + 12
+
+
+
+d
+
++ 14 ln π + 112 λd + 112( d + 7 /2) .
+
+(83) 20 Upon simplifying, we find that the right-hand side contains a function which is linear in d and one which is sub-linear in d, i.e. 
+
+ln F (d) < d 
+
+ 12 ln π + λ ln λ −
+
+
+
+λ + 12
+
+
+
+ln 
+
+
+
+λ + 12
+
+ 
+
++ d
+
+ 12 ln 
+
+
+
+d + 72
+
+
+
+− 12 ln d
+
+
+
++ 32 ln( d + 7 /2) − 12 ln λd − λ − 9/4 − 12 ln 
+
+ 
+
+λ + 12
+
+
+
+d
+
+
+
+.
+
+(84) The second term can be bounded independently of dimension; using the inequality ln(1 + x) < x for 
+
+x > 0, we have: 
+
+d
+
+ 12 ln 
+
+
+
+d + 72
+
+
+
+− 12 ln d
+
+
+
+= d
+
+2 ln 
+
+
+
+1 + 72d
+
+
+
+< d
+
+2
+
+ 72d
+
+
+
+= 74 . (85) Therefore, to prove at most polynomial growth in d, it suffices to show that 
+
+P(λ, d ) := 12 ln π + λ ln λ −
+
+
+
+λ + 12
+
+
+
+ln 
+
+
+
+λ + 12
+
+
+
+≤ 0. (86) We seek an upper bound for the expression, so we apply the lower bound ln(1 + x) > x − x2 
+
+> 2
+
+to the logarithm inside the negative term. For x = 12λ , this gives us 
+
+ln 
+
+
+
+λ + 12
+
+
+
+= ln λ + ln 
+
+
+
+1 + 12λ
+
+
+
+> ln λ + 12λ − 18λ2 . (87) Substituting these bounds into the left-hand side of (86), we get 
+
+P(λ, d ) < 12 ln π + λ ln λ −
+
+
+
+λ + 12
+
+  
+
+ln λ + 12λ − 18λ2
+
+
+
+< 12 ln π + λ ln λ −
+
+
+
+λ ln λ + 12 − 18λ + 12 ln λ + 14λ − 116 λ2
+
+
+
+.
+
+(88) Grouping the constant terms and simplifying, we find: 
+
+P(λ, d ) <
+
+ 12 ln π − 12 − 12 ln λ
+
+
+
++
+
+
+
+− 18λ + 116 λ2
+
+
+
+. (89) For the expression not to grow exponentially as d → ∞ , the dominant constant term must be non-positive. Notice that for λ > 1/2, the expression inside the second pair of brackets is negative. Thus, a sufficient condition is given by: 
+
+12 ln π − 12 − 12 ln λ ≤ 0, (90) i.e. 
+
+λ ≥ πe . (91) Therefore, choosing α(d) ≥ πe d ensures that the constant appearing in front of (14) grows at most polynomially in d. Note that we do not expect a better rate than this due to the extra terms appearing in (84). 
+
+A.5 Proof of Corollary 4.1 
+
+Proof. The bound of (19) follows from an application of Theorem 3.4, so we now focus on bounding the PDE residual. We take m = 2 for simplicity, but the computation is easily generalised to any 
+
+m ≥ 1. Using ∂tu − ∆( u2) = 0 , we have 
+
+JPDE (uN ) = 
+
+Z 
+
+> (0 ,T )×D
+
+(∂tuN − ∆( u2 
+
+> N
+
+)) 2 dtdx 
+
+=
+
+Z 
+
+> (0 ,T )×D
+
+(∂t(uN − u) − ∆( u2 
+
+> N
+
+− u2)) 2 dtdx 
+
+≤ 2∥uN − u∥2 
+
+> H1
+> tL2
+> x
+
++ 2 
+
+Z 
+
+> (0 ,T )×D
+
+|∆( u2 
+
+> N
+
+− u2)|2 dtdx. 
+
+(92) 21 Now, Markov’s inequality states that P(X > η ) ≤ E[X] 1 
+
+> η
+
+for X non-negative, η > 0. In particular, for any δ ∈ (0 , 1) , from the bound in Theorem 3.4 we obtain with the choices 
+
+X = ∥u − uN ∥2   
+
+> Hp(0 ,T ;Hq(D))
+
+and η = 1   
+
+> δCΩCπ∥σ(p+q)∥2
+> ∞T|D|(p+q)Lψ
+> N
+
+· ∥ u∥2   
+
+> Hp+s1(R;Hq+s2(Rd))
+
+that 
+
+P(X > η ) ≤ EΘ
+
+
+
+∥u − uN ∥2  
+
+> Hp(0 ,T ;Hq(D))
+
+ 1
+
+η ≤ δ. (93) This implies that P(X ≤ η) ≥ 1 − δ. That is, with probability at least 1 − δ it holds that X ≤ η =   
+
+> 1
+> δCΩCπ∥σ(p+q)∥2
+> ∞T|D|(p+q)Lψ
+> N
+
+· ∥ u∥2  
+
+> Hp+s1(R;Hq+s2(Rd))
+
+. Then we have with probability 1 − δ that 
+
+∥uN − u∥2 
+
+> H1
+> tL2
+> x
+
+≤ Mψ
+
+N δ ∥u∥2 
+
+> H1+ s1
+> tHs2
+> x
+
+, (94) where s1 > 3/2, s 2 > (d + 2) /2. Now we note that ∆( u2 
+
+> N
+
+− u2) = ( uN + u)∆ eN + 2 ∇(uN +
+
+u)∇eN + eN ∆( uN + u), where eN := uN − u. Combining this with (a + b)2 ≤ 2( a2 + b2) and Holder’s inequality, 
+
+Z 
+
+> (0 ,T )×D
+
+|∆( u2 
+
+> N
+
+− u2)|2 dtdx ≤ 8∥uN + u∥2 
+
+> L∞
+> t,x
+
+∥∆( uN − u)∥2
+
+> L2
+> t,x
+
++ 8 ∥∇ (uN + u)∥2 
+
+> L∞
+> t,x
+
+∥∇ (uN − u)∥2
+
+> L2
+> t,x
+
++ 8 ∥∆( uN + u)∥2 
+
+> L∞
+> t,x
+
+∥uN − u∥2
+
+> L2
+> t,x
+
+.
+
+(95) We also have ∥u∥L∞ 
+
+> t,x
+
++ ∥∇ u∥L∞ 
+
+> t,x
+
++ ∥∆u∥L∞ 
+
+> t,x
+
+≤ Cemb ∥u∥L∞  
+
+> tH2+ kx
+
+, (96) for k > d/ 2, where Cemb is the constant arising from the Sobolev embedding Hkx ,→ L∞ 
+
+> x
+
+. Then with the above Markov argument, letting L := ∥uN ∥L∞ 
+
+> t,x
+
++ ∥∇ uN ∥L∞ 
+
+> t,x
+
++ ∥∆uN ∥L∞ 
+
+> t,x
+
+, we have with probability 1 − δ that 
+
+Z 
+
+> (0 ,T )×D
+
+|∆( umN − um)|2 dtdx ≤ 12( L + Cemb ∥u∥2 
+
+> L∞
+> tH2+ kx
+
+)∥uN − u∥2 
+
+> L2
+> tH2
+> x
+
+≤
+
+12( L + Cemb ∥u∥2 
+
+> L∞
+> tH2+ kx
+
+)Mψ
+
+N δ ∥u∥2 
+
+> Hs1
+> tH2+ s2
+> x
+
+.
+
+(97) All in all, we get 
+
+JPDE (uN ) ≤
+
+(12( L + Cemb ∥u∥2 
+
+> L∞
+> tH2+ kx
+
+) + 1) Mψ
+
+N δ ∥u∥2 
+
+> Hs1
+> tH2+ s2
+> x
+
+, (98) with probability 1 − δ. Using s1 > 3/2 and s2 > d/ 2 + 2 we can estimate the leading norm by 
+
+∥u∥2 
+
+> H2
+> tH3+ kx
+
+. For the general case m ≥ 2, the argument can be adapted using a mean-value formula to re-write umN − um in terms of eN . In this case, we get an extra constant in the coefficient of (98) ,
+
+Cm, which will be polynomial in m. This leads to the claimed result (20) . In summary, taking initial data u0 ∈ H1(Rd), we can find a RaNN which approximates the corresponding solution to the PDE such that the expected loss of the PDE residual is inversely proportional to the number of random features, and the rate is independent of dimension. 
+
+A.6 Proof of Corollary 4.2 
+
+Proof. Since we are dealing with a system of equations, we need to illustrate how the result of Theorem 3.4 applies. Firstly, given a couple (ρ, u ) belonging to class (24) , the representation result of Proposition 3.2 tells us that we can find ψρ, ψ u ∈ S (R) such that we have the representations (assuming ρ, u have been smoothly extended to the full space): 
+
+ρ(t, x ) = 
+
+Z
+
+> R
+
+Z
+
+> Rd
+
+Z
+
+> R
+
+(Aρ)( τ, a, b )σ(τ t + a · x − b) dτ d adb, u(t, x ) = 
+
+Z
+
+> R
+
+Z
+
+> Rd
+
+Z
+
+> R
+
+(Au)( τ, a, b )σ(τ t + a · x − b) dτ d adb, 
+
+(99) 22 where Aρ := Rψρ ρ and Au := Rψu u. Then as in Theorem 3.4 we can introduce two unbiased estimators 
+
+ρN (t, x ) = 1
+
+N
+
+> N
+
+X
+
+> i=1
+
+Aρ(τi, ai, b i)
+
+π(τi, ai, b i) σ(τit + ai · x − bi),uN (t, x ) = 1
+
+N
+
+> N
+
+X
+
+> i=1
+
+Au(τi, ai, b i)
+
+π(τi, ai, b i) σ(τit + ai · x − bi).
+
+(100) The result of Theorem 3.4 gives us the following bounds immediately: 
+
+∥ρN − ρ∥2  
+
+> L2
+> tHqx
+
+≤ CΩCπ ∥σ(q)∥2
+
+> ∞
+
+T |D|qLψ
+
+N · ∥ ρ∥2 
+
+> Hs1
+> tHq+s2
+> x
+
+,
+
+∥uN − u∥2  
+
+> L2
+> tHqx
+
+≤ CΩCπ ∥σ(q)∥2
+
+> ∞
+
+T |D|qLψ
+
+N · ∥ u∥2 
+
+> Hs1
+> tHq+s2
+> x
+
+,
+
+(101) for s1, s 2 > 3/2 since we are in dimension d = 1 . From now on we label 
+
+Mψ := CΩCπ ∥σ(q)∥2
+
+> ∞
+
+T |D|qLψ
+
+N . (102) The pair vN (t, x ) := ( ρN (t, x ), u N (t, x )) can be interpreted as the outputs of a single random neural network of width 2N , from which the first claim follows. We now bound the loss functions J 1
+
+> P DE
+
+and J 2 
+
+> P DE
+
+. For J 1 
+
+> P DE
+
+we note the expression ρN uN − ρu = ρN (uN − u) + u(ρN − ρ) to get 
+
+∂x(ρN uN − ρu ) = ∂xρN (uN − u) + ρN ∂x(uN − u) + ∂xu(ρN − ρ) + u∂ x(ρN − ρ). (103) Therefore, 
+
+J 1 
+
+> P DE
+
+(vN ) = 
+
+Z 
+
+> (0 ,T )×D
+
+|∂t(ρN − ρ) + ∂x(ρN uN − ρu )|2
+
+≤ 2∥∂t(ρN − ρ)∥2
+
+> L2
+> t,x
+
++ 4 ∥∂xρN ∥2 
+
+> L∞
+> t,x
+
+∥uN − u∥2
+
+> L2
+> t,x
+
++ 4 ∥ρN ∥2 
+
+> L∞
+> t,x
+
+∥∂x(uN − u)∥2
+
+> L2
+> t,x
+
++ 4 ∥∂xu∥2 
+
+> L∞
+> t,x
+
+∥ρN − ρ∥2
+
+> L2
+> t,x
+
++ 4 ∥u∥2 
+
+> L∞
+> t,x
+
+∥∂x(ρN − ρ)∥2
+
+> L2
+> t,x
+
+≤ 4( ∥∂xρN ∥2 
+
+> L∞
+> t,x
+
++ ∥ρN ∥2 
+
+> L∞
+> t,x
+
++ ∥∂xu∥2 
+
+> L∞
+> t,x
+
++ ∥u∥2 
+
+> L∞
+> t,x
+
+)( ∥ρN − ρ∥2
+
+> H1
+> t,x
+
++ ∥uN − u∥2
+
+> H1
+> t,x
+
+)=: BN (∥ρN − ρ∥2
+
+> H1
+> t,x
+
++ ∥uN − u∥2
+
+> H1
+> t,x
+
+).
+
+(104) Note that ∥∂xu∥L∞ 
+
+> t,x
+
+is finite since u ∈ C(0 , T ; H5(D)) . An upper bound for the coefficient BN
+
+is 4( ∥ρN ∥2 
+
+> W1,∞
+> t,x
+
++ ∥u∥2 
+
+> W1,∞
+> t,x
+
+). By a similar Markov argument to the proof of Corollary 4.1 (see Appendix A.5), for δ ∈ (0 , 1) , we have with probability 1 − δ that 
+
+J 1 
+
+> P DE
+
+(vN ) ≤
+
+4( L + ∥u∥2 
+
+> W1,∞
+> t,x
+
+)Mψ
+
+N δ (∥ρ∥2 
+
+> H1+ s1
+> tH1+ s2
+> x
+
++ ∥u∥2 
+
+> H1+ s1
+> tH1+ s2
+> x
+
+), (105) where s1, s 2 > 3/2, if the network weights are sampled such that 
+
+L := ∥ρN ∥2 
+
+> W1,∞
+> t,x
+
++ ∥uN ∥2 
+
+> W1,∞
+> t,x
+
++ ∥ρ∥2 
+
+> W1,∞
+> t,x
+
++ ∥u∥2 
+
+> W1,∞
+> t,x
+
+, (106) which is guaranteed to be finite since the neural network (ρN , u N ) is smooth. For the momentum equation, we use ρN u2 
+
+> N
+
+− ρu 2 = ρN uN (uN − u) + u(ρN uN − ρu ), and so 
+
+∂x(ρN u2 
+
+> N
+
+) − ∂x(ρu 2) = ∂x(uN ρN )( uN − u) + uN ρN ∂x(uN − u) + ( ρN uN − ρu )∂xu
+
++ u∂ x(ρN uN − ρu ). (107) Therefore, in a similar way to the continuity equation, with probability 1 − δ,
+
+J 2 
+
+> P DE
+
+(vN ) = 
+
+Z 
+
+> (0 ,T )×D
+
+|∂t(ρN un − ρu ) + ∂x(ρN u2 
+
+> N
+
+− ρu 2) − μ∂ 2
+
+> x
+
+(uN − u)|2dxdt 
+
+≤ C L
+
+Mψ
+
+N δ (∥ρN − ρ∥2
+
+> H1
+> t,x
+
++ (2 μ + 1) ∥uN − u∥2 
+
+> H1
+> tH2
+> x
+
+),
+
+(108) 23 where 
+
+CL = 32 ∥uN ∥2 
+
+> W1,∞
+> t,x
+
++ 64 ∥u∥2 
+
+> W1,∞
+> t,x
+
++ 80 ∥ρ∥2 
+
+> W1,∞
+> t,x
+
++ 16 ∥ρN ∥2 
+
+> W1,∞
+> t,x
+
+∥uN ∥2 
+
+> W1,∞
+> t,x
+
++ 64 ∥u∥2 
+
+> W1,∞
+> t,x
+
+∥uN ∥2 
+
+> W1,∞
+> t,x
+
+(109) The assumption (106) ensures that CL can be bounded as 
+
+CL ≤ (16 L2 + 80 L + 2 μ) + 64( L + 1) ∥u∥2 
+
+> W1,∞
+> t,x
+
+. (110) Note that ∥∂tu∥L∞ 
+
+> t,x
+
+is finite; this can be seen by rewriting the momentum equation as ∂tu =
+
+−u∂ xu + μρ −1∂2
+
+> x
+
+u, and using the regularity u ∈ C(0 , T ; Hk(D)) for k ≥ 5, along with the Sobolev embedding H1 ,→ L∞. Then we have with probability 1 − δ that 
+
+J 2 
+
+> P DE
+
+(vN ) ≤
+
+
+
+16 L2 + 80 L + 2 μ + 64( L + 1) ∥u∥2 
+
+> W1,∞
+> t,x
+
+
+
+Mψ
+
+N δ (∥ρ∥2 
+
+> H1+ s1
+> tH1+ s2
+> x
+
++ (2 μ + 1) ∥u∥2 
+
+> H1+ s1
+> tH2+ s2
+> x
+
+).
+
+Noting that s1, s 2 > 3/2, we get 
+
+(J 1 
+
+> P DE
+
++ J 2 
+
+> P DE
+
+)( vN ) ≤
+
+
+
+16 L2 + 80 L + 2 μ + 64( L + 1) ∥u∥2 
+
+> W1,∞
+> t,x
+
+
+
+Mψ
+
+N δ (∥ρ∥2 
+
+> H3
+> tH3
+> x
+
++ (2 μ + 1) ∥u∥2 
+
+> H3
+> tH4
+> x
+
+),
+
+(111) which is guaranteed to be finite if we take (ρ0, u 0) ∈ (Hk(D)) 2 for k ≥ 5. This can be seen by noting that the continuity equation can be re-written as ∂tρ = −u∂ xρ − ρ∂ xu, and the momentum equation as ∂tu = −u∂ xu + μρ −1∂2
+
+> x
+
+u. Then using the regularity (24) , one can bound the higher order Sobolev norms on the right-hand side of (111). 
+
+## B Experiments 
+
+In this section we give further details on the numerical experiments carried out in Section 5. All experiments were performed using a NVIDIA RTX 3080 GPU with 10GB VRAM. 
+
+B.1 Porous Medium Equation 
+
+Recall that we consider the Barenblatt-Kompaneets-Zeldovich solution 
+
+u(t, x ) = 1
+
+tα
+
+
+
+b − m − 12m β ∥x∥2
+
+t2β
+
+ 1
+
+> m−1
+> +
+
+, (112) where ∥ · ∥ is the ℓ2 norm, (·)+ is the positive part and α = dd(m−1)+2 and β = 1 
+
+> d(m−1)+2
+
+. We set 
+
+m = 2 .This solution is compactly supported but not differentiable at the edges of the support, which causes difficulty for numerical schemes. Since this solution is generated by a Dirac delta-valued initial data, we fix a small time t0 = 10 −2 and take the initial data to be u0(x) := u(t0, x ) and solve on the shifted time domain (t0, T + t0).We aim to investigate whether a convergence rate of N −1/2 can be observed in practice. To this end, we train a RaNN to approximate the Barenblatt profile (28) in dimensions d = 1 , ..., 5. In each dimension, we take a set of widths N ∈ { N1, ..., N k}, train the network for each width and plot the relative error of the final network against the true solution. The RaNN includes a Fourier feature layer, where frequencies ωj are sampled from N (0 , 10 2). For each dimension d and width N , we sample M = 10 N points (to ensure the problem remains well-posed) with a mixed strategy: 50% 
+
+of the points are sampled uniformly and 50% are sampled uniformly on [0 .2, 0.8] d, which is a box focused on the support of the solution. Then we find weights W = {Wi}Ni=1 which minimise the Ridge regression loss 
+
+L(W) = 1
+
+M
+
+> M
+
+X
+
+> i=1
+
+∥ˆu(ti, xi) − yi∥22 + λ∥W∥22, λ = 10 −5. (113) 24 We compute the closed-form solution ˆW directly (using a Cholesky decomposition), and then evaluate the relative error. We train the RaNN five times for each width. The mean relative L2 errors are plotted against the widths in Figure 3. The errors are also plotted on log-log scales in Figure 4. The key observation here is that the RaNN error points lie close to the C/ √N curve, which supports the upper bound of Theorem 3.4. Note that in d = 1 , 2, 3 we take t0 = 0 .1 (i.e. the initial data is set to u(t0, x ), where u is the Barenblatt profile from (28) ) and in d = 4 , 5 this is reduced to t0 = 0 .01 
+
+to keep the problem computationally manageable. 
+
+Remark B.1 (Smoothness of Barenblatt profile) . Note that the lack of smoothness of the Barenblatt profile at the edges of the support places this experiment outside of the assumptions in Corollary 4.1. Nonetheless, if we restrict the solution to a compact subset strictly contained within the support, the result does apply. The full-domain experiment can therefore be viewed as a setting which slightly exceeds the strict theoretical assumptions. 
+
+Remark B.2 (Sampling distributions used in the experiments) . In our experiments, the weights of the randomised neural networks are sampled from a Gaussian distribution rather than the distribution π
+
+(12) used in Theorem 3.4. This choice was made in order to test the robustness of the approximation rate beyond the specific (and somewhat unusual) π used in Theorem 3.4. Empirically, we observe consistent N −1/2 scaling behaviour which supports the relevance of our theory when sampling from a more practical Gaussian distribution. 
+
+B.2 Navier-Stokes 
+
+We now turn to the compressible Navier-Stokes system, given by (21) . We restrict our attention to the one-dimensional case, where (21) is reduced to (in Lagrangian mass coordinates) 
+
+(∂tv − ∂xu = 0 ,∂tu + ∂xpϵ(v) − μ∂ x
+
+  1 
+
+> v
+
+∂xu = 0 . (114) Here, v = 1 /ρ represents the specific volume and u the velocity. We consider the singular pressure in the work of [18]. 
+
+pϵ(v) = ϵ
+
+(v − 1) γ , γ > 0. (115) In order to evaluate the performance of the randomised PINN method, we need a baseline solution analogous to the Barenblatt profile ( (28) ) which we used for the Porous Medium Equation. For this purpose, we consider the travelling shock-wave solutions to system (114) for this system, which were studied by [ 18 ]. Shock wave solutions to compressible Navier-Stokes models have also been studied in other works ([ 40 , 19 , 35 , 65 ]). The travelling wave solutions to system (114) can be obtained by taking the ansatz (v, u )( t, x ) = ( v, u)( x − st ), where s is the shock speed. This reduces the PDE to an ODE for v:
+
+v′ = v
+
+μs (s2(v− − v) + pϵ(v−) − pϵ(v)) . (116) The velocity u can then be obtained from the relationship v = −su which follows from the conserva-tion of mass. We consider the domain (0 , T ) × (−5, 5) with T = 1 .0, μ = 1 , ϵ = 10 −3, γ = 2 . The shock profile connects a far-field state v− to the far-field state v+. We fix v+ = 1 .5, while v− < v + and the shock speed s are derived from the Rankine-Hugoniot jump condition (see Proposition 1.1 of [18]). To obtain the baseline solution (v, u), we numerically integrate the ODE using the scipy.integrate.odeint solver on an interval ξ ∈ [−5, 5] with 5000 points. The velocity profile 
+
+u(ξ) is then obtained from v = −su. The travelling wave solution can be seen below in Figure 5. In an effort to minimise optimisation error and adhere to the setting of Theorem 3.4 as closely as possible, we choose to use a supervised learning approach when finding a Randomised Neural Network. We include Fourier features (see Appendix C for details) where frequencies ωj are drawn from N (0 , 3.52). Note that we choose to use a smaller variance than for the PME because the solution is of lower frequency than the Barenblatt profile. We sweep across a range of widths N ∈ { 10 , ..., 250 } and aim to minimise the mean-squared error between the network and the solution to the ODE. For each width, we train the model using Ridge regression on a dataset where the sample size is M = 2000 N (M grows with N to avoid an 25 0 500 1000 1500 2000 2500  
+
+> Width ( N)
+> 0.0
+> 0.1
+> 0.2
+> 0.3
+> 0.4
+> 0.5
+> Relative  L2 Error
+> C/N
+> RaNN Error
+
+(a) d = 1 0 1000 2000 3000 4000 5000   
+
+> Width ( N)
+> 0.0
+> 0.1
+> 0.2
+> 0.3
+> 0.4
+> 0.5
+> 0.6
+> 0.7
+> 0.8
+> Relative  L2 Error
+> C/N
+> RaNN Error
+
+(b) d = 2 0 1000 2000 3000 4000 5000  
+
+> Width ( N)
+> 0.0
+> 0.2
+> 0.4
+> 0.6
+> 0.8
+> 1.0
+> Relative  L2 Error
+> C/N
+> RaNN Error
+
+(c) d = 3 0 1000 2000 3000 4000 5000 6000 7000  
+
+> Width ( N)
+> 0.0
+> 0.2
+> 0.4
+> 0.6
+> 0.8
+> 1.0
+> Relative  L2 Error
+> C/N
+> RaNN Error
+
+(d) d = 4 0 1000 2000 3000 4000 5000 6000 7000   
+
+> Width ( N)
+> 0.0
+> 0.2
+> 0.4
+> 0.6
+> 0.8
+> 1.0
+> Relative  L2 Error
+> C/N
+> RaNN Error
+
+(e) d = 5 
+
+Figure 3: Approximation error of RaNNs of varying width for solving PMEs in dimensions d =1, . . . , 5. The shaded band indicates the region within one standard deviation of the mean relative L2
+
+error. underdetermined problem, ensuring the optimisation problem remains stable). For any given training point (ti, x i), the evaluation of the baseline solution (v, u) is obtained by linear interpolation on the ODE grid. We sample uniformly in time but use a mixture of uniform and importance sampling in space; 50% of points are sampled uniformly on [−5, 5] whereas 50% of points are sampled from a normal distribution N (x0, 1) around the shock location x0(t) = x0 − st . The frequencies for the Fourier features ωj are sampled from N (0 , 3.52). We find the smaller variance of 3.52 to be effective for the simpler behaviour of a travelling wave solution. 26 10 2 10 3  
+
+> (Log) Width ( N)
+> 10 1
+> (Log) Relative  L2 Error  True slope: -0.50
+> RaNN slope: -0.48
+> C/N
+> RaNN Error
+
+(a) d = 1 10 2 10 3   
+
+> (Log) Width ( N)
+> 10 1
+> (Log) Relative  L2 Error  True slope: -0.50
+> RaNN slope: -0.56
+> C/N
+> RaNN Error
+
+(b) d = 2 10 2 10 3  
+
+> (Log) Width ( N)
+> 10 1
+> 10 0
+> (Log) Relative  L2 Error  True slope: -0.50
+> RaNN slope: -0.58
+> C/N
+> RaNN Error
+
+(c) d = 3 10 2 10 3  
+
+> (Log) Width ( N)
+> 10 1
+> 10 0
+> (Log) Relative  L2 Error  True slope: -0.50
+> RaNN slope: -0.47
+> C/N
+> RaNN Error
+
+(d) d = 4 10 2 10 3   
+
+> (Log) Width ( N)
+> 10 1
+> 10 0
+> (Log) Relative  L2 Error  True slope: -0.50
+> RaNN slope: -0.47
+> C/N
+> RaNN Error
+
+(e) d = 5 
+
+Figure 4: Log-log plot of the relative L2 error versus the width N . The reference scaling C/ √N
+
+and the measured RaNN slope are shown. The shaded band indicates the region within one standard deviation of the mean relative L2 error. The network is trained to minimise the L2-regularised MSE (Ridge regression loss) : 
+
+L(W) = 1
+
+M
+
+MX
+
+i=1 
+
+∥ˆv(ti, xi) − yi∥22 + λ∥W∥22, λ = 10 −3, (117) where ˆv is the network output and W is the vector of output weights. The minimiser ˆW has a closed-form which can be explicitly calculated and used to generate the final network. With the final network, we compute the L2 errors relative to the baseline solution using a set of 20 , 000 
+
+(pre-generated) points. Each width N is tested five times and the mean relative error is recorded for each N . These errors are plotted against N in Figure 2. The errors are plotted on a log-log scale in Figure 6. 27 15 10 5 0 5 10 15   
+
+> =xst
+> 1.1
+> 1.2
+> 1.3
+> 1.4
+> 1.5
+> Specific Volume  v
+
+Travelling Wave Profile (Volume)         
+
+> v( )
+> v
+> v+
+> 15 10 50510 15
+> =xst
+> 0.0
+> 0.1
+> 0.2
+> 0.3
+> 0.4
+> 0.5
+> 0.6
+> 0.7
+> Velocity  u
+
+Travelling Wave Profile (Velocity) 
+
+> u( )
+> u
+> u+
+
+Figure 5: The travelling wave solution (v, u) to (114), obtained by solving the ODE (116). 10 26 × 10 1 2 × 10 2 3 × 10 2     
+
+> (Log) Width ( N)
+> 2 × 10 3
+> 3 × 10 3
+> 4 × 10 3
+> 6 × 10 3
+> (Log) Relative  L2 Error  True slope: -0.50
+> RaNN slope: -0.49
+> C/N
+> RaNN Error
+
+Figure 6: Approximation error of RaNNs of varying width N for solving the compressible Navier-Stokes system on (0 , 1) × [−5, 5] in logarithmic scale. 
+
+## C Random Feature Neural Networks 
+
+It is known that classical PINNs suffer from a spectral bias phenomenon [ 50 ], which essentially means that the network is biased towards learning lower frequency functions (see[ 67 , 68 , 70 ]). This can be troublesome, particularly for non-linear PDEs whose solutions are often highly chaotic. [ 63 ]suggested to use Fourier features to overcome this. To carry out the simulations in Section 4, we integrated Fourier feature embeddings into the RaNN network. We now describe the architecture of a network with Fourier feature embeddings. Instead of choosing a smooth activation such as tanh , we take σ(z) = cos( z) and include both cosine and sine activations for symmetry. Concretely, let {τi, ai}Ni=1 ⊂ R1+ d and {bi}Ni=1 ⊂ [0 , 2π] be frozen random samples, and define 
+
+ϕi(t, x ) = cos( τit + ai · x + bi), ψi(t, x ) = sin( τit + ai · x + bi). (118) We then construct the feature vector 
+
+Φ( t, x ) = 1
+
+√N
+
+ ϕ1(t, x ), . . . , ϕ N (t, x ), ψ 1(t, x ), . . . , ψ N (t, x ), (119) and take 
+
+uW (t, x ) = β +
+
+> N
+
+X
+
+> i=1
+
+ aiϕi(t, x ) + ciψi(t, x ), (120) where the coefficients {ai, c i}Ni=1 and bias β are the trainable parameters. The prefactor N −1/2
+
+normalises the variance of the features, and does not affect the approximation class. 28 We can express the sum of sine and cosine functions as a single shifted cosine with amplitude Wi,giving us the form 
+
+uW (t, x ) = β +
+
+> N
+
+X
+
+> i=1
+
+Wi cos( τit + ai · xi + ˜bi), (121) where ˜bi := bi − θi. This shows that the RaNN used in our experiments is of the same general form as (1) , with smooth activation σ = cos . Recall from Remark A.1 that σ = cos is an admissible choice, meaning that the approximation result of Theorem 3.4 directly applies to networks of the form (120) .29

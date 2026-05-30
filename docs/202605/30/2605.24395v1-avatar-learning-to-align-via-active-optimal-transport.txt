@@ -1,0 +1,2171 @@
+Title: AvAtar: Learning to Align via Active Optimal Transport
+
+URL Source: https://arxiv.org/pdf/2605.24395v1
+
+Published Time: Tue, 26 May 2026 00:37:41 GMT
+
+Number of Pages: 22
+
+Markdown Content:
+# AVATAR : Learning to Align via Active Optimal Transport 
+
+Qi Yu 1 Ruizhong Qiu 1 Zhichen Zeng 1 My T. Thai 2 Huan Liu 3 Hanghang Tong 1
+
+Abstract 
+
+Alignment plays a fundamental role in many ma-chine learning problems, such as multi-network analysis, multimodal learning, and point cloud registration. Recent works increasingly leverage optimal transport (OT) for distributional align-ment, whose effectiveness largely depends on sparse supervision that is hard or costly to ob-tain in practice. Existing works, however, largely overlook how to actively acquire high-quality su-pervision to improve their alignment performance under OT frameworks. In this paper, we pro-pose a principled acti ve alignment framework for op t im a l t ransport alignment called A VATAR . We quantify the informativeness of a candidate by measuring its gradient-based impact on the global alignment result, computed as the gradient prop-agation from the global alignment result to all possible supervisions of the candidate through the entropy-regularized OT formulation. While differentiating through OT is challenging given its constrained nature, we leverage the adjoint-state method to reformulate the computation to a linear system solvable by the conjugate gradient method with linear complexity and guaranteed convergence. By encoding the global alignment result via effective utility functions, A VATAR is applicable to general alignment problems under the OT framework. Extensive experiments on three representative alignment tasks demonstrate the effectiveness, scalability, and generalizability of the proposed A VATAR .
+
+1. Introduction 
+
+Alignment is a critical steppingstone behind a wide range of machine learning problems, including but not limit to multi-network analysis (Du et al., 2021; Yan et al., 2022; 
+
+> 1
+
+University of Illinois Urbana-Champaign 2University of Florida 3Arizona State University. Correspondence to: Hanghang Tong <htong@illinois.edu >.
+
+Proceedings of the 43 rd International Conference on Machine Learning , Seoul, South Korea. PMLR 306, 2026. Copyright 2026 by the author(s). 
+
+Tang et al., 2023; Wang et al., 2023; Yu et al., 2025a; Zeng et al., 2023b; 2024b;a; 2025c), multimodal and cross-domain learning (Yilmaz et al., 2019; Chen et al., 2020; Cheng et al., 2022; Xu et al., 2024; Yoo et al., 2024; Ning et al., 2025), and point cloud registration. (Yu et al., 2021; 2023; Haitman et al., 2024). The general goal of these problems is to identify meaningful correspondence between two sets of data points, which facilitate various downstream machine learning tasks. For example, aligning nodes from different networks enables personalized recommendation across social platforms and helps fraud detection across transaction networks (Zeng et al., 2023a; Yu et al., 2025b). Aligning entities from different data modalities, e.g., image-text matching, enables automatic labeling of cross-modal data used for large-scale pre-training of multimodal founda-tion models (Han et al., 2021; Gan et al., 2022; Liang et al., 2024; Bartan et al., 2025; Wei et al., 2026). Recently, optimal transport (OT) (Gabriel & Marco, 2019) has been increasingly adopted as an effective tool for solv-ing alignment problems in general. By associating two sets of objects to be aligned (e.g., nodes from two networks) with two discrete probability distributions serving as the marginal constraints, OT-based alignment methods infer object-level alignment from the solved transport plan under carefully crafted cost function for specific tasks. Empow-ered by informative cost function and constrained optimiza-tion, OT-based methods naturally learn robust and determin-istic alignment from a global view (Yu et al., 2025b;a), and have demonstrated remarkable performance across diverse alignment tasks (Chen et al., 2020; Qin et al., 2023; Yu et al., 2025b). Despite their success, Figure 1 shows that OT-based alignment approaches are sensitive to the quantity and quality of supervisions (Yu et al., 2025a), yet obtaining high-quality supervision is costly in practice (Zhou et al., 2021; Gan et al., 2022; Liu et al., 2024; Li et al., 2024). To date, few works have investigated how to actively acquire high-quality supervision in weakly supervised or unsuper-vised settings to effectively improve the performance of OT-based methods. Although there exists sparse literature on active alignment, they bear the following three key limitations for OT-based methods. Firstly ( Limitation #1 ), existing active alignment methods are not tailored to OT thus fail to utilize key compo-nents behind OT-based alignment, such as the cost function 1
+
+> arXiv:2605.24395v1 [cs.LG] 23 May 2026
+
+AVATAR : Learning to Align via Active Optimal Transport 80 160 240 320 400 
+
+> # Queried Supervision
+> 0.84
+> 0.85
+> 0.86
+> 0.87
+> 0.88
+> 0.89
+> 0.90
+> 0.91
+> 0.92
+> MRR
+> Random
+> Entropy
+> TopMatchings
+> AvAtar-L2
+
+(a) Network Alignment 1.4 2.8 4.2 5.6 7.0  
+
+> # Queried Supervision (×10 3)
+> 0.53
+> 0.55
+> 0.57
+> 0.60
+> 0.62
+> 0.65
+> 0.68
+> Recall@1
+> Random
+> Entropy
+> Density
+> AvAtar-L2
+
+(b) Image-Text Grounding 
+
+Figure 1. Sensitivity of active OT-based alignment methods w.r.t. the quality and quantity of supervision on network alignment and image-text grounding . Observations: (1. Quantity) The performance of OT-based methods improve significantly by up to 
+
+15% with increased supervision level. (2. Quality) Under the same number of supervision, the performance of OT-based methods can differ significantly (up to 7%) by different query strategies, e.g., the proposed A VATAR -L2 (red) vs. Random (blue). 
+
+and marginal constraints, which directly affect the alignment performance (Malmi et al., 2017; Cheng et al., 2019; Zhou et al., 2021). Secondly ( Limitation #2 ), there lacks a prin-cipled method to quantify how newly acquired supervision would propagate through the OT formulation, making it dif-ficult to assess the direct impact of a query on the alignment results (Malmi et al., 2017; Cheng et al., 2019). Thirdly (Limitation #3 ), prior efforts on active alignment mainly focus on designing task-specific query strategies (Ren et al., 2019; Zhou et al., 2021), such as active consistency-based network alignment methods, which are not readily general-izable to other alignment methods (e.g., OT-based methods) or alignment tasks (e.g., cross-domain alignment). In this paper, we address these limitations by proposing a principled active alignment framework based on optimal transport, called A VATAR . A VATAR is designed intrinsically for OT-based alignment, which evaluates the informative-ness of candidates by their posterior query impact on the global alignment results of OT, comprehensively utilizing key elements of OT to select the best candidates to query (Limitation #1 ). To quantify the posterior query impact of a candidate, A VATAR computes the gradient propagation from the global alignment result to all possible supervision signals of the candidate through the entropy-regularized OT formulation, capturing exactly how a new label would af-fect OT-based alignment through gradients ( Limitation #2 ). However, a major challenge lies in differentiating through the OT formulation, since the transport plan is defined im-plicitly as the solution of a large-scale constrained optimiza-tion problem. To tackle this, we leverage the adjoint-state method to reformulate the computation of gradient-based impact to a linear system which can be solved efficiently via the conjugate gradient method with linear complexity and guaranteed convergence. By encoding the global align-ment results via effective utility functions defined over the transport plan of OT, A VATAR is applicable to OT-based alignment methods across diverse alignment tasks with min-imal modification ( Limitation #3 ). To validate the effectiveness of A VATAR , we conduct com-prehensive experiments across three representative align-ment tasks, including network alignment (NA) and two cross-domain alignment (CDA) tasks: image-text retrieval and image-text grounding. Extensive experiments cover-ing 8 datasets, 4 OT-based alignment algorithms, and 9 baseline active learning methods demonstrate that A VATAR 
+
+consistently outperform existing active learning approaches under the same query budget. We also show empirically that AVATAR achieves a good balance between alignment per-formance and efficiency, making it applicable to large-scale alignment problems. Our main contributions are summarized as follows: • Problem. To our best knowledge, we are the first to formalize the timely and important problem of active learning for OT-based alignment. • Method. We propose a novel method A VATAR to quan-tify the informativeness of candidates by their impact on the alignment results, measured by gradient propagation through the OT formulation. • Analysis. We provide extensive theoretical analysis of AVATAR to establish its correctness, linear time complex-ity, and linear convergence. • Evaluation. Extensive experiments across diverse align-ment tasks show that A VATAR consistently improves align-ment performance and achieves a good balance between effectiveness and efficiency. 
+
+2. Preliminaries 
+
+In this section, we introduce preliminaries on optimal trans-port in Section 2.1, followed by OT-based alignment prob-lem in Section 2.2. In this paper, we use bold uppercase letters for matrices (e.g., T), bold lowercase letters for vec-tors (e.g., μ), calligraphic uppercase letters for sets (e.g., X )and lowercase letters for scalars (e.g., k). Table 1 summa-rizes the main symbols used throughout the paper. 
+
+2.1. Optimal Transport 
+
+OT has emerged as a powerful mathematical tool for align-ing two distributions (Santambrogio, 2015). Let μ =Pni=1 μiδxi and ν = Pmj=1 νiδyj be two discrete proba-bility distributions where δ denotes the Dirac measure. The discrete optimal transport problem seeks an optimal trans-port plan T that minimizes the total transport cost as follows: 
+
+min  
+
+> T∈Π( μ,ν)
+
+⟨C, T⟩ (1) where Π( μ, ν) := T ∈ Rn×m 
+
+> +
+
+|T1 m = μ, T⊤1n = ν ,
+
+C ∈ Rn×m 
+
+> ≥0
+
+is the cost matrix where Ci,j measures the cost of transporting mass from the support point xi of μ to point 2AVATAR : Learning to Align via Active Optimal Transport 
+
+yj of ν. The optimal value of Eq. (1) defines the Wasserstein distance between μ and ν under the cost matrix C, and the resulting transport plan encodes the soft correspondence between points from the two distributions. While Eq. (1) induces a linear programming problem of cubic complexity which is infeasible for large-scale ap-plications, (Gabriel & Marco, 2019) introduces entropic regularization into Eq. (1) to approximate the original OT formulation: 
+
+min  
+
+> T∈Π( μ,ν)
+
+⟨C, T⟩ − ϵ Ent (T) (2) where Ent (T) := − P 
+
+> i,j
+
+Ti,j (log Ti,j − 1) and ϵ > 0 de-notes the entropic regularization weight. Eq. (2) yields an ϵ-strongly convex optimization problem that can be solved more efficiently with a quadratic complexity via the Sinkhorn algorithm (Nemirovski & Rothblum, 1999). 
+
+2.2. OT-based Alignment 
+
+A generalized definition for alignment problems based on OT can be summarized as follows (Zeng et al., 2023a; Yu et al., 2025b; Chen et al., 2020): 
+
+Definition 2.1. OT-based Alignment 
+
+Given: (1) two sets of objects X = {xi}ni=1 and Y =
+
+{yj }mj=1 to be aligned, and their associated marginal distri-butions μ, ν, (2) a cost function C ∈ Rn×m, (3) an align-ment supervision matrix H ∈ { 0, 1}n×m with Hi,j = 1 
+
+indicating prior alignment between xi and yj .
+
+Output: an optimal transport plan T∗ ∈ Π( μ, ν) indicating the soft correspondence between X and Y:
+
+T∗ = arg min 
+
+> T∈Π( μ,ν)
+
+⟨ ˜C, T⟩, ˜C = ( 1n×m − βH) ⊙ C (3) Eq. (3) follows the common practice (Zeng et al., 2023a; Yu et al., 2025b) of integrating supervisions into OT-based alignment by penalizing the cost entries of aligned pairs. 
+
+β in Eq. (3) denotes the penalizing factor. Under unsuper-vised settings, H becomes a zero matrix, making Eq. (3) equivalent to Eq. (1). 
+
+3. Problem Definition 
+
+We study the problem of active alignment based on op-timal transport, whose goal is to maximally increase the performance of OT-based alignment methods by selectively acquiring a fixed amount of supervision from an oracle (e.g., a human annotator). We assume that the oracle can answer queries of the following form (Zhou et al., 2021): 
+
+Given an object xs from the source set X , which target object yt ∈ Y is the correct alignment of xs?
+
+Based on this, we formally define the active OT-based align-ment problem as follows:  
+
+> Table 1. Symbols and Notations.
+
+Symbol Definition 
+
+X , Y object sets 
+
+μ, ν marginal distributions of OT 
+
+C cost function of OT 
+
+T transport map of OT 
+
+H alignment supervision matrix 
+
+f (·), f (T) alignment utility function defined over T1 an all-one vector/matrix 
+
+Xi,j entry of matrix X in row i and column j
+
+⊙ Hadamard product 
+
+⟨· , ·⟩ inner product 
+
+Definition 3.1. Active OT-based Alignment 
+
+Given: (1) two sets of objects X = {xi}ni=1 and Y =
+
+{yj }mj=1 to be aligned, (2) an OT-based alignment method with marginal distributions μ, ν, cost function C, and solved transport plan T, (3) an alignment supervision matrix 
+
+H that encodes supervision signals, (4) a fixed query budget 
+
+k, and (5) an oracle. 
+
+Output: a set of k objects in X for the oracle to label the correct alignment in Y, which maximally improves the alignment performance for the unlabeled objects in X .While the true alignment performance over unlabeled ob-jects are typically unknown without access to test data, we quantify the quality of alignment results by effective utility functions introduced in Section 4.1. Definition 3.1 is general and applicable to a wide range of alignment problems. Specifically, for NA , X and Y corre-spond to the node sets in the source and target networks; for 
+
+CDA , X and Y denote instances from two different domains or modalities, e.g. image and text. This unified problem formulation allows us to define a task-agnostic active learn-ing template for OT-based alignment methods applicable to diverse alignment tasks. 
+
+4. Methodology 
+
+In this section, we present the proposed active OT-based alignment framework A VATAR . We first introduce a quan-titative gradient-based method for evaluating the informa-tiveness of querying a source object, in Section 4.1. Then, we introduce the proposed A VATAR which leverages this gradient-based method for solving the active OT-based align-ment problem, in Section 4.2. Finally, we provide theoreti-cal analysis regarding the complexity and convergence of AVATAR , in Section 4.3. 
+
+4.1. Gradient-based Query Impact 
+
+A fundamental principle in active learning is to query the most informative objects for the learning task (Zhou et al., 3AVATAR : Learning to Align via Active Optimal Transport                                  
+
+> Table 2. Adopted utility functions f(T)and their gradient w.r.t. the transport map T.log( ·)denotes the element-wise logarithmic function, ∥ · ∥ 1is L1 norm, tr (·)denotes the trace of a matrix, and
+> M1,M2are the graph Laplacian matrices of the two networks.
+> Description Function f(T)∇Tf(T)
+> Squared L2norm ∥T∥222T
+> Entropy ∥T⊙log( T)∥1log( T) + 1n×m
+> Consistency tr  T⊤M1T+tr  TM 2T⊤2M1T+ 2 TM 2
+
+2021; Li et al., 2024; Qiu & Tong, 2024), oftentimes via gradient-based impact estimation (He et al., 2024; Chen et al., 2024; 2026). In the context of alignment, it is thus desirable to quantify the informativeness of querying a can-didate object through its potential impact on the overall alignment results (Zhou et al., 2021). Accordingly, we pro-pose to evaluate the informativeness of querying a source object by its posterior impact on the global alignment results, encoded by an effective utility function f (T) : Rn×m → R
+
+defined over the transport plan T. The utility function is designed to turn matrix T that indicates pairwise alignment into a scalar, quantifying the global quality of the alignment. In this paper, we adopt two general-purpose utility functions for all alignment tasks, fL2 and fentropy , and design an addi-tional utility function fconsist for the NA tasks. Definitions of different utility functions are listed in Table 2. We dif-ferentiate A VATAR of different utility functions by suffixes, e.g., A VATAR -L2.The intuition of fL2 and fentropy is straightforward: both functions encourage querying source objects whose true alignment leads to a more deterministic result T that approx-imates a permutation matrix when n ≈ m (Gabriel & Marco, 2019; Yu et al., 2025b). For the NA-specific function fconsist ,it encourage the consistency principles widely adopted in NA (Zhang & Tong, 2016; Zeng et al., 2023a). Specifically, the first term tr (T⊤M1T) = 12
+
+P 
+
+> i,j
+
+A(1)  
+
+> i,j
+
+∥Ti, : − Tj, :∥22
+
+with A(1) denoting the graph adjacency matrix of the first network. It encourages alignment from the source to target network that contributes most to the consistency princi-ple: the 1-hop neighbors of aligned nodes across different networks should share similar alignment results (i.e. corre-sponding rows in T). Similarly, the second term encourages consistency when the alignment direction is reversed. For the rest of this subsection, we first define the impact of a pairwise objects query on an utility function and intro-duce how to calculate this gradient-based impact. Then, we formally define the posterior impact of an individual object query on the utility function. 4.1.1. P AIRWISE OBJECTS QUERY IMPACT 
+
+Definition 4.1. Pairwise Objects Query Impact 
+
+Given a query of a pair of objects denoted as pij = ( xi, y j )
+
+where xi ∈ X , y j ∈ Y , and an utility function f (T) defined over the transport plan T, the query impact of pij is defined as the gradient of f (T) w.r.t. the alignment supervision sig-nal of this pair of objects, i.e., Hi,j . Formally, the pairwise objects query impact is defined as I(pij ) = ∇Hi,j f .The calculation of I(pij ) for OT-based alignment method can be decomposed by the chain rule as follows 
+
+I(pij ) = ∇Hi,j f = ⟨∇ ˜Cf, ∇Hi,j ˜C⟩ (4) The second term ∇Hi,j 
+
+˜C quantifies the impact of an added supervision to the supervised cost matrix ˜C. Following Eq. (3) , ∇Hi,j 
+
+˜C can be computed easily as ∇Hi,j 
+
+˜C =
+
+−βCi,j E where Ei,j = 1 and 0 otherwise. The main computation falls into the first term ∇ ˜Cf , which quantifies the impact of changing the supervised cost matrix 
+
+˜C on the utility function f (T). Computing ∇ ˜Cf requires differentiating through the OT formulation, which is highly challenging for the following reason: as T is an implicit function w.r.t. ˜C due to existence of marginal constraints, differentiating T w.r.t. ˜C, i.e., dT 
+
+> d ˜C
+
+, requires explicitly form-ing and inverting a Jacobian matrix of size (nm )2, which would be computationally intractable at scale. To tackle this computational challenge, we leverage the adjoint-state method to reformulate the computation of 
+
+∇ ˜Cf to solving an adjoint linear system of size (n + m).
+
+Lemma 4.2. The gradient of a utility function f (T) w.r.t. the cost function ˜C under the entropy-regularized OT for-mulation can be computed by solving a linear system with respect to adjoint vectors yα ∈ Rn, yβ ∈ Rm as follows, 
+
+∇ ˜Cf = 1
+
+ϵ T ⊙  yα1⊤ 
+
+> m
+
++ 1ny⊤ 
+
+> β
+
+− ∇ Tf  (5) 
+
+s.t. 
+
+diag (μ) TT⊤ diag (ν)
+
+| {z }
+
+> A
+
+yα
+
+yβ
+
+| {z } 
+
+> y
+
+=
+
+ (T ⊙ ∇ Tf ) 1m
+
+(T ⊙ ∇ Tf )⊤ 1n
+
+| {z }
+
+> b
+
+(6) 
+
+where ϵ is the entropic regularization weight, μ, ν are marginal distributions of OT, and diag (·) creates a diag-onal matrix from a vector. 
+
+The detailed proof of Lemma 4.2 can be found in Ap-pendix A.1. The core idea is to implicitly differentiate the constrained optimality conditions of OT by the adjoint-state method, which reformulates the computation of ∇ ˜Cf to solving a linear system (Sadr et al., 2024) without explicitly inverting a large Jacobian. To solve the linear system, we show in Appendix A.2 that the coefficient matrix A of Eq. (6) is singular, making it impossible to directly solve Eq. (6) by matrix inversion. To address this issue, we resort to conjugate gradient (CG) method, which is summarized in the following lemma 4.3. 4AVATAR : Learning to Align via Active Optimal Transport 
+
+Lemma 4.3. Eq. (6) can be solved via the conjugate gradi-ent method with guaranteed convergence to global optimum. 
+
+The detailed proof of Lemma 4.3 can be found in Ap-pendix 4.3. In general, Eq. (6) renders a singular linear system solvable by the CG method, given that A is positive-semidefinite and b lies in the range of A in Eq. (6) (Kaass-chieter, 1988; Hayami, 2018). This linear system corre-sponding to a convex quadratic optimization problem, there-fore CG is guaranteed to converge to the global optimum. We present detailed analysis of the complexity and conver-gence rate of the CG method for Eq. (6) in Section 4.3, which shows that Eq. (6) can be solved with (1) a linear 
+
+time complexity w.r.t. the number of objects in X and Y,and (2) guaranteed convergence with a linear convergence rate. Combining Eq. (4) - (6) gives the final formulation of 
+
+I(pij ), which quantifies the impact of querying a possible pairwise alignment (xi, y j ):
+
+I(pij ) = − βϵ Ci,j Ti,j 
+
+ yα1⊤ 
+
+> m
+
++ 1ny⊤ 
+
+> β
+
+− ∇ Tf 
+
+> ij
+
+s.t. 
+
+diag (μ) TT⊤ diag (ν)
+
+  yα
+
+yβ
+
+
+
+=
+
+ (T ⊙ ∇ Tf ) 1m
+
+(T ⊙ ∇ Tf )⊤ 1n
+
+
+
+(7) 4.1.2. P OSTERIOR OBJECT QUERY IMPACT 
+
+Definition 4.4. Posterior Object Query Impact 
+
+For an object query denoted as pi = ( xi, ·) where xi ∈ X ,the posterior query impact of pi on the utility function f
+
+is defined as the aggregation of the pairwise objects query impact between object xi ∈ X and all objects y in the target set Y, weighted by the corresponding rows of the transport plan Ti, : as a posterior. Formally, the posterior object query impact is defined as 
+
+I(pi) = 
+
+> m
+
+X
+
+> j=1
+
+Ti,j I(pij ) (8) The intuition of using the transport plan T as posterior weights is straightforward: while it is unknown which target object will be the true alignment for a source object before the query, Ti,j encodes the posterior alignment probability between two objects xi ∈ X and yj ∈ Y conditioned on the observed data and supervision. Aggregating pairwise objects query impact weighted by Ti, : thus computes the 
+
+expected impact of querying a source object xi.
+
+4.2. A VATAR 
+
+Based on Definition 4.1 and Definition 4.4, we propose a generic query algorithm for OT-based alignment as de-scribed in Algorithm 1, which allows customized utility function f that quantifies the global alignment quality for different tasks. The key idea of A VATAR is to iteratively (1) 
+
+select candidate objects with the largest posterior impact by 
+
+Algorithm 1 AVATAR  
+
+> 1:
+
+Input: (1) two sets of objects X and Y, (2) an OT-based alignment method with marginal distributions μ, ν and cost function C, (3) an alignment supervision matrix 
+
+H, (4) a total query budget k, (5) query batch size nb,(6) a query pool P ⊆ X , (7) an oracle, (8) an utility function f for encoding the alignment result.  
+
+> 2:
+
+Output: (1) a set of k objects Q ⊆ X for query, (2) the alignment matrix T between X and Y. 
+
+> 3:
+
+Initialize the query set Q = ∅; 
+
+> 4:
+
+Remove source objects whose alignment are known from the query pool, i.e., 
+
+P ← P\ 
+
+n
+
+xi ∈ X | P 
+
+> j
+
+Hi,j > 0
+
+o
+
+; 
+
+> 5:
+
+Compute the current alignment matrix T by the input OT-based method via entropy-regularized OT solver;  
+
+> 6:
+
+while |Q| < k do  
+
+> 7:
+
+Compute the posterior query impact of all source objects I using Eq. (8);  
+
+> 8:
+
+Initialize batch query set Qb = ∅; 
+
+> 9:
+
+while |Q b| < n b do  
+
+> 10:
+
+Update Qb ← Q b ∪ { x∗ = arg max xi∈P I(pi)}; 
+
+> 11:
+
+Update P ← P\{ x∗}; 
+
+> 12:
+
+end while  
+
+> 13:
+
+Query for the correct alignment of objects in Qb; 
+
+> 14:
+
+Update the alignment supervision matrix H; 
+
+> 15:
+
+Re-compute T by the OT-based alignment method;  
+
+> 16:
+
+Update Q = Q ∪ Q b; 
+
+> 17:
+
+end while  
+
+> 18:
+
+return Q and T;Eq. (8) (Steps 7 and 10); (2) query the oracle for their true alignment (Step 13); (3) update the alignment supervision matrix H accordingly (Step 14); and (4) re-compute the alignment results by an OT-based method (Step 15). AVATAR operates under both weakly supervised and unsu-pervised settings by different initializations of the alignment supervision matrix H. For weakly supervised alignment tasks where partial ground-truth alignment is pre-known, 
+
+Hi,j is set to 1 if object xi and yj are known to be aligned, and 0 otherwise; for unsupervised alignment tasks, Hi,j is set to be a zero matrix. Similarly, when updating H dur-ing the query process, we set the corresponding entries of queried alignment pairs in H to 1. While we adopt a binary supervision matrix H, A VATAR can be naturally extended to a soft supervision matrix H with continuous values. 
+
+4.3. Theoretical Analysis 
+
+In this subsection, we provide theoretical analysis regarding the complexity and convergence rate of proposed A VATAR .
+
+Theorem 4.5. (Time & Space Complexity of AVATAR -
+
+L2/ ENTROPY / CONSIST )The time complexity is O
+
+ knb K(n + m)
+
+
+
+for AVATAR -
+
+5AVATAR : Learning to Align via Active Optimal Transport 
+
+L2/ ENTROPY , and O
+
+ knb (K(n + m) + e)
+
+
+
+for AVATAR -
+
+> CONSIST
+
+, where e denotes the number of edges in the networks 1. The space complexity of AVATAR -L2
+
+/ ENTROPY / CONSIST is O(nm ). k is the total query budget, 
+
+nb is the batch query size, K is the number of iterations of the CG method, and n, m are number of objects in the source and target sets, respectively. 
+
+The detailed proof of Theorem 4.5 can be found in Ap-pendix A.4. In general, we reduce the complexity of AVATAR -L2/ENTROPY /CONSIST to linear by utilizing the 
+
+sparsity of the transport plan T of OT-based method, as visualized in Figure 5. Note that while the total complexity of A VATAR may depend on the selected utility function f ,the coefficient martix A in Eq. (6) is agnostic to f thus the CG method can always leverage the sparsity of T for OT-based alignment to approximate a linear time complexity of 
+
+O(K(n + m)) w.r.t. the number of objects in X and Y.
+
+Theorem 4.6. (Convergence Rate of AVATAR )The conjugate gradient method applied to the linear sys-tem of Eq. (6) converges at a linear convergence rate of 
+
+√λ1/λ r −1
+
+√λ1/λ r +1 , where λ1, λ r denotes the largest/smallest nonzero eigenvalues of A in Eq. (6) .
+
+The detailed proof of Theorem 4.6 can be found in Ap-pendix A.5. This linear convergence rate guarantees fast and stable convergence of the CG method, making the gra-dient computation in A VATAR efficient and scalable. 
+
+5. Experiments 
+
+In this section, we carry out comprehensive experiments and analyses to evaluate the proposed A VATAR from the following aspects: • Q1. How effective is the proposed A VATAR across differ-ent alignment problems? • Q2. How efficient and scalable is A VATAR ?• Q3. How is the empirical convergence of A VATAR ?• Q4. How sensitive is the proposed A VATAR to different parameters and design choices? 
+
+5.1. Experimental Setup 
+
+We benchmark the proposed A VATAR on three different alignment tasks, including network alignment (NA), image-text retrieval, and image-text grounding. 
+
+Network Alignment. NA aims to find node-level cor-respondence across different networks. For datasets , we adopt 4 real-world datasets Phone-Email (Zhang et al., 2017), ACM-DBLP-P (Tang et al., 2008), Douban (Zhang        
+
+> 1Without loss of generality, we assume O(e)≈ O (e1)≈O(e2)where eidenotes the number of edges in the i-th net-works (Zeng et al., 2023a; Yu et al., 2025b).
+
+& Tong, 2016), and ACM-DBLP-A (Tang et al., 2008), cov-ering both plain and attributed networks. For baseline OT-based NA methods , we adopt PARROT (Zeng et al., 2023a) and JOENA (Yu et al., 2025b). For baseline query strate-gies , we adopt R ANDOM , E NTROPY , M ARGIN (Li et al., 2024), B ETWEENNESS (Macskassy, 2009), C ONTRASTIVE ,GIBBS MATCHINGS (Malmi et al., 2017), and T OP MATCH - 
+
+> INGS
+
+(Malmi et al., 2017). We report the mean reciprocal rank (MRR) as the benchmarking metric for NA. 
+
+Image-Text Retrieval. Image-text retrieval aims to re-trieve the most relevant text given an image query, or vice versa. In this paper, we focus on the former setting. For 
+
+datasets , we adopt 2 widely used datasets CIFAR-10-C and ImageNet-C (Hendrycks & Dietterich, 2019). For baseline OT-based CDA methods , we adopt the Wasserstein (W) and Fused Gromov-Wasserstein (FGW) variants of GOT (Chen et al., 2020). For baseline query strategies , we adopt R AN -
+
+> DOM
+
+, E NTROPY , M ARGIN , L EAST CONFIDENT , D ENSITY ,and D IVERSITY (Li et al., 2024). We report the Recall@1 as the benchmarking metric for image-text retrieval. 
+
+Image-Text Grounding. Image-text grounding aims to identify the fine-grained correspondence between phrases in a sentence and objects (or regions) in an image (Li et al., 2022). For datasets , we adopt 2 widely used datasets COCO (Lin et al., 2014) and Flickr30K Entities (Plummer et al., 2015). We adopt the same baseline OT-based align-ment methods, query strategies, and evaluation metric as that of image-text retrieval. Detailed experimental settings, as well as descriptions of datasets and introduction for different query strategies, are included in Appendix B. 
+
+5.2. Benchmarking Results 
+
+5.2.1. N ETWORK ALIGNMENT 
+
+For NA tasks, we adopt the task-agonistic A VATAR -L2, and AVATAR -CONSIST which is designed specifically for NA. We compare these two versions of the proposed method with other baseline query methods in alignment performance measured by MRR. The results are summarized in Table 3. We observe that (1) A VATAR -L2/CONSIST achieve state-of-the-art performance across all datasets. They consistently outperform all baselines by up to 2.8% in MRR, demonstrat-ing the effectiveness of A VATAR on both plain and attributed NA tasks. (2) Existing active NA methods becomes less effective on OT-based algorithms. We notice that G IBB -
+
+> S
+
+MATCHINGS and T OP MATCHINGS designed specifically for active NA are consistently outperformed by general-purpose active query strategies, e.g., E NTROPY , when ap-plied to OT-based methods. This is because the deterministic transport plan gives consistent sampling results, making it difficult for G IBBS MATCHINGS and T OP MATCHINGS to characterize the uncertainty of a candidate. (3) A VATAR 
+
+6AVATAR : Learning to Align via Active Optimal Transport 
+
+Table 3. Benchmarking results on network alignment in MRR. The 1st /2nd best results are highlighted in bold and underline ,respectively. 
+
+Dataset Phone-Email ACM-DBLP-P Douban ACM-DBLP-A #-th Query Round 5 10 5 10 5 10 5 10 PARROT (Zeng et al., 2023a) RANDOM 0.517 0.568 0.723 0.740 0.730 0.751 0.815 0.829 ENTROPY 0.533 0.615 0.774 0.840 0.765 0.791 0.863 0.926 MARGIN 0.538 0.618 0.766 0.824 0.756 0.819 0.862 0.915 BETWEENNESS 0.530 0.599 0.762 0.811 0.740 0.780 0.852 0.889 DENSITY 0.533 0.610 0.729 0.770 0.739 0.761 0.834 0.854 GIBBS MATCHINGS 0.517 0.576 0.717 0.736 0.736 0.756 0.810 0.824 TOP MATCHINGS 0.512 0.576 0.752 0.760 0.761 0.817 0.831 0.846 AVATAR -L2 0.539 0.629 0.787 0.858 0.782 0.837 0.876 0.936 
+
+AVATAR -CONSIST 0.544 0.630 0.785 0.856 0.779 0.835 0.876 0.935 JOENA (Yu et al., 2025b) RANDOM 0.582 0.648 0.760 0.786 0.839 0.852 0.821 0.837 ENTROPY 0.680 0.778 0.829 0.911 0.865 0.884 0.910 0.972 MARGIN 0.652 0.762 0.816 0.915 0.868 0.915 0.905 0.971 BETWEENNESS 0.642 0.730 0.824 0.892 0.855 0.872 0.883 0.926 DENSITY 0.561 0.639 0.794 0.801 0.866 0.885 0.838 0.861 GIBBS MATCHINGS 0.589 0.661 0.764 0.792 0.840 0.848 0.828 0.845 TOP MATCHINGS 0.589 0.667 0.782 0.809 0.870 0.898 0.839 0.859 AVATAR -L2 0.682 0.800 0.845 0.927 0.883 0.918 0.924 0.981 
+
+AVATAR -CONSIST 0.691 0.806 0.850 0.929 0.879 0.915 0.924 0.980 
+
+Table 4. Benchmarking results on image-text retrieval in Recall@1. The 1st /2nd best results are highlighted in bold and underline ,respectively. 
+
+Algorithm GOT-W (Chen et al., 2020) GOT-FGW (Chen et al., 2020) Dataset CIFAR-10-C ImageNet-C CIFAR-10-C ImageNet-C #-th Query Round 5 10 5 10 5 10 5 10 RANDOM 0.564 0.607 0.374 0.454 0.534 0.585 0.322 0.392 ENTROPY 0.583 0.641 0.394 0.489 0.546 0.610 0.328 0.404 MARGIN 0.574 0.622 0.393 0.490 0.547 0.610 0.331 0.411 LEAST CONFIDENT 0.579 0.632 0.397 0.496 0.548 0.613 0.334 0.414 DENSITY 0.571 0.614 0.381 0.464 0.542 0.602 0.327 0.401 DIVERSITY 0.568 0.622 0.396 0.494 0.533 0.597 0.328 0.404 AVATAR -ENTROPY 0.586 0.648 0.402 0.509 0.553 0.619 0.342 0.430 
+
+AVATAR -L2 0.584 0.645 0.399 0.505 0.551 0.618 0.340 0.426 
+
+benefits from effective utility functions tailored for spe-cific alignment tasks. On plain networks (Phone-Email and ACM-DBLP-P), A VATAR -CONSIST designed specifically for NA tasks typically outperforms A VATAR -L2 with up to 0.6% improvement in MRR, indicating that consistency principles are particularly useful when attribute informa-tion is missing. In contrast, A VATAR -L2 generally achieves better performance than A VATAR -CONSIST on attributed networks (Douban, ACM-DBLP-A), suggesting that deter-ministic alignment results given by fL2 , as mentioned in Section 4, are more helpful when informative attributes are available. Complete results that shows MRR vs. query round for all baselines across three different alignment tasks can be found in Appendix C.1. 5.2.2. C ROSS -D OMAIN ALIGNMENT 
+
+We include two tasks for benchmarking A VATAR on CDA: 
+
+image-text retrieval and image-text grounding . For both CDA tasks, we compare A VATAR -L2/ENTROPY with other baseline query methods in alignment performance by Re-call@1. The results of image-text retrieval and image-text grounding can be found in Tables 4 and 5, respectively. 
+
+Table 5. Benchmarking results on image-text grounding in Re-call@1. The 1st /2nd best results are highlighted in bold and underline, respectively. 
+
+Algorithm GOT-W (Chen et al., 2020) GOT-FGW (Chen et al., 2020) Dataset COCO Flickr30K COCO Flickr30K #-th Query Round 5 10 5 10 5 10 5 10 RANDOM 0.510 0.577 0.356 0.441 0.545 0.607 0.550 0.628 ENTROPY 0.534 0.620 0.363 0.455 0.569 0.650 0.563 0.652 MARGIN 0.532 0.625 0.359 0.449 0.568 0.656 0.562 0.651 LEAST CONFIDENT 0.535 0.625 0.360 0.448 0.570 0.655 0.567 0.657 DENSITY 0.518 0.585 0.355 0.439 0.553 0.616 0.567 0.657 DIVERSITY 0.533 0.626 0.346 0.426 0.568 0.656 0.561 0.650 AVATAR -ENTROPY 0.538 0.628 0.366 0.461 0.578 0.668 0.573 0.670 AVATAR -L2 0.538 0.627 0.365 0.459 0.582 0.678 0.575 0.671 10 0 10 1 10 2  
+
+> Total Query Time (s)
+> 0.57
+> 0.58
+> 0.59
+> 0.60
+> 0.61
+> 0.62
+> 0.63
+> MRR
+> 22×
+> 5.4%
+> Phone-Email
+> 10 010 110 2
+> Total Query Time (s)
+> 0.76
+> 0.78
+> 0.80
+> 0.82
+> 0.84
+> MRR
+> 25×
+> 8.1%
+> Douban
+> Random
+> Entropy
+> Margin
+> Betweenness
+> Density
+> GibbsMatchings
+> TopMatchings
+> AvAtar-L2
+> AvAtar-consist
+
+Figure 2. MRR vs. total query time of A VATAR and baselines, showing that A VATAR achieves up to 25 × speed-up and 8.1% improvement in MRR compared to existing active NA methods. 
+
+We observe that (1) A VATAR -ENTROPY /L2 consistently achieve state-of-the-art performance on both CDA tasks ,demonstrating the effectiveness of A VATAR on OT-based alignment methods for CDA. (2) A VATAR -ENTROPY aligns well with the objective of entropic OT . A VATAR -ENTROPY 
+
+typically outperforms A VATAR -L2 under most settings ex-cept for the image-text grounding task by GOT-FGW, which implies that fentropy generally aligns better with the objec-tive of entropic OT alignment. (3) Gradients characterize the informativeness of a candidate better than the plain transport plan T. A VATAR -ENTROPY consistently outper-forms E NTROPY by up to 2.6% in Recall@1, suggesting that the gradients propagated through OT provide more ac-curate measures of the informativeness of candidates than directly applying the same utility function on T.
+
+5.3. Efficiency Results 
+
+We study the effectiveness-efficiency trade-off of proposed AVATAR -L2/CONSIST compared with other baseline query methods on phone-email and Douban datasets using PAR-ROT (Zeng et al., 2023a). The MRR vs. query time trade-off results are shown in Figure 2. We can see that AVATAR -
+
+L2/CONSIST achieve a good balance between the align-ment performance and query time . Specifically, A VATAR 
+
+achieves up to 25 × speed-up compared to T OP MATCH -
+
+INGS , and up to 8.1% improvement in MRR compared to GIBBS MATCHINGS , demonstrating both the effectiveness and efficiency of A VATAR over existing active NA meth-ods. While most other baselines are slightly faster, they are consistently less effective in improving the alignment 7AVATAR : Learning to Align via Active Optimal Transport 2 4 6 8 10       
+
+> Iteration
+> 0.0
+> 0.2
+> 0.4
+> 0.6
+> 0.8
+> 1.0
+> s(t)
+> CG ( =5 × 10 3)
+> CG ( =5 × 10 4)
+> CG ( =5 × 10 5)
+> SH ( =5 × 10 3)
+> SH ( =5 × 10 4)
+> SH ( =5 × 10 5)
+
+(a) AVATAR -L22 4 6 8 10        
+
+> Iteration
+> 0.0
+> 0.2
+> 0.4
+> 0.6
+> 0.8
+> 1.0
+> s(t)
+> CG ( =5 × 10 3)
+> CG ( =5 × 10 4)
+> CG ( =5 × 10 5)
+> SH ( =5 × 10 3)
+> SH ( =5 × 10 4)
+> SH ( =5 × 10 5)
+
+(b) AVATAR -CONSIST 
+
+Figure 3. Convergence analysis of the conjugate gradient (CG) and the Sinkhorn (SH) algorithm in A VATAR under different entropic regularization weight ϵ.
+
+performance than A VATAR . More results on scalability are included in Appendix C.2. 
+
+5.4. Convergence Results 
+
+We evaluate the convergence of the the conjugate gradient (CG) method for solving Eq. (6) and that of the Sinkhorn (SH) algorithm used for solving OT-based alignment, in terms of the difference between two consecutive solutions 
+
+∆s(t) = ∥s(t) − s(t−1) ∥1, on Phone-Email. For CG, s = y
+
+in Eq. (6) ; for SH, s = vec (T). Results are normalized to ensure a fair comparison. The corresponding convergence result of A VATAR -L2 and A VATAR -CONSIST , are shown in Figure 3. We observe that (1) CG converges empirically 
+
+when applied to Eq. (6) , which validates the convergence of AVATAR . (2) The convergence of SH is more sensitive to ϵ
+
+than CG. As the entropic regularization weight ϵ decreases, SH becomes increasingly ill-conditioned and harder to con-verge, while the convergence rate of CG remains relatively stable. (3) CG converges faster than SH under the same 
+
+ϵ, suggesting that the CG method, with a linear time com-plexity per iteration, incurs negligible overhead compared to the Sinkhorn algorithm for solving OT. 
+
+5.5. Further Studies 
+
+5.5.1. H YPERPARAMETER ANALYSIS 
+
+Query Budget k. The impact of the query budget k is presented in Tables 3-5 and Appendix C.1, which shows that the alignment performance of A VATAR improves mono-tonically as the query budget k increases. 
+
+Query Batch Size nb. We perform a sensitivity study on the query batch size nb in Figure 4. We adopt A VATAR -L2
+
+and test the performance of PARROT on two datasets as the query batch size nb changes under different query budget k.We can see in Figure 4 that the performance of A VATAR -L2
+
+remains stable under different choices of nb, with only slight performance improvement when nb is smaller on Douban. 5.5.2. A BLATION STUDY 
+
+Sparse vs. Dense Matrix Operation in CG. As men-tioned in Section 4.3, A VATAR leverages the sparsity of the transport plan T to achieve linear time complexity. To 5 10 20 25 40           
+
+> Query Batch Size nb
+> 0.50
+> 0.53
+> 0.55
+> 0.58
+> 0.60
+> 0.62
+> MRR
+> Phone-Email
+> 510 20 25 40
+> Query Batch Size nb
+> 0.74
+> 0.76
+> 0.78
+> 0.80
+> 0.82
+> MRR
+> Douban
+> k=40 k=80 k=120 k=160 k=200
+
+Figure 4. Parameter study for query batch size nb on A VATAR -L2.
+
+verify the effectiveness and efficiency of sparse matrix opera-tions in A VATAR , we compare the alignment performance of AVATAR with A VATAR (Dense), which computes Eq. (7) and Eq. (8) by dense matrix operations. Specifically, we com-pare A VATAR -L2 with A VATAR -L2 (Dense), and A VATAR -
+
+CONSIST with A VATAR -CONSIST (Dense). The results on two datasets are shown in Table 6. We observe that (1) 
+
+Sparse matrix operations do not harm the empirical performance of A VATAR , as we can see that the alignment performance of A VATAR and A VATAR (Dense) remains close across different datasets. (2) Sparse matrix operation sig-nificantly improves the efficiency of A VATAR . A VATAR 
+
+runs significantly faster than A VATAR (Dense) with up to 
+
+1010 /118 ≈ 8.6 times speed-up, demonstrating the effi-ciency of sparse matrix operations on A VATAR .
+
+Table 6. Ablation study on sparse matrix operations adopted by AVATAR .
+
+Dataset Douban ACM-DBLP-A Metric MRR Time(s) MRR Time(s) AVATAR -L2(Dense) 0.839 19 0.936 879 AVATAR -L2 0.837 5.1 0.936 107 
+
+AVATAR -CONSIST (Dense) 0.834 20 0.936 1010 AVATAR -CONSIST 0.835 5.4 0.935 118 
+
+Posterior vs. Uniform Aggregation. We verify the necessity of using transport plan T as a posterior in Eq. (8) by comparing the performance of A VATAR with AVATAR (Uniform), which aggregated pairwise objects query impact in Eq. (4) uniformly for computing the object-level query impact, i.e., I(pi) = Pmj=1 I(pij ).As shown in Table 7, A VATAR consistently outperforms AVATAR (Uniform) on both Douban and ACM-DBLP-A un-der different choices of utility functions, demonstrating the informativeness of the transport plan T as a posterior. 
+
+5.6. Visualizations Sparsity of Transport Plans To verify the sparsity of the output transport plan T, we visualize randomly sampled 
+
+T (300x300) of different OT-based alignment methods un-der their default hyperparameter settings in Figure 5. The results show that the T returned by different OT-based methods are empirically sparse across different alignment tasks, with over 99% entries close to zero , suggesting that 8AVATAR : Learning to Align via Active Optimal Transport                                  
+
+> (a) PARROT on Phone-Email (b) JOENA on Phone-Email (c) GOT-W on ImageNet-C (d) GOT-W on COCO
+> Figure 5. Visualization of transport plans Tof different OT-based methods on different datasets under default hyperparameter settings in their original papers. Lighter pixels denotes higher value. Ground-truth alignment are moved to diagonals for better visualization.
+> Table 7. Ablation study on posterior aggregation of pairwise ob-jects query impact in A VATAR .
+> Dataset Douban Phone-Email Metric Hits@1 MRR Hits@1 MRR AVATAR -L2(Uniform) 0.558 0.669 0.397 0.522 AVATAR -L20.755 0.837 0.495 0.629
+> AVATAR -CONSIST (Uniform) 0.572 0.677 0.379 0.506 AVATAR -CONSIST 0.753 0.835 0.498 0.630
+
+OT-based methods typically choose a small entropic regu-larization weight ϵ to approximate deterministic, one-to-one alignment, making it possible for A VATAR to achieve linear time complexity by leveraging the sparsity of T.
+
+Drifts of Transport Plans. To improve interpretability regarding the corrective benefit of the oracle, we include an additional study on the drift of T(i) from T(0) in the 
+
+i-th query round, measured by the Frobenius norm of their difference (i.e., ∥T(i) − T(0) ∥F. The results are shown in Figure 11, which shows that (1) T(i) gradually drifts from 
+
+T(0) with increasing level of supervision along query rounds , and (2) the drift of T positively correlates with the performance improvement of OT-based alignment methods , suggesting that the acquired supervision from the oracle gradually corrects T to infer accurate alignment. 
+
+6. Related Work 
+
+6.1. Optimal Transport 
+
+OT has recently attracted increasing attention in alignment problems for its effectiveness in aligning distributional struc-tures and its efficiency enabled by entropic regularization. For NA, PARROT (Zeng et al., 2023a) proposes a regular-ized OT-based algorithm and integrates consistency princi-ples for effective cost design. JOENA (Yu et al., 2025b) further unifies embedding learning and OT optimization, enabling end-to-end training of an effective and robust NA model. For CDA, GOT (Chen et al., 2020) combines both Wasserstein and Gromov-Wasserstein distance and proposes a principled framework for regularizing cross-domain align-ment. DCOT (Wang et al., 2024) designs a dual-view OT framework for cross-modality retrieval. While OT has been used extensively for alignment, few works have studied OT-based alignment methods under active learning settings. 
+
+6.2. Active Alignment 
+
+Active alignment falls into the broad category of active learning, which studies how to maximally improve the per-formance of a machine learning model by querying as few supervision as possible from an oracle (Ren et al., 2021; Li et al., 2024). The sparse literature on active alignment mainly focus on network data. (Malmi et al., 2017) proposes two active NA methods that samples the most uncertain nodes via bipartite matching. Utilizing inter-network meta diagram and link selection, ActiveIter (Ren et al., 2019) introduces an active NA methods specifically for social net-works. Attent (Zhou et al., 2021) proposes an active learning method for attributed consistency-based NA. While promis-ing for specific NA tasks, they rely on network data and are not readily applicable to other alignment tasks such as cross-domain alignment, which are critical stepping stones for cross-domain and multi-modal machine learning (Gan et al., 2022; Liang et al., 2024; Wei et al., 2024; Zeng et al., 2025b; 2026b; 2025a; 2026a). 
+
+7. Conclusion 
+
+In this paper, we study the active alignment problem based on optimal transport. We select the most informative candi-dates to query based on their impact on the global alignment results encoded by effective utility functions, computed by gradient propagation through the entropy-regularized OT formulation. To differentiate through OT, we leverage the adjoint-state method to reformulate the computation to solv-ing a linear system, which is solvable via the conjugate gradient method with linear complexity and guaranteed con-vergence. Based on these, we propose a generic active learn-ing framework A VATAR for OT-based alignment applicable to diverse alignment tasks. Extensive experiments across three different alignment tasks demonstrate the effectiveness and scalability of A VATAR on real-world datasets. 9AVATAR : Learning to Align via Active Optimal Transport 
+
+Impact Statement 
+
+This paper presents work whose goal is to advance the field of Active Machine Learning and Optimal Transport. There are many potential societal consequences of our work, none of which we feel must be specifically highlighted here. 
+
+Acknowledgment 
+
+This work is supported by NSF (2433308, 2416606) and AFOSR (FA9550-24-1-0002). The content of the infor-mation in this document does not necessarily reflect the position or the policy of the Government, and no official endorsement should be inferred. The U.S. Government is authorized to reproduce and distribute reprints for Govern-ment purposes notwithstanding any copyright notation here on. 
+
+References 
+
+Bartan, B., Qiu, R., Esteves, R., Ren, Y., Zeng, W. W., and Chen, A. FineAMP: optimization-based automatic mixed precision quantization for efficient diffusion model inference. The 17th International OPT Workshop on Optimization for Machine Learning , 2025. Boyd, S. and Vandenberghe, L. Convex optimization . Cam-bridge university press, 2004. Chen, L., Gan, Z., Cheng, Y., Li, L., Carin, L., and Liu, J. Graph optimal transport for cross-domain alignment. In International Conference on Machine Learning , pp. 1542–1553. PMLR, 2020. Chen, L., Qiu, R., Yuan, S., Liu, Z., Wei, T., Yoo, H., Zeng, Z., and Yang, D. WAPITI: a watermark for finetuned open-source LLMs. arXiv preprint , 2024. Chen, S., Qi, Y., Ai, M., Sun, Y., Qiu, R., Zou, J., and He, J. Influence-preserving proxies for gradient-based data selection in LLM finetuning. In The Fourteenth International Conference on Learning Representations ,2026. Cheng, A., Zhou, C., Yang, H., Wu, J., Li, L., Tan, J., and Guo, L. Deep active learning for anchor user prediction. 
+
+arXiv preprint arXiv:1906.07318 , 2019. Cheng, Y., Zhu, X., Qian, J., Wen, F., and Liu, P. Cross-modal graph matching network for image-text retrieval. 
+
+ACM Transactions on Multimedia Computing, Communi-cations, and Applications (TOMM) , 18(4):1–23, 2022. Du, B., Zhang, S., Yan, Y., and Tong, H. New frontiers of multi-network mining: Recent developments and fu-ture trend. In Proceedings of the 27th ACM SIGKDD Conference on Knowledge Discovery & Data Mining , pp. 4038–4039, 2021. Freeman, L. C. A set of measures of centrality based on betweenness. Sociometry , pp. 35–41, 1977. Gabriel, P. and Marco, C. Computational optimal trans-port with applications to data sciences. Foundations and Trends® in Machine Learning , 11(5-6):355–607, 2019. Gan, Z., Li, L., Li, C., Wang, L., Liu, Z., Gao, J., et al. Vision-language pre-training: Basics, recent advances, and future trends. Foundations and Trends® in Computer Graphics and Vision , 14(3–4):163–352, 2022. Haitman, Y., Efraim, A., and Francos, J. M. Umeregrobust-universal manifold embedding compatible features for robust point cloud registration. In European Conference on Computer Vision , pp. 358–374. Springer, 2024. Han, X., Zhang, Z., Ding, N., Gu, Y., Liu, X., Huo, Y., Qiu, J., Yao, Y., Zhang, A., Zhang, L., et al. Pre-trained models: Past, present and future. Ai Open , 2:225–250, 2021. Hayami, K. Convergence of the conjugate gradient method on singular systems. arXiv preprint arXiv:1809.00793 ,2018. He, X., Kang, J., Qiu, R., Wang, F., Sepulveda, J., and Tong, H. On the sensitivity of individual fairness: Measures and robust algorithms. In Proceedings of the 33rd ACM International Conference on Information and Knowledge Management , 2024. Hendrycks, D. and Dietterich, T. Benchmarking neural network robustness to common corruptions and perturba-tions. arXiv preprint arXiv:1903.12261 , 2019. Kaasschieter, E. F. Preconditioned conjugate gradients for solving singular systems. Journal of Computational and Applied mathematics , 24(1-2):265–275, 1988. Kim, Y. and Shin, B. In defense of core-set: A density-aware core-set selection for active learning. In Proceedings of the 28th ACM SIGKDD conference on knowledge discov-ery and data mining , pp. 804–812, 2022. Korotin, A., Selikhanovych, D., and Burnaev, E. Neural op-timal transport. arXiv preprint arXiv:2201.12220 , 2022. Krizhevsky, A., Hinton, G., et al. Learning multiple layers of features from tiny images. 2009. Li, D., Wang, Z., Chen, Y., Jiang, R., Ding, W., and Oku-mura, M. A survey on deep active learning: Recent advances and new frontiers. IEEE Transactions on Neu-ral Networks and Learning Systems , 36(4):5879–5899, 2024. 10 AVATAR : Learning to Align via Active Optimal Transport 
+
+Li, L. H., Zhang, P., Zhang, H., Yang, J., Li, C., Zhong, Y., Wang, L., Yuan, L., Zhang, L., Hwang, J.-N., et al. Grounded language-image pre-training. In Proceedings of the IEEE/CVF conference on computer vision and pattern recognition , pp. 10965–10975, 2022. Liang, P. P., Zadeh, A., and Morency, L.-P. Foundations & trends in multimodal machine learning: Principles, challenges, and open questions. ACM Computing Surveys ,56(10):1–42, 2024. Lin, T.-Y., Maire, M., Belongie, S., Hays, J., Perona, P., Ra-manan, D., Doll ´ar, P., and Zitnick, C. L. Microsoft coco: Common objects in context. In European conference on computer vision , pp. 740–755. Springer, 2014. Liu, Z., Qiu, R., Zeng, Z., Yoo, H., Zhou, D., Xu, Z., Zhu, Y., Weldemariam, K., He, J., and Tong, H. Class-imbalanced graph learning without class rebalancing. In Proceed-ings of the 41st International Conference on Machine Learning , 2024. Macskassy, S. A. Using graph-based metrics with empiri-cal risk minimization to speed up active learning on net-worked data. In Proceedings of the 15th ACM SIGKDD international conference on Knowledge discovery and data mining , pp. 597–606, 2009. Malmi, E., Gionis, A., and Terzi, E. Active network align-ment: A matching-based approach. In Proceedings of the 2017 ACM on Conference on Information and Knowledge Management , pp. 1687–1696, 2017. Nemirovski, A. and Rothblum, U. On complexity of matrix scaling. Linear Algebra and its Applications , 302:435– 460, 1999. Ning, X., Fu, D., Wei, T., Xu, W., and He, J. Graph4mm: Weaving multimodal learning with structural information. 
+
+arXiv preprint arXiv:2510.16990 , 2025. Peyr ´e, G., Cuturi, M., and Solomon, J. Gromov-wasserstein averaging of kernel and distance matrices. In Interna-tional conference on machine learning , pp. 2664–2672. PMLR, 2016. Plummer, B. A., Wang, L., Cervantes, C. M., Caicedo, J. C., Hockenmaier, J., and Lazebnik, S. Flickr30k entities: Collecting region-to-phrase correspondences for richer image-to-sentence models. In Proceedings of the IEEE international conference on computer vision , pp. 2641– 2649, 2015. Qin, Z., Yu, H., Wang, C., Guo, Y., Peng, Y., Ilic, S., Hu, D., and Xu, K. Geotransformer: Fast and robust point cloud registration with geometric transformer. IEEE Transac-tions on Pattern Analysis and Machine Intelligence , 45 (8):9806–9821, 2023. Qiu, R. and Tong, H. Gradient compressed sensing: A query-efficient gradient estimator for high-dimensional zeroth-order optimization. In Proceedings of the 41st International Conference on Machine Learning , 2024. Qiu, R., Jang, J.-G., Lin, X., Liu, L., and Tong, H. TUCKET: a tensor time series data structure for efficient and accu-rate factor analysis over time ranges. In Proceedings of the VLDB Endowment 17 , number 13, 2024. Ren, P., Xiao, Y., Chang, X., Huang, P.-Y., Li, Z., Gupta, B. B., Chen, X., and Wang, X. A survey of deep active learning. ACM computing surveys (CSUR) , 54(9):1–40, 2021. Ren, Y., Aggarwal, C. C., and Zhang, J. Meta diagram based active social networks alignment. In 2019 IEEE 35th International Conference on Data Engineering (ICDE) ,pp. 1690–1693. IEEE, 2019. Sadr, M., Tohme, T., and Youcef-Toumi, K. Data-driven discovery of pdes via the adjoint method. arXiv preprint arXiv:2401.17177 , 2024. Santambrogio, F. Optimal transport for applied mathemati-cians. 2015. Strang, G. Introduction to linear algebra . SIAM, 2022. Tang, J., Zhang, J., Yao, L., Li, J., Zhang, L., and Su, Z. Arnetminer: extraction and mining of academic social networks. In Proceedings of the 14th ACM SIGKDD international conference on Knowledge discovery and data mining , pp. 990–998, 2008. Tang, J., Zhang, W., Li, J., Zhao, K., Tsung, F., and Li, J. Robust attributed graph alignment via joint structure learning and optimal transport. In 2023 IEEE 39th In-ternational Conference on Data Engineering (ICDE) , pp. 1638–1651. IEEE, 2023. Wang, D., Yan, Y., Qiu, R., Zhu, Y., Guan, K., Margenot, A. J., and Tong, H. Networked time series imputation via position-aware graph enhanced variational autoencoders. In Proceedings of the 29th ACM SIGKDD Conference on Knowledge Discovery and Data Mining , 2023. Wang, Y., Wang, S., Luo, H., Dong, J., Wang, F., Han, M., Wang, X., and Wang, M. Dual-view curricular optimal transport for cross-lingual cross-modal retrieval. IEEE Transactions on Image Processing , 33:1522–1533, 2024. Wei, T., Qiu, R., Chen, Y., Qi, Y., Lin, J., Xu, W., Nag, S., Li, R., Lu, H., Wang, Z., et al. Robust watermarking for diffusion models: A unified multi-dimensional recipe, 2024b. URL https://openreview. net/pdf , 2024. 11 AVATAR : Learning to Align via Active Optimal Transport 
+
+Wei, T., Qiu, R., Chen, Y., Qi, Y., Lin, J., Bao, W., Xu, W., Nag, S., Li, R., Lu, H., Wang, Z., Luo, C., Liu, H., Wang, S., He, J., He, Q., and Tang, X. DiffKGW: stealthy and robust diffusion model watermarking. Transactions on Machine Learning Research , 2026. Xu, Z., Qiu, R., Chen, Y., Chen, H., Fan, X., Pan, M., Zeng, Z., Das, M., and Tong, H. Discrete-state continuous-time diffusion for graph generation. In Advances in Neural Information Processing Systems 37 , 2024. Yan, Y., Zhou, Q., Li, J., Abdelzaher, T., and Tong, H. Dissecting cross-layer dependency inference on multi-layered inter-dependent networks. In Proceedings of the 31st ACM International Conference on Information & Knowledge Management , pp. 2341–2351, 2022. Yilmaz, Z. A., Yang, W., Zhang, H., and Lin, J. Cross-domain modeling of sentence-level evidence for docu-ment retrieval. In Proceedings of the 2019 conference on empirical methods in natural language processing and the 9th international joint conference on natural language processing (EMNLP-IJCNLP) , pp. 3490–3496, 2019. Yoo, H., Zeng, Z., Kang, J., Qiu, R., Zhou, D., Liu, Z., Wang, F., Xu, C., Chan, E., and Tong, H. Ensuring user-side fairness in dynamic recommender systems. In 
+
+Proceedings of the ACM Web Conference 2024 , 2024. Young, P., Lai, A., Hodosh, M., and Hockenmaier, J. From image descriptions to visual denotations: New similarity metrics for semantic inference over event descriptions. 
+
+Transactions of the association for computational linguis-tics , 2:67–78, 2014. Yu, H., Li, F., Saleh, M., Busam, B., and Ilic, S. Cofinet: Reliable coarse-to-fine correspondences for robust point-cloud registration. Advances in Neural Information Pro-cessing Systems , 34:23872–23884, 2021. Yu, H., Qin, Z., Hou, J., Saleh, M., Li, D., Busam, B., and Ilic, S. Rotation-invariant transformer for point cloud matching. In Proceedings of the IEEE/CVF conference on computer vision and pattern recognition , pp. 5384– 5393, 2023. Yu, Q., Zeng, Z., Yan, Y., Liu, Z., Jing, B., Qiu, R., Azad, A., and Tong, H. Planetalign: A comprehensive python library for benchmarking network alignment. arXiv preprint arXiv:2505.21366 , 2025a. Yu, Q., Zeng, Z., Yan, Y., Ying, L., Srikant, R., and Tong, H. Joint optimal transport and embedding for network align-ment. In Proceedings of the ACM on Web Conference 2025 , pp. 2064–2075, 2025b. Zeng, Z., Zhang, S., Xia, Y., and Tong, H. Parrot: Position-aware regularized optimal transport for network align-ment. In Proceedings of the ACM web conference 2023 ,pp. 372–382, 2023a. Zeng, Z., Zhu, R., Xia, Y., Zeng, H., and Tong, H. Gen-erative graph dictionary learning. In International Con-ference on Machine Learning , pp. 40749–40769. PMLR, 2023b. Zeng, Z., Du, B., Zhang, S., Xia, Y., Liu, Z., and Tong, H. Hierarchical multi-marginal optimal transport for net-work alignment. In Proceedings of the AAAI Conference on Artificial Intelligence , volume 38, pp. 16660–16668, 2024a. Zeng, Z., Qiu, R., Xu, Z., Liu, Z., Yan, Y., Wei, T., Ying, L., He, J., and Tong, H. Graph mixup on approximate Gro-mov–Wasserstein geodesics. In Proceedings of the 41st International Conference on Machine Learning , 2024b. Zeng, Z., Hang, M., Liu, X., Liu, X., Lin, X., Qiu, R., Wei, T., Liu, Z., Yuan, S., Yang, C., Liu, Y., Yin, H., Yang, J., and Tong, H. Hierarchical LoRA MoE for efficient CTR model scaling. arXiv preprint , 2025a. Zeng, Z., Liu, X., Hang, M., Liu, X., Zhou, Q., Yang, C., Liu, Y., Ruan, Y., Chen, L., Chen, Y., et al. Interformer: Effective heterogeneous interaction learning for click-through rate prediction. In Proceedings of the 34th ACM International Conference on Information and Knowledge Management , pp. 6225–6233, 2025b. Zeng, Z., Qiu, R., Bao, W., Wei, T., Lin, X., Yan, Y., Ab-delzaher, T. F., Han, J., and Tong, H. Pave your own path: Graph gradual domain adaptation on fused gromov-wasserstein geodesics. arXiv preprint arXiv:2505.12709 ,2025c. Zeng, Z., Bao, W., Lin, X., Qiu, R., Wei, T., Ning, X., Yan, Y., Luo, C., Cheng, M. X., He, J., and Tong, H. Subspace alignment for vision-language model test-time adaptation. 
+
+arXiv preprint , 2026a. Zeng, Z., Yu, Q., Lin, X., Qiu, R., Ning, X., Wei, T., Yan, Y., He, J., and Tong, H. Harnessing consistency for robust test-time LLM ensemble. Findings of the Association for Computational Linguistics: EACL 2026 , 2026b. Zhang, S. and Tong, H. Final: Fast attributed network alignment. In Proceedings of the 22nd ACM SIGKDD international conference on knowledge discovery and data mining , pp. 1345–1354, 2016. Zhang, S., Tong, H., Tang, J., Xu, J., and Fan, W. ineat: In-complete network alignment. In 2017 IEEE International Conference on Data Mining (ICDM) , pp. 1189–1194. IEEE, 2017. 12 AVATAR : Learning to Align via Active Optimal Transport 
+
+Zhou, Q., Li, L., Wu, X., Cao, N., Ying, L., and Tong, H. At-tent: Active attributed network alignment. In Proceedings of the Web Conference 2021 , pp. 3896–3906, 2021. 13 AVATAR : Learning to Align via Active Optimal Transport 
+
+A. Proof 
+
+A.1. Proof of Lemma 4.2 Lemma. The gradient of a utility function f (T) w.r.t. the cost function ˜C under the entropy-regularized OT formulation can be computed by solving a linear system with respect to adjoint vectors yα ∈ Rn, yβ ∈ Rm as follows, 
+
+∇ ˜Cf = 1
+
+ϵ T ⊙  yα1⊤ 
+
+> m
+
++ 1ny⊤ 
+
+> β
+
+− ∇ Tf  (9) 
+
+s.t. diag (μ) TT⊤ diag (ν)
+
+| {z }
+
+> A
+
+yα
+
+yβ
+
+| {z } 
+
+> y
+
+=
+
+ (T ⊙ ∇ Tf ) 1m
+
+(T ⊙ ∇ Tf )⊤ 1n
+
+| {z }
+
+> b
+
+(10) 
+
+where ϵ is the entropic regularization weight, μ, ν are marginal distributions of OT, and diag (·) creates a diagonal matrix from a vector. Proof. Consider the entropy-regularized OT formulation in Eq. (2) . We introduce two dual variables α ∈ Rn, β ∈ Rm for the marginal constraints of OT, and gives the Lagrangian of Eq. (2) as 
+
+L(T, α, β) = ⟨ ˜C, T⟩ + ϵ X
+
+> i,j
+
+Ti,j (log Ti,j − 1) + α⊤(μ − T1 m) + β⊤(ν − T⊤1n) (11) The first order condition gives 
+
+∂L(T, α, β)
+
+∂Ti,j 
+
+= ˜Ci,j + ϵ log Ti,j − αi − βj = 0 (12) which yields 
+
+Ti,j = exp αi + βj − ˜Ci,j 
+
+ϵ
+
+!
+
+(13) for an optimal transport map T to the entropy-regularized OT problem. We take the differential of Eq. (13) as follows 
+
+d ˜Ci,j + ϵd (log Ti,j ) − dαi − dβj = 0 (14) which can be reformulated in matrix form as follows 
+
+dT = 1
+
+ϵ T ⊙
+
+
+
+dα1⊤ 
+
+> m
+
++ 1ndβ⊤ − d ˜C
+
+
+
+(15) Next, we impose the marginal constraints to derive a linear system of equations. Since the marginal constraints of OT are always satisfied, their differentials must be zero, i.e., 
+
+dT1 m = 0 (16) 
+
+(d T)⊤ 1n = 0 (17) Firstly, we plug Eq. (15) into Eq. (16), which gives 
+
+1
+
+ϵ
+
+ T ⊙  dα1⊤
+
+> m
+
+ 1m +
+
+
+
+T ⊙
+
+
+
+1ndβ⊤ 
+
+1m −
+
+
+
+T ⊙ d ˜C
+
+
+
+1m
+
+
+
+= 0 (18) where  T ⊙  dα1⊤
+
+> m
+
+ 1m = ( T1 m) ⊙ dα = diag (μ)d α
+
+
+
+T ⊙
+
+
+
+1ndβ⊤ 
+
+1m = Tdβ (19) Therefore, Eq (18) gives the first part of the linear system as follows diag (μ)d α + Tdβ =
+
+
+
+T ⊙ d ˜C
+
+
+
+1m (20) 14 AVATAR : Learning to Align via Active Optimal Transport 
+
+Secondly, we plug Eq. (15) into Eq. (17), which gives 
+
+1
+
+ϵ
+
+ T ⊙  dα1⊤
+
+> m
+
+ ⊤ 1n +
+
+
+
+T ⊙
+
+
+
+1ndβ⊤ ⊤
+
+1n −
+
+
+
+T ⊙ d ˜C
+
+⊤
+
+1n
+
+
+
+= 0 (21) where  T ⊙  dα1⊤
+
+> m
+
+ ⊤ 1n = T⊤dα
+
+
+
+T ⊙
+
+
+
+1ndβ⊤ ⊤
+
+1n =  T⊤1n
+
+ ⊙ dβ = diag (ν)d β
+
+(22) Therefore, Eq (21) gives the second part of the linear system as follows 
+
+T⊤dα + diag (ν)d β =
+
+
+
+T ⊙ d ˜C
+
+⊤
+
+1n (23) Combining Eq. (20) and (23) gives a block linear system as follows 
+
+diag (μ) TT⊤ diag (ν)
+
+  dα
+
+dβ
+
+
+
+=
+
+
+
+T ⊙ d ˜C
+
+
+
+1m
+
+
+
+T ⊙ d ˜C
+
+⊤
+
+1n
+
+ (24) Now, we derive the differential of utility function f (T) : Rn×m → R. By definition, df = ⟨∇ Tf, dT⟩. We plug this equation into Eq. (15), which gives 
+
+df = 1
+
+ϵ
+
+⟨G1 m, dα⟩ + ⟨G⊤1n, dβ⟩
+
+| {z }
+
+> Ω
+
+−⟨ G, d ˜C⟩
+
+ (25) where G is defined as 
+
+G := T ⊙ ∇ Tf (26) At this point, both dα and dβ are implicitly defined by Eq. (24) . To eliminate dα, dβ, we introduce an adjoint vector y ∈
+
+Rn+m and define the following linear system in Eq. (27). For readability, We write y =
+
+yα
+
+yβ
+
+
+
+where yα ∈ Rn, yβ ∈ Rm.
+
+diag (μ) TT⊤ diag (ν)
+
+  yα
+
+yβ
+
+
+
+=
+
+ G1 m
+
+G⊤1n
+
+
+
+(27) Let 
+
+A =
+
+diag (μ) TT⊤ diag (ν)
+
+
+
+(28) For Eq. (24) and (27), we have 
+
+A
+
+dα
+
+dβ
+
+
+
+=
+
+
+
+T ⊙ d ˜C
+
+
+
+1m
+
+
+
+T ⊙ d ˜C
+
+⊤
+
+1n
+
+ , A
+
+yα
+
+yβ
+
+
+
+=
+
+ G1 m
+
+G⊤1n
+
+
+
+(29) Now, we can reformulate the Ω term in Eq (25) as follows 
+
+Ω = ⟨G1 m, dα⟩ + ⟨G⊤1n, dβ⟩ =
+
+ G1 m
+
+G⊤1n
+
+
+
+,
+
+dα
+
+dβ
+
+ 
+
+=
+
+
+
+A
+
+yα
+
+yβ
+
+
+
+,
+
+dα
+
+dβ
+
+ 
+
+=
+
+ yα
+
+yβ
+
+
+
+, A
+
+dα
+
+dβ
+
+ | {z } 
+
+> given that A=A⊤
+
+=
+
+*yα
+
+yβ
+
+
+
+,
+
+
+
+T ⊙ d ˜C
+
+
+
+1m
+
+
+
+T ⊙ d ˜C
+
+⊤
+
+1n
+
++
+
+= ⟨yα,
+
+
+
+T ⊙ d ˜C
+
+
+
+1m⟩ + ⟨yβ ,
+
+
+
+T ⊙ d ˜C
+
+⊤
+
+1n⟩
+
+(30) 15 AVATAR : Learning to Align via Active Optimal Transport 
+
+Therefore, we reformulate Eq (25) as follows 
+
+df = 1
+
+ϵ
+
+
+
+⟨yα,
+
+
+
+T ⊙ d ˜C
+
+
+
+1m⟩ + ⟨yβ ,
+
+
+
+T ⊙ d ˜C
+
+⊤
+
+1n⟩ − ⟨ G, d ˜C⟩
+
+
+
+= 1
+
+ϵ
+
+
+
+⟨T ⊙  yα1⊤
+
+> m
+
+ , d ˜C⟩ + ⟨T ⊙  1ny⊤
+
+> β
+
+ , d ˜C⟩ − ⟨ G, d ˜C⟩
+
+
+
+=
+
+ 1
+
+ϵ T ⊙  yα1⊤ 
+
+> m
+
++ 1ny⊤ 
+
+> β
+
+− ∇ Tf  , d ˜C
+
+
+
+(31) In this way, we have the final formulation of ∇ ˜Cf as follows 
+
+∇ ˜Cf = df
+
+d ˜C = 1
+
+ϵ T ⊙  yα1⊤ 
+
+> m
+
++ 1ny⊤ 
+
+> β
+
+− ∇ Tf  (32) s.t. diag (μ) TT⊤ diag (ν)
+
+  yα
+
+yβ
+
+
+
+=
+
+ G1 m
+
+G⊤1n
+
+
+
+=
+
+ (T ⊙ ∇ Tf ) 1m
+
+(T ⊙ ∇ Tf )⊤ 1n
+
+
+
+(33) 
+
+A.2. Proof of Singularity of A in Eq. (6) 
+
+Proof. By Eq. (6), we have 
+
+A =
+
+diag (μ) TT⊤ diag (ν)
+
+
+
+(34) where μ, ν are marginal distributions of OT, and T is the solved transport map. As T satisfy the marginal constraints of OT, i.e., T1 m = μ, T⊤1n = ν, we can find a nonzero vector 
+
+ 1n
+
+−1m
+
+
+
+in the null space of A, i.e., 
+
+Az =
+
+diag (μ) TT⊤ diag (ν)
+
+  1n
+
+−1m
+
+
+
+=
+
+ diag (μ)1n − T1 m
+
+T⊤1n − diag (ν)1m
+
+
+
+=
+
+ μ − T1 m
+
+T⊤1n − ν
+
+
+
+= 0n+m (35) Therefore, A is a singular matrix. 
+
+A.3. Proof of Lemma 4.3 Lemma. Eq. (6) can be solved via conjugate gradient method with guaranteed convergence to global optimum. Proof. First, we prove that Eq. (6) can be solved via conjugate gradient method with guaranteed convergence. While the classical CG method requires the coefficient matrix A to be strictly positive definite, (Kaasschieter, 1988; Hayami, 2018) show that CG method can be applied directly to singular systems with guaranteed convergence when (1) A is positive-semidefinite, and (2) vector b in Eq. (6) lies in the range R(A) of A.We begin by proving that matrix A in Eq. (6) is positive-semidefinite. Firstly, A ∈ R(n+m)×(n+m) is symmetric as 
+
+A = A⊤. Secondly, for any vectors s ∈ Rn, t ∈ Rm, we have 
+
+st
+
+⊤
+
+A
+
+st
+
+
+
+=
+
+st
+
+⊤ diag (μ) TT⊤ diag (ν)
+
+  st
+
+
+
+= s⊤diag (μ)s + 2 s⊤Tt + t⊤diag (ν)t (36) As T satisfy the marginal constraints of OT, i.e., Pmj=1 Ti,j = μi, Pni=1 Ti,j = νj , we have 
+
+s⊤diag (μ)s =
+
+> n
+
+X
+
+> i=1
+
+s2 
+
+> i
+
+μi =
+
+> n
+
+X
+
+> i=1
+
+s2
+
+> im
+
+X
+
+> j=1
+
+Ti,j (37) 
+
+2s⊤Tt = 2 
+
+> n
+
+X
+
+> i=1
+> m
+
+X
+
+> j=1
+
+sitj Ti,j (38) 
+
+t⊤diag (ν)t =
+
+> m
+
+X
+
+> j=1
+
+t2 
+
+> j
+
+νj =
+
+> m
+
+X
+
+> j=1
+
+t2
+
+> jn
+
+X
+
+> i=1
+
+Ti,j (39) 16 AVATAR : Learning to Align via Active Optimal Transport 
+
+Therefore, Eq. (36) can be reformulated to 
+
+st
+
+⊤
+
+A
+
+st
+
+
+
+=
+
+> n
+
+X
+
+> i=1
+> m
+
+X
+
+> j=1
+
+Ti,j 
+
+ s2 
+
+> i
+
++ 2 sitj + t2
+
+> j
+
+ =
+
+> n
+
+X
+
+> i=1
+> m
+
+X
+
+> j=1
+
+Ti,j (si + tj )2 ≥ 0 (40) In this case, we have proven that A in Eq. (6) is positive-semidefinite. Then, we prove that vector b in Eq. (6) lies in the range R(A) of A by showing that b is orthogonal to the null space of A, i.e., z⊤b = 0 , ∀z ∈ Null (A) (Strang, 2022). For a vector 
+
+ s ∈ Rn
+
+t ∈ Rm
+
+
+
+in the null space of A, we have A
+
+st
+
+
+
+=
+
+0n+m, which means that 
+
+st
+
+⊤
+
+A
+
+st
+
+
+
+= 0 . As we shown in Appendix A.3, for any vector 
+
+st
+
+
+
+, we have 
+
+st
+
+⊤
+
+A
+
+st
+
+
+
+=
+
+Pni=1 
+
+Pmj=1 Ti,j (si + tj )2 ≥ 0, therefore the null space of A is Null (A) = 
+
+ st
+
+
+
+: si + tj = 0 
+
+
+
+= span 
+
+ 1n
+
+−1m
+
+ 
+
+(41) Since  1n
+
+−1m
+
+⊤
+
+b =
+
+ 1n
+
+−1m
+
+⊤  (T ⊙ ∇ Tf ) 1m
+
+(T ⊙ ∇ Tf )⊤ 1n
+
+
+
+= 0 (42) then b lies in the range R(A) of A. In this way, we have proven that CG solves Eq. (6) with guaranteed convergence. Then, we prove that CG converges to the global optimum of Eq. (6) . As A is symmetric, solving the linear system Ay = b
+
+is equivalent to minimizing a quadratic function g as follows (Boyd & Vandenberghe, 2004) 
+
+g(y) = 12 y⊤Ay − b⊤y (43) We can see that the Hessian of g is A, which is positive-semidefinite as proven above. Therefore, g is a convex quadratic function w.r.t. y (Boyd & Vandenberghe, 2004). Since Eq. (6) corresponds to the first-order optimality condition ∇yg(y) = 0, any solution of the linear system is a global optimum (Boyd & Vandenberghe, 2004). Since the CG method converges to a solution of Eq. (6) as proven above, the solution must be the global optimum. 
+
+A.4. Proof of Theorem 4.5 Theorem. (Time & Space Complexity of AVATAR -L2/ ENTROPY / CONSIST )The time complexity is O   kb K(n + m) for AVATAR -L2/ ENTROPY , and O   kb (K(n + m) + e) for AVATAR -CONSIST ,where e denotes the number of edges in the networks to be aligned 2. The space complexity of AVATAR -L2/ ENTROPY / 
+
+> CONSIST
+
+is O(nm ). k is the total query budget, b is the batch query size, K is the number of iterations of CG, and n, m are number of objects in the source and target sets, respectively. Proof. The computation of A VATAR consist of two main steps: 1) compute the pairwise object query impact by Eq. (7) 2) compute the posterior object query impact by Eq. (8) . Note that the transport map T at the end of each query round is typically a deterministic and sparse matrix with O(n + m) non-zero entries for alignment problems (Chen et al., 2020; Zeng et al., 2023a; Yu et al., 2025a), as shown empirically in Figure 11, making A in Eq. (6) sparse as well. We denote the number of non-zero entries in T by nnz (T). For the first step, we need to compute the vector b in Eq. (6) first in O(nnz (T)) 
+
+for A VATAR -L2/ENTROPY , and O(nnz (T) + n + m + e) for A VATAR -CONSIST (Macskassy, 2009). Then, we solve the linear system in Eq. (6) via the CG method with a time complexity of O(Knnz (T)) , where K is the total number of CG iterations (Kaasschieter, 1988). For the second step, Eq. (8) aggregates pairwise query impact in O(nnz (T)) . Therefore, for A VATAR -L2/ENTROPY , the time complexity for one query batch is O(nnz (T)) + O(Knnz (T)) + O(nnz (T)) = 
+
+O(Knnz (T)) ≈ O (K(n + m)) , making the total time complexity O( kb K(n + m)) ; for A VATAR -CONSIST , the time complexity for one query batch is O(nnz (T) + n + m + e) + O(Knnz (T)) + O(nnz (T)) = O(Knnz (T) + n + m + e) ≈O(K(n + m) + e), making the total time complexity O   kb (K(n + m) + e)
+
+While the transport map T is typically sparse for A VATAR , Eq. (7) requires explicit storage of the dense transport cost matrix 
+
+C. Therefore, the space complexity of A VATAR -L2 is O(nm ).       
+
+> 2Without loss of generality, we assume O(e)≈ O (e1)≈ O (e2)where eidenotes the number of edges in the i-th networks (Zeng et al., 2023a; Yu et al., 2025b).
+
+17 AVATAR : Learning to Align via Active Optimal Transport 
+
+A.5. Proof of Theorem 4.6 Theorem A.1. (Convergence of AVATAR )The conjugate gradient method applied to the linear system of Eq. (6) converges at a linear convergence rate of 
+
+√λ1/λ r −1
+
+√λ1/λ r +1 ,where λ1, λ r denotes the largest/smallest nonzero eigenvalues of A in Eq. (6) .Proof. (Hayami, 2018) shows that the error bound of CG method on a singular system Ay = b is 
+
+∥y(k) − y∗∥Λr ≤ 2
+
+( p κ(Λr ) − 1
+
+pκ(Λr ) + 1 
+
+)k
+
+∥y(0) − y∗∥Λr (44) where y(k) denotes y in the k-th round of CG method, and y∗ denotes the optimal solution. ∥x∥Λr = x⊤Λr x, where Λr is a diagonal matrix of the nonzero eigenvalues of A, i.e., 
+
+Λr =
+
+
+
+λ1
+
+. . .
+
+λr
+
+ , λ 1 ≥ λ2 ≥ . . . ≥ λr > 0 (45) where r = rank (A), λi are the nonzero eigenvalues of A. κ(Λr ) = λ1 
+
+> λr
+
+≥ 1. Since ρ =
+
+√κ(Λr )−1
+
+√κ(Λr )+1 ∈ [0 , 1) in this case, Eq. (6) converges linearly to a solution by CG method (Kaasschieter, 1988). 
+
+B. Detailed Experimental Pipeline 
+
+B.1. Datasets Descriptions 
+
+Detailed descriptions of datasets adopted in this paper are given as follows. 
+
+Phone-Email (Zhang et al., 2017). A pair of communication networks with nodes representing people and edges representing documented communication between them via phone or email. The phone network contains 1,000 nodes and 41,191 edges, and the Email network contains 1,003 nodes and 4,627 edges. No attribute information is available for both networks. There are 1,000 common people across two networks as ground-truth alignment. 
+
+ACM-DBLP-P(A) (Tang et al., 2008). A pair of undirected co-authorship networks with nodes representing authors and edges representing co-authorship between two authors. The ACM network contains 9,872 nodes and 39,561 edges, and the DBLP network contains 9,916 nodes and 44,808 edges. ACM-DBLP-A contains node attribute information while ACM-DBLP-P are plain networks. There are 6,325 common authors across two networks as ground-truth alignment. 
+
+Douban (Zhang & Tong, 2016). A pair of online-offline social networks collected from Douban, with nodes representing users and edges representing user interactions on the website. The online network of Douban contains 3,906 nodes and 8,164 edges, and the offline network of Douban contains 1,118 nodes and 1,511 edges. Node attribute are constructed from the the location of a user, and edge attributes from the contact/friend relationship on the social platform. There are 1,118 common user across the two networks. 
+
+CIFAR-10-C (Hendrycks & Dietterich, 2019). CIFAR-10-C consist of the original CIFAR-10 (Krizhevsky et al., 2009) test set images transformed by different types of corruptions at five levels of severity. In this paper, we adopt the gaussian perturbation version of CIFAR-10-C with level 5 severity. For image-text retrieval on CIFAR-10-C, we construct image-text pairs by associating each images with the corresponding textual description based on its class label, and treat retrieval as matching images to their corresponding text embeddings. 
+
+ImageNet-C (Hendrycks & Dietterich, 2019). ImageNet-C consist of the original images from ImageNet transformed by different types of corruptions at five levels of severity. we adopt the gaussian perturbation version level 5 severity. Image-text retrieval on ImageNet-C follows the same paradigm as CIFAR10-C. 
+
+COCO (Lin et al., 2014). COCO is a large-scale dataset for object detection, segmentation, and captioning. It contains photos of 91 objects types and around 2,500,000 labeled instances in 328,000 images. For image-text grounding on COCO, which contains explicit fine-grained correspondence between phrases in a sentence and objects (or regions) in an image, we treat grounding as an matching problem between phrases and objects for an image. 18 AVATAR : Learning to Align via Active Optimal Transport 
+
+Flickr30K Entities (Plummer et al., 2015). Flickr30K Entities is a standard benchmark for sentence-based image description, constructed by augmenting around 158,000 captions from the Flickr30k (Young et al., 2014) dataset. Flickr30K Entities links the same entities across different captions for the same image, and associating them with manually annotated bounding boxes in Flickr30K. Image-text grounding on Flickr30K Entities follows the same paradigm as COCO. 
+
+B.2. Introduction of Baseline Query Strategies Random. Selects candidate object from X randomly. 
+
+Entropy (Ren et al., 2021). Select candidate object from X whose Shannon entropy of its alignment results, i.e., Pmj −Ti,j log Ti,j for xi ∈ X , is the largest. The intuition is to select the most uncertain object to query, measured by entropy of its alignment results. 
+
+Margin (Ren et al., 2021). Select candidate objects from X whose differences between the two most probable labels reflected by T, i.e., Ti,j 1 − Ti,j 2 where Ti,j 1 := arg max j Ti,j and Ti,j 2 := arg max j̸ =j1 Ti,j , is the smallest. The intuition is to select the most uncertain object to query, measured by such differences. 
+
+Least Confident (Zhou et al., 2021). Select candidate objects from X whose confidence of alignment measured by the corresponding probability in T, i.e., max j Ti,j , is the smallest. The intuition is to select the least confident object to query. 
+
+Betweenness (Zhou et al., 2021). Select candidate nodes of NA from X that has the largest betweenness centrality scores. (Freeman, 1977). 
+
+Density (Li et al., 2024). Select candidate nodes from X that can represent all unlabeled source objects. The density score of a candidate object x is defined as Density (xi) = Pkxj ∈U∪N (xi,k ) ∥Ti, : − Tj, :∥22, where U denotes the set of unlabeled source objects, and N (xi, k ) denotes the k nearest neighbors of xi in X . We adopt k = 20 (Kim & Shin, 2022). Candidate objects with the highest density score are selected for query. 
+
+Diversity (Li et al., 2024). Select candidate nodes from X that are different from labeled source objects. The density score of a candidate object x is defined as Density (xi) = P  
+
+> xj∈L
+
+KL (Ti, :, Tj, :), where L ⊂ X denotes the set of labeled source objects, and KL (·, ·) denotes the KL divergence. 
+
+GibbsMatchings & TopMatchings (Malmi et al., 2017). Two matching-based query strategies for active NA that select uncertain candidate nodes from X whose sampled matchings aligns to different target nodes during different samples. 
+
+B.3. Detailed Experimental Setup Metrics. We adopt MRR and Recall@1 as the benchmarking metrics. For mean reciprocal rank (MRR) , it is defined as the average reciprocal of the rank at which the correct alignment appears in the candidate list, i.e., MRR = 1
+
+> n
+
+Pni=1 1 
+
+> rank i
+
+,where n is the size of source object set, and rank i is the rank of the correct alignment for the i-th object in the source set; for 
+
+Recall@1 , it is defined as the proportion of source object whose correct alignment is ranked 1st by an alignment method, i.e., Recall@1 = 1
+
+> n
+
+Pni=1 I{rank i = 1 }, where I{·} denotes the indicator function. For the total query time , it is defined as the accumulated runtime of different active alignment methods under a fixed query budget k and query batch size nb. Formally, 
+
+t(k,n b) = PNi=1 t(k,n b) 
+
+> i
+
+, where t(k,n b) 
+
+> i
+
+is time required to select query candidates at the i-th round, after the completion of the alignment algorithm. N denotes the total number of query rounds. 
+
+Reproducibility. For all experiments, the reported results are averaged against 5 different runs which randomly selects 20% ground-truth alignment as prior supervision for each run. To ensure a fair comparison, all baselines are given the same total query budget of 20% ground-truth, averaged against 10 query rounds (batches). Hyperparameters of all baselines alignment methods are set as default in their official implementations. Code and datasets are available at https://github.com/yq-leo/AvAtar-ICML26. 
+
+Machine. All experiments are conducted on a server with dual Intel® Xeon® Gold 6240R CPUs and 4 NVIDIA Tesla V100-SXM2 GPUs of 32GB memory. 19 AVATAR : Learning to Align via Active Optimal Transport 
+
+C. Additional Experimental Results 
+
+C.1. Detailed Effectiveness Results 1 2 3 4 5 6 7 8 9 10 
+
+Query Rounds 
+
+0.48 
+
+0.50 
+
+0.52 
+
+0.54 
+
+0.56 
+
+0.58 
+
+0.60 
+
+0.62 
+
+> MRR
+
+Phone-Email 
+
+1 2 3 4 5 6 7 8 9 10 
+
+Query Rounds 
+
+0.72 
+
+0.74 
+
+0.76 
+
+0.78 
+
+0.80 
+
+0.82 
+
+0.84 
+
+> MRR
+
+ACM-DBLP-P 
+
+1 2 3 4 5 6 7 8 9 10 
+
+Query Rounds 
+
+0.72 
+
+0.74 
+
+0.76 
+
+0.78 
+
+0.80 
+
+0.82 
+
+> MRR
+
+Douban 
+
+1 2 3 4 5 6 7 8 9 10 
+
+Query Rounds 
+
+0.82 
+
+0.84 
+
+0.86 
+
+0.88 
+
+0.90 
+
+0.92 
+
+> MRR
+
+ACM-DBLP-A 
+
+Random Entropy Margin Betweenness Density GibbsMatchings TopMatchings AvAtar-L2 AvAtar-consist 
+
+Figure 6. MRR vs. query round on four NA datasets using the PARROT (Zeng et al., 2023a) algorithm 1 2 3 4 5 6 7 8 9 10 
+
+Query Rounds 
+
+0.55 
+
+0.60 
+
+0.65 
+
+0.70 
+
+0.75 
+
+0.80 
+
+> MRR
+
+Phone-Email 
+
+1 2 3 4 5 6 7 8 9 10 
+
+Query Rounds 
+
+0.750 
+
+0.775 
+
+0.800 
+
+0.825 
+
+0.850 
+
+0.875 
+
+0.900 
+
+0.925 
+
+> MRR
+
+ACM-DBLP-P 
+
+1 2 3 4 5 6 7 8 9 10 
+
+Query Rounds 
+
+0.84 
+
+0.85 
+
+0.86 
+
+0.87 
+
+0.88 
+
+0.89 
+
+0.90 
+
+0.91 
+
+> MRR
+
+Douban 
+
+1 2 3 4 5 6 7 8 9 10 
+
+Query Rounds 
+
+0.82 
+
+0.84 
+
+0.86 
+
+0.88 
+
+0.90 
+
+0.92 
+
+0.94 
+
+0.96 
+
+0.98 
+
+> MRR
+
+ACM-DBLP-A 
+
+Random Entropy Margin Betweenness Density GibbsMatchings TopMatchings AvAtar-L2 AvAtar-consist 
+
+Figure 7. MRR vs. query round on four NA datasets using the JOENA (Yu et al., 2025b) algorithm 1 2 3 4 5 6 7 8 9 10 
+
+Query Rounds 
+
+0.54 
+
+0.56 
+
+0.58 
+
+0.60 
+
+0.62 
+
+0.64 
+
+> Recall@1
+
+CIFAR10-C 
+
+1 2 3 4 5 6 7 8 9 10 
+
+Query Rounds 
+
+0.325 
+
+0.350 
+
+0.375 
+
+0.400 
+
+0.425 
+
+0.450 
+
+0.475 
+
+0.500 
+
+> Recall@1
+
+ImageNet-C 
+
+1 2 3 4 5 6 7 8 9 10 
+
+Query Rounds 
+
+0.50 
+
+0.52 
+
+0.54 
+
+0.56 
+
+0.58 
+
+0.60 
+
+> Recall@1
+
+CIFAR10-C 
+
+1 2 3 4 5 6 7 8 9 10 
+
+Query Rounds 
+
+0.275 
+
+0.300 
+
+0.325 
+
+0.350 
+
+0.375 
+
+0.400 
+
+0.425 
+
+0.450 
+
+> Recall@1
+
+ImageNet-C 
+
+(a) GOT-W (b) GOT-FGW 
+
+Random Entropy Margin Least Confident Density Diversity AvAtar-entropy AvAtar-L2
+
+Figure 8. MRR vs. query round on two image-text retrieval datasets using the GOT (Chen et al., 2020) algorithm 1 2 3 4 5 6 7 8 9 10 
+
+Query Rounds 
+
+0.46 
+
+0.48 
+
+0.50 
+
+0.52 
+
+0.54 
+
+0.56 
+
+0.58 
+
+0.60 
+
+0.62 
+
+> Recall@1
+
+COCO 
+
+1 2 3 4 5 6 7 8 9 10 
+
+Query Rounds 
+
+0.30 
+
+0.32 
+
+0.34 
+
+0.36 
+
+0.38 
+
+0.40 
+
+0.42 
+
+0.44 
+
+0.46 
+
+> Recall@1
+
+Flickr30K 
+
+1 2 3 4 5 6 7 8 9 10 
+
+Query Rounds 
+
+0.500 
+
+0.525 
+
+0.550 
+
+0.575 
+
+0.600 
+
+0.625 
+
+0.650 
+
+0.675 
+
+> Recall@1
+
+COCO 
+
+1 2 3 4 5 6 7 8 9 10 
+
+Query Rounds 
+
+0.500 
+
+0.525 
+
+0.550 
+
+0.575 
+
+0.600 
+
+0.625 
+
+0.650 
+
+> Recall@1
+
+Flickr30K 
+
+(a) GOT-W (b) GOT-FGW 
+
+Random Entropy Margin Least Confident Density Diversity AvAtar-entropy AvAtar-L2
+
+Figure 9. MRR vs. query round on two image-text grounding datasets using the GOT (Chen et al., 2020) algorithm 
+
+20 AVATAR : Learning to Align via Active Optimal Transport 
+
+C.2. Scalability Results 1 2 3 4 5 6 7 8 9 10 
+
+Number of nodes (×10 3)
+
+10 0
+
+10 1
+
+10 2
+
+10 3
+
+> Runtime (s)
+
+Random 
+
+Entropy 
+
+Margin 
+
+Betweenness 
+
+Density 
+
+GibbsMatchings 
+
+TopMatchings 
+
+AvAtar-L2 
+
+AvAtar-consist 
+
+Figure 10. Scalability results (under 10 3 runtime limit) on synthetic graphs generated by the Erd ˝os–R ´enyi (ER) model with an average node degree of 10. The x-axis shows the number of nodes in the ER graphs (in 10 3), and the y-axis of shows the runtime of query methods. The results confirm confirms that both A VATAR -L2 and A VATAR -consist scales linearly w.r.t. the number of nodes in networks, making it scalable to large-scale alignment problems. 0 2 4 6 8 10      
+
+> Query Rounds
+> 0.000
+> 0.005
+> 0.010
+> 0.015
+> 0.020
+> 0.025
+> T = T(i) T(0)  F
+> T=T(i)T(0) F
+> MRR = MRR (i)MRR (0)
+> 0.000
+> 0.025
+> 0.050
+> 0.075
+> 0.100
+> 0.125
+> 0.150
+> 0.175
+> MRR = MRR (i) MRR (0)
+
+Figure 11. Drift of transport plan T and alignment per-formance improvement across query rounds, on Phone-Email dataset using the PARROT (Zeng et al., 2023a) algorithm and A VATAR -L2
+
+Table 8. Comparison of OT-based alignment algorithm (PARROT) + OT-specific active learning methods (A VATAR -L2) with non-OT aligment algo-rithm (FINAL) + non-OT active learning methods (Attent) on NA tasks, in MRR. 
+
+Dataset Phone-Email Douban #-th Query Round 5 10 5 10 PARROT + A VATAR -L2 0.539 0.629 0.782 0.837 FINAL + Attent 0.158 0.219 0.315 0.348 
+
+∆ +0.381 +0.410 +0.467 +0.489 
+
+C.3. Comparision with Non-OT Baselines 
+
+To further demonstrate the power of OT-based alignment algorithm, e.g., PARROT (Zeng et al., 2023a), equipped with OT-specific active learning approach, i.e., A VATAR , we compare its performance with a consistency-based alignment algorithm FINAL (Zhang & Tong, 2016) with an active learning approach Attent (Zhou et al., 2021) tailored for consistency-based methods. The results are shown in Table 8, which shows that (1) PARROT + A VATAR consistently outperforms FINAL + Attent , demonstrating the power of OT-based alignment. (2) The performance gap increases as the query round (budget) increases , showing the superiority of A VATAR in boosting the performance of OT-based alignment methods. 
+
+C.4. Study on External Hyperparameters 
+
+We further validates the robustness of A VATAR against external hyperparameters of specific OT-based alignment algorithms, i.e., the penalizing factor β and the entropic regularization parameter ϵ, we conduct an additional set of hyperparameter study on Phone-Email with PARROT (Zeng et al., 2023a), and report results in Table 9. 
+
+D. Limitations & Future Works 
+
+In this section, we discuss some of the potential limitations of the proposed A VATAR . Firstly, the benefit of AvAtar may be partially reduced in some geometric matching tasks, e.g., point cloud registration (PCR), where the cost functions are relatively robust due to rich geometric information. However, this does not not render AvAtar inapplicable to PCR, 21 AVATAR : Learning to Align via Active Optimal Transport 
+
+Table 9. Study on external hyperparameters β and ϵ on Phone-Email with PARROT. The best results are highlighted in bold .
+
+Hyperparameter penalizing factor β entropic regularization weight ϵ
+
+Values 1.0 0.5 0.1 6e-5 6e-4 6e-3 #-th Query Round 5 10 5 10 5 10 5 10 5 10 5 10 RANDOM 0.517 0.568 0.290 0.335 0.289 0.321 0.352 0.394 0.517 0.568 0.218 0.252 ENTROPY 0.533 0.615 0.312 0.367 0.299 0.349 0.372 0.414 0.533 0.615 0.228 0.259 MARGIN 0.538 0.618 0.315 0.359 0.310 0.367 0.376 0.428 0.538 0.618 0.221 0.261 TOP MATCHINGS 0.512 0.576 0.308 0.329 0.301 0.352 0.358 0.409 0.512 0.576 0.231 0.279 AVATAR -L2 0.539 0.629 0.329 0.391 0.321 0.369 0.389 0.437 0.539 0.629 0.249 0.283 
+
+especially under imperfect cost design due to outlier points and noisy features (Qin et al., 2023; Qiu et al., 2024). Secondly, while A VATAR can be easily extended to some OT variants, e.g., unbalanced OT (Gabriel & Marco, 2019), and Gromov-Wasserstein distance (Peyr ´e et al., 2016), with entropic regularization, its extension to neural OT (Korotin et al., 2022) remains an interesting future work. 22

@@ -1,0 +1,154 @@
+Title: Cross-Modal Action Recognition in Egocentric Video Using Mamba: Integrating RGB and Hand Skeleton Streams via CLS Token Fusion Strategies
+
+URL Source: https://arxiv.org/pdf/2605.24302v1
+
+Published Time: Tue, 26 May 2026 00:28:22 GMT
+
+Number of Pages: 4
+
+Markdown Content:
+# Cross-Modal Action Recognition in Egocentric Video Using Mamba: Integrating RGB and Hand Skeleton Streams via CLS Token Fusion Strategies 
+
+Juan Ignacio Bustos Gorostegui Faculty of Exact and Natural Sciences of the University of Buenos Aires 
+
+> actimel1984@uba.ar
+
+Maria Elena Buemi Faculty of Exact and Natural Sciences of the University of Buenos Aires 
+
+> mebuemi@dc.uba.ar
+
+Abstract 
+
+Egocentric action recognition is a challenging task due to erratic camera motion, frequent hand occlusion, and the difficulty of maintaining consistent visual representations over time. In this work, we propose a cross-modal architec-ture that combines RGB video and temporal hand skeleton data within a unified Mamba-based framework, exploiting the linear time complexity of State Space Models (SSMs). Our architecture consists of three components: a Video-Mamba module for visual feature extraction, a skeleton en-coder built on a stack of Mamba blocks, and a fusion mod-ule that integrates both modalities into a single representa-tion. A central contribution of this work is the design and evaluation of four Class (CLS) token mixing strategies for multimodal fusion: Naive, Average, Weighted and Context-based. These strategies differ in how the pretrained uni-modal CLS tokens, which role is to act as information sinks concentrating learned representations, are leveraged to ini-tialize the mixed CLS token used for final classification. We evaluate all strategies on the H2O dataset. Experimental results show that the Average strategy achieves the best per-formance, yielding gains of over 10% Top-1 accuracy in the Tiny configuration and 25% in the Small configuration over the VideoMamba baseline. 
+
+1. Introduction 
+
+Egocentric videos face several challenges that fixed cam-eras typically avoid, such as erratic camera motion, frequent occlusion by the hands, and the possibility of temporarily losing visual contact with the main action. For this rea-son, a flexible architecture capable of maintaining a global video representation while being continuously updated with noisy or misleading frames is required. These challenges make Transformers [8] particularly well suited for egocen-tric video understanding, as their self-attention mechanism enables the construction of strong spatio-temporal represen-tations and allows the model to retain important visual in-formation over long sequences, even in the presence of ex-tended periods of misleading input. In addition, the ability of Transformers to incorporate multimodal data into their representations allows skeletal motion information to be used to improve action prediction. Temporal hand skeleton data not only helps mitigate occlu-sion issues, such as when fingers are hidden behind objects or the hand itself, but also provides clean motion cues re-lated to the performed action, thereby enhancing the overall understanding. This has become increasingly easier with the growing availability of egocentric datasets that provide synchronized hand skeleton annotations alongside the video stream [3, 6, 10], most notably the H2O and OakInkV2 dataset [6, 10], which both captures a diverse set of ev-eryday bimanual interactions (pouring, cutting, assembling, etc) from a first-person perspective with ground-truth hand keypoint annotations, making it particularly well suited for evaluating action recognition models in realistic daily-life scenarios. Although these properties make Transformers a natu-ral fit for egocentric video understanding, unfortunately the self-attention mechanism scales quadratically with se-quence length, which limits the feasibility of Transformers for online video understanding applications. For this rea-son, Mamba [5], a State Space Model (SSM)-based archi-tecture, has recently gained attention due to its linear time complexity and performance comparable to Transformers in NLP tasks. Extensions of Mamba to visual domains, such as Vision Mamba [11] and Video Mamba [7], have demon-strated promising results in image and video processing. Although skeleton-based action recognition models us-ing Mamba have been explored [2, 9], to the best of our    
+
+> arXiv:2605.24302v1 [cs.CV] 23 May 2026 MAMBA VIDEO
+> MAMBA BLOCKS ( x N )
+> FUSION MODULE
+> CLS
+> 1+T
+> C
+> 1+ T x xH
+> 16 W
+> 16
+> x 42
+> W
+> H
+> …
+> CLS
+> C…
+> T
+> T
+> MIXED CLS
+> CLASSIFICATION HEAD
+> POSITIONAL AND TEMPORAL EMBEDDINGS
+
+Figure 1. Overview of the proposed cross-modal architecture. The skeleton stream (top) and video stream (bottom) are encoded inde-pendently before being fused into a unified Mixed CLS token for classification. T denotes the number of input frames, H and W
+
+the height and width of each frame respectively, and C the embed-ding dimension. 
+
+knowledge, no prior work has integrated skeleton-based in-formation with RGB streams within this framework. We address this gap by proposing a cross-modal Mamba archi-tecture and systematically evaluating four strategies for fus-ing pretrained unimodal Class(CLS) token representations into a unified classification token. 
+
+2. Cross-Modal Fusion Design 
+
+2.1. Two-Branch Architecture 
+
+The overall architecture is divided into three main compo-nents: (1) a VideoMamba module to extract embeddings from the video stream, (2) a pure Mamba module to encode skeleton data, and (3) a fusion module that combines both information streams into a unified representation, as can be seen in Fig. 1. Both the video and skeleton embeddings share the same dimensions. However, the number of tokens differs between modalities, as the video stream produces multiple tokens per frame due to spatial patchification. The fusion module is inspired by the Mamba Suite Cross-Modal implementation [1]. They add a learnable modality embedding to each modality-specific representa-tion before concatenating them into a single sequence. In-stead of keeping the original CLS tokens from each stream, they remove both and introduce a new one. The concate-nated sequence is then processed through a Mamba block, and its final value is used for classification. Our approach differs from the original implementation in how we handle the two modality-specific CLS tokens. In Mamba models, as in Transformers, it acts as an infor-mation sink, concentrating the relevant contextual informa-tion throughout processing before passing it to the classi-fication head. By using pretrained video and skeleton en-coders, their respective CLS tokens already contain dense and structured information. Discarding them entirely would waste this learned behavior. For this reason, we propose four strategies to initialize the new CLS token, which we are referring to as the Mixed CLS token , by leveraging the pretrained representations. A visual representation is shown in Fig. 2. 
+
+2.2. CLS Mixing Strategies 
+
+Naive. Both modality-specific CLS tokens are discarded, and a new trainable one is used. 
+
+Average. The Mixed CLS token is initialized as the average by dimension of the video and skeleton CLS tokens. 
+
+Weighted. A learnable scalar parameter ω is passed through a sigmoid function to compute a linear combina-tion of the two CLS tokens: CLS mix = α CLS video + (1 − α) CLS skeleton , (1) where α = σ(ω).
+
+Context-based. Instead of learning a static scalar weight, we compute ω dynamically using a Mamba block that pro-cesses the concatenated token representations (excluding both CLS tokens). Specifically: 
+
+α = σ(Mean (Mamba (Tvideo ⊕ Tskel ))) , (2) where Tvideo and Tskel denote the non-CLS token se-quences from each modality, ⊕ denotes concatenation, and Mean (·) denotes taking the mean over the embedding val-ues. The resulting α is then used in Eq. (1) to combine the two CLS tokens, allowing the model to adapt the fusion weight based on the input content. 
+
+3. Experiments and Results 
+
+3.1. Experimental Setup 
+
+To evaluate the cross-modal capabilities of Mamba and the proposed fusion strategies, we conducted experiments on the H2O dataset [6], an egocentric video dataset that pro-vides not only action labels but also ground-truth hand key-points for each frame. For both the VideoMamba module and the skeleton en-coder, we adopted the same configurations defined in the VideoMamba model variants [7], summarized in Tab. 1. The VideoMamba visual models were initialized from publicly available checkpoints pretrained for short-term video understanding on the Something-Something V2 dataset [4], operating on 8-frame inputs. The skeleton en-coder was trained directly on the H2O dataset. We deliberately limited the fusion module to a single Mamba block, ensuring that any performance gains can be SKELETONCLS            
+
+> T
+> C
+> SKELETON EMBEDDING
+> …
+> T x xH
+> 16 W
+> 16
+> VI DEOCLS
+> C…
+> VIDEO EMBEDDING
+> Weighted:
+> MI XEDCLS
+> SKELETONCLS
+> VI DEOCLS
+> 𝜶 = σ( 𝛚 )β = 1 -𝜶
+> 𝜶 β
+> MAMBA( )……
+> MIX EDCLS
+> Naive:
+> MI XEDCLS
+> NEWCLS
+> Average:
+> MI XEDCLS
+> SKELETONCLS
+> VI DEOCLS
+> 1
+> 2
+> 1
+> 2
+> Context:
+> MI XEDCLS
+> SKELETONCLS
+> VI DEOCLS
+> 𝜶 β
+> 𝜶 = σ(MAMBA( )) β = 1 -𝜶
+> ……
+
+Figure 2. The four proposed CLS mixing strategies. From top to bottom: Naive (random initialization), Average (equal com-bination), Weighted (learnable scalar), and Context-based (input-dependent weight computed via a Mamba block). C denotes the embedding dimension. Table 1. Model configurations used for both the video and skeleton encoders. Depth denotes the number of stacked Mamba blocks in each branch. 
+
+Variant Depth Embedding Dim. 
+
+Tiny 24 198 Small 24 386 attributed to the model’s ability to take advantage of the cross-modal information rather than to an increase in model depth. Training was performed for 50 epochs using a lin-ear warm-up schedule followed by a CosineAnnealingLR scheduler and the AdamW optimizer. Early stopping was applied if no validation improvement was observed for 10 consecutive epochs. All 12 models were trained on a sin-gle NVIDIA RTX 5090 GPU (32 GB VRAM), with a total training time of approximately 2.5 hours. 
+
+3.2. Analysis and Results 
+
+As shown in Tab. 2, the Average strategy achieves the best performance improvement, obtaining a gain of more than 10% Top-1 accuracy over the VideoMamba baseline in the Tiny configuration and 25% in the Small configuration. The 
+
+Weighted strategy follows closely for the Tiny and Small variants, suggesting that the learnable parameter converges toward a balanced combination ( i.e ., α ≈ 0.5), effectively approximating the averaging strategy. Inspection of the learned weight parameter α across model configurations reveals values of 0.62, 0.64 for the Tiny, Small variants respectively. These values consistently fall near 0.5, confirming that the weighted model converges toward a near-equal combination of both modalities. No-tably, the slight but consistent bias above 0.5 suggests that the visual stream is marginally weighted higher than the 
+
+Table 2. Top-1 accuracy (%) on OakInkV2 for all fusion strate-gies compared against unimodal baselines. VideoMamba refers to the pretrained video encoder alone, and Skeleton Mamba to the skeleton-only Mamba stack. δV and δS denote absolute difference in accuracy points, while ∆V and ∆S denote relative change with respect to each baseline respectively. 
+
+Tiny (depth 24, dim 198) Method Top-1 (%) δV ∆V δS ∆S
+
+Average 61.90 +5.71 +10.17% +35.23 +132.14% Weighted 58.10 +1.90 +3.39% +31.43 +117.86% 
+
+VideoMamba 56.19 — — +29.52 +110.71% Naive 50.48 -5.71 -10.17% +23.81 +89.29% Context 50.48 -5.71 -10.17% +23.81 +89.29% 
+
+Skeleton Mamba 26.67 -29.52 -52.54% — —
+
+Small (depth 24, dim 386) Method Top-1 (%) δV ∆V δS ∆S
+
+Average 60.95 +12.38 +25.49% +28.57 +88.24% Context 60.00 +11.43 +23.53% +27.62 +85.29% Naive 56.19 +7.62 +15.69% +23.81 +73.53% Weighted 54.29 +5.72 +11.77% +21.90 +67.65% 
+
+VideoMamba 48.57 — — +16.19 +50.00% 
+
+Skeleton Mamba 32.38 -16.19 -33.33% — —
+
+skeleton stream, which is interpretable given that the Video-Mamba encoder benefits from large-scale pretraining on Something-Something V2, while the skeleton encoder is trained exclusively on the comparatively small H2O dataset. As expected, the Naive strategy consistently performs worse than the other fusion approaches. Since it discards both pretrained CLS tokens and replaces them with a fresh one, it does not effectively exploit the cross-modal informa-tion learned by the unimodal encoders. Conversely, in the Small configuration, where both modalities contain meaningful information, the cross-modal model surpasses the video-only baseline even with the addi-tion of only a single extra Mamba block. This demonstrates the complementary nature of the two modalities when both provide informative signals. Contrary to expectations, the Context-based strategy does not outperform the simpler fusion methods, despite its higher flexibility. Whether this is a fundamental architec-tural limitation or a consequence of the limited scale of the datasets used remains an open question that warrants further investigation. 
+
+4. Conclusions and Future Work 
+
+In this work, we introduced a cross-modal Mamba-based architecture for egocentric action recognition that fuses RGB video streams with temporal hand skeleton data. We proposed and evaluated four CLS token fusion strategies (Naive, Average, Weighted, and Context-based) designed to leverage the dense, structured information encoded in pre-trained unimodal CLS tokens when initializing a joint rep-resentation for classification. Our experiments on the H2O dataset demonstrate that combining visual and skeletal modalities within a Mamba framework consistently outperforms the video-only base-line when both modalities carry meaningful information. The Average strategy proved to be the most effective fu-sion approach, achieving Top-1 accuracy gains of over 10% and 25% in the Tiny and Small model configurations re-spectively. The Weighted strategy performed comparably, likely converging toward a balanced combination equiva-lent to averaging. The Naive strategy, which discards pre-trained CLS tokens entirely, consistently underperformed, confirming that preserving the learned unimodal represen-tations during fusion is critical. Notably, the Context-based strategy, despite its greater flexibility, did not surpass sim-pler methods. Several lines of work have originated from these results and are currently being pursued. First, evaluating the pro-posed strategies on larger egocentric datasets would clar-ify whether the saturation observed with the Context-based strategy is a data limitation or a fundamental architectural constraint. Second, an especially compelling direction is the use of skeleton data exclusively during training as a form of privileged information or cross-modal distillation, with the goal of improving visual-only inference without requiring skeleton inputs at test time. This would make the approach practical in deployment settings where hand keypoint estimation is unavailable or computationally pro-hibitive. 
+
+References 
+
+[1] Guang Chen, Yihong Huang, Jiarui Xu, Baoxiang Pei, Zongjian Chen, Zhe Li, Jian Wang, Kunchang Li, Tong Lu, and Limin Wang. Video mamba suite: State space model as a versatile alternative for video understanding, 2024. 2 [2] Ahmed Dawood, Boris Knyazev, and Graham W. Taylor. Simba: Mamba augmented u-shiftgcn for skeletal action recognition in videos, 2024. 1 [3] Rao Fu, Dingxi Zhang, Alex Jiang, Wanjia Fu, Austin Funk, Daniel Ritchie, and Srinath Sridhar. Gigahands: A massive annotated dataset of bimanual hand activities, 2025. 1 [4] Raghav Goyal, Samira Ebrahimi Kahou, Vincent Michal-ski, Joanna Materzy´ nska, Susanne Westphal, Heuna Kim, Valentin Haenel, Ingo Fruend, Peter Yianilos, Moritz Mueller-Freitag, Florian Hoppe, Christian Thurau, Ingo Bax, and Roland Memisevic. The ”something something” video database for learning and evaluating visual common sense, 2017. 2 [5] Albert Gu and Tri Dao. Mamba: Linear-time sequence mod-eling with selective state spaces, 2023. 1 [6] Taehyun Kwon, Bugra Tekin, Jan St¨ uhmer, Federica Bogo, and Marc Pollefeys. H2o: Two hands manipulating objects for first person interaction recognition. In Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV) , pages 10138–10148, 2021. 1, 2 [7] Kunchang Li, Xinhao Li, Yi Wang, Yinan He, Yali Wang, Limin Wang, and Yu Qiao. Videomamba: State space model for efficient video understanding. In Proceedings of the Eu-ropean Conference on Computer Vision (ECCV) , 2024. 1, 2[8] Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszko-reit, Llion Jones, Aidan N. Gomez, Lukasz Kaiser, and Illia Polosukhin. Attention is all you need, 2023. 1 [9] Jun Wen, Dong Liu, and Bin Zheng. Actionmamba: Action spatial-temporal aggregation network based on mamba and gcn for skeleton-based action recognition. Electronics , 14 (18):3610, 2025. 1 [10] Xinyu Zhan, Lixin Yang, Yifei Zhao, Kangrui Mao, Han-lin Xu, Zenan Lin, Kailin Li, and Cewu Lu. Oakink2: A dataset of bimanual hands-object manipulation in complex task completion, 2024. 1 [11] Lianghui Zhu, Bencheng Liao, Qian Zhang, Xinlong Wang, Wenyu Liu, and Xinggang Wang. Vision mamba: Efficient visual representation learning with bidirectional state space model, 2024. 1

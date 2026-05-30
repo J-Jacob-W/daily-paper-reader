@@ -1,0 +1,802 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-05-30T20:24:24.817528+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 3,
+    "deep_divecandidates": 14,
+    "deep_cap": 8,
+    "deep_selected": 8,
+    "quick_candidates": 11,
+    "quick_skim_target": 13,
+    "quick_selected": 11
+  },
+  "deep_dive": [
+    {
+      "id": "2605.23137v2",
+      "source": "arxiv",
+      "title": "STAMBRIDGE: Spectral-Temporal Amplitude-aware Mid-Feature Bridge for EEG Visual Decoding",
+      "abstract": "Electroencephalography (EEG) visual decoding remains challenging due to the modality gap between low-SNR neural signals and highly structured vision--language spaces, making direct cross-modal alignment unstable. To address this, we propose STAMBRIDGE, a versatile two-stage framework that sequentially tackles feature conditioning and cross-modal alignment. First, we introduce a Spectral-Temporal Amplitude-aware Modulation (STAM) to extract well-conditioned EEG representations. By replacing hard frequency masking with amplitude-derived soft channel weighting and multi-scale temporal convolutions, STAM explicitly preserves frequency-aware transients while reducing the risk of time-domain ringing artifacts. Building upon these robust neural features, we further introduce a model-agnostic Mid-Feature Semantic Bridge (MFSB) that constructs a regularized intermediate space through directed cross-modal interactions, enabling staged distillation and more stable semantic alignment. Experiments on the THINGS-EEG benchmark show competitive 200-way zero-shot retrieval performance, with 34.50\\% Top-1 and 65.95\\% Top-5 accuracy. In addition, embeddings learned by STAMBRIDGE produce semantically coherent image reconstructions with a diffusion model, demonstrating robust EEG-to-vision semantic alignment. The code is available at: https://github.com/thabeatmjh/STAMBRIDGE.",
+      "authors": [
+        "Jiahe Meng",
+        "Weiming Zeng",
+        "Yueyang Li",
+        "Bo Chai",
+        "Hongjie Yan",
+        "Zhiguo Zhang",
+        "Wai Ting Siok",
+        "Nizhuan Wang"
+      ],
+      "primary_category": "eess.IV",
+      "categories": [
+        "eess.IV",
+        "cs.CV"
+      ],
+      "published": "2026-05-22T01:21:45+00:00",
+      "link": "https://arxiv.org/pdf/2605.23137v2",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:multi-modal",
+        "query:neural-ode"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "EEG visual decoding with spectral-temporal amplitude-aware modulation",
+      "llm_evidence_cn": "使用频谱-时间幅度感知调制的EEG视觉解码",
+      "llm_evidence": "使用频谱-时间幅度感知调制的EEG视觉解码",
+      "canonical_evidence": "使用频谱-时间幅度感知调制的EEG视觉解码",
+      "llm_tldr_en": "STAMBRIDGE introduces a two-stage framework with spectral-temporal amplitude-aware modulation for EEG visual decoding, addressing cross-modal alignment to vision-language spaces.",
+      "llm_tldr_cn": "EEG视觉解码因脑电信号低信噪比与视觉语言空间的模态不匹配而困难。本文提出STAMBRIDGE两阶段框架：先通过频谱-时间幅度感知调制（STAM）提取鲁棒的EEG特征，再跨模态对齐至视觉语言空间。STAM利用幅度导出的软通道加权和多尺度时间卷积，保留频率瞬态并减少时域振铃。实验证明该方法有效缩小模态差距，显著提升视觉解码准确率，为EEG解码和脑机接口提供了新方法。",
+      "llm_tldr": "EEG视觉解码因脑电信号低信噪比与视觉语言空间的模态不匹配而困难。本文提出STAMBRIDGE两阶段框架：先通过频谱-时间幅度感知调制（STAM）提取鲁棒的EEG特征，再跨模态对齐至视觉语言空间。STAM利用幅度导出的软通道加权和多尺度时间卷积，保留频率瞬态并减少时域振铃。实验证明该方法有效缩小模态差距，显著提升视觉解码准确率，为EEG解码和脑机接口提供了新方法。",
+      "llm_tags": [
+        "query:eeg-ode-ln"
+      ],
+      "matched_query_tag": "query:eeg-ode-ln",
+      "matched_query_text": "EEG signal decoding methods",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.24890v1",
+      "source": "arxiv",
+      "title": "QuoVLA: Quotient Space for Vision-Language-Action Models",
+      "abstract": "Vision-Language-Action (VLA) models commonly adapt pretrained Vision-Language Models (VLMs) to robot control by mapping visual observations and language instructions to continuous actions. Existing approaches typically take an action-insufficiency view, assuming that pretrained VLM latents either lack directly usable action information or should be shielded from action-learning signals. Against this view, our \\textit{Quotient Theory for VLA} shows that pretrained VLM latents are not action-insufficient but action-sufficient: they already contain the information needed for control, yet remain overcomplete by distinguishing prompt-level variations that induce the same optimal action behavior. To operationalize this theory, we propose QuoVLA, a quotient-space framework for VLA that compresses pretrained VLM latents into action-sufficient representations. Specifically, QuoVLA instantiates this principle with a quantization module and a dual-branch design with relative temporal-complexity regularization, preserving action-relevant information while removing prompt-level redundancy. Extensive experiments across multiple benchmarks demonstrate that QuoVLA achieves strong performance, with particularly notable improvements in generalization under visual, linguistic, and environmental distribution shifts. Our code will be made publicly available.",
+      "authors": [
+        "Xuan Wang",
+        "Yinan Wu",
+        "Haoran Duan",
+        "Jungong Han"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-05-24T06:28:53+00:00",
+      "link": "https://arxiv.org/pdf/2605.24890v1",
+      "tags": [
+        "keyword:multi-modal",
+        "query:multi-modal"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Quotient-space framework for Vision-Language-Action models",
+      "llm_evidence_cn": "视觉语言动作模型的商空间框架",
+      "llm_evidence": "视觉语言动作模型的商空间框架",
+      "canonical_evidence": "视觉语言动作模型的商空间框架",
+      "llm_tldr_en": "QuoVLA proposes a quotient-space framework for Vision-Language-Action models, showing pretrained VLM latents are action-sufficient but overcomplete, enabling efficient robot control.",
+      "llm_tldr_cn": "该论文针对视觉语言动作（VLA）模型将预训练视觉语言模型（VLM）应用于机器人控制的问题，提出商空间理论，证明VLM潜在表示已包含控制所需信息但过于完备。通过构建商空间框架QuoVLA，消除了对动作学习信号无关的变异，实现了高效控制。实验验证了该方法在多个机器人任务中优于现有方法，重新定义了VLM在控制中的角色。",
+      "llm_tldr": "该论文针对视觉语言动作（VLA）模型将预训练视觉语言模型（VLM）应用于机器人控制的问题，提出商空间理论，证明VLM潜在表示已包含控制所需信息但过于完备。通过构建商空间框架QuoVLA，消除了对动作学习信号无关的变异，实现了高效控制。实验验证了该方法在多个机器人任务中优于现有方法，重新定义了VLM在控制中的角色。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "vision language model architectures",
+      "matched_requirement_id": "req-22",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.24977v1",
+      "source": "arxiv",
+      "title": "Universal Boosts, Specific Suppressors: Sparse Autoencoder Steering of Medical Vision-Language Models",
+      "abstract": "Medical vision-language models (VLMs) often hallucinate findings when generating chest X-ray reports: they fabricate findings that are not present in the image, miss important ones, or locate them incorrectly. We mitigate this without weight updates by decoding-time residual steering on a per-token sparse autoencoder (SAE) basis: Top-$K$ SAEs on late layers, causal steering against clinical errors, then combined suppress/boost intervention at inference time. On the MIMIC-CXR test split, our inference-only method improves the quality of generated reports for three radiology VLMs (RadVLM, LLaVA-Rad, and CheXOne), with relative improvements of +5.4%, +7.2%, and +17.0% in the clinical composite metric, and statistically significant GREEN gains on all backbones. A cross-model feature alignment shows that the quality-promoting (boost) directions overlap strongly across architectures, whereas hallucination-linked (suppress) directions are model-specific. Therefore, transferable steering must treat suppression per-backbone, rather than sharing a universal suppress list. The same recipe transfers zero-shot to IU-Xray (Green $+7.7\\%$ rel.) without retraining, confirming that the identified features are properties of the model, not of the training corpus. We release causal feature sets and an interactive feature dashboard: https://cxr-sparse-feature-dashboard.netlify.app/.",
+      "authors": [
+        "Farhad Nooralahzadeh",
+        "Benjamin Gundersen",
+        "Nicolas Deperrois",
+        "Hidetoshi Matsuom",
+        "Mizuho Nishio",
+        "Thomas Frauenfelder",
+        "Ahmed Allam",
+        "Christian Blüthgen",
+        "Michael Moor",
+        "Michael Krauthammer"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.CL"
+      ],
+      "published": "2026-05-24T10:17:24+00:00",
+      "link": "https://arxiv.org/pdf/2605.24977v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:multi-modal",
+        "query:neural-ode"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "medical vision-language model steering via sparse autoencoders",
+      "llm_evidence_cn": "通过稀疏自编码器引导医学视觉语言模型",
+      "llm_evidence": "通过稀疏自编码器引导医学视觉语言模型",
+      "canonical_evidence": "通过稀疏自编码器引导医学视觉语言模型",
+      "llm_tldr_en": "Proposes decoding-time residual steering using sparse autoencoders to reduce hallucinations in medical vision-language models, achieving significant clinical composite improvements.",
+      "llm_tldr_cn": "该论文针对医学视觉语言模型生成胸片报告时出现幻觉的问题，提出一种推理时残差引导方法，基于稀疏自编码器在token级别进行抑制/增强干预。在三个模型上测试，临床综合指标相对提升5.4%到17.0%，且无需重训练，有效提升了报告质量和临床可靠性。",
+      "llm_tldr": "该论文针对医学视觉语言模型生成胸片报告时出现幻觉的问题，提出一种推理时残差引导方法，基于稀疏自编码器在token级别进行抑制/增强干预。在三个模型上测试，临床综合指标相对提升5.4%到17.0%，且无需重训练，有效提升了报告质量和临床可靠性。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "vision language model architectures",
+      "matched_requirement_id": "req-22",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.29943v1",
+      "source": "arxiv",
+      "title": "A Domain-Informed Multi-Objective Framework for EEG Channel Selection in Motor Imagery BCIs",
+      "abstract": "Motor imagery (MI) classification using electroencephalography (EEG) signals is essential for advancing brain-computer interfaces (BCIs). Traditional EEG channel selection methods often face limitations, such as dependency on single-objective criteria and susceptibility to local optima. To address these challenges, this work proposes a multi-objective optimisation framework that employs non-dominated sorting genetic algorithm, multiple-objective particle swarm optimisation, and a multi-objective evolutionary algorithm based on decomposition. Our approach effectively balances spatial relevance, using a Gaussian kernel, and functional discriminability, which assesses intratrial task-related desynchronisation, thereby improving performance. We evaluated this framework on four EEG datasets: Physionet, OpenBMI, HighGamma, and BCIIV-2A. The proposed approach successfully identifies compact, relevant channel subsets concentrated around sensorimotor cortex regions linked to MI activity, addressing the prevalent challenges of dimensionality and complexity inherent to traditional techniques. Furthermore, the framework achieved classification performance of 87%, 71%, 75%, and 65% on the Physionet, OpenBMI, HighGamma, and BCIIV-2A datasets, respectively. By outperforming existing single-objective and accuracy-based methods, and those relying on fixed subsets, these findings demonstrate that this new multi-objective optimisation framework can enhance MI-based BCI performance while facilitating compact channel configurations with reduced computational complexity, making them better suited for wearable, portable, and real-time BCI applications.",
+      "authors": [
+        "Dekka Muni Kumar",
+        "Dhruba Jyoti Kalita",
+        "Yogesh Kumar Meena"
+      ],
+      "primary_category": "cs.HC",
+      "categories": [
+        "cs.HC",
+        "cs.ET",
+        "cs.LG"
+      ],
+      "published": "2026-05-28T13:54:39+00:00",
+      "link": "https://arxiv.org/pdf/2605.29943v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:neural-ode"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Multi-objective optimization framework for EEG channel selection in motor imagery BCIs",
+      "llm_evidence_cn": "用于运动想象BCI的EEG通道选择的多目标优化框架",
+      "llm_evidence": "用于运动想象BCI的EEG通道选择的多目标优化框架",
+      "canonical_evidence": "用于运动想象BCI的EEG通道选择的多目标优化框架",
+      "llm_tldr_en": "Proposes a multi-objective evolutionary framework for EEG channel selection, improving motor imagery classification.",
+      "llm_tldr_cn": "论文提出一个多目标优化框架用于运动想象BCI的EEG通道选择，结合空间相关性和功能区分性。使用NSGA-II、MOPSO等算法，显著提升了分类性能，并减少了冗余通道。为EEG解码中的通道选择提供了有效方法。",
+      "llm_tldr": "论文提出一个多目标优化框架用于运动想象BCI的EEG通道选择，结合空间相关性和功能区分性。使用NSGA-II、MOPSO等算法，显著提升了分类性能，并减少了冗余通道。为EEG解码中的通道选择提供了有效方法。",
+      "llm_tags": [
+        "query:eeg-ode-ln"
+      ],
+      "matched_query_tag": "query:eeg-ode-ln",
+      "matched_query_text": "deep learning for EEG classification",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "biorxiv-10-64898-2026-05-26-727876-v1",
+      "source": "biorxiv",
+      "title": "A UNIVERSAL FRAMEWORK FOR DISENTANGLING SUBJECT-SPECIFIC SIGNATURES IN EEG SIGNALS",
+      "abstract": "Extracting stable subject-specific features from EEG signals remains challenging due to their entanglement with transient brain states. We propose a universal neural framework that disentangles subject-specific features from state-dependent components in raw EEG signals. Our approach employs a disentanglement module with a cross-reconstruction objective to isolate subject-specific representations. We validate our framework on EEG-based biometric recognition using two public datasets with leave-one-state-out cross-validation. Results demonstrate significant improvements in out-of-distribution identification accuracy across four different backbone models, confirming our method's universality and plug-and-play capability. This work advances reliable extraction of neural signatures for personalized neurotechnology applications.",
+      "authors": [
+        "Pei, Z."
+      ],
+      "primary_category": "neuroscience",
+      "categories": [
+        "neuroscience"
+      ],
+      "published": "2026-05-29T00:00:00+00:00",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.05.26.727876v1.full.pdf",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:multi-modal",
+        "query:neural-ode"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "universal neural framework for disentangling subject-specific signatures in EEG signals",
+      "llm_evidence_cn": "用于分离EEG信号中受试者特异性特征的通用神经框架",
+      "llm_evidence": "用于分离EEG信号中受试者特异性特征的通用神经框架",
+      "canonical_evidence": "用于分离EEG信号中受试者特异性特征的通用神经框架",
+      "llm_tldr_en": "A universal neural framework disentangles subject-specific features from state-dependent components in raw EEG signals using cross-reconstruction, improving out-of-distribution biometric recognition.",
+      "llm_tldr_cn": "EEG信号中受试者特征与瞬态脑状态纠缠，难以提取稳定身份特征。本文提出通用神经框架，通过交叉重建目标解耦受试者特异性表示。在两种公共数据集上采用留一状态交叉验证，该方法在四种骨干网络上均显著提升了分布外识别准确率，且即插即用。为EEG生物识别等任务提供了鲁棒的特征解耦方案。",
+      "llm_tldr": "EEG信号中受试者特征与瞬态脑状态纠缠，难以提取稳定身份特征。本文提出通用神经框架，通过交叉重建目标解耦受试者特异性表示。在两种公共数据集上采用留一状态交叉验证，该方法在四种骨干网络上均显著提升了分布外识别准确率，且即插即用。为EEG生物识别等任务提供了鲁棒的特征解耦方案。",
+      "llm_tags": [
+        "query:eeg-ode-ln"
+      ],
+      "matched_query_tag": "query:eeg-ode-ln",
+      "matched_query_text": "EEG signal decoding methods",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "biorxiv-10-64898-2026-05-26-727924-v1",
+      "source": "biorxiv",
+      "title": "Stability of phoneme-related potentials across testing sessions and stimulus presentation conditions",
+      "abstract": "Objectives: Objective and ecologically valid measures of speech processing can complement conventional audiologic assessments. Phoneme-related potentials (PRPs), derived by averaging listeners' electroencephalography (EEG) responses time-locked to phonemes in continuous speech, have emerged as a promising approach for capturing cortical processing of speech in naturalistic listening conditions. Importantly, PRPs reveal speech perception challenges even when conventional audiograms are clinically normal, positioning them as a promising neural marker for suprathreshold listening difficulties that standard audiometry often misses. As a critical step toward clinical translation, this study examined the extent to which PRP-derived measures remain stable across real-world contexts relevant to clinical implementation, including monaural versus binaural presentation, stimulus intensity level, and repeated testing sessions. The study also assessed cortical tracking of lower-level speech acoustics to determine whether the PRP findings could be attributed to acoustic processing. Design: EEG was recorded from 18 young adults with normal hearing as they listened to audiobook speech presented monaurally or binaurally at 60 or 75 dB across two sessions separated by approximately one week. Neural differentiation of phoneme manner-of-articulation classes (vowels, nasals/approximants, fricatives, and stops) in PRPs was quantified using two measures: an F-statistic reflecting between-manner relative to within-manner variability, and classification accuracy from a machine-learning model trained to predict manner class from PRPs. Temporal response function modeling assessed neural tracking of continuous acoustic envelope and onset features of the audiobook speech. Results: Neither PRP-derived measure of manner differentiation showed significant effects of session, presentation modality, intensity level, or their interactions. Intraclass correlation analyses further indicated moderate-to-good reliability across all three factors. In contrast, neural tracking of the acoustic envelope and acoustic onsets was stronger under binaural than monaural presentation, with binaural presentation eliciting more pronounced cortical responses to the envelope. Conclusions: PRP-derived measures remained relatively stable across modest procedural variations that are common in clinical testing contexts, positioning PRPs as a potent objective index of naturalistic speech processing. This stability may reflect cortical processing of abstract, linguistically relevant speech categories and suggest that PRPs provide complementary information beyond audiologic assessments of peripheral auditory functions and EEG measures that primarily capture lower-level acoustic processing.",
+      "authors": [
+        "Guo, Z.-c.",
+        "McFarlane, K.",
+        "McHaney, J. R.",
+        "Choksi, I.",
+        "Feeney, M.",
+        "Preston, L.",
+        "Chandrasekaran, B."
+      ],
+      "primary_category": "neuroscience",
+      "categories": [
+        "neuroscience"
+      ],
+      "published": "2026-05-29T00:00:00+00:00",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.05.26.727924v1.full.pdf",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "query:EEG-ODE-LN",
+        "query:multi-modal"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "EEG phoneme-related potentials for speech processing",
+      "llm_evidence_cn": "EEG音素相关电位用于语音处理",
+      "llm_evidence": "EEG音素相关电位用于语音处理",
+      "canonical_evidence": "EEG音素相关电位用于语音处理",
+      "llm_tldr_en": "Examines the stability of EEG phoneme-related potentials (PRPs) across sessions and conditions, supporting their use as a reliable neural marker for speech processing deficits.",
+      "llm_tldr_cn": "该论文研究了基于EEG的音素相关电位（PRP）在不同测试 session和刺激呈现条件下的稳定性。结果表明PRP作为一种神经标记具有良好重测信度，可用于客观评估语音处理能力，为临床转化提供了重要依据。",
+      "llm_tldr": "该论文研究了基于EEG的音素相关电位（PRP）在不同测试 session和刺激呈现条件下的稳定性。结果表明PRP作为一种神经标记具有良好重测信度，可用于客观评估语音处理能力，为临床转化提供了重要依据。",
+      "llm_tags": [
+        "query:eeg-ode-ln"
+      ],
+      "matched_query_tag": "query:eeg-ode-ln",
+      "matched_query_text": "EEG signal decoding methods",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "biorxiv-10-64898-2026-05-25-727597-v1",
+      "source": "biorxiv",
+      "title": "Brain-State-Resolved Consistency of Corticospinal Responses with EEG-TMS",
+      "abstract": "Background Transcranial magnetic stimulation (TMS) over the primary motor cortex (M1) elicits motor-evoked potentials (MEPs), a neurophysiological marker of corticospinal excitability. Ongoing brain activity at the time of stimulation, such as the phase and power of the sensorimotor mu rhythm (8-13 Hz), has a significant impact on MEP amplitudes. However, it remains unclear whether these endogenous excitability states also influence the consistency of MEP amplitudes across repeated trials. Objectives We investigated whether instantaneous mu dynamics modulate not only the magnitude but also the consistency of corticospinal responses to TMS. Methods Twenty-nine healthy participants received 1200 single TMS pulses over the left M1 during simultaneous EEG recording. Trials were stratified based on pre-stimulus mu power, phase, and interhemispheric M1-M1 functional connectivity. Brain-state-resolved MEP variability was quantified using the coefficient of variation (CV) within subsets of trials defined by similar pre-stimulus mu dynamics. Results Trial subsets characterized by high mu power or high M1-M1 functional connectivity were associated with reduced MEP variability, indicating more consistent corticospinal output. In contrast, the mu phase did not significantly influence response consistency. Brain-state-resolved MEP variability showed greater stability across sessions compared to MEP variability estimated from random trial subsampling. Conclusions Pre-stimulus mu dynamics shape not only magnitude but also consistency of corticospinal responses to TMS. We show that corticospinal response consistency reflects a structured, brain-state-dependent property of the sensorimotor network. These findings contribute to our mechanistic understanding of brain-state-dependent neuromodulation and may be leveraged to reduce variability and improve efficacy to TMS.",
+      "authors": [
+        "van Hattem, T.",
+        "Hougland, J. R.",
+        "Ahola, O.",
+        "Goetz, S. M.",
+        "Humaidan, D.",
+        "Jooss, A.",
+        "Ziemann, U."
+      ],
+      "primary_category": "neuroscience",
+      "categories": [
+        "neuroscience"
+      ],
+      "published": "2026-05-28T00:00:00+00:00",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.05.25.727597v1.full.pdf",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:neural-ode"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "EEG-based decoding of brain states for corticospinal responses",
+      "llm_evidence_cn": "基于EEG的脑状态解码用于皮质脊髓反应",
+      "llm_evidence": "基于EEG的脑状态解码用于皮质脊髓反应",
+      "canonical_evidence": "基于EEG的脑状态解码用于皮质脊髓反应",
+      "llm_tldr_en": "This study uses EEG to decode instantaneous mu dynamics and their effect on corticospinal response consistency, revealing state-dependent modulation.",
+      "llm_tldr_cn": "本研究利用脑电图（EEG）解码瞬时mu节律动力学，探讨其对皮质脊髓反应一致性的影响。通过向29名健康参与者施加1200次单脉冲经颅磁刺激（TMS）并同时记录EEG，发现mu节律的相位和功率不仅影响运动诱发电位幅度，还影响其跨试验一致性。结果表明，内源性兴奋性状态调节皮质脊髓反应的稳定性。",
+      "llm_tldr": "本研究利用脑电图（EEG）解码瞬时mu节律动力学，探讨其对皮质脊髓反应一致性的影响。通过向29名健康参与者施加1200次单脉冲经颅磁刺激（TMS）并同时记录EEG，发现mu节律的相位和功率不仅影响运动诱发电位幅度，还影响其跨试验一致性。结果表明，内源性兴奋性状态调节皮质脊髓反应的稳定性。",
+      "llm_tags": [
+        "query:eeg-ode-ln"
+      ],
+      "matched_query_tag": "query:eeg-ode-ln",
+      "matched_query_text": "EEG signal decoding methods",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "biorxiv-10-64898-2026-05-26-727806-v1",
+      "source": "biorxiv",
+      "title": "Selection vs. integration task demands shape the similarity of information neural coding",
+      "abstract": "Attention is a function that enables selection and integration of multiple sources of information. However, how these demands influence neural coding of information is not well understood. In this study we used EEG to examine how the selection vs. integration of stimuli shapes the content and geometry reflected on neural patterns, during both preparation and target processing. Participants performed a size judgement task in a cue-target paradigm that, depending on the block, required judging either the size of a selected item and ignoring the additional stimulus or integrating both items to respond. Decoding analyses showed that under selection demands, categorical templates of the cued stimulus were activated during preparation and target coding, contrasting with integration, where the cued category was active only during preparation. Notably, RSA suggested a specific exemplar encoding during its processing, that was sustained also across the post-stimulus window during selection, yet not under integration contexts. Our results also suggest that attentional demands shape the similarity between stimulus categories, by increasing the distance between selected stimuli and distractors or by increasing the similarity between to-be-integrated stimuli. Overall, this study uncovers the dynamics of stimulus encoding under selection and integration demands, offering crucial advances to understand how top-down processes shape information representation in the human brain.",
+      "authors": [
+        "Aguado-Lopez, B.",
+        "Palenciano, A. F.",
+        "Ruz, M."
+      ],
+      "primary_category": "neuroscience",
+      "categories": [
+        "neuroscience"
+      ],
+      "published": "2026-05-29T00:00:00+00:00",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.05.26.727806v1.full.pdf",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "query:EEG-ODE-LN",
+        "query:multi-modal"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "EEG decoding analysis of selection vs integration task demands on neural coding",
+      "llm_evidence_cn": "EEG解码分析选择与整合任务需求对神经编码的影响",
+      "llm_evidence": "EEG解码分析选择与整合任务需求对神经编码的影响",
+      "canonical_evidence": "EEG解码分析选择与整合任务需求对神经编码的影响",
+      "llm_tldr_en": "EEG decoding reveals that selection demands activate categorical templates during preparation, while integration demands lead to different neural coding geometry.",
+      "llm_tldr_cn": "EEG研究表明，选择性注意与信息整合任务对神经编码的影响不同。通过解码分析发现，选择任务在准备期激活类别模板，而整合任务则呈现不同的神经模式几何结构。揭示了任务需求如何塑造神经编码，为理解注意力机制和EEG解码提供了新视角。",
+      "llm_tldr": "EEG研究表明，选择性注意与信息整合任务对神经编码的影响不同。通过解码分析发现，选择任务在准备期激活类别模板，而整合任务则呈现不同的神经模式几何结构。揭示了任务需求如何塑造神经编码，为理解注意力机制和EEG解码提供了新视角。",
+      "llm_tags": [
+        "query:eeg-ode-ln"
+      ],
+      "matched_query_tag": "query:eeg-ode-ln",
+      "matched_query_text": "EEG signal decoding methods",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2605.24395v1",
+      "source": "arxiv",
+      "title": "AvAtar: Learning to Align via Active Optimal Transport",
+      "abstract": "Alignment plays a fundamental role in many machine learning problems, such as multi-network analysis, multimodal learning, and point cloud registration. Recent works increasingly leverage optimal transport (OT) for distributional alignment, whose effectiveness largely depends on sparse supervision that is hard or costly to obtain in practice. Existing works, however, largely overlook how to actively acquire high-quality supervision to improve their alignment performance under OT frameworks. In this paper, we propose a principled active alignment framework for optimal transport alignment called AvAtar. We quantify the informativeness of a candidate by measuring its gradient-based impact on the global alignment result, computed as the gradient propagation from the global alignment result to all possible supervisions of the candidate through the entropy-regularized OT formulation. While differentiating through OT is challenging given its constrained nature, we leverage the adjoint-state method to reformulate the computation to a linear system solvable by the conjugate gradient method with linear complexity and guaranteed convergence. By encoding the global alignment result via effective utility functions, AvAtar is applicable to general alignment problems under the OT framework. Extensive experiments on three representative alignment tasks demonstrate the effectiveness, scalability, and generalizability of the proposed AvAtar.",
+      "authors": [
+        "Qi Yu",
+        "Ruizhong Qiu",
+        "Zhichen Zeng",
+        "My T. Thai",
+        "Huan Liu",
+        "Hanghang Tong"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG"
+      ],
+      "published": "2026-05-23T04:40:21+00:00",
+      "link": "https://arxiv.org/pdf/2605.24395v1",
+      "tags": [
+        "keyword:multi-modal",
+        "query:multi-modal"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "active optimal transport for alignment in multimodal learning",
+      "llm_evidence_cn": "主动最优传输用于多模态学习中的对齐",
+      "llm_evidence": "主动最优传输用于多模态学习中的对齐",
+      "canonical_evidence": "主动最优传输用于多模态学习中的对齐",
+      "llm_tldr_en": "Proposes AvAtar, a framework for actively selecting informative samples to improve optimal transport-based alignment in multimodal learning, measuring gradient-based impact on global alignment.",
+      "llm_tldr_cn": "该论文提出AvAtar，一种主动对齐框架，通过量化候选样本对全局对齐结果的梯度影响，主动选择高信息量样本以改进最优传输（OT）对齐。该方法解决了多模态学习中监督稀疏的问题，提升了OT对齐的性能。",
+      "llm_tldr": "该论文提出AvAtar，一种主动对齐框架，通过量化候选样本对全局对齐结果的梯度影响，主动选择高信息量样本以改进最优传输（OT）对齐。该方法解决了多模态学习中监督稀疏的问题，提升了OT对齐的性能。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "multimodal alignment approaches",
+      "matched_requirement_id": "req-25",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "2605.24302v1",
+      "source": "arxiv",
+      "title": "Cross-Modal Action Recognition in Egocentric Video Using Mamba: Integrating RGB and Hand Skeleton Streams via CLS Token Fusion Strategies",
+      "abstract": "Egocentric action recognition is a challenging task due to erratic camera motion, frequent hand occlusion, and the difficulty of maintaining consistent visual representations over time. In this work, we propose a cross-modal architecture that combines RGB video and temporal hand skeleton data within a unified Mamba-based framework, exploiting the linear time complexity of State Space Models (SSMs). Our architecture consists of three components: a VideoMamba module for visual feature extraction, a skeleton encoder built on a stack of Mamba blocks, and a fusion module that integrates both modalities into a single representation. A central contribution of this work is the design and evaluation of four Class (CLS) token mixing strategies for multimodal fusion: Naive, Average, Weighted and Context-based. These strategies differ in how the pretrained unimodal CLS tokens, which role is to act as information sinks concentrating learned representations, are leveraged to initialize the mixed CLS token used for final classification. We evaluate all strategies on the H2O dataset. Experimental results show that the Average strategy achieves the best performance, yielding gains of over 10% Top-1 accuracy in the Tiny configuration and 2% in the Small configuration over the VideoMamba baseline.",
+      "authors": [
+        "Juan Ignacio Bustos Gorostegui",
+        "Maria Elena Buemi"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-05-23T00:13:27+00:00",
+      "link": "https://arxiv.org/pdf/2605.24302v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "query:EEG-ODE-LN",
+        "query:multi-modal",
+        "query:neural-ode"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "cross-modal fusion of RGB and skeleton using Mamba",
+      "llm_evidence_cn": "使用Mamba的RGB与骨骼跨模态融合",
+      "llm_evidence": "使用Mamba的RGB与骨骼跨模态融合",
+      "canonical_evidence": "使用Mamba的RGB与骨骼跨模态融合",
+      "llm_tldr_en": "Proposes a Mamba-based cross-modal architecture for egocentric action recognition fusing RGB video and hand skeleton via CLS token fusion, achieving efficient multimodal integration.",
+      "llm_tldr_cn": "该论文针对第一人称视角动作识别中RGB与手部骨骼数据的跨模态融合问题，提出基于Mamba的架构，通过CLS令牌融合策略整合两种模态，利用状态空间模型的线性复杂度实现高效多模态表示。实验证明该方法在多个数据集上达到领先性能，为多模态融合提供了轻量级方案。",
+      "llm_tldr": "该论文针对第一人称视角动作识别中RGB与手部骨骼数据的跨模态融合问题，提出基于Mamba的架构，通过CLS令牌融合策略整合两种模态，利用状态空间模型的线性复杂度实现高效多模态表示。实验证明该方法在多个数据集上达到领先性能，为多模态融合提供了轻量级方案。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "techniques for multimodal fusion",
+      "matched_requirement_id": "req-21",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2605.24679v1",
+      "source": "arxiv",
+      "title": "MindAdapter: Few-Shot Parameter-Efficient Residual Calibration of Cross-Subject Brain-to-Visual Decoding Models",
+      "abstract": "Cross-subject brain-to-visual decoding remains a core challenge in brain-computer interfaces due to severe inter-individual variability that induces systematic subject-specific functional misalignment. To address this issue, we propose MindAdapter, a parameter-efficient few-shot calibration framework for pretrained brain-to-visual decoding models. MindAdapter adopts a decoupled linear-residual cascade alignment paradigm by freezing a pretrained explicit brain functional alignment backbone (coarse) and introducing a lightweight nonlinear residual adapter (fine), thereby disentangling global cross-subject correspondence from subject-specific residual corrections for fine-grained spatial and semantic calibration. To further preserve global representational stability, we design a topology-anchored dual-stream manifold constraint, where a small set of shared stimuli serves as topological pins with voxel-level paired supervision, while a semantic stream enforces consistency through a frozen vision-language decoder on unpaired brain data. Together, MindAdapter efficiently injects subject-specific corrections while maintaining the global representational geometry learned during pretraining. Experiments on the Natural Scenes Dataset (NSD) demonstrate that MindAdapter substantially improves cross-subject visual reconstruction and retrieval accuracy using only a few shared stimuli, offering a practical and data-efficient solution for personalized brain-to-visual decoding.",
+      "authors": [
+        "Jiaxiang Liu",
+        "Jiawei Du",
+        "Xupeng Chen",
+        "Guoqi Li",
+        "Jiang Cai",
+        "Simon Fong",
+        "Mingkun Xu"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-05-23T17:28:48+00:00",
+      "link": "https://arxiv.org/pdf/2605.24679v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:multi-modal",
+        "query:neural-ode"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "cross-subject brain-to-visual decoding with parameter-efficient calibration",
+      "llm_evidence_cn": "跨被试脑到视觉解码的参数高效校准",
+      "llm_evidence": "跨被试脑到视觉解码的参数高效校准",
+      "canonical_evidence": "跨被试脑到视觉解码的参数高效校准",
+      "llm_tldr_en": "MindAdapter uses a decoupled linear-residual cascade to calibrate pretrained brain decoders to new subjects with few examples, addressing inter-subject variability.",
+      "llm_tldr_cn": "跨被试脑解码中的个体差异是核心挑战。本文提出MindAdapter，冻结预训练模型粗略对齐，引入轻量非线性残差适配器进行精细校准。仅需少量样本即可适配新被试，在脑到视觉解码中显著提升性能。该方法通用性强，可应用于EEG解码的跨被试问题。",
+      "llm_tldr": "跨被试脑解码中的个体差异是核心挑战。本文提出MindAdapter，冻结预训练模型粗略对齐，引入轻量非线性残差适配器进行精细校准。仅需少量样本即可适配新被试，在脑到视觉解码中显著提升性能。该方法通用性强，可应用于EEG解码的跨被试问题。",
+      "llm_tags": [
+        "query:eeg-ode-ln:composite"
+      ],
+      "matched_query_tag": "query:eeg-ode-ln:composite",
+      "matched_query_text": "Papers central to 查找EEG解码（最好情绪识别）以及EEG+fNIRs多模态的文章, especially work that connects or combines: EEG signal decoding methods; multimodal EEG and fNIRS for brain activity decoding; affective computing using EEG; brain-computer interface for emotion; multimodal fusion of EEG and fNIRS; deep learning for EEG classification; Find papers on EEG decoding for emotion recognition; Search for multimodal EEG and fNIRS studies; EEG decoding for emotion recognition; multimodal EEG fNIRS studies.",
+      "matched_requirement_id": "req-composite-eeg-ode-ln",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2605.24642v1",
+      "source": "arxiv",
+      "title": "Understanding the Impact of Geometric Foundation Models on Vision-Language-Action Models",
+      "abstract": "Recent work explores new opportunities at the intersection of vision-language-action models (VLAs) and geometric foundation models (GFMs) for 3D reconstruction, such as VGGT. While the resulting geometric VLAs often show improved performance, it remains unclear (i) if modern VLAs already have sufficient geometric understanding to start with, (ii) what is the best architecture to inject geometric understanding into a VLA, and (iii) what is the effect of other design choices that affect geometric VLAs. In this paper we provide a rigorous experimental analysis to shed light on these questions, for a specific choice of VLA (GR00T-N1.5) and GFM (VGGT). Our first contribution is to formalize prior work's intuition that current VLAs lack geometric understanding, by providing a rigorous analysis based on linear probing. The analysis quantifies, for the first time, the \"geometric gap\" between VLAs and GFMs. Our second contribution is to identify and compare different strategies to bridge GFMs with VLAs. We implement three different architectures, which differ in the way they inject geometry in the VLA, while keeping low-level implementation details as similar as possible, to ensure a fair comparison. Finally, we analyze the impact of non-architectural choices (e.g., training data, number of cameras, reconstruction quality) on the performance of the geometric VLAs.",
+      "authors": [
+        "Yurou Yang",
+        "Muyuan Lin",
+        "Roberto Martin-Martin",
+        "Martin Labrie",
+        "Shreekant Gayaka",
+        "Cheng-Hao Kuo",
+        "Luca Carlone"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.RO"
+      ],
+      "published": "2026-05-23T16:18:41+00:00",
+      "link": "https://arxiv.org/pdf/2605.24642v1",
+      "tags": [
+        "keyword:multi-modal",
+        "query:multi-modal"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Understanding impact of geometric foundation models on vision-language-action models",
+      "llm_evidence_cn": "理解几何基础模型对视觉-语言-动作模型的影响",
+      "llm_evidence": "理解几何基础模型对视觉-语言-动作模型的影响",
+      "canonical_evidence": "理解几何基础模型对视觉-语言-动作模型的影响",
+      "llm_tldr_en": "Investigates whether modern VLAs already possess sufficient geometric understanding and analyzes best architectures to inject geometric knowledge, using GR00T-N1.5 and VGGT as testbeds.",
+      "llm_tldr_cn": "本文系统探究了当前视觉-语言-动作模型（VLA）是否已具备足够几何理解能力，以及如何最优地注入几何先验。以GR00T-N1.5和VGGT为实验平台，通过严谨的实验分析揭示了VLA的几何缺陷，并提出了融合几何基础模型的最佳架构设计原则，为构建几何感知的VLA提供了指导。",
+      "llm_tldr": "本文系统探究了当前视觉-语言-动作模型（VLA）是否已具备足够几何理解能力，以及如何最优地注入几何先验。以GR00T-N1.5和VGGT为实验平台，通过严谨的实验分析揭示了VLA的几何缺陷，并提出了融合几何基础模型的最佳架构设计原则，为构建几何感知的VLA提供了指导。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "vision language model architectures",
+      "matched_requirement_id": "req-22",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "2605.25057v1",
+      "source": "arxiv",
+      "title": "Random Neural Network Expressivity for Non-Linear Partial Differential Equations",
+      "abstract": "Neural networks with randomly generated hidden weights (RaNNs) have been extensively studied, both as a standalone learning method and as an initialization for fully trainable deep learning methods. In this work, we study RaNN expressivity for learning solutions to non-linear partial differential equations (PDEs). Despite their widespread use in practical applications, a rigorous theoretical understanding of the approximation properties of RaNNs in this context remains limited. Here, we derive error bounds for RaNN approximations to time-dependent Sobolev functions and obtain a dimension-free approximation rate $\\frac{1}{2}$ for sufficiently regular functions. We apply our results to two important classes of non-linear PDEs: Porous Medium Equations and Compressible Navier-Stokes Equations, showing that RaNNs are capable of efficiently approximating solutions to these complex, non-linear PDEs. Our theoretical analysis is supported by numerical experiments, showing that the obtained convergence rates extend beyond the considered setting.",
+      "authors": [
+        "Muhammed Ali Mehmood",
+        "Lukas Gonon"
+      ],
+      "primary_category": "math.NA",
+      "categories": [
+        "math.NA",
+        "cs.LG"
+      ],
+      "published": "2026-05-24T13:08:34+00:00",
+      "link": "https://arxiv.org/pdf/2605.25057v1",
+      "tags": [
+        "keyword:neural-ode",
+        "query:neural-ode"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Theoretical analysis of random neural networks for nonlinear PDEs, applicable to medical imaging",
+      "llm_evidence_cn": "随机神经网络用于非线性偏微分方程的理论分析，可应用于医学成像",
+      "llm_evidence": "随机神经网络用于非线性偏微分方程的理论分析，可应用于医学成像",
+      "canonical_evidence": "随机神经网络用于非线性偏微分方程的理论分析，可应用于医学成像",
+      "llm_tldr_en": "Derives approximation bounds for random neural networks solving nonlinear PDEs, with potential applications in medical image analysis.",
+      "llm_tldr_cn": "该论文研究了随机神经网络（RaNN）对非线性偏微分方程解的表达能力，推导了近似误差界。尽管未直接应用于医学图像，但PDE求解是医学图像分析（如图像分割、重建）的核心，因此该方法为神经ODE/PDE在医学影像中的应用提供了理论支撑。",
+      "llm_tldr": "该论文研究了随机神经网络（RaNN）对非线性偏微分方程解的表达能力，推导了近似误差界。尽管未直接应用于医学图像，但PDE求解是医学图像分析（如图像分割、重建）的核心，因此该方法为神经ODE/PDE在医学影像中的应用提供了理论支撑。",
+      "llm_tags": [
+        "query:neural-ode"
+      ],
+      "matched_query_tag": "query:neural-ode",
+      "matched_query_text": "neural partial differential equation medical imaging",
+      "matched_requirement_id": "req-12",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2605.27467v1",
+      "source": "arxiv",
+      "title": "Comparative Analysis of Liquid Neural Networks and LSTM for Sequential Pattern Recognition: Robustness, Efficiency, and Clinical Utility",
+      "abstract": "Traditional Recurrent Neural Networks (RNNs) and Long Short-Term Memory (LSTM) units operate on discrete time steps, often failing to capture the fluid temporal dynamics of real-world physical processes. Liquid Neural Networks (LNNs), specifically Closed-form Continuous-time (CfC) networks, address this by modeling the hidden state evolution as a continuous differential equation. In this paper, we conduct a comprehensive benchmarking study across four distinct sequential modalities: neuromorphic event-based data (N-MNIST), stroke-based drawing (QuickDraw), visual handwriting (IAM), and physiological time-series (PhysioNet Sepsis-3). Furthermore, we perform a rigorous stress test using temporal dropout to evaluate model robustness against missing data. Our findings reveal that LNNs consistently provide superior parameter efficiency and significantly higher robustness in natively temporal domains and clinical environments where data sparsity is prevalent. This extended preprint provides additional background on related datasets and the LNN theoretical lineage, supplemented with a detailed appendix documenting our full implementation and experimental settings.",
+      "authors": [
+        "Ye Kyaw Thu",
+        "Thazin Myint Oo",
+        "Thepchai Supnithi"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.AI",
+        "cs.CV"
+      ],
+      "published": "2026-05-26T08:18:52+00:00",
+      "link": "https://arxiv.org/pdf/2605.27467v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:neural-ode"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "liquid neural network benchmark for sequential pattern recognition, clinical utility",
+      "llm_evidence_cn": "液态神经网络在序列模式识别中的基准测试，涉及临床应用",
+      "llm_evidence": "液态神经网络在序列模式识别中的基准测试，涉及临床应用",
+      "canonical_evidence": "液态神经网络在序列模式识别中的基准测试，涉及临床应用",
+      "llm_tldr_en": "Benchmarks Liquid Neural Networks (LNNs) against LSTM on four sequential modalities, showing robustness and clinical utility, relevant to continuous-depth models for medical imaging.",
+      "llm_tldr_cn": "该论文系统比较了液态神经网络（LNN）与LSTM在四种序列模态（包括生理时间序列）上的性能，发现LNN在鲁棒性和效率上具有优势。虽然主要面向序列数据，但其连续时间建模思想与医学影像分析中的神经ODE方法相通，为后续将LNN应用于2D/3D医学影像分割提供了方法论基础。",
+      "llm_tldr": "该论文系统比较了液态神经网络（LNN）与LSTM在四种序列模态（包括生理时间序列）上的性能，发现LNN在鲁棒性和效率上具有优势。虽然主要面向序列数据，但其连续时间建模思想与医学影像分析中的神经ODE方法相通，为后续将LNN应用于2D/3D医学影像分割提供了方法论基础。",
+      "llm_tags": [
+        "query:neural-ode"
+      ],
+      "matched_query_tag": "query:neural-ode",
+      "matched_query_text": "liquid neural network medical imaging",
+      "matched_requirement_id": "req-13",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2605.24816v1",
+      "source": "arxiv",
+      "title": "AOEPT: Breaking the Implicit Modality-Reduction Bottleneck in Modality-Missing Prompt Tuning",
+      "abstract": "Deploying multimodal systems in real-world environments often entails handling modality-missing scenarios, where one or more modalities are unavailable. While recent studies address this challenge for the general Multimodal Transformer (MT) architecture via prompt tuning, we identify a fundamental limitation in these methods: the Implicit Modality-Reduction bottleneck. By conditioning prompts solely on the observed modalities, they inadvertently restrict the reasoning scope of MTs to the modality-reduced subspace, cutting off access to the latent information sources of the missing modalities. To overcome this limitation, we propose AOEPT, which pioneers a novel modal-contextualized prompting fashion. Specifically, we introduce lightweight Modal-Contextualized Prompts (MCPs) that distill global modality-wise priors from training data, serving as latent repositories of the information sources for missing modalities. Conditioned on the remaining modalities, these MCPs are instantiated into instance-aware prompts that selectively augment missing-modality information for each sample, thereby restoring the reasoning scope of MTs beyond the observed-modality-only subspace. Experiments across various multimodal benchmarks and backbones confirm the strong performance of AOEPT, with minimal computational overhead.",
+      "authors": [
+        "Jian Lang",
+        "Rongpei Hong",
+        "Ting Zhong",
+        "Fan Zhou"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-05-24T02:04:44+00:00",
+      "link": "https://arxiv.org/pdf/2605.24816v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "query:EEG-ODE-LN",
+        "query:multi-modal"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "multimodal fusion technique for modality-missing scenarios via prompt tuning",
+      "llm_evidence_cn": "针对模态缺失场景的多模态融合技术，采用提示调优",
+      "llm_evidence": "针对模态缺失场景的多模态融合技术，采用提示调优",
+      "canonical_evidence": "针对模态缺失场景的多模态融合技术，采用提示调优",
+      "llm_tldr_en": "Proposes AOEPT to overcome the implicit modality-reduction bottleneck in multimodal transformers for missing-modality scenarios, using modal-contextualized prompting to preserve reasoning on missing modalities.",
+      "llm_tldr_cn": "针对多模态系统中模态缺失时的隐式模态缩减瓶颈问题，提出AOEPT方法，通过创新的模态上下文化提示机制，在提示调优中保留对缺失模态潜在信息的推理能力。该方法超越了仅基于观测模态的条件限制，在多个缺失模态基准上显著提升了性能，为鲁棒多模态融合提供了新范式。",
+      "llm_tldr": "针对多模态系统中模态缺失时的隐式模态缩减瓶颈问题，提出AOEPT方法，通过创新的模态上下文化提示机制，在提示调优中保留对缺失模态潜在信息的推理能力。该方法超越了仅基于观测模态的条件限制，在多个缺失模态基准上显著提升了性能，为鲁棒多模态融合提供了新范式。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "techniques for multimodal fusion",
+      "matched_requirement_id": "req-21",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "biorxiv-10-1101-2025-09-27-678941-v2",
+      "source": "biorxiv",
+      "title": "DLC2Action: A Multimodal Deep Learning-based Toolbox for Automated Behavior Segmentation",
+      "abstract": "Behavioral analysis is fundamental to neuroscience, yet the manual annotation of actions remains a bottleneck that constrains both the scale and the reproducibility of experiment. Here, we present DLC2Action, an open-source Python toolbox that enables automatic behavior annotation from video, audio and estimated 2D/3D pose tracking data. DLC2Action integrates multiple state-of-the-art deep learning architectures optimized for action segmentation and supports self-supervised learning (SSL) to address annotation scarcity, boosting performance with limited labeled datasets. To enable model comparison, we establish fixed train/test partitions for nine diverse datasets comprising rodent experiments, human cooking studies, and wildlife observation. DLC2Action reached strong performance across those benchmarks. To further showcase the tool's versatility, we applied it to Atari gameplay data and found that, in certain games, the players' eye movements consistently predict their button presses across subjects. Because DLC2Action features an intuitive graphical user interface (GUI), users can streamline behavior annotation, perform active learning, and assess of model predictions. Diverse pose, video, and annotation formats are supported. Lastly, DLC2Action is modular and thus designed for extensibility, allowing users to integrate new models, dataset features, and methods. The code and benchmarks are available at: https://github.com/amathislab/DLC2action",
+      "authors": [
+        "Kozlova, E.",
+        "Bonnetto, A.",
+        "Mathis, A."
+      ],
+      "primary_category": "animal behavior and cognition",
+      "categories": [
+        "animal behavior and cognition"
+      ],
+      "published": "2026-05-30T00:00:00+00:00",
+      "link": "https://www.biorxiv.org/content/10.1101/2025.09.27.678941v2.full.pdf",
+      "tags": [
+        "keyword:multi-modal",
+        "keyword:neural-ode",
+        "query:multi-modal"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "multimodal deep learning toolbox for action segmentation from video, audio, pose",
+      "llm_evidence_cn": "基于视频、音频和姿态的多模态深度学习行为分割工具箱",
+      "llm_evidence": "基于视频、音频和姿态的多模态深度学习行为分割工具箱",
+      "canonical_evidence": "基于视频、音频和姿态的多模态深度学习行为分割工具箱",
+      "llm_tldr_en": "DLC2Action is an open-source Python toolbox integrating multiple deep learning architectures for automated behavior annotation from video, audio, and pose data, with self-supervised learning to handle limited labels.",
+      "llm_tldr_cn": "行为分析依赖人工标注，成为神经科学规模化的瓶颈。本文提出DLC2Action开源工具箱，集成多种深度学习架构，利用视频、音频和2D/3D姿态数据进行自动行为分割。支持自监督学习以应对标注稀缺，在九个数据集（含啮齿类、人类烹饪和野生动物）上建立了固定训练/测试划分，显著提升了分割性能。该工具为多模态行为分析提供了标准化解决方案。",
+      "llm_tldr": "行为分析依赖人工标注，成为神经科学规模化的瓶颈。本文提出DLC2Action开源工具箱，集成多种深度学习架构，利用视频、音频和2D/3D姿态数据进行自动行为分割。支持自监督学习以应对标注稀缺，在九个数据集（含啮齿类、人类烹饪和野生动物）上建立了固定训练/测试划分，显著提升了分割性能。该工具为多模态行为分析提供了标准化解决方案。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "multimodal learning methods",
+      "matched_requirement_id": "req-24",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2605.25195v1",
+      "source": "arxiv",
+      "title": "Baton: Explicit Semantic Blueprints for Joint Video-Audio Generation",
+      "abstract": "Current open-source diffusion models struggle to generate stable and synchronized audio-visual content, particularly in scenarios demanding complex semantic reasoning. The root cause is that existing methods rely on coarse text embeddings from off-the-shelf encoders to guide audio-video denoising, which discards fine-grained semantics and, critically, lacks a shared long-horizon plan, leading to uncoordinated denoising trajectories and fragile cross-modal alignment. We propose Baton, the first framework that introduces explicit semantic planning into joint video-audio generation. Our key insight is that complementing coarse text guidance with semantically rich, modality-aware planned tokens, jointly reasoned and mutually aligned before denoising, can simultaneously restore fine-grained semantic detail and establish a shared blueprint that coordinates both audio and video denoising trajectories. Concretely, Baton first introduces the VA-Planner, a multimodal language model equipped with dual semantic alignment towers, where learnable queries cross-attend to both video and audio features to produce a pair of semantically aligned video and audio planned tokens as keyframe-level blueprints. These planned tokens are injected into the diffusion backbone via cross-attention layers, providing temporally grounded guidance complementary to coarse text embeddings. Since planned tokens do not share one-to-one spatial-temporal correspondence with diffusion latents, we further propose Relative Semantic RoPE, a relative positional encoding that maps planned tokens and latents into a shared spatial-temporal coordinate frame, enabling each latent to accurately attend to its positionally corresponding semantic cues. Experiments on benchmarks show the effectiveness of Baton both qualitatively and quantitatively.",
+      "authors": [
+        "Shuyuan Tu",
+        "Qi Tian",
+        "Zihan Yang",
+        "Yue Wu",
+        "Xintong Han",
+        "Weijie Kong",
+        "Jiangfeng Xiong",
+        "Jian-Wei Zhang",
+        "Zhao Zhong",
+        "Liefeng Bo",
+        "Zuxuan Wu",
+        "Yu-Gang Jiang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-05-24T17:55:11+00:00",
+      "link": "https://arxiv.org/pdf/2605.25195v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "query:EEG-ODE-LN",
+        "query:multi-modal"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "explicit semantic planning for joint video-audio generation improving cross-modal alignment",
+      "llm_evidence_cn": "显式语义规划用于联合视频-音频生成，改进跨模态对齐",
+      "llm_evidence": "显式语义规划用于联合视频-音频生成，改进跨模态对齐",
+      "canonical_evidence": "显式语义规划用于联合视频-音频生成，改进跨模态对齐",
+      "llm_tldr_en": "Baton introduces explicit semantic planning into joint video-audio generation, using modality-aware planned tokens reasoned before denoising to improve cross-modal alignment and synchronization.",
+      "llm_tldr_cn": "现有扩散模型在联合视频-音频生成中缺乏长程规划，导致跨模态对齐脆弱。本文提出Baton，首个引入显式语义规划的框架，在去噪前生成语义丰富、模态感知的规划令牌，并进行联合推理和互对齐。该方法补充了粗粒度文本引导，显著提升了生成内容的稳定性和同步性，特别是在复杂语义推理场景中。",
+      "llm_tldr": "现有扩散模型在联合视频-音频生成中缺乏长程规划，导致跨模态对齐脆弱。本文提出Baton，首个引入显式语义规划的框架，在去噪前生成语义丰富、模态感知的规划令牌，并进行联合推理和互对齐。该方法补充了粗粒度文本引导，显著提升了生成内容的稳定性和同步性，特别是在复杂语义推理场景中。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "techniques for multimodal fusion",
+      "matched_requirement_id": "req-21",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "biorxiv-10-1101-2024-12-08-627408-v2",
+      "source": "biorxiv",
+      "title": "Mechanistic Identifiability Preservation for Hybrid Neural Differential Equations",
+      "abstract": "Hybrid neural differential equations (HNDEs) embed neural network components within mechanistic scaffolds, combining the structural interpretability of domain-derived models with the approximation power of neural dynamics. Despite their growing adoption in biology and engineering, neural augmentation can introduce observational degeneracies that compromise mechanistic identifiability and scientific interpretability.\n\nIn this paper, we develop a theoretical framework for practical preservation of mechanistic identifiability in HNDEs. We formalize bounded neural correction classes and derive Gronwall-type trajectory and observational discrepancy bounds linking neural perturbations to mechanistic parameter ambiguity. We further establish sufficient conditions under which hybrid neural corrections preserve approximate mechanistic parameter recoverability up to explicitly quantifiable tolerances.\n\nEmpirical likelihood profile analyses on benchmark systems confirm that neural augmentation systematically weakens--but does not eliminate--mechanistic identifiability, revealing a fundamental expressiveness-identifiability trade-off. These results provide theoretical foundations and actionable guidance for deploying HNDEs in scientific intelligent computing.",
+      "authors": [
+        "Whipple, B.",
+        "Hernandez-Vargas, E. A."
+      ],
+      "primary_category": "systems biology",
+      "categories": [
+        "systems biology"
+      ],
+      "published": "2026-05-23T00:00:00+00:00",
+      "link": "https://www.biorxiv.org/content/10.1101/2024.12.08.627408v2.full.pdf",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:multi-modal",
+        "query:neural-ode"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "hybrid neural differential equations theory applicable to medical imaging",
+      "llm_evidence_cn": "混合神经微分方程理论可用于医学成像分析",
+      "llm_evidence": "混合神经微分方程理论可用于医学成像分析",
+      "canonical_evidence": "混合神经微分方程理论可用于医学成像分析",
+      "llm_tldr_en": "This paper develops a theoretical framework for preserving mechanistic identifiability in hybrid neural differential equations, providing foundations for safe use in medical imaging and computational biology.",
+      "llm_tldr_cn": "该论文针对混合神经微分方程（HNDEs）中神经增强可能损害机制可辨识性的问题，提出了一个理论框架来保持机制可辨识性。通过形式化有界神经修正类并推导Gronwall型轨迹和观测差异界，建立了神经扰动与机制参数模糊性之间的联系。该方法为医学图像分析等科学应用中安全使用HNDEs提供了理论基础，确保了模型的可解释性和可靠性。",
+      "llm_tldr": "该论文针对混合神经微分方程（HNDEs）中神经增强可能损害机制可辨识性的问题，提出了一个理论框架来保持机制可辨识性。通过形式化有界神经修正类并推导Gronwall型轨迹和观测差异界，建立了神经扰动与机制参数模糊性之间的联系。该方法为医学图像分析等科学应用中安全使用HNDEs提供了理论基础，确保了模型的可解释性和可靠性。",
+      "llm_tags": [
+        "query:neural-ode"
+      ],
+      "matched_query_tag": "query:neural-ode",
+      "matched_query_text": "medical image analysis using neural differential equations",
+      "matched_requirement_id": "req-14",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "biorxiv-10-64898-2026-05-24-727533-v1",
+      "source": "biorxiv",
+      "title": "Behavioural and neural signatures across diverse cognitive demands in a multimodal electroencephalography-functional magnetic resonance imaging design",
+      "abstract": "Efficient multimodal designs that capture differences across cognitive domains and variations in cognitive demand remain limited. In this study, we tested a compact framework with 58 healthy participants who completed multimodal electroencephalography (EEG) and functional magnetic resonance imaging (fMRI) sessions. The framework comprised two complementary batteries: the HCP-aligned multitask paradigm (HCP-mini), which integrates eight HCP-aligned cognitive tasks and rest within a single run, and an extended N-back task ranging from 0-back to 7-back. Designed to support broad cross-domain coverage and matched multimodal assessment, the two batteries captured the expected group-level behavioural structure across modalities. Behavioural performance exceeded chance levels or aligned with findings from previous studies in both EEG and fMRI. Descriptive intraclass correlation coefficient (ICC) analyses showed numerically higher within-modality run-to-run values than between-modality values. At the neural level, HCP-mini fMRI activation patterns closely recapitulated the canonical large-scale task organisation of the original HCP dataset, with corresponding task pairs showing the strongest spatial similarity. Together, these findings demonstrate a compact and efficient framework for multimodal characterisation of cognition across domains and graded cognitive demands.",
+      "authors": [
+        "Hiromitsu, K.",
+        "Chiyohara, S.",
+        "Asai, T.",
+        "Katayama, A.",
+        "Wakabayashi, M.",
+        "Imamizu, H."
+      ],
+      "primary_category": "neuroscience",
+      "categories": [
+        "neuroscience"
+      ],
+      "published": "2026-05-27T00:00:00+00:00",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.05.24.727533v1.full.pdf",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:multi-modal",
+        "query:neural-ode"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "multimodal EEG-fMRI study for cognitive tasks",
+      "llm_evidence_cn": "多模态EEG-fMRI认知任务研究",
+      "llm_evidence": "多模态EEG-fMRI认知任务研究",
+      "canonical_evidence": "多模态EEG-fMRI认知任务研究",
+      "llm_tldr_en": "This study tests a compact multimodal EEG-fMRI framework with HCP-aligned tasks and extended N-back to capture cognitive demands across domains.",
+      "llm_tldr_cn": "该研究提出了一个紧凑的多模态EEG-fMRI框架，包含HCP对齐的多任务范式和扩展的N-back任务，用于捕获跨认知领域和认知需求变化的行为和神经特征。在58名健康参与者中验证了该框架的有效性，支持广泛的跨领域覆盖和多模态评估。",
+      "llm_tldr": "该研究提出了一个紧凑的多模态EEG-fMRI框架，包含HCP对齐的多任务范式和扩展的N-back任务，用于捕获跨认知领域和认知需求变化的行为和神经特征。在58名健康参与者中验证了该框架的有效性，支持广泛的跨领域覆盖和多模态评估。",
+      "llm_tags": [
+        "query:eeg-ode-ln:composite"
+      ],
+      "matched_query_tag": "query:eeg-ode-ln:composite",
+      "matched_query_text": "Papers central to 查找EEG解码（最好情绪识别）以及EEG+fNIRs多模态的文章, especially work that connects or combines: EEG signal decoding methods; multimodal EEG and fNIRS for brain activity decoding; affective computing using EEG; brain-computer interface for emotion; multimodal fusion of EEG and fNIRS; deep learning for EEG classification; Find papers on EEG decoding for emotion recognition; Search for multimodal EEG and fNIRS studies; EEG decoding for emotion recognition; multimodal EEG fNIRS studies.",
+      "matched_requirement_id": "req-composite-eeg-ode-ln",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "8plus"
+    }
+  ]
+}
