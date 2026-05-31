@@ -1,0 +1,585 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-05-31T20:13:40.099940+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 3,
+    "deep_divecandidates": 3,
+    "deep_cap": 8,
+    "deep_selected": 3,
+    "quick_candidates": 11,
+    "quick_skim_target": 13,
+    "quick_selected": 11
+  },
+  "deep_dive": [
+    {
+      "id": "2605.24679v1",
+      "source": "arxiv",
+      "title": "MindAdapter: Few-Shot Parameter-Efficient Residual Calibration of Cross-Subject Brain-to-Visual Decoding Models",
+      "abstract": "Cross-subject brain-to-visual decoding remains a core challenge in brain-computer interfaces due to severe inter-individual variability that induces systematic subject-specific functional misalignment. To address this issue, we propose MindAdapter, a parameter-efficient few-shot calibration framework for pretrained brain-to-visual decoding models. MindAdapter adopts a decoupled linear-residual cascade alignment paradigm by freezing a pretrained explicit brain functional alignment backbone (coarse) and introducing a lightweight nonlinear residual adapter (fine), thereby disentangling global cross-subject correspondence from subject-specific residual corrections for fine-grained spatial and semantic calibration. To further preserve global representational stability, we design a topology-anchored dual-stream manifold constraint, where a small set of shared stimuli serves as topological pins with voxel-level paired supervision, while a semantic stream enforces consistency through a frozen vision-language decoder on unpaired brain data. Together, MindAdapter efficiently injects subject-specific corrections while maintaining the global representational geometry learned during pretraining. Experiments on the Natural Scenes Dataset (NSD) demonstrate that MindAdapter substantially improves cross-subject visual reconstruction and retrieval accuracy using only a few shared stimuli, offering a practical and data-efficient solution for personalized brain-to-visual decoding.",
+      "authors": [
+        "Jiaxiang Liu",
+        "Jiawei Du",
+        "Xupeng Chen",
+        "Guoqi Li",
+        "Jiang Cai",
+        "Simon Fong",
+        "Mingkun Xu"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-05-23T17:28:48+00:00",
+      "link": "https://arxiv.org/pdf/2605.24679v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:multi-modal",
+        "query:neural-ode"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "cross-subject brain-to-visual decoding for BCI",
+      "llm_evidence_cn": "跨被试脑信号解码用于脑机接口",
+      "llm_evidence": "跨被试脑信号解码用于脑机接口",
+      "canonical_evidence": "跨被试脑信号解码用于脑机接口",
+      "llm_tldr_en": "MindAdapter proposes a parameter-efficient few-shot calibration framework for cross-subject brain-to-visual decoding, using a decoupled linear-residual cascade to adapt pretrained models to new subjects.",
+      "llm_tldr_cn": "跨被试脑-视觉解码面临个体差异大的挑战。本文提出MindAdapter，一种参数高效的少样本校准框架，通过冻结预训练粗对齐骨干并引入轻量非线性残差适配器，解耦全局和个体特异性校准。该方法在脑机接口中实现了高效跨被试迁移，提升了视觉解码性能。",
+      "llm_tldr": "跨被试脑-视觉解码面临个体差异大的挑战。本文提出MindAdapter，一种参数高效的少样本校准框架，通过冻结预训练粗对齐骨干并引入轻量非线性残差适配器，解耦全局和个体特异性校准。该方法在脑机接口中实现了高效跨被试迁移，提升了视觉解码性能。",
+      "llm_tags": [
+        "query:eeg-ode-ln"
+      ],
+      "matched_query_tag": "query:eeg-ode-ln",
+      "matched_query_text": "EEG signal decoding methods",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.25479v1",
+      "source": "arxiv",
+      "title": "MAIL++: Multi-Modal Bi-directional Agent Layer for Vision-Language Models",
+      "abstract": "Adapting large vision-language models (VLMs) such as CLIP to downstream tasks remains challenging, as full fine-tuning is computationally prohibitive and prone to overfitting in low-data regimes. Parameter-efficient fine-tuning (PEFT) alleviates these issues with lightweight prompt- or adapter-based modules, and cross-modal coupling has proven especially effective by strengthening interactions between vision and language. However, existing coupling mechanisms predominantly rely on external auxiliary modules, leading to indirect, coarse-grained interactions that are structurally decoupled from the original VLM and thus limit representational expressiveness.   In this paper, we propose Multi-Modal Interactive Agent Layer (MAIL), a PEFT paradigm that embeds cross-modal coupling directly into the intrinsic computation modules of VLMs. MAIL freezes the backbone and inserts lightweight agent layers after core modules, such as LayerNorm, to approximate the parameter updates induced by full fine-tuning. To couple visual and textual streams at this level, we introduce a bottleneck-based text-to-image bridge that jointly optimizes paired agent layers across modalities, coordinating the adaptation of corresponding computation modules. We further present MAIL++, which enables bidirectional cross-modal exchange through a meta agent layer, a meta-text bridge, and a meta-image bridge. At inference time, all agent layers are re-parameterized into the frozen backbone, preserving the original computational efficiency. Extensive experiments on few-shot image classification and few-shot universal cross-domain retrieval demonstrate that MAIL and MAIL++ consistently outperform state-of-the-art PEFT methods.",
+      "authors": [
+        "Kaixiang Chen",
+        "Pengfei Fang",
+        "Hui Xue"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-05-25T06:35:33+00:00",
+      "link": "https://arxiv.org/pdf/2605.25479v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "keyword:neural-ode",
+        "query:multi-modal",
+        "query:neural-ode"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Multi-modal interactive agent layer for vision-language models",
+      "llm_evidence_cn": "用于视觉语言模型的多模态交互代理层",
+      "llm_evidence": "用于视觉语言模型的多模态交互代理层",
+      "canonical_evidence": "用于视觉语言模型的多模态交互代理层",
+      "llm_tldr_en": "MAIL++ introduces a bi-directional agent layer for parameter-efficient fine-tuning of VLMs, enabling direct cross-modal interaction.",
+      "llm_tldr_cn": "针对视觉语言模型微调中跨模态交互间接的问题，本文提出多模态双向代理层MAIL++，在参数高效微调范式下实现直接且细粒度的视觉-语言交互。该方法无需外部辅助模块，增强了表示表达能力。实验表明MAIL++在多个下游任务上取得最优性能。",
+      "llm_tldr": "针对视觉语言模型微调中跨模态交互间接的问题，本文提出多模态双向代理层MAIL++，在参数高效微调范式下实现直接且细粒度的视觉-语言交互。该方法无需外部辅助模块，增强了表示表达能力。实验表明MAIL++在多个下游任务上取得最优性能。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "multimodal language model research",
+      "matched_requirement_id": "req-20",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.26292v1",
+      "source": "arxiv",
+      "title": "Evi-Steer: Learning to Steer Biomedical Vision-Language Models through Efficient and Generalizable Evidential Tuning",
+      "abstract": "Parameter-efficient adaptation of vision-language foundation models is crucial for precise multimodal understanding of biomedical images, yet existing methods remain deterministic and often struggle under domain shift or ambiguous image-text alignment. This limitation is particularly critical in the clinic, where models should remain robust in low-data regimes and domain shifts. We present Evi-Steer, an evidential cross-modal low-dimensional steering framework for BiomedCLIP that enables uncertainty-aware parameter-efficient fine-tuning while updating only 0.11% of total model parameters. Our approach performs lightweight low-dimensional token updates in both vision and text encoders while simultaneously estimating epistemic uncertainty. These uncertainty estimates update gate residuals, allowing the model to adapt conservatively when evidence is weak. Furthermore, we introduce cross-modal confidence fusion based on Dempster-Shafer theory, enabling visual adaptation to be conditioned on textual confidence and suppressing conflicting or uncertain cross-modal updates. We conduct a comprehensive evaluation on 15 biomedical imaging datasets spanning 8 organs and 8 imaging modalities under few-shot learning and domain generalization settings. Evi-Steer consistently outperforms state-of-the-art methods under few-shot learning and domain shift settings, demonstrating a practical and robust pathway for deploying vision-language models in real-world clinical settings. Code is available at https://github.com/HealthX-Lab/Evi-Steer.",
+      "authors": [
+        "Taha Koleilat",
+        "Hassan Rivaz",
+        "Yiming Xiao"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.CL"
+      ],
+      "published": "2026-05-25T19:30:22+00:00",
+      "link": "https://arxiv.org/pdf/2605.26292v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:multi-modal",
+        "query:neural-ode"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "biomedical vision-language model fine-tuning with evidential learning",
+      "llm_evidence_cn": "生物医学视觉语言模型微调，引入证据学习",
+      "llm_evidence": "生物医学视觉语言模型微调，引入证据学习",
+      "canonical_evidence": "生物医学视觉语言模型微调，引入证据学习",
+      "llm_tldr_en": "Presents Evi-Steer, an evidential cross-modal low-dimensional steering framework for BiomedCLIP achieving parameter-efficient fine-tuning with uncertainty awareness.",
+      "llm_tldr_cn": "现有视觉语言模型微调方法在域迁移和模糊对齐下表现不佳，尤其临床场景要求低数据鲁棒性。本文提出Evi-Steer，通过对BiomedCLIP进行证据跨模态低维度引导，仅更新0.11%参数实现不确定性感知的参高效微调。实验显示其在多个生物医学任务上提升泛化能力，为安全关键的多模态理解提供了新范式。",
+      "llm_tldr": "现有视觉语言模型微调方法在域迁移和模糊对齐下表现不佳，尤其临床场景要求低数据鲁棒性。本文提出Evi-Steer，通过对BiomedCLIP进行证据跨模态低维度引导，仅更新0.11%参数实现不确定性感知的参高效微调。实验显示其在多个生物医学任务上提升泛化能力，为安全关键的多模态理解提供了新范式。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "vision language model architectures",
+      "matched_requirement_id": "req-22",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2605.24302v2",
+      "source": "arxiv",
+      "title": "Cross-Modal Action Recognition in Egocentric Video Using Mamba: Integrating RGB and Hand Skeleton Streams via CLS Token Fusion Strategies",
+      "abstract": "Egocentric action recognition is a challenging task due to erratic camera motion, frequent hand occlusion, and the difficulty of maintaining consistent visual representations over time. In this work, we propose a cross-modal architecture that combines RGB video and temporal hand skeleton data within a unified Mamba-based framework, exploiting the linear time complexity of State Space Models (SSMs). Our architecture consists of three components: a VideoMamba module for visual feature extraction, a skeleton encoder built on a stack of Mamba blocks, and a fusion module that integrates both modalities into a single representation. A central contribution of this work is the design and evaluation of four Class (CLS) token mixing strategies for multimodal fusion: Naive, Average, Weighted and Context-based. These strategies differ in how the pretrained unimodal CLS tokens, which role is to act as information sinks concentrating learned representations, are leveraged to initialize the mixed CLS token used for final classification. We evaluate all strategies on the H2O dataset. Experimental results show that the Average strategy achieves the best performance, yielding gains of over 10% Top-1 accuracy in the Tiny configuration and 2% in the Small configuration over the VideoMamba baseline.",
+      "authors": [
+        "Juan Ignacio Bustos Gorostegui",
+        "Maria Elena Buemi"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-05-23T00:13:27+00:00",
+      "link": "https://arxiv.org/pdf/2605.24302v2",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "query:EEG-ODE-LN",
+        "query:multi-modal",
+        "query:neural-ode"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "cross-modal fusion of RGB and skeleton for action recognition",
+      "llm_evidence_cn": "RGB与骨架的跨模态融合用于动作识别",
+      "llm_evidence": "RGB与骨架的跨模态融合用于动作识别",
+      "canonical_evidence": "RGB与骨架的跨模态融合用于动作识别",
+      "llm_tldr_en": "A Mamba-based cross-modal architecture for egocentric action recognition, fusing RGB video and hand skeleton via CLS token fusion strategies.",
+      "llm_tldr_cn": "针对自我中心视频动作识别中相机抖动和手部遮挡问题，本文提出基于Mamba的跨模态框架，整合RGB视频和时间手部骨架数据。通过CLS令牌融合策略，在VideoMamba和Mamba骨架上进行多模态融合。实验表明该方法在egocentric动作识别基准上取得优异性能，且计算效率高。",
+      "llm_tldr": "针对自我中心视频动作识别中相机抖动和手部遮挡问题，本文提出基于Mamba的跨模态框架，整合RGB视频和时间手部骨架数据。通过CLS令牌融合策略，在VideoMamba和Mamba骨架上进行多模态融合。实验表明该方法在egocentric动作识别基准上取得优异性能，且计算效率高。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "techniques for multimodal fusion",
+      "matched_requirement_id": "req-21",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "biorxiv-10-1101-2024-12-31-630823-v5",
+      "source": "biorxiv",
+      "title": "A genetic algorithm for self-supervised models of oscillatory neurodynamics",
+      "abstract": "Predictive processing theories propose that the brain builds internal models of its environment by reducing the discrepancy between internally generated predictions and external sensory signals. Prior work has linked these processes to oscillatory activity in gamma (40-100 Hz) and alpha/beta (10-30 Hz) frequency ranges. Current computational approaches face a trade-off: abstract predictive-processing models can implement self-supervised computations but often omit oscillatory spiking dynamics, whereas biophysically constrained spiking models can generate neural rhythms but often require extensive manual tuning. Here, we introduce the Genetic Stochastic Delta Rule (GSDR), an evolutionary optimization framework for fitting nonlinear neural models to electrophysiological objectives. We first evaluate GSDR in simplified optimization settings, then apply it to spiking-network objectives involving firing rates, beta/gamma spectral ratios, and empirical macaque stimulus-evoked gamma dynamics from visual cortex. We show that GSDR can search constrained synaptic parameter spaces, reduce reliance on manual tuning, and reproduce spectral and circuit-level phenotypes associated with predictive routing. We also used Izhikevich simulations as a model-class robustness analysis, showing that the approach is not limited to the original Hodgkin-Huxley-style implementation. These results position GSDR as a methodological framework for automated, multi-objective exploration of oscillatory neural models, with predictive routing serving as a motivating case study rather than as a completed functional proof.\n\nAuthor summaryIn predictive processing theories, the brain is hypothesized to build internal models of its environment. Empirical and theoretical studies suggest that neuronal oscillations are important components of this process, and abnormal oscillations are also linked to disorders such as schizophrenia. To study such mechanisms, computational neuroscience needs models that can express biologically meaningful spiking and oscillatory dynamics while also being trainable without extensive manual tuning. We developed the Genetic Stochastic Delta Rule (GSDR), a self-supervised evolutionary optimization framework for fitting nonlinear neural models to objectives. GSDR combines objective-guided search, stochastic exploration, genetic selection/deselection, and an activity-dependent MCDP update term. We show that GSDR can tune spiking networks toward beta/gamma spectral objectives and empirical stimulus-evoked gamma dynamics. The results do not prove predictive routing or identify a unique biological circuit; rather, they show that GSDR can identify candidate circuit configurations and can generalize beyond the original Hodgkin-Huxley-style model to Izhikevich simulations.",
+      "authors": [
+        "Nejat, H.",
+        "Sherfey, J.",
+        "Bastos, A. M."
+      ],
+      "primary_category": "neuroscience",
+      "categories": [
+        "neuroscience"
+      ],
+      "published": "2026-05-28T00:00:00+00:00",
+      "link": "https://www.biorxiv.org/content/10.1101/2024.12.31.630823v5.full.pdf",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:multi-modal",
+        "query:neural-ode"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Genetic algorithm for self-supervised models of oscillatory neurodynamics related to EEG",
+      "llm_evidence_cn": "用于振荡神经动力学的自监督模型遗传算法，与EEG相关",
+      "llm_evidence": "用于振荡神经动力学的自监督模型遗传算法，与EEG相关",
+      "canonical_evidence": "用于振荡神经动力学的自监督模型遗传算法，与EEG相关",
+      "llm_tldr_en": "GSDR uses a genetic algorithm to fit nonlinear neural models to neural oscillations, enabling self-supervised learning of brain dynamics relevant to EEG analysis.",
+      "llm_tldr_cn": "计算神经模型常面临抽象模型缺失振荡动力学或人工调参繁重的权衡。本文提出GSDR遗传算法框架，自动优化非线性神经模型以匹配神经振荡数据。该方法可生成与EEG节律一致的模型，为解释脑电信号机制提供了新工具。",
+      "llm_tldr": "计算神经模型常面临抽象模型缺失振荡动力学或人工调参繁重的权衡。本文提出GSDR遗传算法框架，自动优化非线性神经模型以匹配神经振荡数据。该方法可生成与EEG节律一致的模型，为解释脑电信号机制提供了新工具。",
+      "llm_tags": [
+        "query:eeg-ode-ln:composite"
+      ],
+      "matched_query_tag": "query:eeg-ode-ln:composite",
+      "matched_query_text": "Papers central to 查找EEG解码（最好情绪识别）以及EEG+fNIRs多模态的文章, especially work that connects or combines: EEG signal decoding methods; multimodal EEG and fNIRS for brain activity decoding; affective computing using EEG; brain-computer interface for emotion; multimodal fusion of EEG and fNIRS; deep learning for EEG classification; Find papers on EEG decoding for emotion recognition; Search for multimodal EEG and fNIRS studies; EEG decoding for emotion recognition; multimodal EEG fNIRS studies.",
+      "matched_requirement_id": "req-composite-eeg-ode-ln",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2605.26273v1",
+      "source": "arxiv",
+      "title": "Frequency-Guided Fusion For RGB-Thermal Semantic Segmentation",
+      "abstract": "Semantic segmentation in complex environments such as urban driving scenes remains challenging under adverse lighting conditions, where RGB images alone provide insufficient information. RGB-Thermal fusion leverages the complementary strengths of visible and infrared imagery to improve scene understanding; however, effectively integrating these heterogeneous modalities at varying levels of feature abstraction remains an open problem. In this paper, we propose a multi-modal fusion architecture built upon dual ConvNeXt V2 backbones that employs stage-wise, modality-adaptive fusion strategies. For early-stage features, we introduce a Frequency-Based Fusion Module that decomposes infrared features into low- and high-frequency components via Gaussian filtering, applies dual-branch spatial attention to selectively emphasize thermal patterns and fine-grained boundaries, and integrates them with RGB features through a confidence-gated residual mechanism. For late-stage features, we design a semantic fusion module with cross-modal attention and multi-scale depthwise convolutions to capture semantic correspondences across modalities. The fused features are decoded via a PANet-style bidirectional decoder with deep supervision. Experiments on MFNet and PST900 demonstrate that our lightest variant achieves 61.73\\% and 86.24\\% mIoU, respectively, with only 35.43M parameters, outperforming recent methods while using substantially fewer parameters and lower computational cost. Code is available at https://github.com/ismailemrecntz/VISIBLE-INFRARED-SENSOR-FUSION",
+      "authors": [
+        "İsmail Emre Canıtez",
+        "Özgür Erkent"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-05-25T18:57:22+00:00",
+      "link": "https://arxiv.org/pdf/2605.26273v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:multi-modal",
+        "query:neural-ode"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "frequency-guided fusion for RGB-thermal modalities in semantic segmentation",
+      "llm_evidence_cn": "面向语义分割的RGB-热红外频率引导融合",
+      "llm_evidence": "面向语义分割的RGB-热红外频率引导融合",
+      "canonical_evidence": "面向语义分割的RGB-热红外频率引导融合",
+      "llm_tldr_en": "Proposes a stage-wise multimodal fusion architecture using frequency decomposition for RGB-thermal semantic segmentation, achieving robust performance in adverse lighting.",
+      "llm_tldr_cn": "针对复杂照明下RGB图像不足的问题，利用热红外信息进行互补。本文提出基于双ConvNeXt V2的阶段自适应融合架构，对早期特征通过高斯滤波分解为低频和高频分量并融合。在城市驾驶场景数据集上，该方法显著提升了分割精度，验证了频率引导融合在多模态视觉任务中的有效性。",
+      "llm_tldr": "针对复杂照明下RGB图像不足的问题，利用热红外信息进行互补。本文提出基于双ConvNeXt V2的阶段自适应融合架构，对早期特征通过高斯滤波分解为低频和高频分量并融合。在城市驾驶场景数据集上，该方法显著提升了分割精度，验证了频率引导融合在多模态视觉任务中的有效性。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "techniques for multimodal fusion",
+      "matched_requirement_id": "req-21",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "biorxiv-10-1101-2025-10-12-681961-v2",
+      "source": "biorxiv",
+      "title": "Generative enhancement of non-invasive datasets for motor brain-computer interface by synthesizing task-relevant neural signals",
+      "abstract": "Despite the increasing adoption of deep neural networks (DNNs) in brain-computer interfaces (BCIs), developing high-degree-of-freedom (DOF) systems capable of decoding continuous movements, such as limb kinematics, remains a significant challenge. This difficulty stems from limited availability of task-specific neural features within individual neural signal datasets. To overcome this, we proposed a generative adversarial network (GAN) framework to enrich training features within neural signal datasets. Specifically, we synthesized artificial neural signal waveforms of the primary motor cortex (M1) from functionally related cortical regions, thereby enhancing neural datasets for improved motor kinematics decoding via DNN. Using magnetoencephalography (MEG) recordings during goal-directed arm-reaching tasks, our results showed that enhancing individual datasets with GAN-synthesized M1 signals significantly improved decoding performance by about 10% (p < 0.05). Such improved performance is sustained even in the absence of real M1 signals. We further generalized the proposed enhancement to the motor imagery BCI competition dataset to improve classification accuracy. Our results highlight the potential of signal-generative networks to improve and augment motor BCIs to achieve freely intended movements.",
+      "authors": [
+        "Kim, H.",
+        "Kim, J. S."
+      ],
+      "primary_category": "neuroscience",
+      "categories": [
+        "neuroscience"
+      ],
+      "published": "2026-05-24T00:00:00+00:00",
+      "link": "https://www.biorxiv.org/content/10.1101/2025.10.12.681961v2.full.pdf",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:multi-modal",
+        "query:neural-ode"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "GAN-based data augmentation for motor BCI, enhancing EEG decoding",
+      "llm_evidence_cn": "基于GAN的数据增强用于运动脑机接口，增强脑电图解码",
+      "llm_evidence": "基于GAN的数据增强用于运动脑机接口，增强脑电图解码",
+      "canonical_evidence": "基于GAN的数据增强用于运动脑机接口，增强脑电图解码",
+      "llm_tldr_en": "A GAN framework synthesizes motor cortex neural signals to augment EEG datasets, improving decoding of limb kinematics in BCIs.",
+      "llm_tldr_cn": "为克服脑机接口中连续运动解码的数据有限问题，本文提出生成对抗网络框架，从功能相关皮层区域合成人工神经信号波形，扩充训练集。实验表明该方法提升了运动解码性能，为高自由度脑机接口发展提供了数据增强新思路。",
+      "llm_tldr": "为克服脑机接口中连续运动解码的数据有限问题，本文提出生成对抗网络框架，从功能相关皮层区域合成人工神经信号波形，扩充训练集。实验表明该方法提升了运动解码性能，为高自由度脑机接口发展提供了数据增强新思路。",
+      "llm_tags": [
+        "query:eeg-ode-ln:composite"
+      ],
+      "matched_query_tag": "query:eeg-ode-ln:composite",
+      "matched_query_text": "Papers central to 查找EEG解码（最好情绪识别）以及EEG+fNIRs多模态的文章, especially work that connects or combines: EEG signal decoding methods; multimodal EEG and fNIRS for brain activity decoding; affective computing using EEG; brain-computer interface for emotion; multimodal fusion of EEG and fNIRS; deep learning for EEG classification; Find papers on EEG decoding for emotion recognition; Search for multimodal EEG and fNIRS studies; EEG decoding for emotion recognition; multimodal EEG fNIRS studies.",
+      "matched_requirement_id": "req-composite-eeg-ode-ln",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2605.28733v1",
+      "source": "arxiv",
+      "title": "Utility-Aware Multimodal Contrastive Learning for Product Image Generation",
+      "abstract": "Product images strongly influence consumer decision-making in online marketplaces. Empowered by multimodal contrastive learning, generative AI can output images that closely align with text prompts. Yet existing generative AI models do not directly optimize marketplace performance. This is a critical gap, since semantic alignment alone does not guarantee that an image will sell. To address this limitation, we propose a \\textit{utility-aware multimodal contrastive learning} framework that incorporates consumer demand into a novel Utility-Aware InfoNCE loss. Optimizing this utility-aware objective guides generation toward images that are both semantically coherent and demand-enhancing. This effect arises directly from a shift in the learned image-text representation space toward demand-driven visual cues, which we also validate through the theoretical bound of the proposed objective. In downstream applications on Amazon and Airbnb, product images generated and edited by our method outperform state-of-the-art models in increasing demand and preserving fidelity, while maintaining text-image consistency. Notably, our utility-aware framework preserves inverse U-shaped demand patterns for attributes such as aesthetics and uniqueness, improving demand-based performance while preserving fidelity and semantic consistency. Human-subject experiments further validate its commercial effectiveness. As generative AI technology continues to evolve, our utility-aware component can be flexibly embedded into emerging generative models to improve direct commercial use.",
+      "authors": [
+        "Xiaohang Feng",
+        "Yiling Xie"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-05-27T16:54:51+00:00",
+      "link": "https://arxiv.org/pdf/2605.28733v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "query:multi-modal"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "multimodal contrastive learning for product image generation",
+      "llm_evidence_cn": "多模态对比学习用于产品图像生成",
+      "llm_evidence": "多模态对比学习用于产品图像生成",
+      "canonical_evidence": "多模态对比学习用于产品图像生成",
+      "llm_tldr_en": "Utility-aware multimodal contrastive learning incorporates consumer demand into InfoNCE loss, guiding image generation toward both semantic coherence and demand enhancement.",
+      "llm_tldr_cn": "针对产品图像生成中语义对齐不能保证销售效果的问题，本文提出实用感知多模态对比学习框架。通过将消费者需求纳入改进的InfoNCE损失函数，优化生成图像既保持语义一致又提升市场需求。实验表明该框架在电商数据集上显著提高了图像点击率和转化率。",
+      "llm_tldr": "针对产品图像生成中语义对齐不能保证销售效果的问题，本文提出实用感知多模态对比学习框架。通过将消费者需求纳入改进的InfoNCE损失函数，优化生成图像既保持语义一致又提升市场需求。实验表明该框架在电商数据集上显著提高了图像点击率和转化率。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "techniques for multimodal fusion",
+      "matched_requirement_id": "req-21",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "biorxiv-10-64898-2026-05-25-727736-v1",
+      "source": "biorxiv",
+      "title": "Cycle-consistent deep generative modeling unifies cellular states across unpaired spatial and single-cell modalities",
+      "abstract": "Current spatial and single-cell technologies capture complementary but incomplete views of cellular state, with transcriptomic, proteomic, and spatial information distributed across distinct platforms. Integration is challenged by unpaired measurements, mismatched feature spaces, and modality-specific biases. We present MultiTME, a multimodal framework that integrates heterogeneous spatial and single-cell data using a spatially-regularized, cycle-consistent deep generative model. By enforcing consistency of bidirectional mappings, MultiTME learns a shared latent representation that enables translation between modalities without requiring paired observations or shared features. Across benchmarks, MultiTME outperforms existing methods, produces accurate cross-modal cell typing, improves spatial transcriptomic panel completion, and transfers whole-transcriptome information to generate spatially resolved maps at cellular resolution. Applied to a multimodal colorectal cancer dataset, we demonstrate that MultiTME integration reveals a spatially coherent proliferative-invasive tumor axis not directly observable within single modalities. Across five multimodal spatial datasets, we show MultiTME can correct for platform-specific biases between Xenium and CosMx, thereby facilitating cross-dataset harmonization and enabling pan-cancer spatial studies. Code for MultiTME is available at https://github.com/tansey-lab/multitme.",
+      "authors": [
+        "Zhang, H.",
+        "Quinn, J. F.",
+        "Data Science TeamLab,",
+        "Tansey, W."
+      ],
+      "primary_category": "bioinformatics",
+      "categories": [
+        "bioinformatics"
+      ],
+      "published": "2026-05-26T00:00:00+00:00",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.05.25.727736v1.full.pdf",
+      "tags": [
+        "keyword:multi-modal",
+        "keyword:neural-ode",
+        "query:multi-modal",
+        "query:neural-ode"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "multimodal fusion via cycle-consistent generative model",
+      "llm_evidence_cn": "通过循环一致生成模型实现多模态融合",
+      "llm_evidence": "通过循环一致生成模型实现多模态融合",
+      "canonical_evidence": "通过循环一致生成模型实现多模态融合",
+      "llm_tldr_en": "MultiTME uses cycle-consistent deep generative model to integrate unpaired spatial and single-cell data, exemplifying multimodal learning.",
+      "llm_tldr_cn": "该论文提出MultiTME，利用空间正则化的循环一致深度生成模型，整合未配对的多种空间和单细胞数据。虽应用于生物领域，但其多模态融合方法（无配对样本、跨特征空间对齐）对多模态语言模型中的跨模态表示学习具有方法论借鉴意义。",
+      "llm_tldr": "该论文提出MultiTME，利用空间正则化的循环一致深度生成模型，整合未配对的多种空间和单细胞数据。虽应用于生物领域，但其多模态融合方法（无配对样本、跨特征空间对齐）对多模态语言模型中的跨模态表示学习具有方法论借鉴意义。",
+      "llm_tags": [
+        "query:multi-modal:composite"
+      ],
+      "matched_query_tag": "query:multi-modal:composite",
+      "matched_query_text": "Papers central to 帮我找一些关于多模态语言模型或多模态融合的研究文章, especially work that connects or combines: multimodal language model research; techniques for multimodal fusion; vision language model architectures; learning cross modal representations; multimodal learning methods; multimodal alignment approaches; What are the latest advances in multimodal language models?; How is multimodal fusion achieved in deep learning?; Compare different architectures for vision language models.; Find papers on cross modal representation learning..",
+      "matched_requirement_id": "req-composite-multi-modal",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2605.29850v1",
+      "source": "arxiv",
+      "title": "MIRAGE: Adaptive Multimodal Gating for Whole-Brain fMRI Encoding",
+      "abstract": "Recent progress in task-optimized neural networks has established encoding models as a powerful tool for predicting brain responses to naturalistic stimuli, yet most existing approaches rely on unimodal representations. The emergence of omni-modal foundation models and rich multimodal neural datasets enables encoding models that jointly integrate visual, auditory, and linguistic information across subjects. We introduce MIRAGE, a brain encoding framework for predicting whole-brain fMRI responses to naturalistic audiovisual stimuli. MIRAGE achieves state-of-the-art performance via a native multimodal backbone and adaptive feature gating across layers. These representations are then combined with a transformer-based brain encoder and a subject-specific linear head over the cortical parcels. Controlled comparisons show that natively multimodal features consistently outperform post-hoc aggregation of independent unimodal features, across architectural levels and backbones. Beyond predictive accuracy, the learned attention weights are directly inspectable to interpret the modality-specific gating profile over the backbone, and each modality traces a distinct anatomical pattern across cortex. Together, these results propose adaptive layer-wise aggregation of natively multimodal features as a generalizable, interpretable, and accurate approach for whole-brain encoding.",
+      "authors": [
+        "Abdulkadir Gokce",
+        "Badr AlKhamissi",
+        "Martin Schrimpf"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG"
+      ],
+      "published": "2026-05-28T12:30:51+00:00",
+      "link": "https://arxiv.org/pdf/2605.29850v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:multi-modal",
+        "query:neural-ode"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "multimodal fusion for brain encoding via adaptive gating",
+      "llm_evidence_cn": "通过自适应门控实现脑编码的多模态融合",
+      "llm_evidence": "通过自适应门控实现脑编码的多模态融合",
+      "canonical_evidence": "通过自适应门控实现脑编码的多模态融合",
+      "llm_tldr_en": "MIRAGE integrates visual, auditory, and linguistic information via a multimodal backbone and adaptive gating to predict whole-brain fMRI responses.",
+      "llm_tldr_cn": "该论文针对传统fMRI编码模型仅使用单模态表示的问题，提出MIRAGE框架。它利用全模态基础模型和自适应特征门控，融合视觉、听觉和语言信息，结合 Transformer 脑编码器和被试特定线性层，预测全脑fMRI响应。在自然视听刺激数据上达到最先进性能。这项工作展示了多模态融合在脑活动预测中的巨大潜力。",
+      "llm_tldr": "该论文针对传统fMRI编码模型仅使用单模态表示的问题，提出MIRAGE框架。它利用全模态基础模型和自适应特征门控，融合视觉、听觉和语言信息，结合 Transformer 脑编码器和被试特定线性层，预测全脑fMRI响应。在自然视听刺激数据上达到最先进性能。这项工作展示了多模态融合在脑活动预测中的巨大潜力。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "techniques for multimodal fusion",
+      "matched_requirement_id": "req-21",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "biorxiv-10-64898-2026-05-27-728082-v1",
+      "source": "biorxiv",
+      "title": "The Neurodynamic Core of Meditation: Dissociating Meditation from Rest and Task in a Reliability-based EEG study",
+      "abstract": "Background: Electroencephalographic (EEG) studies attempting to characterise the neural signature of meditation typically rely on contrasts with passive rest or comparisons among practitioners based on experience. However, these approaches rarely include active control states and seldom establish the reliability and robustness of identified quantitative EEG features. Consequently, the validity of proposed neurophysiological markers of meditative state remains uncertain. The present study addressed these limitations by using a reliability-informed, multi-session within-subject design to characterise distinct state-dependent EEG dynamics in experienced meditators from the Brahmakumaris Rajayoga tradition. Methods: Thirty long-term meditators underwent repeated EEG recordings over two days, comprising two meditation sessions per day. Each meditation block was flanked by rest periods, with a cognitive task between sessions to reduce carryover effects. We quantified broadband spectral power, aperiodic slope and intercept, and nonlinear dynamical measures, including detrended fluctuation analysis (DFA), Higuchi fractal dimension, and permutation entropy (PE), across meditation, rest, and task conditions. Results: Compared with both rest and task states, meditation was associated with increased theta-alpha power, an elevated aperiodic intercept, and systematic modulation of nonlinear indices (DFA, Higuchi, PE). Further meditative core features demonstrated high inter-session test-retest reliability, strong inter-individual consistency, stability across guided and silent meditation states, and were not moderated by years of meditative experience. Conclusion: The present framework identifies a reproducible neurodynamic core of meditation, distinct from passive and active control states, spanning spectral, aperiodic, and nonlinear EEG domains in long-term meditators. These findings enhance the construct validity and measurement reliability of meditation-specific neural markers.",
+      "authors": [
+        "Chowdhury, P.",
+        "Govindaraj, R.",
+        "Sasidharan, A.",
+        "Saoji, A. A.",
+        "N, R. P.",
+        "Kutty, B. M."
+      ],
+      "primary_category": "neuroscience",
+      "categories": [
+        "neuroscience"
+      ],
+      "published": "2026-05-30T00:00:00+00:00",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.05.27.728082v1.full.pdf",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "query:EEG-ODE-LN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "EEG decoding of meditation states using reliability-based design",
+      "llm_evidence_cn": "基于可靠性设计的冥想状态EEG解码",
+      "llm_evidence": "基于可靠性设计的冥想状态EEG解码",
+      "canonical_evidence": "基于可靠性设计的冥想状态EEG解码",
+      "llm_tldr_en": "This reliability-based EEG study characterizes distinct state-dependent dynamics during meditation compared to rest and task, providing robust decoding of neural signatures.",
+      "llm_tldr_cn": "该论文针对EEG冥想研究缺乏可靠性和主动控制状态的问题，采用多session被试内设计，使用可靠性分析提取区分冥想、休息和任务状态的EEG特征。结果识别出稳健的神经动力学核心。该方法为EEG状态解码提供了可靠性驱动的范式，适用于更广泛的脑状态解码任务。",
+      "llm_tldr": "该论文针对EEG冥想研究缺乏可靠性和主动控制状态的问题，采用多session被试内设计，使用可靠性分析提取区分冥想、休息和任务状态的EEG特征。结果识别出稳健的神经动力学核心。该方法为EEG状态解码提供了可靠性驱动的范式，适用于更广泛的脑状态解码任务。",
+      "llm_tags": [
+        "query:eeg-ode-ln"
+      ],
+      "matched_query_tag": "query:eeg-ode-ln",
+      "matched_query_text": "EEG signal decoding methods",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "biorxiv-10-64898-2026-05-24-727533-v1",
+      "source": "biorxiv",
+      "title": "Behavioural and neural signatures across diverse cognitive demands in a multimodal electroencephalography-functional magnetic resonance imaging design",
+      "abstract": "Efficient multimodal designs that capture differences across cognitive domains and variations in cognitive demand remain limited. In this study, we tested a compact framework with 58 healthy participants who completed multimodal electroencephalography (EEG) and functional magnetic resonance imaging (fMRI) sessions. The framework comprised two complementary batteries: the HCP-aligned multitask paradigm (HCP-mini), which integrates eight HCP-aligned cognitive tasks and rest within a single run, and an extended N-back task ranging from 0-back to 7-back. Designed to support broad cross-domain coverage and matched multimodal assessment, the two batteries captured the expected group-level behavioural structure across modalities. Behavioural performance exceeded chance levels or aligned with findings from previous studies in both EEG and fMRI. Descriptive intraclass correlation coefficient (ICC) analyses showed numerically higher within-modality run-to-run values than between-modality values. At the neural level, HCP-mini fMRI activation patterns closely recapitulated the canonical large-scale task organisation of the original HCP dataset, with corresponding task pairs showing the strongest spatial similarity. Together, these findings demonstrate a compact and efficient framework for multimodal characterisation of cognition across domains and graded cognitive demands.",
+      "authors": [
+        "Hiromitsu, K.",
+        "Chiyohara, S.",
+        "Asai, T.",
+        "Katayama, A.",
+        "Wakabayashi, M.",
+        "Imamizu, H."
+      ],
+      "primary_category": "neuroscience",
+      "categories": [
+        "neuroscience"
+      ],
+      "published": "2026-05-27T00:00:00+00:00",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.05.24.727533v1.full.pdf",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:multi-modal",
+        "query:neural-ode"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "multimodal EEG and fMRI design for cognitive demand",
+      "llm_evidence_cn": "多模态EEG和fMRI设计用于认知需求",
+      "llm_evidence": "多模态EEG和fMRI设计用于认知需求",
+      "canonical_evidence": "多模态EEG和fMRI设计用于认知需求",
+      "llm_tldr_en": "Proposes a compact multimodal EEG-fMRI framework capturing cognitive signatures across tasks, relevant to multimodal brain decoding.",
+      "llm_tldr_cn": "该论文设计了一个紧凑的多模态EEG-fMRI实验框架，包含HCP-mini多任务范式和扩展N-back任务，覆盖多个认知领域。其多模态设计思路对EEG与fNIRS联合解码具有借鉴意义，且直接涉及EEG与其他模态的融合。",
+      "llm_tldr": "该论文设计了一个紧凑的多模态EEG-fMRI实验框架，包含HCP-mini多任务范式和扩展N-back任务，覆盖多个认知领域。其多模态设计思路对EEG与fNIRS联合解码具有借鉴意义，且直接涉及EEG与其他模态的融合。",
+      "llm_tags": [
+        "query:eeg-ode-ln"
+      ],
+      "matched_query_tag": "query:eeg-ode-ln",
+      "matched_query_text": "multimodal EEG and fNIRS for brain activity decoding",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "biorxiv-10-64898-2026-05-27-728082-v2",
+      "source": "biorxiv",
+      "title": "The Neurodynamic Core of Meditation: Dissociating Meditation from Rest and Task in a Reliability-based EEG study",
+      "abstract": "Background: Electroencephalographic (EEG) studies attempting to characterise the neural signature of meditation typically rely on contrasts with passive rest or comparisons among practitioners based on experience. However, these approaches rarely include active control states and seldom establish the reliability and robustness of identified quantitative EEG features. Consequently, the validity of proposed neurophysiological markers of meditative state remains uncertain. The present study addressed these limitations by using a reliability-informed, multi-session within-subject design to characterise distinct state-dependent EEG dynamics in experienced meditators from the Brahmakumaris Rajayoga tradition. Methods: Thirty long-term meditators underwent repeated EEG recordings over two days, comprising two meditation sessions per day. Each meditation block was flanked by rest periods, with a cognitive task between sessions to reduce carryover effects. We quantified broadband spectral power, aperiodic slope and intercept, and nonlinear dynamical measures, including detrended fluctuation analysis (DFA), Higuchi fractal dimension, and permutation entropy (PE), across meditation, rest, and task conditions. Results: Compared with both rest and task states, meditation was associated with increased theta-alpha power, an elevated aperiodic intercept, and systematic modulation of nonlinear indices (DFA, Higuchi, PE). Further meditative core features demonstrated high inter-session test-retest reliability, strong inter-individual consistency, stability across guided and silent meditation states, and were not moderated by years of meditative experience. Conclusion: The present framework identifies a reproducible neurodynamic core of meditation, distinct from passive and active control states, spanning spectral, aperiodic, and nonlinear EEG domains in long-term meditators. These findings enhance the construct validity and measurement reliability of meditation-specific neural markers.",
+      "authors": [
+        "Chowdhury, P.",
+        "Govindaraj, R.",
+        "Sasidharan, A.",
+        "Saoji, A. A.",
+        "N, R. P.",
+        "Northoff, G.",
+        "Kutty, B. M."
+      ],
+      "primary_category": "neuroscience",
+      "categories": [
+        "neuroscience"
+      ],
+      "published": "2026-05-31T00:00:00+00:00",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.05.27.728082v2.full.pdf",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "query:EEG-ODE-LN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "EEG-based reliability study dissociating meditation state from rest and task",
+      "llm_evidence_cn": "基于可靠性的多会话EEG研究区分冥想状态",
+      "llm_evidence": "基于可靠性的多会话EEG研究区分冥想状态",
+      "canonical_evidence": "基于可靠性的多会话EEG研究区分冥想状态",
+      "llm_tldr_en": "This reliability-informed multi-session EEG study characterizes distinct state-dependent dynamics in meditation, providing robust EEG decoding methods for distinguishing meditative states from other cognitive states.",
+      "llm_tldr_cn": "现有EEG冥想研究缺乏主动对照和可靠性验证。该论文采用可靠性引导的多会话被试内设计，对Brahmakumaris Rajayoga冥想者进行EEG记录。通过量化特征可靠性，成功区分了冥想、静息和任务状态下的脑电动态。该方法为EEG信号解码提供了可靠性基准，有助于脑电特征选择。",
+      "llm_tldr": "现有EEG冥想研究缺乏主动对照和可靠性验证。该论文采用可靠性引导的多会话被试内设计，对Brahmakumaris Rajayoga冥想者进行EEG记录。通过量化特征可靠性，成功区分了冥想、静息和任务状态下的脑电动态。该方法为EEG信号解码提供了可靠性基准，有助于脑电特征选择。",
+      "llm_tags": [
+        "query:eeg-ode-ln"
+      ],
+      "matched_query_tag": "query:eeg-ode-ln",
+      "matched_query_text": "EEG signal decoding methods",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "biorxiv-10-64898-2026-05-27-728161-v1",
+      "source": "biorxiv",
+      "title": "Electrophysiological lag threads reveal a temporal hierarchy of the human cortex",
+      "abstract": "The human brain is spatially organized along functional gradients, but the temporal organization of these gradients remains poorly understood. In EEG and MEG, this question has been difficult to address because volume conduction obscures temporal precedence. Here, we introduce lag-specific orthogonalization, an extension of pairwise orthogonalization that allows us to estimate non-zero-lag amplitude-envelope correlations. Applying this approach to large-scale resting-state MEG, we identify electrophysiological lag threads: reproducible maps of temporal ordering that are most coherent in the alpha and beta bands and organize activity from occipital and sensorimotor regions toward frontal and temporal association cortex. These fast electrophysiological lag threads share subject-specific spatial structure with much slower fMRI lag threads, supporting a neural rather than vascular origin of fMRI lag structure. Finally, we show that cortical lag threads are not fixed anatomical constraints. They covary with age and handedness and are selectively reconfigured during cognitive task performance. Together, these findings reveal a frequency-specific electrophysiological temporal hierarchy of the human cortex that links fast neural dynamics to slower hemodynamic propagation structure.",
+      "authors": [
+        "Siegel, M.",
+        "Giehl, J.",
+        "Hege, P."
+      ],
+      "primary_category": "neuroscience",
+      "categories": [
+        "neuroscience"
+      ],
+      "published": "2026-05-29T00:00:00+00:00",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.05.27.728161v1.full.pdf",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:multi-modal",
+        "query:neural-ode"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "EEG/MEG lag structure analysis",
+      "llm_evidence_cn": "EEG/MEG延迟结构分析",
+      "llm_evidence": "EEG/MEG延迟结构分析",
+      "canonical_evidence": "EEG/MEG延迟结构分析",
+      "llm_tldr_en": "Introduces lag-specific orthogonalization to estimate non-zero-lag correlations in MEG/EEG, revealing reproducible temporal hierarchies across cortex.",
+      "llm_tldr_cn": "针对脑电图（EEG）和脑磁图（MEG）中容积传导掩盖时间顺序的问题，本文提出延迟特异性正交化方法，估计非零延迟振幅包络相关性。在大规模静息态MEG数据中识别出电生理延迟线索，揭示从枕叶到额叶的可重现时间层级。该方法为研究皮层时间组织提供了新工具。",
+      "llm_tldr": "针对脑电图（EEG）和脑磁图（MEG）中容积传导掩盖时间顺序的问题，本文提出延迟特异性正交化方法，估计非零延迟振幅包络相关性。在大规模静息态MEG数据中识别出电生理延迟线索，揭示从枕叶到额叶的可重现时间层级。该方法为研究皮层时间组织提供了新工具。",
+      "llm_tags": [
+        "query:eeg-ode-ln"
+      ],
+      "matched_query_tag": "query:eeg-ode-ln",
+      "matched_query_text": "EEG signal decoding methods",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

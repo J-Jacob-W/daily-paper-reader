@@ -1,0 +1,550 @@
+Title: Utility-Aware Multimodal Contrastive Learning for Product Image Generation
+
+URL Source: https://arxiv.org/pdf/2605.28733v1
+
+Published Time: Thu, 28 May 2026 01:46:16 GMT
+
+Number of Pages: 38
+
+Markdown Content:
+# Utility-Aware Multimodal Contrastive Learning for Product Image Generation 
+
+## Xiaohang Feng, Yiling Xie City University of Hong Kong 
+
+Abstract 
+
+Product images strongly influence consumer decision-making in online market-places. Empowered by multimodal contrastive learning, generative AI can output images that closely align with text prompts. Yet existing generative AI models do not directly optimize marketplace performance. This is a critical gap, since semantic alignment alone does not guarantee that an image will sell. To address this limi-tation, we propose a utility-aware multimodal contrastive learning framework that incorporates consumer demand into a novel Utility-Aware InfoNCE loss. Optimizing this utility-aware objective guides generation toward images that are both semanti-cally coherent and demand-enhancing. This effect arises directly from a shift in the learned image-text representation space toward demand-driven visual cues, which we also validate through the theoretical bound of the proposed objective. In down-stream applications on Amazon and Airbnb, product images generated and edited by our method outperform state-of-the-art models in increasing demand and preserving fidelity, while maintaining text–image consistency. Notably, our utility-aware frame-work preserves inverse U-shaped demand patterns for attributes such as aesthetics and uniqueness, improving demand-based performance while preserving fidelity and semantic consistency. Human-subject experiments further validate its commercial effectiveness. As generative AI technology continues to evolve, our utility-aware com-ponent can be flexibly embedded into emerging generative models to improve direct commercial use. 
+
+# 1 Introduction 
+
+Visual content and product images are economically valuable assets on digital platforms be-cause they shape consumer attention, trust, and purchasing behavior. The prior literature demonstrates that the characteristics of the image significantly affect the demand in online marketplaces (Zhang et al., 2022; Li and Xie, 2020). Industry evidence further corroborates this: Airbnb reports that listings with professional photos receive 19% more bookings 1,
+
+> 1
+
+https://www.airbnb.com/e/pro-photography 
+
+1
+
+> arXiv:2605.28733v1 [cs.AI] 27 May 2026
+
+while Salsify reports that 71% of shoppers have returned an item due to incorrect prod-uct content online 2. These figures suggest that visual content functions as an economic investment, generating measurable value through increased demand and improved seller profit. Recent advances in Generative AI, especially text-to-image models, have significantly expanded firms’ ability to create product visuals at scale. A key breakthrough is Contrastive Language-Image Pretraining (CLIP), which bridges text and image modalities. CLIP and its variants have become core components in emerging AI models for image generation (Radford et al., 2021). Beyond generation, CLIP-based measures, such as the CLIP score, are also widely used to evaluate image–text alignment (Hessel et al., 2021). The best product image should not be the prettiest one but the one that sells, and these two types of images are almost never the same. The problem is that current AI systems, despite their strong semantic matching capabilities, are optimized to produce the former rather than the latter, which makes them costly and inconvenient for direct business use. To push these general AI models toward commercial output, users must rely heavily on prompt engineering, repeatedly refining long prompts in a way that increases token costs and reduces efficiency. Yet even after this effort, the results remain noisy and unstable since small wording changes can generate inconsistent or unrealistic images. The models also tend to overemphasize aesthetics, producing over-stylized outputs that deviate from realistic product representation and may weaken consumer trust. More fundamentally, the AI existing systems are tuned for image–text coherence instead of marketplace performance. This concern is increasingly echoed in industry. A growing view holds that general-purpose generative AI tools fall short in marketing because they are trained to imitate human style rather than to maximize business outcomes, and therefore cannot distinguish between content that is merely eye-catching and content that drives clicks, conversions, or retention. To address this gap, we study how to generate utility-aware product images that drive up demand without extensive prompt engineering. By “utility-aware”, we mean that image generation is guided by both text-image coherence and the demand model that links image features to marketplace performance. We ask three research questions. First , how can the demand model be used to construct a utility-aware objective for multimodal contrastive 
+
+> 2https://www.salsify.com/resources/report/2025-consumer-research
+
+2learning? This question studies how demand-driven image features and their estimated coefficients can be integrated into multimodal contrastive learning. Second , why does the proposed utility-aware framework work? This question examines the theoretical properties and interpretability of the framework. It clarifies how a demand-based objective changes the learned multimodal representation, why the resulting representation is more aligned with demand-driven image variation, and how this alignment guides generation with greater marketplace relevance. Third , can the proposed framework generate utility-aware images across business contexts? This question evaluates whether the method produces images that improve demand-driven performance on e-commerce and rental platforms. To answer these questions, we proceed in four steps. First, method development. 
+
+We propose a new Utility-Aware InfoNCE loss that incorporates demand-driven objectives into multimodal contrastive learning. The key idea is to regularize standard image-text similarity score by utility-driven visual attributes. Starting from pretrained CLIP weights, we train the model by optimizing our new objective, Utility-Aware InfoNCE Loss, and refer to the resulting model as Utility-Aware CLIP . This step defines the learning objective and the training procedure for producing utility-aware image-text representations. 
+
+Second, interpretation. We explain why the utility-aware framework works. We show how the new loss changes standard contrastive learning. We use theoretical bounds and occlusion-based interpretation to show that Utility-Aware CLIP still preserves image-text consistency, while attending more to demand-driven visual cues. 
+
+Third, empirical application. We establish an image generation model based on the Utility-Aware CLIP, which we name the Utility-Aware Generator . We then apply the Utility-Aware Generator to both image generation and image editing in Amazon and Airbnb settings. In both contexts, the estimated demand models reveal inverted U-shaped preferences, implying that effective images should be visually appealing and distinctive, but not overly stylized. Guided by these demand patterns, our utility-aware framework consistently outperforms the base model without Utility-Aware CLIP and other baselines, including GPT-Image OpenAI (2026), Stable Diffusion (Podell et al., 2024), and Flux (Labs, 2025), across demand-based scores and related performance metrics. Three findings emerge: (1) the utility-aware framework improves both generation and editing outcomes in terms of demand-based performance; (2) it better preserves product identity or listing 3realism while maintaining semantic consistency; and (3) it avoids the over-polished, over-stylized, or unrealistic outputs that generic image-generation models often produce. 
+
+Fourth, human validation. We conduct two human-subject experiments to validate whether the generated images increases demand. In the Amazon setting, participants choose the product image that they would be most likely to purchase. In the Airbnb setting, participants choose the property image that they would be most likely to book. The results validate that Utility-Aware Generator produces images that consumers are more likely to purchase. To summarize, this paper proposes a Utility-Aware CLIP framework that incorporates estimated consumer demand into multimodal contrastive learning. Theoretically, it will be shown that our utility-aware framework can be connected to discrete-choice utility maxi-mization. Empirically, across Amazon and Airbnb settings, our method can generate more effective images than existing models by improving realism, demand relevance, and con-sumer preference outcomes. These findings provide several managerial implications. For sellers and hosts, the frame-work provides a scalable way to improve product and property images without relying on repeated prompt experimentation or costly manual design. Instead of asking users to guess the right prompt, the method uses observed marketplace data to guide image generation toward visual attributes that are more likely to improve demand. For example, an Amazon seller can generate additional usage-scenario images for a lamp, blanket, or table while preserving the original product design and avoiding overly polished scenes that make the product look unrealistic. Similarly, an Airbnb host can improve the image of a bedroom or living-room by adding moderate decorative elements, warmer lighting, or more inviting textures, while preserving the layout and credibility of the property. For platforms, the approach provides a systematic tool for content improvement, listing enhancement, and counterfactual testing. Platforms can use our Utility-Aware Generator to recommend im-proved images to sellers, identify listings with low visual quality, or test alternative product presentations before deployment. For example, Amazon could suggest a more demand-aligned secondary image for a product listing, while Airbnb could recommend edits that make a room appear warmer and more distinctive without making it look artificial. The framework can also support sellers with fewer creative or technical resources by reducing 4the need for professional photography, design expertise, or heavy prompt engineering. Importantly, our contribution is modular. Our proposed utility-aware contrastive learn-ing framework can be flexibly embedded in emerging AI generative systems to improve their direct commercial use. Our proposed demand-guided module can help tailor Generative AI toward images that are not only consistent with text prompt but more importantly, aligned with marketplace performance. 
+
+# 2 Literature Review 
+
+Our paper is related to four streams of research, namely visual analytics in marketing, Generative AI in marketing, image generation models, and regularized learning. 
+
+## 2.1 Visual Analytics in Marketing 
+
+Visual analytics in marketing has evolved from treating images as unstructured content to modeling them as scalable, theoretically grounded inputs to understand consumer behav-ior and marketplace outcomes. Early work shows that visual data can be used to measure brand meaning itself: Dzyabura and Peres (2021) combines respondent-created collages with machine learning to recover brand associations at scale. Subsequent research links naturally occurring visual content to concrete marketing outcomes. Hartmann et al. (2021) uses computer vision to classify brand imagery on social media and show that the perspec-tive of the image shapes different forms of engagement. Zhou et al. (2021) extends this logic to video, proposing a computer-vision-based feature framework that predicts online video consumption. Zhang et al. (2022) shows that interpretable visual features extracted from Airbnb listing photos predict demand, while Dzyabura et al. (2023) demonstrates that prelaunch product images improve return-rate prediction and assortment decisions. Ceylan et al. (2024) further shows that photos increase the usefulness of the review, particularly when visual and textual information are congruent. Recent work increasingly develops marketing-specific visual constructs rather than re-lying only on generic object recognition. Feng et al. (2025b) develops a machine-learning measure of celebrity visual potential from facial features , and Feng et al. (2025a) constructs and validate a visual uniqueness measure, documenting an inverted U-shaped relationship 5between uniqueness and Airbnb demand. Relatedly, Zhang et al. (2025) shows that a host’s smile in profile photos increases Airbnb demand, and Zhou et al. (2026) identifies color saturation as a status cue in luxury branding. Taken together, this literature shows that current practice in marketing is moving toward interpretable, domain-specific visual measurement that links images to economically meaningful outcomes such as engagement, demand, returns, and perceived status. Our paper also falls in this stream of work, but we are among the very first to explore Generative AI in visual marketing. 
+
+## 2.2 Generative AI in Marketing 
+
+Early studies show that LLMs can approximate consumer preference structures and brand perceptual maps from text data in ways similar to traditional survey methods (Gui and Toubia, 2023). More recent research fine-tunes LLMs to generate marketing emails and evaluates their performance in large-scale field experiments (Angelopoulos et al., 2024). Related work also fine-tunes image generation models on marketing-relevant objective met-rics, showing that AI-generated visual content can match or even outperform convention-ally produced advertising content in downstream performance outcomes (Heitmann et al., 2025). In addition, LLMs have been integrated into adaptive experimentation frameworks to dynamically optimize content delivery over time (Ye et al., 2025). Our paper focuses on the latest Generative AI models, but we are among the very first to explore Generative AI in visual marketing. 
+
+## 2.3 Image Generation Models 
+
+Recent years have witnessed a major breakthrough in text-to-image generation, led by powerful models such as GPT-Image (OpenAI, 2026), Stable Diffusion (Podell et al., 2024), and Flux (Labs, 2025). These models have demonstrated excellent capabilities in generating high-quality visuals and following complex text prompts. Among existing image generation models, Flux represents the current state-of-the-art open-source image generation model and is chosen as our base model. Existing image generation models primarily optimize for visual realism and semantic text-image alignment, but they do not directly account for whether an image improves 6purchase likelihood, bookings, or sales. Our utility-aware model addresses this gap by learning demand-driven visual preferences from marketplace data and embedding them into the generation process. As a result, it produces images that are not only prompt-consistent and visually plausible, but also aligned with downstream economic outcomes. This shifts image generation from an aesthetics-driven task to a demand-aware tool for marketplace applications. Similarly, evaluation methods such as CLIP-based similarity metrics improve measure-ment of image-text coherence but remain limited in capturing domain-specific or task-specific effectiveness, particularly for marketplace applications (Radford et al., 2021; Hessel et al., 2021). Our framework also motivates a new utility-aware evaluation method that balance image-text coherence and consumer preference. 
+
+## 2.4 Regularized Learning 
+
+Our proposed utility-aware model integrates a utility term into the contrastive learning objective. In this way, the augmented utility term can be viewed as a regularization term on the CLIP score. Regularization is widely used in statistical machine learning and data analytics, where different regularization terms serve different purposes, such as promoting sparsity (Tibshirani, 1996) and improving adversarial robustness (Xie and Huo, 2025), and incorporating geometric structure (Belkin et al., 2006). In our setting, the utility term in the proposed framework can be interpreted as a utility-based regularizer that steers the learned representation of the contrastive learning toward demand-enhancing solutions. Prior work has also examined how business goals can be incorporated into objective functions for marketing optimization (Lu et al., 2025). However, to our knowledge, this principle has not been explored in the domain of text-to-image generation. 
+
+# 3 Methodology: Utility-Aware Multimodal Contrastive Learning 
+
+In this section, we introduce our Utility-Aware multimodal contrastive learning framework. First, we review the contrastive loss in the Contrastive Language-Image Pretraining (CLIP) 7(Radford et al., 2021) and show how it can be interpreted through a discrete-choice point of view. Second, we introduce a Utility-Aware contrastive loss where the demand-driven visual utility component is added as a regularization in the similarity score. Third, we describe how our proposed Utility-Aware contrastive loss is used to update the pretrained CLIP model, yielding the Utility-Aware CLIP. 
+
+## 3.1 Review of Contrastive Loss 
+
+Suppose we have matched image–text pairs {(vi, t i)}Ni=1 . The CLIP model learns a shared image–text representation space by optimizing a contrastive objective over matched image– text pairs. This objective is bidirectional: it includes a text-to-image InfoNCE loss and an image-to-text InfoNCE loss. For example, the text-to-image InfoNCE loss is defined as follows 
+
+Lt→v(θ) = − 1
+
+N
+
+> N
+
+X
+
+> i=1
+
+log esθ (vi,t i)
+
+> τ
+
+PNk=1 esθ (vk ,t i)
+
+> τ
+
+, (1) where τ > 0 is a temperature hyperparameter and 
+
+sθ(v, t ) = uv(v)⊤ut(t) (2) represents the cosine similarity between the visual embedding uv(v) and text embedding 
+
+ut(t). θ denotes the set of learnable parameters, including the weights of the image and text encoders 3 along with their respective projection layers. The image-to text InfoNCE loss is defined analogously. In the training process of CLIP model, the objective function is the average of the text-to-image InfoNCE loss and the image-to-text InfoNCE loss. 
+
+## 3.2 Connection with Discrete Choice 
+
+The InfoNCE loss introduced in Section 3.1 can be formalized through a discrete-choice perspective.  
+
+> 3An encoder is a model component that turns raw input, such as text or an image, into a numerical representation that AI can understand. In simple terms, it compresses the meaning of the input into a “digital summary” that the model can compare, search, or use for prediction.
+
+8Consider first the text-to-image direction. Fix a text anchor ti and a choice set of N
+
+sampled image alternatives {v1, . . . , v N }. For each alternative vk, define 
+
+U vik = V vik + εvik , k = 1 , . . . , N, 
+
+where V vik is the systematic utility of matching vk with ti, and εvik is an i.i.d. Type-I extreme value error term. The image with the highest utility is selected with the conditional logit probability Pr  vi | ti, {v1, . . . , v N } = exp( V vii )
+
+PNk=1 exp( V vik ).
+
+Setting V vik = sθ(vk, t i)/τ , and taking the negative average log-likelihood over all text anchors recovers the text-to-image InfoNCE loss in (1). Thus, the text-to-image InfoNCE loss is exactly the negative log-likelihood of a conditional logit model defined on the sampled image choice set. The same reasoning applies to the image-to-text direction. Notably, minimizing the bidirectional InfoNCE contrastive loss is equivalent to maximum likelihood estimation of conditional logit models over finite sampled choice sets. This connection motivates a utility-aware extension of InfoNCE. Since the index inside the logit exponential represents sys-tematic utility, the standard CLIP InfoNCE loss in (1) corresponds to a similarity-only utility specification. This may be restrictive when observable attributes also affect match-ing utility. We therefore introduce a utility-aware similarity score and the corresponding Utility-Aware InfoNCE loss in the next subsection. 
+
+## 3.3 Utility-Aware InfoNCE Loss 
+
+We introduce the Utility-Aware contrastive InfoNCE objective in this subsection. Let v
+
+denote an image and t denote a text description. For an image–text pair ( v, t ), let sθ(v, t )be the standard CLIP similarity score. To incorporate demand-driven visual information, let hv(v) denote a scalar visual utility score of image v. This score may summarize demand-driven visual attributes, such as aesthetics, uniqueness, brightness, colorfulness, sustain-ability cues, or other image features. In empirical applications, hv(v) can be constructed from an estimated demand model, for example as a weighted index of visual features. We 9define the utility-aware similarity score as 
+
+U S θ,w (v, t ) = αvhv(v) + βssθ(v, t ), (3) where αv, β s are preference weights on the visual utility and semantic similarity components. We also refer to this utility-aware similarity measure as the Utility-Aware CLIP score, which can be used to evaluate both the semantic alignment and demand-related utility of a generated image. Given N matched image–text pairs {(vi, t i)}Ni=1 , the utility-aware text-to-image In-foNCE loss is 
+
+Lt→vU A (θ, w ) = − 1
+
+N
+
+> N
+
+X
+
+> i=1
+
+log exp 
+
+U S θ,w (vi,t i)
+
+> τ
+
+PNk=1 exp 
+
+U S θ,w (vk ,t i)
+
+> τ
+
+. (4) The Utility-Aware image-to-text InfoNCE loss is defined analogously. The final objec-tive is the bidirectional Utility-Aware contrastive loss, given by the average of the text-to-image and image-to-text components. The proposed Utility-Aware loss nests the standard InfoNCE as a special case. When 
+
+αv = 0 and βs = 1, and the losses reduce to the standard CLIP InfoNCE losses discussed in Section 3.1. 
+
+## 3.4 Utility-Aware Contrastive Language-Image Pretraining 
+
+Building on the Utility-Aware InfoNCE loss defined in subsection 3.3, we could obtain the Utility-Aware CLIP. The goal is to adapt CLIP’s image-text representation space so that it preserves not only semantic alignment between images and text, but also visual variation that is essential to marketplace performance. More specifically, the Utility-Aware CLIP is obtained by starting from pretrained CLIP weights and updating the model by optimizing the Utility-Aware InfoNCE loss. The training process consists of four steps, as illustrated in Figure 1. First, we construct positive and negative image–text pairs. For each product, the observed image vi and its corresponding text ti form a positive pair, while mismatched image–text combinations serve as negative pairs. Second, we encode images and text using the pretrained CLIP. The resulting embed-10 Text                          
+
+> Encoder:
+> DistilBERT
+> Image
+> Encoder:
+> ResNet -50
+> Text 1
+> Text 2
+> …
+> Text N
+> N Images
+> 𝑈 (image, text) =
+> Image Feature +Image−text alignment
+> g(t 1)g(t 2)
+> f(x 2)
+> f(x 1)
+> …
+> f( xN)
+> U11 U12 …U1N
+> U21 U22 …U2N
+> …………
+> UN1 UN2 …UNN
+> g( tN)…
+> hv(x 1)hv(x 2)hv(xN)…
+> ht(t 1)ht(t 2)ht(tN)…
+> M3: Utility -Aware Contrastive Learning M2: Encoder M1: Input
+> Text 1 Text 2
+> Text 3
+> M4: Utility -Dilated Representation Space
+> 512 -DVector Representation Utility -Aware
+> CLIP Score
+> Text
+> Representation
+> Image
+> Representation
+
+Figure 1: Utility-Aware Contrastive Image-Text Pretraining dings are projected into a shared space, where image–text similarity is measured by cosine similarity. This follows the standard contrastive learning setup. Third, we compute the Utility-Aware InfoNCE loss, which regularizes standard image– text similarity with a visual utility component based on demand-driven image features. This objective pulls semantically aligned and utility-driven matched pairs closer while sep-arating mismatched or lower-utility alternatives. Finally, we update the CLIP parameters based on the Utility-Aware InfoNCE loss. Starting from pretrained CLIP weights, this updates the image–text representation with-out training from scratch, yielding embeddings that preserve semantic alignment while emphasizing demand-driven visual attributes. In our subsequent empirical analysis, we will apply the Utility-Aware CLIP to Ama-zon and Airbnb. The demand regularizer varies across different platforms: in the Ama-zon context, it is derived from visual attributes associated with product demand, while in the Airbnb context, it is derived from listing-level attributes associated with booking outcomes.We will discuss more details in Section 5. 11 4 Interpretation: Theoretical Properties and Inter-pretability 
+
+The previous section defines the Utility-Aware InfoNCE loss and the Utility-Aware CLIP. We now explain why our utility-aware framework works. The Utility-Aware InfoNCE loss preserves CLIP’s contrastive structure but compares candidate images using both semantic similarity and demand-driven visual utility. We study this interpretation through two components: theoretical properties of the loss and occlusion-based interpretation of the learned representation. 
+
+## 4.1 Property of Utility-Aware InfoNCE Loss 
+
+In this subsection, we will provide a bound for the Utility-Aware InfoNCE in terms of the mutual information. Equipped with this bound, we could understand the theoretical interpretation and associated economic intuition of the regularization introduced in our utility-aware framework. We provide the bound of the proposed Utility-Aware InfoNCE in terms of the mutual information in the following theorem. 
+
+Theorem 4.1 (Bound for Utility-Aware InfoNCE) . For the Utility-Aware InfoNCE defined in (4) , suppose τ = βs = 1 , then we have the following bound: 
+
+log N − L t→vU A (θ, w )
+
+≤I(t, v ) + αv
+
+1
+
+N
+
+> N
+
+X
+
+> i=1
+
+hv(vi) − min  
+
+> 1≤i≤N
+
+hv(vi)
+
+!
+
+,
+
+(5) 
+
+where I(t, v ) is the mutual information. 
+
+The bound shown in Theorem 4.1 is explicitly utility-aware. The contrastive bound for original InfoNCE in CLIP is only governed by the mutual information between image and text (Oord et al., 2018). However, the bound for proposed Utility-Aware InfoNCE (5) includes an additional term related to visual attribute hv(v). Thus, utility-aware objective is able to capture both image–text alignment and the demand-driven image features, such as clarity, attractiveness, trustworthiness, informativeness, and compliance with platform 12 standards. The coefficient αv controls the strength of additional utility component relative to semantic image–text matching. Interestingly, our theory suggests that utility-aware training benefits from training data with heterogeneous visual attributes. This is consistent with the uniformity perspective of Wang and Isola (2020), which emphasizes that contrastive learning requires alternatives to be sufficiently spread out. Our utility-aware framework indicates that, for commercial ap-plications, achieving this spread requires a training dataset with not only semantic diversity across image-text pairs, but also variation in their demand-driven visual quality. 
+
+## 4.2 Interpretability of the Representation Learned by Utility-Aware CLIP 
+
+This subsection examines how the representation space learned by Utility-Aware CLIP differs from the representation space learned by standard CLIP. We conduct an occlusion-based sensitivity analysis. For each image v and prompt t, we divide the image into local patches. For each patch r, we construct a masked image v(−r)
+
+by occluding r and define its importance as ∆r = Score( v, t ) − Score( v(−r), t ).
+
+For standard CLIP, we set Score CLIP (v, t ) = sθ(v, t ), whereas for Utility-Aware CLIP, we have Score UA (v, t ) = U S θ,w (v, t ), where sθ(v, t ) is the image-text similarity (2), and 
+
+U S θ,w (v, t ) is the utility-regularized image-text similarity (3). A larger ∆ r indicates that patch r contributes more to the model score. Figure 2 illustrates the occlusion procedure and the construction of the resulting sen-sitivity heatmap. Figure 3 reports examples where we use the “high demand” as the prompt. The images are generated Amazon product images for tables and lamps. Each row compares the original image, the CLIP occlusion heatmap, and the Utility-Aware CLIP occlusion heatmap. The comparison shows that Utility-Aware CLIP produces more spatially differentiated and interpretable sensitivity patterns than CLIP. While the CLIP responds mainly to re-gions supporting general image-text consistency, such as the main object or other salient 13 Cosine      
+
+> Similarity
+> Incrementa l Mean
+> Update
+> Original Image Masked Image
+> Image Representation
+> Heatmap Update
+> Text 1
+> Text 2
+> Text 3
+> Representation Space
+> Text Input :aGreen product
+> Text Representation
+> Image Input
+
+Figure 2: Occlusion-Based Interpretation Framework 
+
+Note: The image is masked patch by patch. For each masked image, we recompute the model score and measure the score drop relative to the original image. For the CLIP model, the score is image-text similarity. For Utility-Aware CLIP, the score combines image-text similarity with demand-driven visual utility. Warmer regions indicate image patches that contribute more strongly to the model score. 
+
+areas, the Utility-Aware CLIP is sensitive to a broader set of demand-driven scene de-tails, including product placement, lighting, surrounding furniture, tabletop arrangement, background composition, and lifestyle context. This pattern is consistent with what makes product images effective in marketplace settings. High-demand images depend not only on the product itself, but also on staging, realism, lighting, and a credible usage context. The greater spatial variation in the Utility-Aware CLIP heatmaps suggests that the model has learned a more discriminating visual representation: some regions receive high sensitivity, while others receive low sensitivity. Rather than treating the image only as a generic match to the prompt, Utility-Aware CLIP identifies which components of the product scene contribute more strongly to the high-demand signal. Overall, the occlusion analysis suggests that the utility-aware objective changes how the model interprets image-text alignment. While CLIP primarily captures semantic con-sistency with the prompt, Utility-Aware CLIP preserves this connection while shifting sen-sitivity toward regions that are more relevant for marketplace evaluation. This provides an interpretable link between the demand-driven training objective, the learned multimodal representation, and the generation of product images visually aligned with commercial performance. 14 Original Image Original CLIP U-CLIP 
+
+> Occlusion Sensitivity: high demand
+
+(a) Table example: U-CLIP shows stronger and more spatially varied sensitivity. Original Image Original CLIP U-CLIP 
+
+> Occlusion Sensitivity: high demand
+
+(b) Lamp example: U-CLIP captures more fine-grained demand-driven cues. 
+
+Figure 3: Occlusion Interpretation of “High Demand” for Generated Amazon Product Images 
+
+Note: Each example shows the CLIP heatmap, and Utility-Aware CLIP heatmap for the prompt “high demand.” Warmer colors indicate greater im-portance. Compared with CLIP, Utility-Aware CLIP produces more spatially differentiated heatmaps and is sensitive to broader details. 
+
+15 5 Application: Utility-Aware Product Image Gener-ation 
+
+In this section, we illustrate the application of the proposed Utility-Aware multimodal contrastive learning introduced in Section 3. More specifically, we discuss the resulting Utility-Aware Generator and its applications on Amazon and Airbnb, using context-specific demand models to promote demand-related visual attributes without producing overly stylized or unrealistic images. 
+
+## 5.1 Utility-Aware Generator 
+
+We embed the Utility-Aware CLIP from Section 3 into the state-of-the-art open-source image generation model, Flux (Labs, 2025), as the Utility-Aware Generator. The key innovation is replacing Flux’s standard CLIP encoder with our Utility-Aware CLIP encoder. The Utility-Aware Generator accepts two inputs: a text prompt and an optional ref-erence image. The baseline Flux model generates candidate images conditioned on these inputs. We replace the original CLIP encoder in the Flux with our Utility-Aware CLIP encoder, which evaluates generated images on both semantic consistency with the prompt and alignment with business-relevant visual attributes, e.g., sustainability cues, product fidelity, aesthetics, realism. This substitution adds a demand-guided layer to the Flux generation process without altering the core generative architecture. After generation, we perform post-hoc selection of candidate images based on Utility-Aware CLIP scores as defined in (3). The model generates multiple image samples, and we rank them using the Utility-Aware CLIP score, which is a weighted combination of semantic similarity and estimated demand utility. This selection step ensures that the final output not only preserves fidelity to the input prompt but also reflects visual attributes associated with higher demand in the target context. We instantiate the Utility-Aware Generator in Amazon and Airbnb settings by adjusting the demand regularizer to match each context. We consider two tasks: image generation (producing new images from text prompts) and image editing (improving visual quality or relevance while preserving original design). Because editing better reflects real-world 16 business use cases, it serves as our main focus, while pure text-to-image generation results are reported in the Appendix. Our model generation output is proved to be robust across different prompt variations. N x Varied 
+
+> Images
+> Double
+> Stream
+> Block
+> ROPE
+> Split
+> Atten.
+> ROPE
+> Atten.
+> Single
+> Stream
+> Block
+> Utility
+> Aware
+> CLIP
+> Model
+> Image
+> Features
+> optimal
+> Image -Text
+> Alignment
+
+Figure 4: Utility-Aware Generation Framework: Flux baseline with Utility-Aware CLIP encoder substitution and post-hoc image selection 
+
+## 5.2 Application I: Amazon 
+
+We try to edit existing product images to create additional images showing possible usage scenarios. The goal is to create realistic in-context images that could be added to Amazon listings, without changing the focal product or incurring additional photography and design costs. To guide this editing task, we calibrate the utility-aware objective using observed consumer behavior on Amazon. 
+
+5.2.1 Demand Model Estimation 
+
+To quantify how visual attributes affect product performance, we estimate a reduced-form regression where the dependent variable is log sales rank, which serves as an inverse demand proxy. The key explanatory variables are visual attributes, including colorfulness, bright-ness, symmetry, and aesthetic quality. Before estimation, we rescale all visual attributes to lie in the [0 , 1] interval. This normalization ensures comparability across features and preserves the curvature implied by the quadratic terms. We also include sub-category fixed effects, firm size controls, and month fixed effects: 17 Demand i =βc1 C(vi) + βc2 C(vi)2
+
++βb1 B(vi) + βb2 B(vi)2
+
++βs1 S(vi) + βs2 S(vi)2
+
++βa1 A(vi) + βa2 A(vi)2
+
++γXi + εi,
+
+where C(v), B(v), S(v), and A(v) denote colorfulness, brightness, symmetry, and aesthetic quality, respectively, and Xi includes sub-category, firm size, and time fixed effects. Table 1 reports the estimation results. We find strong and consistent evidence of non-linear effects across major visual dimensions. In particular, colorfulness has a negative linear coefficient ( βc1 = −2.249) and a positive quadratic coefficient ( βc2 = 2 .118). Because log sales rank is an inverse demand proxy, this pattern implies that demand is highest at intermediate levels of colorfulness and lower at extreme levels. A similar pattern emerges for brightness, symmetry, and aesthetic quality. For example, aesthetic quality shows one of the strongest non-linear effects ( βa1 = −2.885, βa2 = 2 .951), suggesting that excessive stylization may reduce perceived authenticity or relevance. 
+
+5.2.2 Utility-Aware Generator Training 
+
+We incorporate the estimated demand function into the utility-regularized similarity func-tion as: 
+
+U S (v, t ) = η
+
+
+
+βc1 C(v) + βc2 C(v)2
+
++ βb1 B(v) + βb2 B(v)2
+
++ βs1 S(v) + βs2 S(v)2
+
++ βa1 A(v) + βa2 A(v)2
+
+
+
++ sθ(v, t ),
+
+where sθ(v, t ) denotes the cosine similarity between the image and text embeddings, and η
+
+is a hyperparameter controlling the strength of the utility-aware regularization. By tuning 
+
+η, practitioners can adjust the relative weight placed on semantic similarity and demand-related visual attributes. This formulation embeds the nonlinear preference structure im-18 Table 1: Visual Attributes and Demand on Amazon D.V.: Log(Sales Rank) Coefficient Std. Error Colorfulness -2.249*** (0.075) Colorfulness 2 2.118*** (0.073) Brightness -0.281** (0.087) Brightness 2 0.588*** (0.091) Symmetry -1.074*** (0.104) Symmetry 2 1.664*** (0.162) Aesthetic Quality -2.885*** (0.087) Aesthetic Quality 2 2.951*** (0.077) Sub-category FE Yes Firm Size Controls Yes Month FE Yes Observations 341,779 
+
+R2 0.440      
+
+> Notes: The dependent variable is a proxy for demand, log(sales rank), which is the inverse of sales volume. All visual attributes are standardized. Standard errors are reported in parentheses. ***
+> p < 0.01, ** p < 0.05, * p < 0.1.
+
+plied by observed demand directly into the similarity metric. The quadratic terms allow the model to favor intermediate, demand-maximizing levels of visual attributes instead of pushing each attribute higher. We train the Utility-Aware CLIP model on the 7,719 matched Amazon product images and descriptions following Section 3 based on the utility-regularized similarity function (5.2.2). 
+
+5.2.3 Performance Evaluation 
+
+We then generate additional usage-scenario images for existing products, such as lamps, blankets, and tables, using Stable Diffusion, GPT-Image, Flux, and the Utility-Aware Generator. Generated images are evaluated using: (i) a demand score, (ii) similarity to the original product, i.e., fidelity, (iii) Utility-Aware CLIP (U-CLIP) score, (iv) aesthetic quality, and (v) visual attributes such as brightness and colorfulness. Our evaluation framework isolates the contribution of visual attributes to product de-mand by holding all non-visual product features constant. The demand score is computed 19 by applying the estimated demand function as shown in Table 1 to each generated image, allowing only the visual features including colorfulness, brightness, symmetry, and aesthetic quality, to vary while fixing product characteristics such as category, firm size, and time period at their baseline levels. This approach directly measures whether our Utility-Aware Generator produces images that align with the revealed preference structure learned from real sales data, without confounding effects from product attributes outside the scope of image editing. The fidelity score measures visual and semantic consistency with the original product image, ensuring that demand improvements do not come at the cost of misrepre-senting the actual product. The Utility-Aware CLIP score captures how well the learned representation space shaped by demand data aligns with the generated image and text. The individual visual attributes such as brightness, colorfulness, and aesthetic quality are reported to verify that our generator balances these attributes at their demand-enhancing levels rather than pushing any attribute to extremes. This is consistent with the regression results, which show nonlinear preferences with an inverted U shape. These metrics can help validate that the Utility-Aware Generator improves sales potential through economi-cally meaningful visual refinements while preserving product authenticity and operational feasibility for e-commerce platforms. Table 2: Comparison among Generative Models in Image Editing Task (Amazon Context) 
+
+Model Demand Fidelity U-CLIP Aesthetic Brightness Colorfulness 
+
+Stable Diffusion 1.149 0.224 0.270 0.706 0.270 0.306 GPT-Image 1.007 0.187 0.322 0.686 0.402 0.426 Flux 1.159 0.228 0.226 0.772 0.144 0.440 
+
+Utility-Aware Generator 1.278 0.231 0.443 0.713 0.177 0.414 
+
+> Notes: Demand is computed using the estimated demand function combining similarity and image features with non-linear transformations. Fidelity corresponds to similarity to the original listing image. Brightness, colorfulness, and aesthetic scores are rescaled components entering the demand function.
+
+Table 2 reports average performance across 100 products. Consistent with the non-linear demand estimates, baseline generative models tend to produce more extreme visual characteristics. For example, GPT-Image generates relatively high brightness and colorful-ness, while Flux produces highly stylized scenes with elevated aesthetic scores. These shifts 20 do not consistently translate into higher demand, reflecting the non-monotonic preference structure identified in the regression. In contrast, the Utility-Aware Generator achieves the highest demand score, outper-forming all baselines. This improvement arises because the model internalizes the esti-mated curvature of the demand function and generates usage scenarios that balance visual attributes rather than pushing them to extremes. The resulting images exhibit moder-ate brightness and colorfulness, while also maintaining the highest fidelity to the original product. Overall, these results suggest that incorporating empirically estimated, non-linear visual preferences is valuable for product image redesign on Amazon. By avoiding over-optimization of individual attributes and targeting balanced, realistic contexts, the Utility-Aware Generator produces images that are both economically effective and operationally scalable for e-commerce platforms. As shown in Example 1 in Figure 5, the editing process improves clarity and perceived material quality while maintaining fidelity to the original product. The generated scene introduces subtle decorative elements and adjusts brightness, aesthetics, and colorfulness to moderate levels, avoiding over enhancement while keeping the product as the focal point. Example 2 in Figure 6 enhances the product image with a modern interior setting while preserving the original product design. The background create a more refined usage scenario, but the edits remain moderate and realistic. Original Image       
+
+> Utility -Aware Generator Flux GPT -Image Stable Diffusion
+> Prompt = “Keep the lamp exactly the same; do not change its design, color,
+> shape, texture, or any details. Improve clarity and material only. Replace the
+> background with a luxurious interior : marble tabletop or wall, gold accents,
+> and refined textures. Add specific decor: framed classical oil painting (museum
+> style), crystal glassware, a marble sculpture, and a velvet or leather element.”
+
+Figure 5: Amazon Product Image Editing (Example 1) 21 Original Image          
+
+> Utility -Aware Generator Flux GPT -Image Stable Diffusion
+> Prompt = “Keep the table exactly the same; do not change any detail. Improve
+> clarity and material only. Change the background to a modern, stylish interior
+> setting with contemporary furniture. Use a clean, aesthetic environment with a
+> cool -toned atmosphere. Adjust the lighting to a subtle cool tone while keeping
+> it natural and realistic.”
+
+Figure 6: Amazon Product Image Editing (Example 2) 
+
+## 5.3 Application II: Airbnb 
+
+In the Airbnb application, we study whether the proposed utility-aware framework can edit property images to increase demand. This setting differs from Amazon because the focal objective is not product fidelity, but listing realism and booking relevance. We therefore construct the utility-aware objective using Airbnb-specific visual attributes, especially vi-sual uniqueness and aesthetic quality, while preserving semantic consistency with the listing description. 
+
+5.3.1 Demand Model Estimation 
+
+To capture the factors that drive engagement in this setting, we estimate a demand model for booking outcomes. The dependent variable is log occupancy rate. The key explanatory variables are visual uniqueness and aesthetic quality, each entered with both linear and quadratic terms, alongside standard controls: Demand i =βu1 U (vi) + βu2 U (vi)2
+
++βa1 A(vi) + βa2 A(vi)2
+
++γXi + εi,
+
+where uniqueness score U (v) is computed using a self-supervised visual representation model, encouraging images that deviate from common patterns in the training distribution 22 (Feng et al., 2025a), the aesthetic score A(v) is obtained using the Neural Image Assessment (NIMA) model (Talebi and Milanfar, 2018), which evaluates perceptual quality and visual attractiveness, and Xi includes log nightly price, listing characteristics and location-time fixed effects. Table 1 reports the estimation results. We find strong evidence of an inverted U-shaped relationship between these visual attributes and demand: moderate levels of uniqueness and aesthetic quality maximize booking outcomes, while excessively low or high levels reduce demand. 
+
+5.3.2 Utility-Aware Generator Training 
+
+To make the demand estimation directly usable in our model, we rescale uniqueness and aesthetics to the [0 , 1] interval. This normalization places both attributes on a common scale and allows the estimated coefficients to be incorporated into the learning objective without additional transformation: 
+
+U S (v, t ) = η
+
+
+
+βu1 U (v) + βu2 U (v)2
+
++ βa1 A(v) + βa2 A(v)2
+
+
+
++ sθ(v, t ),
+
+where sθ(v, t ) denotes the similarity, and η controls the strength of the utility-aware reg-ularization. This formulation embeds the nonlinear preference structure from the demand data directly into the similarity metric. The quadratic terms allow the model to favor inter-mediate, demand-maximizing levels of uniqueness and aesthetics rather than mechanically pushing these attributes higher. We train the Utility-Aware CLIP model on 10,000 Airbnb property listings, each with a cover image and a corresponding textual description. The cover image is the primary visual signal shown in search results and critically influences user attention and perceived property quality. 23 Table 3: Visual Attributes and Demand on Airbnb D.V.: Log(Occupancy Rate) Coefficient Std. Error Visual Uniqueness 0.288*** (0.0456) Visual Uniqueness 2 -0.241*** (0.0364) Visual Aesthetics 0.978*** (0.0656) Visual Aesthetics 2 -1.013*** (0.0663) Property Daily Rate -0.158*** (0.0114) Response Rate 0.0532*** (0.0040) Overall Rating 0.324*** (0.0161) Visual Complexity -0.237*** (0.0325) Number of Images 0.0130*** (0.00145) Number of Reviews 0.0219*** (0.00103) Airbnb Superhost 0.00495*** (0.00135) Number of Max Guests 0.101*** (0.00953) Instant Book Enabled -0.0154*** (0.00133) Minimum Stay -1.80e-05 (4.08e-05) Number of Room Amenities 0.0323*** (0.00224) Bedrooms 0.0101*** (0.00128) Bathrooms 0.0189*** (0.00144) Median Age 0.000468** (0.000197) Median Income -1.21e-06*** (3.90e-08) Children 0.133*** (0.0345) Married -0.0335 (0.0208) Bachelors 0.416*** (0.0126) Supply Count 0.00401*** (0.000819) Constant 0.192*** (0.0266) County-Month FE Yes Observations 95,673 
+
+R2 0.251       
+
+> Notes: The dependent variable is a proxy for demand, log(occupancy rate), which is the proportion of days that a property was booked in a month. All visual attributes are standardized. Standard errors are reported in parentheses. *** p < 0.01, ** p < 0.05, * p < 0.1.
+
+24 5.3.3 Performance Evaluation 
+
+To evaluate generative performance of the Utility-Aware Generator, we sample 500 bed-room descriptions from the dataset and generate images using four models: Stable Diffu-sion, DALL ·E, Flux, and our Utility-Aware Generator. Unlike baseline models that pri-marily optimize for text-image correspondence, our generator uses the learned utility-aware representation to guide generation toward images that are semantically aligned, visually engaging, and consistent with the estimated demand function. Our evaluation framework isolates the contribution of visual attributes to booking de-mand by holding all non-visual listing features constant. The demand score is computed by applying the estimated demand function in Table 3 to each generated image, allowing only the visual features including uniqueness and aesthetic quality to vary while fixing property characteristics including price, amenities, location, and host rating at their sample means. This approach directly measures whether our Utility-Aware Generator produces images that align with the revealed preference structure learned from real booking data, without confounding effects from listing attributes outside the scope of image generation. The fi-delity score measures semantic and visual consistency with the original property image, ensuring that demand improvements do not come at the cost of misleading guests about actual property appearance. The uniqueness and aesthetic scores capture the individual components of the demand function, allowing us to verify that our generator balances these attributes at their demand-maximizing levels rather than pushing either to extremes. To-gether, these metrics will help validate that the Utility-Aware Generator improves booking potential through economically meaningful visual adjustments while preserving realism and property authenticity (Table 4). Detailed analysis and example images are in the Appendix. We next consider a more practical task: improving existing property images through controlled editing. The instruction is fixed across images and intentionally simple. Its role is to specify a general direction for plausible visual refinement, such as adding decorative elements and soft furnishings. Specifically, the prompt asks the model to improve room aesthetics and uniqueness by adding two pictures, a carpet, pillows, and flowers, with the goal of increasing the occupancy rate. The desired style is clean, cozy, warm, and artistic. Importantly, the instruction does not determine the optimal degree of visual 25 Table 4: Comparison among Generative Models in Image Generation Task (Airbnb Con-text) 
+
+Model Demand Fidelity Uniqueness Aesthetic 
+
+Stable Diffusion 0.505 0.213 0.556 0.642 DALL ·E 0.510 0.224 0.551 0.660 Flux 0.544 0.251 0.549 0.641 
+
+Utility-Aware Generator 0.573 0.268 0.547 0.602 
+
+> Notes: Demand is computed using the estimated demand function combining similarity, uniqueness, and aesthetic quality with non-linear transformations. Fidelity corresponds to similarity to the original listing image. Uniqueness and aesthetic scores are rescaled components entering the demand function.
+
+change. Rather, editing is carried out in a representation space shaped by demand-driven preferences learned from the data. In image editing, visual changes are generated under our utility-aware framework, so edits follow learned preference structures without additional prompt engineering or test-time optimization. This typically yields moderate, coherent modifications, e.g., artwork, textiles, decorative accents, while preserving layout and realism. Table 5 reports average performance across generated images. The Utility-Aware Gener-Table 5: Comparison among Generative Models in Image Editing Task (Airbnb Context) 
+
+Model Demand Fidelity Uniqueness Aesthetic 
+
+Stable Diffusion 0.505 0.206 0.566 0.609 GPT-Image 0.508 0.214 0.554 0.637 Flux 0.507 0.209 0.565 0.618 
+
+Utility-Aware Generator 0.521 0.225 0.527 0.623 
+
+> Notes: Demand is computed using the estimated demand function combining similarity, uniqueness, and aesthetic quality with non-linear transformations. Fidelity corresponds to similarity to the original listing image. Uniqueness and aesthetic scores are rescaled components entering the demand function.
+
+ator achieves the highest demand score and the highest fidelity score. It also avoids pushing uniqueness to the highest level. This pattern is consistent with the inverted U-shaped de-mand relationship: the goal is not to maximize uniqueness, but to reach a balanced level that improves perceived appeal while preserving realism. 26 Prompt 
+
+I want to make this room feel more unique and 
+
+improve the overall aesthetics for my Airbnb listing. 
+
+Maybe add a couple of nice wall pictures, a soft rug, 
+
+some extra pillows, and flowers to make it feel 
+
+warmer and more inviting. I’d like it to look cozy, 
+
+clean, and something guests would find special and 
+
+memorable. 
+
+Original Image 
+
+Utility -Aware Generator Flux 
+
+GPT -Image Stable Diffusion Figure 7: Kitchen example: utility-aware editing introduces moderate decorative elements, such as artwork, flowers, and textiles, that enhance warmth and distinctiveness while pre-serving realism. 27 GPT -Image Stable Diffusion  
+
+> Original Image
+> Utility -Aware Generator Flux
+> Prompt
+> I want to make this room feel more unique and
+> improve the overall aesthetics for my Airbnb listing.
+> Maybe add a couple of nice wall pictures, a soft rug,
+> some extra pillows, and flowers to make it feel
+> warmer and more inviting. I’d like it to look cozy,
+> clean, and something guests would find special and
+> memorable.
+
+Figure 8: Living room example: utility-aware editing increases visual richness through color, soft furnishings, and wall art without generating excessive clutter or unrealistic changes. 
+
+# 6 Validation: Human Experiment 
+
+To evaluate the external validity of our approach, we conduct two randomized survey stud-ies in distinct decision contexts: product evaluation and Airbnb booking. In both settings, participants are exposed to original images alongside AI-generated alternatives from mul-tiple models with randomized positions, and are asked to evaluate or select among them. This design allows us to assess whether differences in generated visual quality translate into meaningful differences in human perception and choice. Across both studies, we combine model-free comparisons with regression analyses to isolate the impact of our model relative to competing approaches. Details of these surveys are in the Appendix. 28 Table 6: Model-Free Differences Across Image Generation Models Model Selection Count Realism & Trustworthiness Professional Quality Stable Diffusion 154 4.54 4.55 OpenAI 143 4.64 4.74 Flux 59 4.03 4.15 Utility-Aware Generator 256 5.12 5.23 
+
+> Notes: Table reports raw (unadjusted) averages across all observations. Selection Count denotes the total number of times images from each model were chosen. Ratings are measured on 7-point Likert scales.
+
+## 6.1 Study I: Validating Utility-Aware Editing Product Images on Amazon 
+
+We evaluate whether images generated by different models vary in perceived quality and consumer choice using a randomized choice-based survey. In each task, participants viewed an original product image alongside four AI-edited alternatives with randomized positions. Each participant was asked to complete three tasks: (i) select the image they would be most likely to purchase, (ii) rate each image on perceived realism and trustworthiness, and (iii) rate each image on professional quality for commercial use. We recruited 118 par-ticipants from Prolific.com. Two participants were excluded due to incomplete responses. Each participant completed six choice tasks, yielding 708 choice sets and 2,832 image-level observations. In each task, participants were asked to evaluate four AI-generated images produced by different models: Stable Diffusion, OpenAI, Flux, and the Utility-Aware Gen-erator, with image-to-position assignment randomized. We begin with model-free evidence. Table 6 reports raw selection counts and average ratings by model. The Utility-Aware Generator is selected substantially more often than the competing models and also receives the highest average ratings on realism and trustwor-thiness, and professional quality. These show that participants perceive images produced by the Utility-Aware Generator as more commercially appealing and more suitable for marketplace use. To formally estimate the effect of model type, we construct an image-level dataset and estimate the following models. We first examine how model type affects perceived image quality: 29 Rate ijkt = β1UA k + γP k + ϵijkt 
+
+where Rate ijkt denotes image k rating by participant i in choice set j. UA k = 1 indicates the image is generated by the Utility-Aware Generator and vice versa. β1 captures the average difference in perceived quality between images generated by the Utility-Aware Generator and alternative models. Pk denotes image position fixed effects, which control for any residual influence of display order despite randomization. We estimate this using ordinary least squares (OLS) regression and cluster standard errors at the participant level to account for repeated evaluations by the same individual. Next, we examine how model type and perceived quality jointly influence consumer choice: Pr(SL ijkt = 1) = Λ( β1UA k + β2Rate ijkt + γ′Pk) ,
+
+where Λ( z) = exp( z)/(1 + exp( z)) maps the linear index into a choice probability, and SL ijkt equals one if participant i selects image k in choice set j, and zero otherwise. The coefficient β1 captures the direct effect of the Utility-Aware Generator on choice probability, holding perceived quality constant, while β2 captures the relationship between perceived image quality and the likelihood of selection. Including both terms allows us to assess whether the effect of the Utility-Aware Generator operates primarily through improved perceived quality or also reflects additional factors not captured by the rating measures. As in the rating model, we include position fixed effects and cluster standard errors at the participant level. In both specifications, i indexes participants, j indexes choice sets, and 
+
+k indexes images. Table 7 reports the estimation results. For the rating outcomes, columns (1)–(2) esti-mate OLS models with position fixed effects and standard errors clustered at the partici-pant level. Across both measures, images generated by the Utility-Aware Generator receive significantly higher evaluations. In column (1), the Utility-Aware Generator increases per-ceived realism and trustworthiness by 0.708 points on a 7-point scale ( p < . 001). Similarly, in column (2), it improves perceived professional quality by 0.741 points ( p < . 001). These 30 Table 7: Effect of Using Utility-Aware Generator on Image Quality and Choice D.V. (1) Realism (2) Professional (3) Purchase (4) Purchase Utility-Aware Generator 0.708*** 0.741*** 1.038*** 0.786*** (0.081) (0.078) (0.133) (0.137) Realism 0.739*** (0.110) Professional 0.229** (0.094) Position FE Y Y Y YObs. 2832 2832 2832 2832   
+
+> Notes: Q2 = realism & trustworthiness; Q3 = professional quality. Columns (1)–(2) use OLS; columns (3)–(4) use logit. Standard errors clustered at the participant level in parentheses. ∗p < . 1, ∗∗ p < . 05,
+> ∗∗∗ p < . 01.
+
+effects are economically meaningful, representing approximately a 16–17% increase relative to the baseline mean. Columns (3)–(4) examine purchase choice. In column (3), the Utility-Aware Generator significantly increases the likelihood that an image is selected for purchase. In column (4), the coefficient remains positive and significant after controlling for perceived realism and professional quality, suggesting that the Utility-Aware Generator improves choice not only by increasing perceived quality, but also through additional image attributes valued by consumers. 
+
+## 6.2 Study II: Validating Utility-Aware Editing for Airbnb Prop-erty Images 
+
+We next examine whether utility-aware editing improves consumer evaluations in a hospi-tality setting. Participants viewed an original Airbnb room image together with AI-edited alternatives generated by Stable Diffusion, OpenAI, Flux, and the Utility-Aware Genera-tor. For each edited image, participants rated realism and trustworthiness (Q1), uniqueness (Q2), aesthetic appeal (Q3), and willingness to book (Q4) on 7-point Likert scales. We recruited 117 participants from Prolific.com. Three participants were removed because of insufficient completion time. After excluding observations with missing responses, the final image-level sample consists of 347 evaluations. 31 Table 8: Model-Free Average Ratings by Model: Airbnb Study Model Realism Uniqueness Aesthetic Booking Flux 5.145 4.627 4.964 4.807 OpenAI 4.198 4.527 4.989 4.582 Stable Diffusion 3.268 3.381 3.660 3.423 Utility-Aware Generator 5.263 4.671 5.263 5.039 
+
+> Notes: Mean ratings on a 7-point scale. Higher values indicate more favorable evaluations.
+
+Table 9: Effect of Utility-Aware Editing on Airbnb Image Evaluations D.V. (1) Realism (2) Uniqueness (3) Aesthetic (4) Booking Utility-Aware Generator 1.130*** 0.503*** 0.717*** 0.767*** (0.183) (0.169) (0.159) (0.169) Image Set FE Yes Yes Yes Yes Observations 347 347 347 347    
+
+> Notes: OLS estimates with participant-clustered standard errors in parentheses. The independent variable is an indicator for images generated by the Utility-Aware Generator (baseline = other models). Set fixed effects are included. ∗p < . 1, ∗∗ p < . 05, ∗∗∗ p < . 01.
+
+Table 8 reports model-free evidence. The Utility-Aware Generator achieves the high-est average ratings across all four outcomes, followed by Flux and OpenAI, while Stable Diffusion performs substantially worse. The largest gains appear in realism and booking likelihood, suggesting that utility-aware editing improves both perceived credibility and commercial appeal. We estimate the following image-level specification separately for each outcome: 
+
+Q(m) 
+
+> isk
+
+= βmUA k + γs + ϵisk ,
+
+where m ∈ 1, 2, 3, 4 denotes question, i indexes participants, s indexes image sets, and k
+
+indexes images. UA k is an indicator for the Utility-Aware Generator, and γs denotes set fixed effects. Standard errors are clustered at the participant level. Table 9 reports the results. The Utility-Aware Generator significantly improves all four outcomes: realism by 1.13 points ( p < . 001), uniqueness by 0.50 points ( p < . 01), aesthetic appeal by 0.72 points ( p < . 001), and willingness to book by 0.77 points ( p < . 001). These magnitudes are economically meaningful on a 7-point scale, indicating that utility-aware editing improves both perceived image quality and downstream consumer preference. 32 7 Discussion and Conclusion 
+
+This section summarizes the main findings, contributions, and managerial implications of the paper. We first revisit the research questions and summarize the core empirical and behavioral results. We then discuss the methodological, theoretical, and empirical contributions of the utility-aware framework. Finally, we highlight how sellers, hosts, and platforms can use utility-aware image generation to improve marketplace content while avoiding over-stylized or unrealistic visual outputs. 
+
+## 7.1 Conclusion and Contributions 
+
+Product images are economically valuable assets on digital platforms because they shape consumer attention, trust, and purchasing behavior (Zhang et al., 2022; Li and Xie, 2020). Although generative AI and text-to-image models have substantially improved firms’ ability to produce visual content at scale, existing systems remain primarily optimized for image– text coherence rather than marketplace performance. As a result, generated images may be visually aligned with prompts but still fail to improve consumer demand or economic outcomes. This paper addresses this gap by proposing a modular and flexible utility-aware frame-work for multimodal image generation that incorporates estimated consumer demand into contrastive representation learning. We introduce a Utility-Aware InfoNCE objective that integrates demand-driven visual attributes into standard image–text alignment, yielding a Utility-Aware CLIP model that can be used to guide image generation toward economically meaningful outputs. Our contributions are threefold. First , methodologically, we develop a general utility-aware contrastive learning framework that embeds estimated demand parameters into mul-timodal representation learning. Importantly, the framework is modular. It acts as a plug-in layer that can be embedded into existing and emerging text-to-image systems to improve their direct commercial usage. This enables utility-guided generation without redesigning the underlying generative AI architecture. Second , theoretically, we establish a discrete-choice interpretation of contrastive learning and show how utility components enter the InfoNCE objective. This provides an economic foundation for CLIP-style models and clar-33 ifies how incorporating demand-based attributes preserves the information-maximization principle while shifting learned representations toward economically relevant visual fea-tures. Third , empirically, we apply the framework to image generation in Amazon and Airbnb settings and evaluate performance using demand-based metrics and human-subject experiments. Across both contexts, the Utility-Aware Generator consistently outperforms state-of-the-art benchmarks, including Stable Diffusion, GPT-Image, and Flux, by produc-ing images that better balance realism, semantic consistency, and marketplace effectiveness, with behavioral evidence from human experiments confirming improvements in consumer choice. 
+
+## 7.2 Managerial Implications 
+
+For sellers and hosts, the framework offers a scalable alternative to prompt engineering and manual design by using observed demand data to guide image generation. For instance, Amazon sellers can generate additional usage-context images while preserving product iden-tity and avoiding overly stylized scenes that reduce realism. Similarly, Airbnb hosts can enhance room images by adjusting lighting and minor decorative elements while maintain-ing layout authenticity. For platforms, the approach enables systematic listing improvement, content auditing, and counterfactual image testing. Platforms can recommend alternative visuals, identify underperforming listings, and support sellers with limited design resources by reducing reliance on professional photography or iterative prompting. Importantly, the results high-light that “more aesthetic” is not always better, as demand often follows an inverted U-shaped relationship with visual attributes. Overly polished or stylized images may reduce trust and perceived authenticity. Utility-aware generation helps balance visual appeal with realism and product fidelity. The utility-aware framework also offers practical advantages over alternative adaptation approaches such as LoRA (Low Rank Adaptation) (Hu et al., 2022) or full fine-tuning of the underlying generative model. Fine-tuning-based methods require curating a large set of high-quality images, retraining billions of parameters in the base diffusion model, and repeating this process whenever the underlying model is updated. In contrast, our 34 framework operates as a lightweight guidance layer on top of the existing generative model, which makes it substantially faster and cheaper to deploy. It is also more inclusive in the set of attributes it can incorporate: rather than implicitly learning preferences from a fixed set of training images, the utility component can flexibly encode multiple demand-driven features simultaneously, including colorfulness, brightness, symmetry, aesthetic quality, and any additional attributes a firm wishes to add as long as they can be measured. This makes the framework easier to update as demand evidence evolves, easier to audit because the utility functions are explicit and interpretable, and easier to embed into different base models as the generative AI landscape continues to change. 
+
+Guidance for Choosing the Utility Weight. 
+
+The weight η in the Utility-Aware Contrastive Loss governs the trade-off between demand-related visual attributes and semantic alignment, with higher η yielding higher-demand generation. We discuss two approaches: 
+
+• Experience-based calibration (no demand data). Without historical demand data, η
+
+and utility coefficients are set from managerial expertise: category managers encode attribute preferences (e.g., inverse-U structures for brightness) and tune η via A/B testing or sample review. This suits new sellers, new categories, or platforms lacking systematic demand data. 
+
+• Demand-based calibration (with demand data). When sales outcomes link to visual content, η is calibrated empirically by estimating demand regressions and selecting the value that maximizes predicted demand while maintaining acceptable fidelity on a validation sample. This suits established sellers with rich behavioral data. Firms can combine both, beginning with experience-based priors and transitioning to demand-based calibration as data accumulate. The framework is modular, acting as a plug-in layer compatible with state-of-the-art models that consistently steers outputs toward commercial effectiveness. 35 References 
+
+Angelopoulos, P., Lee, K., and Misra, S. (2024). Causal alignment: Augmenting language models with A/B tests. Belkin, M., Niyogi, P., and Sindhwani, V. (2006). Manifold regularization: A geomet-ric framework for learning from labeled and unlabeled examples. Journal of Machine Learning Research , 7(11). Ceylan, G., Diehl, K., and Proserpio, D. (2024). Words meet photos: When and why photos increase review helpfulness. Journal of Marketing Research , 61(1):5–26. Dzyabura, D., El Kihal, S., Hauser, J. R., and Ibragimov, M. (2023). Leveraging the power of images in managing product return rates. Marketing Science , 42(6):1125–1142. Dzyabura, D. and Peres, R. (2021). Visual elicitation of brand perception. Journal of Marketing , 85(4):44–66. Feng, X., Li, C. X., and Zhang, S. (2025a). Visual uniqueness in peer-to-peer marketplaces: Machine learning model development, validation, and application. Journal of Consumer Research , 52(4):800–825. Feng, X., Zhang, S., Liu, X., Srinivasan, K., and Lamberton, C. (2025b). An AI method to score celebrity visual potential. Journal of Marketing Research , 62(5):757–775. Gui, G. and Toubia, O. (2023). The challenge of using LLMs to simulate human behavior: A causal inference perspective. Technical report, Columbia Business School Research Paper No. 4650172. Hartmann, J., Heitmann, M., Schamp, C., and Netzer, O. (2021). The power of brand selfies. Journal of Marketing Research , 58(6):1159–1177. Heitmann, M., Jansen, T. P., Reisenbichler, M., and Schweidel, D. A. (2025). Picture perfect: Engaging customers with visual generative AI. Journal of Marketing , 0(0). Hessel, J., Holtzman, A., Forbes, M., Le Bras, R., and Choi, Y. (2021). CLIPScore: A reference-free evaluation metric for image captioning. In Proceedings of the 2021 Conference on Empirical Methods in Natural Language Processing .36 Hu, E. J., yelong shen, Wallis, P., Allen-Zhu, Z., Li, Y., Wang, S., Wang, L., and Chen, W. (2022). LoRA: Low-rank adaptation of large language models. In International Conference on Learning Representations .Labs, B. F. (2025). FLUX.2: Frontier Visual Intelligence. https://bfl.ai/blog/flux-2 .Li, Y. and Xie, Y. (2020). Is a picture worth a thousand words? an empirical study of image content and social media engagement. Journal of Marketing Research , 57(1):1–19. Lu, H., Simester, D., and Zhu, Y. (2025). Optimizing scalable targeted marketing policies with constraints. Marketing Science , 44(5):1082–1103. Oord, A. v. d., Li, Y., and Vinyals, O. (2018). Representation learning with contrastive predictive coding. arXiv preprint arXiv:1807.03748 .OpenAI (2026). ChatGPT. https://chat.openai.com .Podell, D., English, Z., Lacey, K., Blattmann, A., Dockhorn, T., M¨ uller, J., Penna, J., and Rombach, R. (2024). SDXL: Improving latent diffusion models for high-resolution image synthesis. In The Twelfth International Conference on Learning Representations .Radford, A., Kim, J. W., Hallacy, C., Ramesh, A., Goh, G., Agarwal, S., Sastry, G., Askell, A., Mishkin, P., Clark, J., Krueger, G., and Sutskever, I. (2021). Learning transferable visual models from natural language supervision. In Meila, M. and Zhang, T., editors, 
+
+Proceedings of the 38th International Conference on Machine Learning , volume 139 of 
+
+Proceedings of Machine Learning Research , pages 8748–8763. PMLR. Talebi, H. and Milanfar, P. (2018). NIMA: Neural image assessment. IEEE Transactions on Image Processing , 27:3998–4011. Tibshirani, R. (1996). Regression shrinkage and selection via the LASSO. Journal of the Royal Statistical Society Series B: Statistical Methodology , 58(1):267–288. Wang, T. and Isola, P. (2020). Understanding contrastive representation learning through alignment and uniformity on the hypersphere. In III, H. D. and Singh, A., editors, 
+
+Proceedings of the 37th International Conference on Machine Learning , volume 119 of 
+
+Proceedings of Machine Learning Research , pages 9929–9939. PMLR. 37 Xie, Y. and Huo, X. (2025). Asymptotic behavior of adversarial training estimator under 
+
+ℓ∞-perturbation. Journal of the American Statistical Association , 120(552):2672–2683. Ye, Z., Yoganarasimhan, H., and Zheng, Y. (2025). LOLA: LLM-assisted online learning algorithm for content experiments. Marketing Science , 44(5):995–1016. Zhang, S., Friedman, E. M. S., Srinivasan, K., Dhar, R., and Zhang, X. (2025). Serving with a smile on airbnb: Analyzing the economic returns and behavioral underpinnings of the host’s smile. Journal of Consumer Research , 51(6):1073–1097. Zhang, S., Lee, D., Singh, P. V., and Srinivasan, K. (2022). What makes a good image? Airbnb demand analytics leveraging interpretable image features. Management Science ,68(8):5644–5666. Zhou, M., Chen, G. H., Ferreira, P., and Smith, M. D. (2021). Consumer behavior in the online classroom: Using video analytics and machine learning to understand the consumption of video courseware. Journal of Marketing Research , 58(6):1079–1100. Zhou, X., Xiao, C., Yoon, S., and Zhu, H. (2026). The color of status: Color saturation, brand heritage, and perceived status of luxury brands. Journal of Consumer Research ,52(6):1232–1252. 38

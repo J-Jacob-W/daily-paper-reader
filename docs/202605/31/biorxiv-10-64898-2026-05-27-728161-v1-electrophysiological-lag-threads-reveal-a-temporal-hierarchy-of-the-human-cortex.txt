@@ -1,0 +1,478 @@
+Title: Electrophysiological lag threads reveal a temporal hierarchy of the human cortex
+
+URL Source: https://www.biorxiv.org/content/10.64898/2026.05.27.728161v1.full.pdf
+
+Number of Pages: 11
+
+Markdown Content:
+Hege et al. 2026, bioRxiv 1
+
+# Electrophysiological lag threads reveal a temporal hierarchy of the human cortex 
+
+Paul Hege 1,2,3, *, Janet Giehl 1,2,3 and Markus Siegel 1,2,3,4,5, * 
+
+> 1
+
+Department of Neural Dynamics and Magnetoencephalography, Hertie Institute for Clinical Brain Research, University of Tü-bingen, Germany  
+
+> 2
+
+Centre for Integrative Neuroscience, University of Tübingen, Germany  
+
+> 3
+
+MEG Center, University of Tübingen, Germany  
+
+> 4
+
+Center for Bionic Intelligence Tübingen Stuttgart (BITS), Tübingen, Germany  
+
+> 5
+
+German Center for Mental Health (DZPG), Tübingen, Germany  
+
+> †
+
+Equal contribution 
+
+* Corresponding authors: Paul Hege (paul.hege@uni-tuebingen.de) & Markus Siegel (markus.siegel@uni-tuebingen.de) 
+
+The human brain is spatially organized along functional gradients, but the temporal organization of these gradients remains poorly understood. In EEG and MEG, this question has been difficult to address because volume conduction obscures temporal precedence. Here, we introduce lag-specific orthogonalization, an extension of pairwise orthogonalization that allows us to estimate non-zero-lag amplitude-envelope correlations. Applying this approach to large-scale resting-state MEG, we identify electrophysiological lag threads: reproducible maps of temporal ordering that are most coherent in the alpha and beta bands and organize activity from occipital and sensorimotor regions toward frontal and temporal association cortex. These fast electrophysiological lag threads share subject-specific spatial structure with much slower fMRI lag threads, supporting a neural rather than vascular origin of fMRI lag structure. Finally, we show that cortical lag threads are not fixed anatomical constraints. They covary with age and handedness and are selectively reconfigured during cognitive task performance. Together, these findings reveal a frequency-specific electrophysiological temporal hierarchy of the human cortex that links fast neural dynamics to slower hemodynamic propagation structure. 
+
+Introduction 
+
+The human functional connectome is spatially organized along macroscale gradients, with a principal axis extending from unimodal sensory and motor cortex to transmodal as-sociation areas, including the default mode network 1,2 . This spatial hierarchy is thought to constrain how cortical regions process and integrate information. It changes across the lifespan 3, and is disrupted in several neurological and psy-chiatric conditions, including autism spectrum disorder, schizophrenia, and major depressive disorder 4–7 . However, while the spatial topography of these networks is well char-acterized, their temporal organization remains much less clear. In particular, it remains unclear when, and in which sequence, activity emerges across cortical regions. Resting-state fMRI has provided evidence that spontane-ous cortical activity is not simultaneous, but unfolds in struc-tured and reproducible sequences across the cortex, termed lag threads 8,9 . These sequences broadly follow the principal spatial gradient, with unimodal regions tending to lead transmodal regions. However, fMRI measures neural activ-ity only indirectly through hemodynamic responses. Thus, regional differences in neurovascular coupling could pro-duce apparent temporal ordering without reflecting neural dynamics 10 . Direct electrophysiological measurements are thus needed to test whether cortical lag structure has a neu-ral basis and how it is expressed on the faster timescale of population activity. MEG provides the temporal resolution required to study fast cortical dynamics. Previous studies have investigated lagged interactions of cortical activity using source-recon-structed MEG 11,12 and other direct measures of electrophysi-ological activity. 13,14 However, non-zero lag amplitude corre-lations in MEG have been fundamentally limited by volume conduction and signal mixing 15–18 . These effects generate strong artifactual zero-lag correlations. Existing orthogonali-zation methods address this problem at zero lag, but leave substantial residual artifacts at non-zero lags. Consequently, the temporal ordering of amplitude fluctuations across cor-tical regions has remained difficult to access with MEG. Here, we extend pairwise, time- and frequency-specific orthogonalization 18 to arbitrary temporal lags by introduc-ing a lag-dependent phase precession in the complex wavelet domain. This lag-specific orthogonalization removes signal mixing artifacts from non-zero-lag amplitude envelope cor-relations and thereby allows us to map temporal precedence in source-reconstructed MEG. Applying this method to large-scale resting-state MEG data, we identify frequency-specific electrophysiological lag threads: reproducible maps of cortical temporal ordering that are most coherent in the alpha and beta bands and organize activity from posterior and sensorimotor regions toward frontal and temporal asso-ciation cortex. In matched subjects, these fast electrophysio-logical lag threads partially share subject-specific spatial structure with much slower fMRI lag threads, supporting a neural contribution to hemodynamic lag structure. Finally, we show that lag threads covary with handedness and age 
+
+> .CC-BY-NC-ND 4.0 International license made available under a (which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is The copyright holder for this preprint this version posted May 29, 2026. ;https://doi.org/10.64898/2026.05.27.728161 doi: bioRxiv preprint
+
+Hege et al. 2026, bioRxiv 2
+
+within young adulthood and are selectively reconfigured during cognitive task performance. Together, these findings reveal a frequency-specific electrophysiological temporal hi-erarchy of the human cortex. 
+
+Results 
+
+Lag-specific orthogonalization eliminates artifactual corre-lations 
+
+Measures of neural covariation derived from electromag-netic recordings are strongly affected by volume conduction and signal mixing. In M/EEG, imperfections in the forward model, re-referencing, and the ill-posed nature of source re-construction mean that even source-level estimates contain artifactual correlations 15–18 . At zero lag, established methods can remove these artifacts 18,19 . However, substantial spuri-ous correlations remain at non-zero lags. To illustrate this, we simulated two independent white-noise signals with con-trolled instantaneous mixing. Without orthogonalization, this mixing produced a strong spurious cross-correlation at zero lag (Fig. 1a, red). Standard zero-lag orthogonalization 18 
+
+removed the zero-lag artifact, but left an oscillatory artifact at non-zero lags with a periodicity of twice the base fre-quency. This artifact results from the fact that real-valued wavelet filters are not orthogonal at arbitrary temporal shifts (Fig. 1a–c, blue). To address this limitation, we introduced a frequency- and lag-dependent phase precession factor into the orthogonali-zation in the complex wavelet domain (see Methods). This phase precession keeps the relevant wavelet filters orthogo-nal at the tested lag and eliminated artifactual correlations across the full cross-correlogram (Fig. 1a–c, green). Thus, lag-specific orthogonalization extends zero-lag orthogonali-zation to amplitude-envelope correlations at non-zero lag. We next applied the method to resting-state MEG from 89 subjects of the Human Connectome Project 20 . We per-formed source reconstruction of cortical activity using beamforming 21 and estimated peak lags, i.e. the lags at which amplitude envelope correlation was maximal, for all cortical pairs at 8 Hz (Fig. 1d). Without orthogonalization, peak lags accumulated strongly near zero lag (Fig. 1d, red). This accumulation disappeared after lag-specific orthogo-nalization, confirming that it was spurious (Fig. 1d, green). The effect was spatially graded: source pairs separated by less than 10 cm were most affected, consistent with the known spatial scale of volume conduction 18 , whereas pairs separated by more than 10 cm were largely unaffected (Fig. 1e). Orthogonalization also increased the subject-specificity of short-lag cross-correlations (Fig. 1f). We partitioned cross-correlation variance into inter-subject, i.e. subject-specific, and inter-session, i.e. noise, variance. For lags longer than             
+
+> Fig 1 | Lag-specific orthogonalization a Orthogonalized and non-orthogonalized correlation of two simulated white noise signals with instantane-
+> ous signal mixing. The non -orthogonalized correlation shows a large artifactual correlation (red). Naive zero-lag orthogonalization shows artifactual
+> cor relation at non-zero lags (blue). Phase-corrected orthogonalization shows no artifactual correlation (green). bLagged wavelet filters (bottom) and
+> envelopes (top) with (green) and without (blue) orthogonalization p hase shift. Reference signal in gray. The insets show the angles between signals.
+> The naively orthogonalized filter rotates and is correlated, depending on lag. The phase -corrected orthogonalization ensures that filters are always
+> orthogonal. cNaive zero-lag orthogonalization shows artifactual correlation at non-zero lags (blue). Phase-corrected orthogonalization shows no
+> artifactual correlation (green). dHistogram of peak lags with (green) and without (red) orthogonalization in source-reconstructed MEG d ata at 8 Hz.
+> Inset: Orthogonalization corrects near -zero lags. eStratification of the histogram of peak lags by cortical distance. fComparison of subject-specific
+> variance and noise variance by lag with (green) and without (red) orthogonalization. The dashed lines indicate the temporal w idth of wavelets. All
+> error -bars denote SEM.
+> .CC-BY-NC-ND 4.0 International license made available under a (which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is The copyright holder for this preprint this version posted May 29, 2026. ;https://doi.org/10.64898/2026.05.27.728161 doi: bioRxiv preprint
+
+Hege et al. 2026, bioRxiv 3
+
+the frequency-dependent width of the wavelet (Fig. 1f, dashed lines), this partitioning was nearly identical with and without orthogonalization. In contrast, for lags shorter than the wavelet width, subject-specific variance was higher after orthogonalization. This indicates that artifactual short-lag correlations are less subject-specific than genuine neural coupling. 
+
+Frequency-specific lag threads organize resting-state cor-tical activity 
+
+Having established that lag-specific orthogonalization sup-presses spurious correlations while preserving genuine neu-ral signal, we asked whether spontaneous cortical activity follows a structured temporal order – and, if so, whether that order mirrors the brain’s known spatial hierarchy. After re-moving artifactual correlations, we computed pairwise or-thogonalized amplitude envelope cross-correlograms across all cortical sources and 25 frequency bands from 2 to 128 Hz. For each source pair, we extracted the peak lag, yielding an antisymmetric time-delay matrix for each frequency band (Fig. 2a). For each frequency, we derived the primary lag thread, i.e. the dominant spatial map of temporal ordering, by aver-aging each row of this matrix. This is equivalent to a least-squares rank-one approximation (Fig. 2b). This rank-one structure is the basis for interpreting lag threads as a tem-poral hierarchy. If one region tends to precede a second re-gion, and the second tends to precede a third, the full time-
+
+## a b cfdeg             
+
+> Primary Lag Thread
+> 2 Hz Lag (ms) earlier later +300 -300
+> 24816 32 64 128 Frequency (Hz)
+> 0.2 0.4 0.6 0.8 1Correlation (r) Frontal Frontal Occipital
+> 24816 32 64 128 Frequency (Hz) –0.5 00.5 1Consistency (r)  Data Null model Post. Ant.
+> 4 Hz
+> +30 +70 +50 +80 +80 +60 +30 +20 +10 +10 +100 +200 +30 -30 -70 -50 -80 -80 -60 -30 -20 -10 -10 -100 -200 -30 8 Hz 16 Hz 32 Hz 64 Hz 128 Hz Occ.
+> PC 2 PC 1
+> 2 Hz 2.4 Hz 2.8 Hz 3.4 Hz 4 Hz 4.8 Hz 5.7 Hz 8 Hz 9.5 Hz 23 Hz 27 Hz 32Hz 38 Hz 64 Hz 128 Hz 6.7 Hz PC 2 PC 1
+
+Fig 2 | Frequency-specific lag threads a Matrix of peak cross-correlation lags across pairs of cortical regions. Regions are sorted from posterior 
+
+to anterior, as indicated in the inset. b Primary lag thread for each frequency range defined as the average lag of each region to all other regions. 
+
+c Primary lag threads of all cortical regions embedded in the tripolar gradient shown in (g). Curved lines show level sets of a Gaussian kernel 
+
+estimate across the two -dimensional embedding space. d Inter-subject consistency of lag threads quantified as the correlation between bootstrap 
+
+samples across subjects. The gray line shows a subject -level null model (sign flip). e Correlation between the peak-lag matrix (a) and its rank-one 
+
+approximation. f Two-dimensional embedding (PCA) of lag threads across frequencies. g Two-dimensional embedding (PCA) of lag threads across 
+
+cortical regions (colored dots). Cortical locations are RGB color coded by barycentric coordinates of a triangular convex hul l of embedded points as 
+
+indicated on the cortical surface. All errorbars denote SEM across subjects. 
+
+.CC-BY-NC-ND 4.0 International license made available under a (which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is The copyright holder for this preprint this version posted May 29, 2026. ;https://doi.org/10.64898/2026.05.27.728161 doi: bioRxiv preprint Hege et al. 2026, bioRxiv 4
+
+delay matrix can be approximated by the differences be-tween regional positions along a single temporal axis. The spatial structure of primary lag threads was bilaterally sym-metric and consistent across subjects for all frequencies. Correlations of lag threads across bootstrap samples of the 89 subjects exceeded correlations expected by chance (Fig. 2d; all frequencies p < 0.01, FDR corrected; permutation test). Activity was consistently earliest in occipital and pari-etal cortex and latest in frontal and temporal cortex, follow-ing a progression from unimodal sensory regions toward transmodal association cortex that broadly mirrors the prin-cipal spatial gradient of the brain 1,2 (Fig. 2b). The amount of pairwise lag variance captured by the pri-mary lag thread depended strongly on frequency (Fig. 2e). In the alpha (around 8 Hz) and beta (around 16 Hz) bands, the primary thread explained up to 85% of lag variance, indicat-ing a highly structured, near-transitive temporal hierarchy. At the edges of the investigated frequency range, explained variance decreased to approximately 11%. Principal component analysis of lag threads across fre-quencies (Fig. 2f) revealed a smooth frequency dependence. Across frequencies, lag patterns spanned a multi-dimen-sional space, with distinct temporal precedence hierarchies at different frequencies. To characterize the spatial variation of temporal prece-dence across the cortex, we performed a principal compo-nent analysis of the primary lag threads across cortical sources. This projection revealed a tripolar structure of fre-quency-dependent lags with poles in occipitotemporal, sen-sorimotor, and frontal cortex (Fig. 2g). This tripolar struc-ture is highly similar to embeddings derived from structural data, fMRI functional connectivity, and other dynamical and structural measures 2,22–24 . Since the dimensions in our em-bedding are relative time delays (Fig. 2c), the MEG-based discovery of a similar spatial patterns adds a temporal di-mension to the gradient architecture of human cortical or-ganization 25–28 .
+
+Lag threads covary with handedness and age 
+
+Although lag threads were largely bilaterally symmetric (Fig. 2b), they also showed a consistent lateral asymmetry in the resting state: Averaged across all frequencies, right hem-isphere activity tended to precede activity in the left hemi-sphere by 8 ms ( ± 1.5 ms). This effect was strongest around 11 Hz and statistically significant (p < 0.004, FDR-corrected; see also Fig. 6b). If lag threads reflect neurobiological organisation rather than an analytic artefact, they should be sensitive to individ-ual neurobiological differences whose cortical signatures are well established, such as the hemispheric lateralization of handedness and the progressive cortical changes accompa-nying ageing. We tested whether the observed inter-hemi-spheric asymmetry reflects handedness by correlating the in-ter-hemispheric component of the lag thread with         
+
+> -0.3 00.3
+> Occ. Ventr. Front.. L.
+> 24816 32 64 128 Frequency (Hz)
+> p < 0.05 p < 0.05 0.08 0.10 0.12 0.14 Correlation with handedness (r)
+
+## abc            
+
+> Right Hemisphere earlier Left Hemisphere earlier 24816 32 64 128 −0.1 0.0 0.1 0.2 0.3
+> −50 050 100 −50 −25 025
+> Handedness (EHI score) Left hemisphere lag (ms) Increasing left hemisphere lag Increasing right handedness
+> 22 26 31 35
+> 10 30 50
+> 0.0 0.1 0.2
+
+## def
+
+> Age (years) Lag thread scale (ms)
+> Frequency (Hz)
+> Correlation with age (r) Correlation with age (r)
+
+Fig 3 | Lag threads are modulated by subject handedness and age a Correlation between average EHI handedness score of subjects and the 
+
+average inter -hemisphere lag across bootstrap samples. Shaded gray area shows the standard deviation of correlations in a subject-level permuta-
+
+tion null model. b Relation between subject handedness and the average left-hemisphere lag at 16 Hz. c Cortical distribution of the correlation 
+
+between handedness and hemispheric asymmetry. d Correlation between the temporal scale (s tandard deviation) of the primary lag thread and 
+
+subject age. Shaded gray area shows the standard deviation of correlations in a subject -level permutation null model. e Relation between subject 
+
+age and the temporal scale (standard deviation) of the primary lag thread at 16 Hz. f Cortical distribution of the correlation between subject age and 
+
+the temporal scale of the primary lag thread at 16 Hz. Non -masked sources are significant at p < 0.05 (FDR corrected) with respect to a subject-
+
+level permutation null model. 
+
+.CC-BY-NC-ND 4.0 International license made available under a (which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is The copyright holder for this preprint this version posted May 29, 2026. ;https://doi.org/10.64898/2026.05.27.728161 doi: bioRxiv preprint Hege et al. 2026, bioRxiv 5
+
+Edinburgh Handedness Inventory (EHI) scores 29 . Inter-hemispheric lag asymmetry was significantly correlated with average handedness (Fig. 3a; p < 0.05 FDR corrected), maximally explaining 18.8% of lag thread variance across bootstrap samples at 16 Hz. At this frequency, more right-handed subjects showed reduced lag thread asymmetry in leave-one-out pseudovalues (Fig. 3b; r = 0.22; p = 0.036). The correlation was strongest in occipital and parietal cortex (Fig. 3c). Thus, MEG lag thread asymmetry is sensitive to handedness, although the anatomical distribution suggests that it may reflect visuospatial or attentional lateralization rather than motor lateralization alone. We next asked whether lag threads were related to age. The overall temporal scale of the primary lag thread, quanti-fied as the root mean square of the lag thread across the brain, was significantly correlated with subject age around 2.4 Hz and from about 11 Hz to 27 Hz (Fig. 3d; p < 0.05 FDR corrected; permutation test). The correlation was strongest at 16 Hz (r = 0.34; p = 0.001) and positive, indicating that the scale of temporal lags grows within this young-adult sample (Fig. 3e). The cortical sources contributing most to this effect were located bilaterally in frontoparietal and temporal cor-tex (Fig. 3f). 
+
+MEG and fMRI lag threads share subject-specific spatial variance 
+
+If fMRI lag threads have a neural basis, then electrophysio-logical and hemodynamic lag maps should not only share spatial structure at the group level, but should covary as a subject-specific signature. We tested this directly in the same 89 individuals by extracting primary lag threads from their resting-state BOLD data. We resampled the cortical fMRI time series to the MEG 457-source model using a 5 mm Gaussian kernel and computed cross-correlograms at lags up to 20 TRs (14.4 s) (Fig. 4a). The fMRI primary lag thread recapitulated known patterns, with maximum average lags of approximately 0.5 s. These lags were substantially longer than MEG envelope lags, consistent with the different time-scales of the two signals. Single-frequency MEG lag threads were spatially corre-lated with the fMRI lag thread across several frequencies (Fig. 4b; p < 0.05, FDR corrected), with a maximum Pearson correlation of r = 0.47 at 26.9 Hz. This spatial correspond-ence captures the similarity between group-level MEG and fMRI lag maps and is therefore distinct from subject-specific covariance. A regularized multi-frequency linear model (ridge regression, λ = 10 ³) predicting the fMRI lag thread from all 25 MEG frequency bands explained 21.2% of fMRI lag spatial variance. Regression coefficients were signifi-cantly different from zero at several frequencies (Fig. 4b; p < 0.05, FDR corrected) and weighted most strongly toward low MEG frequencies, in particular around 2.8 Hz. The differ-ence between the peak single-frequency correlation and the low-frequency ridge weights suggests that spatial similarity and multivariate prediction capture partially distinct aspects of the MEG-fMRI relationship. Critically, the cross-modal correspondence also con-tained subject-specific covariance. Predictive fit was signifi-cantly higher when MEG and fMRI lag threads were derived from bootstrap samples containing the same subjects than from independently resampled subject sets (p < 0.001, per-mutation test). This matched-sample advantage was small in absolute terms ( ∼0.8% improvement in variance explained), consistent with the modest contribution of any single indi-vidual to a group bootstrap average, but it was highly con-sistent across permutation samples, indicating that individ-ual variation in MEG amplitude lag structure and fMRI propagation sequences is correlated beyond the shared group-level spatial pattern. This convergence supports a neural contribution to fMRI lag structure. 
+
+Lag threads are selectively reconfigured during cognitive task performance 
+
+Lag threads could be fixed by anatomy or dynamically adapt to cognitive demands. We found evidence for both. We com-pared resting-state lag threads with lag threads during active task performance in two complementary datasets. In the HCP working-memory dataset 20 (Fig. 5; visual n-back task with right-hand motor responses; N = 89 subjects), the over-all lag thread structure was largely preserved (Fig. 5). Rest-ing-state and working-memory primary lag threads were sig-nificantly correlated across a broad frequency range (Fig. 5a, green, p < 0.05, FDR corrected) and reached a peak correla-tion of r = 0.93 around 8 Hz. Nevertheless, we observed selective changes with task at several frequencies (Fig. 5a, orange, p < 0.05, FDR corrected; permutation test). At 4 Hz, left sensorimotor cortex shifted to a later position in the temporal sequence, consistent with preparation and execution of right-hand button presses,        
+
+> Fig 4 | MEG and fMRI lag threads are correlated a Primary lag thread
+> of the HCP resting state fMRI data, resampled to the MEG source
+> model. bSpatial correlation between the fMRI and MEG lag threads by
+> frequency (green curve). The brown curve shows the coefficients of a
+> ridge regression ( λ= 10 3) to predict fMRI lag threads from a linear com-
+> bination of MEG lag threads in all 25 frequencies. Error -bars denote
+> SEM across subjects. cAverage MEG-based prediction of fMRI lag
+> thread.
+
+## ab
+
+> Frontal Frontal Correaltion / beta Occipital Occipital fMRI lag thread MEG-precicted fMRI lag thread
+
+## c       
+
+> 24816 32 64 128 −0.2 00.2 0.4 0.6 Correlation MEG vs fMRI Regression coefficient
+> Lag (ms) Lag (ms)
+> earlier earlier later later +500 +500 -500 -500 MEG vs fMRI: r > 0, p < 0.05 Coefficient ≠ 0, p < 0.05
+> .CC-BY-NC-ND 4.0 International license made available under a (which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is The copyright holder for this preprint this version posted May 29, 2026. ;https://doi.org/10.64898/2026.05.27.728161 doi: bioRxiv preprint
+
+Hege et al. 2026, bioRxiv 6
+
+whereas primary visual cortex shifted toward earlier tem-poral precedence, consistent with enhanced sensory drive (Fig. 5b, right column). Similarly, at 32 Hz, sensorimotor cortex shifted later bilaterally and frontoparietal regions shifted earlier. Thus, the task induced targeted reconfigura-tion of the temporal hierarchy on top of a largely preserved resting-state scaffold. The n-back task involved both sensory stimulation and motor responses, which could independently drive the ob-served lag thread changes. Could reconfiguration occur dur-ing purely internal cognition, where neither confound is pre-sent? To address this, we analyzed a second dataset from 28 subjects who performed a covert autobiographical memory recall task while fixating (Fig. 6). Subjects were instructed to silently recall the entire day from the moment they woke up until the start of the recording, revisiting as many details as possible in chronological order. Crucially, this condition was matched to resting state in terms of sensory input and motor output, isolating any effect of internally generated cognitive engagement. The overall correlation of lag threads between rest and task was lower in this dataset than in the HCP comparison, consistent with the smaller sample and the more variable cognitive state during uncued recall (Fig. 6a). Nevertheless, correlations between conditions were significantly positive across a broad frequency range (Fig. 6a, p < 0.05 FDR cor-rected). Directly contrasting rest and memory recall across all fre-quencies did not yield a significant effect (p > 0.05, FDR cor-rected). However, memory-recall had a prominent effect on the hemisphere-lateralization of lag threads. Memory recall induced a reduction, and at several frequencies between 2 Hz and 19 Hz even a reversal, of the resting-state right-hem-isphere temporal precedence (Fig. 6b, p < 0.05, FDR cor-rected). The spatial pattern of this difference (Fig. 6c) in-volved regions consistent with the left-lateralized language network, suggesting that engagement of language-related processes during memory recall may shift the temporal hier-archy toward left-hemisphere precedence. Together, these results show that lag thread reconfiguration extends beyond 
+
+## a
+
+> 100 100 50 20 20 20 20 -100 -100 -50 -20 -20 -20 -20
+
+## b Rest 2 Hz Working memory Memory - Rest       
+
+> 24816 32 64 128 Frequency (Hz) Memory vs Rest: r > 0 p < 0.05 Memory ≠ Rest p < 0.05 −0.4 −0.2 0.0 0.2 0.4 0.6 0.8 1.0 Lag thread correlation (r)
+> 4 Hz 8 Hz 16 Hz 32 Hz 64 Hz 128 Hz
+
+Fig 5 | Lag threads during working memory a Correlation of primary 
+
+lag threads between resting state and working memory. Shaded region 
+
+denotes SEM across subjects. The green bar indicates frequencies 
+
+with significant correlation (p < 0.05, FDR corrected, t-test). The orange 
+
+bar indicates frequencies with a significant difference of lag threads be-
+
+tween rest and working memory (p < 0.05, FDR corrected, permutation 
+
+test). b Primary lag threads during rest, working memory and their dif-ference. 
+
+> Memory recall - Rest Occ. R. L. Recall vs Rest r > 0 p < 0.05 Recall ≠ Rest p < 0.05
+
+## ab
+
+> Memory recall Rest
+
+## c           
+
+> Left hemisphere earlier Right hemisphere earlier 24816 32 64 128 Frequency (Hz) 0.0 0.2 0.4 0.6 0.8 1.0 Lag thread correlation
+> 240-20 20 -40 816 32 64 128 Frequency (Hz) Mean inter-hemisphere lag (ms) Mean Lag 2-16 Hz (ms) earlier later +25 -25
+
+Fig 6 | Lag threads during covert memory recall a Correlation of 
+
+primary lag threads between resting state and covert memory recall. 
+
+The shaded area denotes SEM across subjects. The green bar indi-
+
+cates frequencies with significant correlation (p < 0.05, FDR corrected, 
+
+t-test). b Average lag between the left and right hemisphere as a func-
+
+tion of frequency during rest and memory recall. The orange bar indi-
+
+cates frequencies with significant difference between conditions (p < 
+
+0.05, FDR corrected, t -test). c Co rtical distribution of the difference of 
+
+lag threads between memory recall and rest averaged from 2 to 16 Hz. 
+
+.CC-BY-NC-ND 4.0 International license made available under a (which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is The copyright holder for this preprint this version posted May 29, 2026. ;https://doi.org/10.64898/2026.05.27.728161 doi: bioRxiv preprint Hege et al. 2026, bioRxiv 7
+
+externally driven sensory-motor tasks to internally gener-ated cognition. 
+
+Discussion 
+
+We identify frequency-specific electrophysiological lag threads as a temporal hierarchy of the human cortex. In rest-ing-state MEG, cortical amplitude fluctuations followed a re-producible temporal ordering that was most coherent in the alpha and beta bands and broadly aligned with the sensory-to-association organization of the cortex 1,2 . This near-transi-tive lag structure shows that pairwise delays are not distrib-uted randomly across the connectome but can be summa-rized by a dominant cortical thread from earlier to later re-gions. Lag thread maps thereby add a temporal dimension to macroscale cortical gradients: they describe the direction and delay of activity fluctuations across cortex. This result was enabled by lag-specific orthogonalization. Conventional pairwise orthogonalization 18 removes instan-taneous leakage effects, but does not guarantee orthogonal-ity after a temporal shift and therefore leaves oscillatory ar-tifacts in non-zero-lag envelope correlations. By introducing a frequency- and lag-dependent phase precession in the complex wavelet domain, the present approach restores or-thogonality at each tested lag. It thereby makes lagged am-plitude-envelope correlations accessible in source-recon-structed MEG, precisely in the lag range in which volume conduction and signal leakage are most problematic. The method extends established leakage-correction approaches from static envelope coupling to temporally ordered enve-lope dynamics 18,19 .The correspondence between MEG and fMRI lag threads provides a link between fast electrophysiological dynamics and slower hemodynamic propagation sequences. fMRI lag threads have been proposed to organize intrinsic activity, but their interpretation is limited by the indirect nature of the BOLD signal and by possible regional variation in neurovas-cular coupling 8–10 . The finding that MEG and fMRI lag maps share spatial structure, and that this correspondence con-tains subject-specific covariance, supports a neural, instead of vascular, origin of fMRI lag structure. The strong weighting of the cross-modal model toward very low MEG frequencies (approximately 2.8 Hz) is consistent with the known coupling between infraslow neural fluctuations and the BOLD signal 30,31 . At the same time, the correspondence was partial. MEG and fMRI operate on different timescales, were recorded non-simultaneously, and likely capture over-lapping but non-identical aspects of intrinsic dynamics. Thus, the cross-modal result provides evidence for a shared component of multiscale temporal organization, not for a one-to-one mapping between electrophysiological and he-modynamic lags. Several interpretational limits are important. Amplitude-envelope lags describe the temporal ordering of power fluc-tuations, not the direction of synaptic transmission or infor-mation transfer. Thus, posterior-to-anterior lag structure should not automatically be interpreted as directed infor-mation flow. Similar temporal ordering could arise if cortical regions respond with different latencies to shared network fluctuations, for example because of regional differences in excitability, intrinsic timescales, structural connectivity, or neuromodulatory influences. Likewise, lag threads are re-lated to, but distinct from, cortical traveling waves 32–35 . Trav-eling waves describe cycle-by-cycle phase gradients, whereas lag threads describe the ordering of temporal amplitude en-velopes 36,37 (i.e., phase velocity vs. group velocity 38 ). Propa-gating oscillatory bursts or time-irreversible state transitions and dynamics 12,39–41 could contribute to both phenomena, but envelope lag structure can also arise without a continu-ous phase-defined wave. Thus, the present measure provides a complementary description of large-scale temporal organ-ization rather than direct evidence for directed signaling or traveling-wave propagation. Regardless of the mechanism, the time-directed nature of the non-zero lags is a marker of time-irreversible, non-equilibrium cortical dynamics 42,43 .Unlike a system in thermal equilibrium whose dynamics are symmetric in time, the cortex sustains a directed flow of ac-tivity that cannot arise from passive fluctuations alone – a property shared with, but not reducible to, either traveling waves or directed synaptic drive. The individual difference and task results show that lag threads are not fixed anatomical constraints. Resting-state inter-hemispheric lag asymmetry covaried with handedness, suggesting sensitivity to established lateralization traits. The age-related increase in the temporal scale of lag threads is also intriguing, but the HCP young-adult sample covers only a narrow age range. Broader developmental and ageing co-horts will be required to determine whether this effect re-flects a true lifespan trajectory. 3 The task analyses provide the clearest evidence for functional reconfiguration. During visual working memory, the canonical hierarchy was largely preserved but selectively shifted in regions expected from sensory input and right-hand responses. During covert auto-biographical memory recall, changes in inter-hemispheric precedence were consistent with engagement of left-lateral-ized language-related networks. Together, these findings suggest that lag threads combine a stable cortical scaffold with state-dependent modulation. This work also has implications for clinical translation. Previous fMRI studies have shown that lag structure is fo-cally disrupted in autism spectrum disorder, other neuropsy-chiatric conditions 4,7,44 , and pharmacological interventions 
+
+> 45,46
+
+. MEG-based lag analysis could provide a complementary electrophysiological window into these disruptions. It is ap-plicable where fMRI is contraindicated or poorly tolerated, and – crucially – it affords time-resolved discrimination be-tween neural timing disruptions and potential neurovascu-lar confounds. Furthermore, frequency-specific lag maps may reveal whether disruptions are confined to particular oscillatory bands, adding a dimension not accessible to fMRI. The present results provide the methodological basis and cross-modal validation for this approach. However, in-dividual-level reliability remains a key challenge before clin-ical applications are feasible. 
+
+> .CC-BY-NC-ND 4.0 International license made available under a (which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is The copyright holder for this preprint this version posted May 29, 2026. ;https://doi.org/10.64898/2026.05.27.728161 doi: bioRxiv preprint
+
+Hege et al. 2026, bioRxiv 8
+
+In summary, lag-specific orthogonalization reveals a pre-viously obscured temporal axis of human cortical organiza-tion. Frequency-specific MEG lag threads are reproducible across individuals, partially shared with fMRI propagation structure, sensitive to individual traits, and reconfigured by cognitive state. These properties suggest that the temporal ordering of cortical amplitude fluctuations is a genuine and functionally relevant feature of large-scale human brain dy-namics. 
+
+References 
+
+1. Mesulam, M. M. From sensation to cognition. Brain 121 ( Pt 6) , 1013– 1052 (1998). 2. Margulies, D. S. et al. Situating the default-mode network along a prin-cipal gradient of macroscale cortical organization. Proc Natl Acad Sci U S A 113 , 12574–12579 (2016). 3. Taylor, H. P. et al. Functional hierarchy of the human neocortex across the lifespan. Nature 652 , 955–964 (2026). 4. Hong, S.-J. et al. Atypical functional connectome hierarchy in autism. 
+
+Nat Commun 10 , 1022 (2019). 5. Holmes, A. et al. Disruptions of Hierarchical Cortical Organization in Early Psychosis and Schizophrenia. Biol Psychiatry Cogn Neurosci Neu-roimaging 8, 1240–1250 (2023). 6. Park, B.-Y. et al. Multiscale neural gradients reflect transdiagnostic ef-fects of major psychiatric conditions on cortical morphology. Commun Biol 5, 1024 (2022). 7. Mitra, A., Snyder, A. Z., Constantino, J. N. & Raichle, M. E. The Lag Structure of Intrinsic Activity is Focally Altered in High Functioning Adults with Autism. Cereb Cortex 27 , 1083–1093 (2017). 8. Mitra, A., Snyder, A. Z., Hacker, C. D. & Raichle, M. E. Lag structure in resting-state fMRI. J Neurophysiol 111 , 2374–2391 (2014). 9. Mitra, A., Snyder, A. Z., Blazey, T. & Raichle, M. E. Lag threads organ-ize the brain’s intrinsic activity. Proc Natl Acad Sci U S A 112 , E2235-2244 (2015). 10. Logothetis, N. K. What we can do and what we cannot do with fMRI. 
+
+Nature 453 , 869–78 (2008). 11. Tewarie, P. K. B. et al. Non-reversibility outperforms functional con-nectivity in characterisation of brain states in MEG data. NeuroImage 
+
+276 , 120186 (2023). 12. Tewarie, P. et al. Integrating cross-frequency and within band func-tional networks in resting-state MEG: A multi-layer network ap-proach. NeuroImage 142 , 324–336 (2016). 13. Idesis, S. et al. Functional hierarchies in brain dynamics characterized by signal reversibility in ferret cortex. PLOS Computational Biology 20 ,e1011818 (2024). 14. MacDowell, C. J. & Buschman, T. J. Low-Dimensional Spatiotemporal Dynamics Underlie Cortex-wide Neural Activity. Current Biology 30 ,2665-2680.e8 (2020). 15. Ilmoniemi, R. J. Models of source currents in the brain. Brain Topogr 
+
+5, 331–336 (1993). 16. Nunez, P. L. & Srinivasan, R. Electric Fields of the Brain : The Neuro-physics of EEG . (Oxford University Press, Oxford ; New York, 2006). 17. Schaworonkow, N. & Nikulin, V. V. Is sensor space analysis good enough? Spatial patterns as a tool for assessing spatial mixing of EEG/MEG rhythms. Neuroimage 253 , 119093 (2022). 18. Hipp, J. F., Hawellek, D. J., Corbetta, M., Siegel, M. & Engel, A. K. Large-scale cortical correlation structure of spontaneous oscillatory activity. Nat Neurosci 15 , 884–890 (2012). 19. Colclough, G. L., Brookes, M. J., Smith, S. M. & Woolrich, M. W. A symmetric multivariate leakage correction for MEG connectomes. 
+
+Neuroimage 117 , 439–448 (2015). 20. Van Essen, D. C. et al. The WU-Minn Human Connectome Project: An overview. Neuroimage 80 , 62–79 (2013). 21. Van Veen, B. D., van Drongelen, W., Yuchtman, M. & Suzuki, A. Lo-calization of brain electrical activity via linearly constrained minimum variance spatial filtering. IEEE Trans Biomed Eng 44 , 867–80 (1997). 22. Oldfield, R. C. The assessment and analysis of handedness: The Edin-burgh inventory. Neuropsychologia 9, 97–113 (1971). 23. Nartallo-Kaluarachchi, R., Kringelbach, M., Deco, G., Lambiotte, R. & Goriely, A. Nonequilibrium physics of brain dynamics. Physics Reports 
+
+1152 , 1–43 (2026). 24. Deco, G., Sanz Perl, Y., Bocaccio, H., Tagliazucchi, E. & Kringelbach, M. L. The INSIDEOUT framework provides precise signatures of the balance of intrinsic and extrinsic dynamics in brain states. Commun Biol 5, 572 (2022). 25. Pan, W.-J., Thompson, G. J., Magnuson, M. E., Jaeger, D. & Keilholz, S. Infraslow LFP correlates to resting-state fMRI BOLD signals. Neu-roimage 74 , 288–297 (2013). 26. Hiltunen, T. et al. Infra-slow EEG fluctuations are correlated with rest-ing-state network dynamics in fMRI. J Neurosci 34 , 356–362 (2014). 27. Muller, L., Chavane, F., Reynolds, J. & Sejnowski, T. J. Cortical travel-ling waves: mechanisms and computational principles. Nat Rev Neu-rosci 19 , 255–268 (2018). 28. Zhang, H., Watrous, A. J., Patel, A. & Jacobs, J. Theta and Alpha Os-cillations Are Traveling Waves in the Human Neocortex. Neuron 98 ,1269-1281.e4 (2018). 29. Halgren, M. et al. The generation and propagation of the human alpha rhythm. Proc Natl Acad Sci U S A 116 , 23772–23782 (2019). 30. Alamia, A. & VanRullen, R. Alpha oscillations and traveling waves: Signatures of predictive coding? PLoS Biol 17 , e3000487 (2019). 31. Siems, M. & Siegel, M. Dissociated neuronal phase- and amplitude-coupling patterns in the human brain. Neuroimage 209 , 116538 (2020). 32. Gu, Y. et al. Brain Activity Fluctuations Propagate as Waves Travers-ing the Cortical Hierarchy. Cereb Cortex 31 , 3986–4005 (2021). 33. van Es, M. W. J. et al. Large-scale cortical functional networks are or-ganized in structured cycles. Nat Neurosci 28 , 2118–2128 (2025). 34. Vidaurre, D., Smith, S. M. & Woolrich, M. W. Brain network dynamics are hierarchically organized in time. Proceedings of the National Acad-emy of Sciences 114 , 12827–12832 (2017). 35. Rossi, C. et al. A data-driven network decomposition of the temporal, spatial, and spectral dynamics underpinning visual-verbal working memory processes. Commun Biol 6, 1079 (2023). 36. Cruzat, J. et al. Temporal Irreversibility of Large-Scale Brain Dynamics in Alzheimer’s Disease. J. Neurosci. 43 , 1643–1656 (2023). 37. Shinozuka, K. et al. LSD flattens the hierarchy of directed information flow in fast whole-brain dynamics. Imaging Neuroscience 3,imag_a_00420 (2025). 38. Deco, G. et al. Different hierarchical reconfigurations in the brain by psilocybin and escitalopram for depression. Nat. Mental Health 2,1096–1110 (2024). 39. Larson-Prior, L. J. et al. Adding dynamics to the Human Connectome Project with MEG. Neuroimage 80 , 190–201 (2013). 40. Mantini, D. et al. A signal-processing pipeline for magnetoencephalog-raphy resting-state networks. Brain Connect 1, 49–59 (2011). 41. Oostenveld, R., Fries, P., Maris, E. & Schoffelen, J.-M. FieldTrip: Open source software for advanced analysis of MEG, EEG, and invasive elec-trophysiological data. Comput Intell Neurosci 2011 , 156869 (2011). 42. Nolte, G. The magnetic lead field theorem in the quasi-static approxi-mation and its use for magnetoencephalography forward calculation in realistic volume conductors. Phys Med Biol 48 , 3637–52 (2003). 43. Hipp, J. F. & Siegel, M. BOLD fMRI Correlation Reflects Frequency-Specific Neuronal Correlation. Curr. Biol. 25 , 1368–1374 (2015). 44. March, P. Helmholtz-Hodge Decomposition on Graphs. arXiv.org 
+
+https://arxiv.org/abs/2412.09434v1 (2024). 45. Benjamini, Y. & Hochberg, Y. Controlling the False Discovery Rate: A Practical and Powerful Approach to Multiple testing. Journal of the Royal Statistical Society. Series B (Methodological) 57 (1) 289–300 (1995). 
+
+Acknowledgements 
+
+We thank Joerg Hipp and Anna-Antonia Pape for recording part of the Tü-bingen (memory recall) MEG dataset. We thank Markus Siems for help with preprocessing HCP data. This study was supported by the European Research Council (ERC; https://erc.europa.eu/) CoG 864491 (M.S.) and by the German Research Foundation (DFG; https://www.dfg.de/) project SI 1332/6-1 (SPP 2041) (M.S.). 
+
+.CC-BY-NC-ND 4.0 International license made available under a (which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is The copyright holder for this preprint this version posted May 29, 2026. ;https://doi.org/10.64898/2026.05.27.728161 doi: bioRxiv preprint Hege et al. 2026, bioRxiv 9
+
+Author contributions 
+
+P.H.: Conceptualization, Methodology, Software, Formal analysis, Visuali-zation, Writing – original draft, Writing – Review & Editing. J.G.: Investiga-tion, Data curation. Writing – Review & Editing. M.S.: Conceptualization, Supervision, Resources, Project administration, Funding acquisition, Writ-ing – original draft, Writing – Review & Editing. 
+
+Competing interest statement 
+
+All the authors declare no competing interests. 
+
+Data and code availability 
+
+The HCP MEG and fMRI data used in this study are publicly available through the Human Connectome Project at https://db.humanconnec-tome.org (S900 release). 
+
+Materials and Methods 
+
+Orthogonalization of lagged amplitude envelope correlations 
+
+Our method for computing cross-correlations with pairwise, time- and fre-quency specific orthogonalization is based on a well-known method for the zero-lag case 18 . Given two signals x1(t) and x2(t) and their complex-valued time-frequency transforms y1,f (t) and y2,f (t), where f > 0 is the base fre-quency 1 , a version of the zero-lag orthogonalization method consists in computing the correlation between 
+
+!Re $𝑦 !,#(𝑡))* $
+
+and !Im $𝑦 $,#(𝑡))* $
+
+.
+
+This is effective in eliminating artifactual correlation at lag zero but not at non-zero lags (Fig. 1a-c). Note that the original method instead computes Im( 𝑦 !,#(𝑡)𝑦 $,#(𝑡) 222222222 ), which has a similar effect. The zero-lag orthogonalization method is effective because the signals 
+
+Re $𝑦 !,#(𝑡)) and Im $𝑦 $,#(𝑡)). 
+
+are, in the case of a Morlet-based continuous wavelet transform, the convo-lutions of the original signals x1(t) and x2(t) with the real and imaginary parts of the Morlet wavelet w(t), respectively (because x1(t) and x2(t) are real-valued). Because the real-valued filters 
+
+Re $𝑤 #(𝑡)) and Im $𝑤 #(𝑡)) 
+
+are orthogonal in the standard Euclidean inner product 
+
+⟨𝑓(𝑡), 𝑔(𝑡)⟩ = ∫ 𝑓(𝑡) 222222 𝑔(𝑡)𝑑𝑡, 
+
+any zero-lag mixing between x1(t) and x2(t) acts independently on the fil-tered signals Re( y1,f (t)) and Im( y1,f (t)). At non-zero lags, the method is only effective when the cross-correlation between Re( wf(t)) and Im( wf (t)) is zero. However, this is only the case for lags that are integer multiples of the in-verse base frequency 1 /f .To correct for signal mixing at non-zero lags, we must introduce a phase factor ϕ(f,l ) depending on the lag 𝑙 ∈ ℝ and the base frequency f. The phase factor ϕ(f,l ) is chosen such that the cross-correlation at lag l of the real part of 𝑤 #(𝑡) and the imaginary part of the time-shifted and phase-multiplied wavelet 𝜙 (𝑓, 𝑙) ∙ 𝑤 #(𝑡 + 𝑙) is zero: 
+
+𝐴 = C Re $𝑤 # (𝑡)) Im $𝜙(𝑓, 𝑙) 𝑤 #(𝑡 + 𝑙)) 𝑑𝑡 = 0. 
+
+The fact that such a phase factor 𝜙 (𝑓, 𝑙) exists for all frequencies 𝑓 > 0 and lags 𝑙 ∈ ℝ follows from the intermediate value theorem as follows:  
+
+> 1
+
+Here, we use a complex-valued continuous wavelet transform using a Morlet wavelet. The method generalizes to any other symmetric, complex-valued wavelet or a short-time Fourier transform (STFT). From the formula above, it is clear that if we set the phase factor 
+
+𝜙 %(𝑓, 𝑙) = −𝜙(𝑓, 𝑙) , we obtain 𝐴 % = −𝐴 . By the intermediate value theorem on the circle, there has to be some value 𝜙 of norm 1 for which A = 0. In case that 𝑤 #(𝑡) is a complex Morlet wavelet (Gabor filter), we can derive a simple formula for the phase. Define a Gaussian envelope as 
+
+𝑔 &,'(𝑡) = 𝑒 ((*(&) !/($' !)
+
+and a general real-valued Gabor filter as 
+
+𝑤 &,',#,-(𝑡) = 𝑔 &,'(𝑡) sin(2𝜋𝑓(𝑡 − 𝑐) + 𝑝). 
+
+An elementary computation yields the following formula for the product of two wavelet filters: 
+
+𝑤 &",',#,-" (𝑡)𝑤 &!,',#,-! (𝑡) = 𝐾 𝑔 &#, '
+
+> √$
+
+(𝑡) + 𝑤 &#, '
+
+> √$ ,$#,-"/-!/0$
+
+(𝑡), 
+
+where 𝑐 1 = &"/&! 
+
+> $
+
+and 
+
+𝐾 = 1
+
+2 𝑒 ((& !(& ")! 
+
+> 2' !
+
+cos (2𝜋𝑓(𝑐 $ − 𝑐 !) + 𝑝 ! − 𝑝 $). 
+
+For the two wavelet filters to be orthogonal, the integral of 
+
+𝑤 &",',#,-" (𝑡)𝑤 &!,',#,-! (𝑡) over the real line must be zero. Now 
+
+𝑤 &#, $
+
+> √! ,$#,-"/-!/&!
+
+(𝑡) always integrates to zero since it is antisymmetric around 𝑐 1, and the Gaussian 𝑔 &#, $
+
+> √!
+
+(𝑡) always has a positive integral, so the cosine term in K must vanish for the wavelets to be orthogonal. This is the case only if 2𝜋𝑓 (𝑐 $ − 𝑐 !) + 𝑝 ! − 𝑝 $ − 0 
+
+> $
+
+is a multiple of 𝜋 . Since we have 
+
+𝑝 ! = 𝑐 ! = 0, we can achieve this by simply setting 𝑝 $ = 2𝜋𝑓𝑐 $ + 0
+
+> $
+
+. In terms of the phase factor 𝜙 (𝑓, 𝑙) , this means that we can set 
+
+𝜙 Morlet (𝑓, 𝑙) = 𝑒 $03#4 .
+
+We used this simple formula to orthogonalize Morlet wavelet amplitudes in the following. Including the phase factor, we may then compute the cross-covariance by cross-cov (𝑙) = 1𝑇 C ST Re $𝑦 !,# (𝑡))U 
+
+> $
+
+− 𝑚 !W· ST Im $𝜙(𝑓, 𝑙)𝑦 $,#(𝑡 + 𝑙))U 
+
+> $
+
+− 𝑚 $W 𝑑𝑡 , 
+
+where 𝑚 ! and 𝑚 $ denote the time average of T𝑅𝑒 $𝑦 !,# (𝑡))U 
+
+> $
+
+and 
+
+T𝐼𝑚 $𝜙(𝑓, 𝑙)𝑦 $,#(𝑡 + 𝑙))U 
+
+> $
+
+, respectively. The cross-correlation is obtained by dividing each time series by its standard deviation. Setting ϕ(f, 0) = 1 re-covers the original orthogonalization method 18 for lag zero. We introduce one additional improvement for the computation of am-plitude envelope cross-correlations, which concerns the spatial content of the source-reconstructed M/EEG signal. The result of beamforming is often a vector-valued, three-dimensional current or dipole moment 𝑥 !\\\⃗ (𝑡) 21 . Con-ventionally, this signal is projected onto the first principal component of its spatial time course (that is, one sets 𝑥 !(𝑡) = 𝑥 !\\\⃗ (𝑡) · 𝑣⃗ , where 𝑣 ⃗ is one of the unit vectors maximizing the Frobenius norm ∫|𝑥 !\\\⃗ (𝑡) · 𝑣⃗| $d𝑡 . However, this is arbitrary and discards data. Instead, we here compute the wavelet trans-forms 𝑦 !,#\\\\\\⃗ (𝑡) vectorially (that is, independently on each component of the vector). We then compute cross-cov (𝑙) = 1𝑇 C S` Re $𝑦 !,#\\\\\\⃗ (𝑡))` $
+
+− 𝑚 !W· S` Im $𝜙(𝑓, 𝑙)𝑦 $,#\\\\\\⃗ (𝑡 + 𝑙))` $
+
+− 𝑚 $W 𝑑𝑡 , 
+
+.CC-BY-NC-ND 4.0 International license made available under a (which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is The copyright holder for this preprint this version posted May 29, 2026. ;https://doi.org/10.64898/2026.05.27.728161 doi: bioRxiv preprint Hege et al. 2026, bioRxiv 10 
+
+where ‖·‖ denotes the Euclidean norm in three dimensions, and m1 and m2
+
+denote the time average to `𝑅𝑒 $𝑦 !,#(𝑡))` $
+
+and `𝐼𝑚 $𝜙(𝑓, 𝑙)𝑦 $,# (𝑡 + 𝑙))` $
+
+,respectively. This approach improved the SNR of the cross-correlograms. 
+
+Testing the orthogonalization method on simulated data 
+
+To test the orthogonalization method on simulated data, we generated two independent white noise signals x1(t) and x2(t) with a sampling rate of 1000 Hz, representing uncoupled neural data. Artifactual mixing of strength λ
+
+∈
+
+[0 ,1] was simulated by setting y1(t) = (1 - λ)x1(t)+ λx2(t) and y2(t) = λx1(t) + (1 - λ)x2(t). For a frequency of f = 8 Hz, we computed the complex continu-ous wavelet transform (CWT) with a Morlet wavelet with a full width at half maximum (FWHM) of 465 ms for the signals y1(t) and y2(t). Since the underlying signals x1(t) and x2(t) were uncorrelated white noise signals, the expected ground truth cross-correlation of our simulation was zero, and any observed cross-correlation is an artifact of signal mixing. We computed the amplitude envelope cross-correlation between y1(t) and 
+
+y2(t) using three algorithms: 1) Cross-correlation without orthogonalization of the absolute values of the CWTs of y1(t) and y2(t). 2) Naive orthogonaliza-tion using the lag zero method. We correlated the absolute value of the real part of the CWT of y1(t) with that of the imaginary part of the CWT of y2(t), and vice versa. At lag zero, this method is effective at eliminating zero-lag artifactual coupling 18 . 3) Corrected cross-correlation using a lag-specific phase offset, as described in the previous section. We computed the cross-correlations according to all three methods for 104 independent generations of the underlying signals x1(t) and x2(t). 
+
+MEG data and preprocessing 
+
+We used MEG data from two datasets. For most of the analyses (Fig. 1–4), we used publicly available MEG data from the Human Connectome Project (HCP) S900 release 20 . We only analyzed data from those N = 89 subjects (41 female, aged 22–35 years) where data from all three MEG resting state ses-sions were available. We also used MEG recordings from the working memory task, in which subjects performed a visually presented n-back task of varying difficulty, reporting their results via a right-hand button press. HCP data were recorded using a whole-head Magnes 3600 scanner (4D Neuroimaging, San Diego, CA, USA) in a magnetically shielded room (22). Structural, T1-weighted MRI scans were acquired using a Siemens 3T Skyra scanner, with a spatial resolution of 0.7 mm. In addition, for the results presented in Figure 6, we analyzed data rec-orded at the MEG Center Tübingen, in which subjects performed a covert autobiographical memory recall task without overt sensory cueing or motor responses. This dataset comprised N = 28 healthy subjects (17 female, mean age 26.5 years). For each subject, 10 minutes of resting-state MEG and 10 minutes of task MEG were recorded with 275 channels at a sampling rate of 2,343.75 Hz (Omega 2000, CTF Systems, Inc., Port Coquitlam, Canada). In both conditions, participants were seated upright in a dimly lit magneti-cally shielded chamber and fixated a central fixation point. In the memory recall condition, subjects were instructed before the recording to silently re-call the entire day from the moment they woke up until the start of the ex-periment, revisiting as many details as possible in chronological order. The recordings were approved by the local ethics committee and conducted in accordance with the Declaration of Helsinki. All participants gave written informed consent before participating. For the HCP data, we used preprocessed MEG data provided by the HCP project 39 . This preprocessing pipeline includes the removal of noisy or bad channels, as well as the removal of segments of bad data and non-brain physiological artifacts using independent component analysis (ICA) 39,40 . A similar process was used for the locally recorded dataset. For both datasets, we followed 31 for physical forward modeling of sig-nals. MEG sensors were aligned to individual anatomy in FieldTrip 41 . The forward model was based on a single-shell head model based on individual T1-weighted structural MRI scans 42 .We modeled the source of the measured magnetic fields and field gra-dients by a superposition of three-dimensional current elements at 457 lo-cations in the brain. The source locations were spaced equally at a distance of around 1.2 cm at approximately 0.7 cm below the cortical surface 43 . The forward model of magnetic fields generated by the source currents was com-puted using a boundary element method using a single-shell head model based on the anatomical MRI scan 42 . We reconstructed source currents us-ing an LCMV beamformer 21 .We computed a time-frequency representation at 25 frequency bands logarithmically spaced between 2 and 128 Hz (four bands per octave) using a complex-valued Morlet CWT. The time and frequency resolution were fre-quency dependent, with FWHM-time = 1.9 s and FWHM-frequency = 0.17 Hz for the lowest band (2 Hz) and FWHM-time = 29 ms and FWHM-freq = 21.9 Hz for the highest band (128 Hz). We computed the wavelet transform with a sampling rate of 50 Hz. 
+
+Computation of cross-correlograms and estimation of peak lags 
+
+We computed pairwise orthogonalized cross-correlations in each frequency band between each pair of sources in our 457-source model. We computed cross-correlograms at lag zero and each of a geometrically increasing se-quence of 33 non-zero lags ranging from 20 ms to 18 .9 s. An important quantity for the cross-correlogram is the lag at which the cross-correlation is maximal. Previous studies have estimated this lag in fMRI by fitting a parabola to the three points around the lag which maxim-izes the cross-correlation 8. Here, we proceeded similarly by performing a least-squares fit of a Gaussian 𝑓 5,6,&(𝑙) = 𝑎 𝑒 (6(4(&) !
+
+to the central 21 points of our cross-correlograms, the value 𝑐 ∈ ℝ being the lag peak. While the lag peak and other statistics can be computed easily and reli-ably on the group average cross-correlation, it is difficult to obtain reliable estimates from the 15 minutes of data available for a single subject. There-fore, in order to obtain statistical measures at the group level, we used a bootstrap approach. For nbt = 100 bootstraps, we sampled at random, with replacement, 267 from among the 267 resting state sessions and averaged the cross-correlation from these sessions. We separately performed the Gaussian least-squares fit on each bootstrap average. Thus, the standard de-viation of peak lag and other statistics approximates the standard error of these quantities across subjects. 
+
+Transitivity and lag threads 
+
+Using the method described in the previous section, we obtain a matrix A
+
+of peak lags of shape nsrc × nsrc , where nsrc = 457 is the number of cortical sources, the time delay (TD) matrix 8. Because the cross-correlogram for the pair ( i, j ) is the temporal reversal of the cross-correlogram for ( j,i ), this ma-trix is antisymmetric ( AT = –A ). To test whether the pattern of peak lags is consistent across subjects, we compared the average correlation of lag threads in bootstrap samples (see section “Computation of cross-correlograms and estimation of peak lags”) to a null model describing the hypothesis that no consistent lag thread across subjects exists. For this null model, we randomly changed the time direction of cross-correlations (and thus the sign of the peak lag) with prob-ability 0.5 for each subject for 100 independent bootstrap samples. We then compared the average correlation between bootstrap samples with (null model) and without flipping of time directions (gray and blue lines in Fig. 2d.) A central finding in fMRI lag threads is that this time delay matrix is often well-described by the difference of two vectors, 
+
+𝐴 c = 𝑣 ⊗ 𝟏 − 𝟏 ⊗ 𝑣 , 
+
+Where 𝑣 is an n src -dimensional vector and 𝟏 is a vector of the same dimen-sion whose entries are all 1. For antisymmetric matrices A, we can compute the best fit for such a vector by simply averaging the rows of the matrix 8,44 .We refer to the vector v as the primary lag thread. We computed the corre-lation between flattened matrices A and A˜ within bootstrap samples to quantify how well the description using a single lag thread fits the full ma-trix of lags (Fig. 2e). To estimate the frequency-dependency of lag threads, we performed a principal component analysis of the primary lag threads across frequency bands (Fig. 2f). 
+
+Relating lag threads to subject age and handedness 
+
+To compare subject handedness to lag threads in different frequency bands, we correlated the average EHI handedness score 22 with a score for bilateral asymmetry of lag threads across bootstrap samples (Fig. 3c). For each corti-cal source, we defined the bilaterally antisymmetrized lag thread as the dif-ference of the lag thread and its value at the contralaterally matched cortical source. To gauge the statistical significance of these correlations, we aver-aged the absolute value of the correlation across the cortex and computed the same statistic for 1000 permutations of the associations between sub-jects and handedness scores (Fig. 3a). We used Benjamini-Hochberg false discovery correction 45 to estimate the statistical significance across fre-quency bands. 
+
+.CC-BY-NC-ND 4.0 International license made available under a (which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is The copyright holder for this preprint this version posted May 29, 2026. ;https://doi.org/10.64898/2026.05.27.728161 doi: bioRxiv preprint Hege et al. 2026, bioRxiv 11 
+
+We computed leave-one out pseudovalues of the average lag between sources for each frequency pair and subject, to visualize the relation be-tween lag thread bilateral asymmetry and handedness across subjects. For the pseudovalue computation, we computed the peak lag ℓ1 of the average cross-correlation across all 89 HCP subjects, and the peak lag ℓ2,i of the av-erage across all subjects except subject i. The pseudovalue of the peak lag is then computed as 
+
+ℓpseudo, i = 89 ℓ1 – 88 ℓ2,i .For the correlation between subject age and lag threads, we computed the correlation directly on the pseudovalue level. We defined the time scale of the lag thread for a given subject and frequency as the root mean square (RMS) of the primary lag thread. We then computed the Pearson correlation between the frequency-specific time scale and subject age (Fig. 3d-f). To assess the statistical significance of the observed correlation, we compared the measure correlation with the distribution of correlations of a null model with permuted association between subject’s MEG data and chronological age. We used false discovery rate correction 45 to control for multiple comparisons across frequencies . To determine the spatial localization of the correlation effect (Figure 3f), we computed the z-score of lag thread values at each given frequency and cortical location across subjects. The resulting value will thus be larger in areas where the longer temporal scale of the subject-specific lag thread has the largest effect. We then computed the inner product of these values with the z-score of subject ages to obtain the frequency- and location-spe-cific correlation between age and lag thread. We compared this correlation with the corresponding quantity of the null model and performed FDR cor-rection across space to obtain a map of significant clusters of lag thread-age association (Fig. 3f). 
+
+fMRI lag threads 
+
+To compare lag threads between MEG and fMRI, we used preprocessed resting state fMRI data from the HCP project for the same subjects whose MEG data we analyzed. We resampled the cortical time series provided by HCP to the 457-point MEG source model by setting the time course at each cortical source to be the weighted average of the HCP preprocessed fMRI time series at the neighboring cortical voxels. Here, the weight of a voxel was proportional to a spatial Gaussian distribution with a standard devia-tion of σ = 5 mm. We computed the cross-correlogram for each pair of cortical sources for lags ranging between 0 and 20 TRs (corresponding to 14 .4 s). We averaged the cross-correlograms using the same bootstrap samples as for the MEG data and computed the lag with the highest cross-correlation using the same algorithm as for the MEG amplitude coupling cross-correlations. We com-puted the primary lag thread in fMRI by averaging the resulting lag over all outgoing connections (Fig. 4a). 
+
+Comparison between MEG and fMRI lag threads 
+
+To compute the similarity between MEG and fMRI threads, we correlated the fMRI lag thread with the MEG lag threads of each frequency and boot-strap sample (Fig. 4b). To test whether subject-specific variation was shared between fMRI and MEG lag threads, we fitted a linear ridge regression, with 
+
+λ = 10 3 to prevent overfitting, where the dependent variable was the lag thread in fMRI and the regressors were the MEG amplitude-correlation lag threads. We fitted this model for each combination of bootstrap samples for fMRI and MEG lags. Thus, the bootstrap samples in MEG and fMRI could either be matched or different. To determine the subject specificity of this linear fit, we correlated the predicted and observed fMRI lag threads to determine how well the fMRI lag thread could be modelled by a linear combination of MEG lag threads. Our hypothesis was that the fit would be better when the bootstrap samples used for the fMRI and MEG lag threads contained the same average over subjects than when they were independently resampled. Accordingly, we computed the difference between the matching and nonmatching linear models. We obtained a positive matched-sample advantage of about 0.8%, indicating that models fit better when MEG and fMRI lag threads were de-rived from the same subject samples. To estimate statistical significance, we re-ran the analysis 1000 times with permuted assignments of fMRI and MEG bootstrap samples, which allowed us to estimate whether the better fit between MEG and fMRI lag threads in subject-matched bootstrap samples was statistically significant. 
+
+Cognitive tasks 
+
+To compare lag threads across experimental conditions, we first averaged the cross-correlation across sessions using 100 subject-matched bootstrap samples between rest and task, both for the HCP working-memory data and for the locally recorded memory-recall data. We then computed the lag maxima and primary lag threads as described above. We computed the cor-relation between the primary lag threads in rest and task within each boot-strap sample to estimate the similarity between lag threads in rest and task conditions (Figs. 5a and 6a). We tested for a significant difference by per-forming a one-sample t-test of the mean from zero using the bootstrap standard error. We used FDR correction to correct for multiple comparisons across frequencies (horizontal bars in Figs. 5a and 6a). For the memory re-call task, we additionally computed the hemisphere-wise average of the pri-mary lag threads. This difference corresponds to the average lag between reconstructed sources in the left and right hemisphere. We compared the mean difference within each frequency band and bootstrap sample between rest and task against the distribution of differ-ences obtained by randomly permuting rest and task data across subjects (Figs. 5a and 6b). We visualized the task effect on lag threads by subtracting rest lag-threads from task lag-threads (Fig. 5b right column; Fig. 6c). 
+
+.CC-BY-NC-ND 4.0 International license made available under a (which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is The copyright holder for this preprint this version posted May 29, 2026. ;https://doi.org/10.64898/2026.05.27.728161 doi: bioRxiv preprint
