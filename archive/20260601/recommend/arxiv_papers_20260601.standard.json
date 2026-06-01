@@ -1,0 +1,805 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-01T23:10:14.157170+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 3,
+    "deep_divecandidates": 9,
+    "deep_cap": 8,
+    "deep_selected": 8,
+    "quick_candidates": 11,
+    "quick_skim_target": 13,
+    "quick_selected": 11
+  },
+  "deep_dive": [
+    {
+      "id": "2605.31043v1",
+      "source": "arxiv",
+      "title": "Routing on the Stiefel Manifold: When Does Adaptive Subspace Selection Help for Cross-Domain EEG Decoding?",
+      "abstract": "Cross-domain EEG decoding remains challenging despite advances in Riemannian deep learning: covariance matrices from different subjects occupy systematically distinct regions of the SPD manifold, yet existing domain adaptation methods either require target-domain calibration data or learn subject-specific components that cannot generalise across domains. We propose dynamic Stiefel routing: a pool of $K$ expert projection filters on the Stiefel manifold, each specialised for a different region of the SPD manifold, with each input covariance routed to the most appropriate filter via cross-attention, adapting the subspace projection per sample. A central finding is that this approach, implemented naively, provably collapses to ensemble averaging: when routing weights are uniform, the adaptive filter reduces exactly to an equal-contribution combination of experts, indistinguishable from a single fixed filter. Three structural properties break this degeneracy: a symmetric anchor $W_{\\mathrm{base}} \\in \\mathrm{St}(n,k)$ that removes proximity bias among experts; a frozen domain-discriminative query encoder that decouples routing from task optimisation; and a decoupled key alignment loss that trains expert keys toward stable domain attractors. Together they produce the first genuinely committed and domain-structured routing on SPD manifolds, with consistent gains across three datasets: balanced accuracy improves from $0.773\\to 0.823$, $0.757\\to 0.809$, and $0.801\\to 0.839$, with the alignment strategy determined automatically by a single data-driven rule and no dataset-specific hyperparameter search.",
+      "authors": [
+        "Isabella Costa Maia",
+        "Pedro L. C. Rodrigues",
+        "Salem Said",
+        "Marco Congedo"
+      ],
+      "primary_category": "stat.ML",
+      "categories": [
+        "stat.ML",
+        "cs.AI",
+        "cs.LG"
+      ],
+      "published": "2026-05-29T09:20:25+00:00",
+      "link": "https://arxiv.org/pdf/2605.31043v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:multi-modal",
+        "query:neural-ode"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "proposes a dynamic Stiefel routing method for cross-domain EEG decoding",
+      "llm_evidence_cn": "提出动态Stiefel路由方法用于跨域EEG解码",
+      "llm_evidence": "提出动态Stiefel路由方法用于跨域EEG解码",
+      "canonical_evidence": "提出动态Stiefel路由方法用于跨域EEG解码",
+      "llm_tldr_en": "This paper proposes dynamic Stiefel routing for cross-domain EEG decoding, using a pool of expert filters on the Stiefel manifold to adapt subspace projection per sample, addressing domain shift in covariance matrices.",
+      "llm_tldr_cn": "该论文针对跨域EEG解码中协方差矩阵的域偏移问题，提出了动态Stiefel路由方法，通过在Stiefel流形上维护一组专家投影滤波器，利用交叉注意力为每个样本选择最合适的滤波器，实现自适应的子空间投影。实验证明该方法在多个数据集上有效提升了跨域解码性能，为EEG信号解码提供了新的流形学习视角。",
+      "llm_tldr": "该论文针对跨域EEG解码中协方差矩阵的域偏移问题，提出了动态Stiefel路由方法，通过在Stiefel流形上维护一组专家投影滤波器，利用交叉注意力为每个样本选择最合适的滤波器，实现自适应的子空间投影。实验证明该方法在多个数据集上有效提升了跨域解码性能，为EEG信号解码提供了新的流形学习视角。",
+      "llm_tags": [
+        "query:eeg-ode-ln"
+      ],
+      "matched_query_tag": "query:eeg-ode-ln",
+      "matched_query_text": "EEG signal decoding methods",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.31193v1",
+      "source": "arxiv",
+      "title": "Geometry-based Schrödinger Bridges for Trustworthy Multimodal Fusion",
+      "abstract": "Real-world multimodal systems must be robust against low-quality data, such as sensor noise, incomplete multimodal data and conflicting inputs. However, existing trustworthy fusion methods rely on the model's own prediction confidence to judge data quality. This creates a circular dependency: when a model is confident but wrong, these methods fail to detect the error. To break this loop, we propose Geometry-based Multimodal Fusion (GMF). Instead of relying on predictions, we evaluate reliability by measuring how much transport correction the input needs in latent space. We implement Diffusion Schrödinger Bridge transport with Rectified Flow, where the squared initial velocity gives an efficient learned correction score. Valid data has low squared velocity magnitude, while noisy, incomplete data or conflicting data requires stronger transport correction. This geometry-based reliability signal acts as an independent judge, effectively flagging unreliable inputs even when the classifier is fooled. Extensive experiments demonstrate that GMF significantly improves robustness against severe sensor noise and semantic conflicts compared to confidence-based baselines.",
+      "authors": [
+        "Jiayu Xiong",
+        "Jing Wang",
+        "Qi Zhang",
+        "Wanlong Wang",
+        "Jun Xue"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG"
+      ],
+      "published": "2026-05-29T12:01:34+00:00",
+      "link": "https://arxiv.org/pdf/2605.31193v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "query:multi-modal"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Geometry-based multimodal fusion using Schrodinger bridges for trustworthy fusion",
+      "llm_evidence_cn": "基于几何的Schrodinger桥多模态融合方法用于可信融合",
+      "llm_evidence": "基于几何的Schrodinger桥多模态融合方法用于可信融合",
+      "canonical_evidence": "基于几何的Schrodinger桥多模态融合方法用于可信融合",
+      "llm_tldr_en": "Proposes Geometry-based Multimodal Fusion (GMF) using Diffusion Schrodinger Bridge transport to evaluate input reliability by transport correction without relying on model prediction confidence, achieving trustworthy fusion.",
+      "llm_tldr_cn": "现有可信多模态融合方法依赖模型预测置信度，存在循环依赖问题。本文提出基于几何的多模态融合方法GMF，利用扩散Schrodinger桥传输估计输入需要的传输校正量，以此评估数据可靠性。有效数据具有低初始速度。该方法不依赖预测置信度，因而在模型自信但错误时仍能检测低质量数据，实现了更鲁棒的可信多模态融合。",
+      "llm_tldr": "现有可信多模态融合方法依赖模型预测置信度，存在循环依赖问题。本文提出基于几何的多模态融合方法GMF，利用扩散Schrodinger桥传输估计输入需要的传输校正量，以此评估数据可靠性。有效数据具有低初始速度。该方法不依赖预测置信度，因而在模型自信但错误时仍能检测低质量数据，实现了更鲁棒的可信多模态融合。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "techniques for multimodal fusion",
+      "matched_requirement_id": "req-21",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.31513v1",
+      "source": "arxiv",
+      "title": "Personalize Your Large Vision-language Models With In-context Prompt Tuning",
+      "abstract": "Large vision-language models (LVLMs) have demonstrated strong general multimodal capability and are increasingly deployed in downstream systems. This trend has driven growing interest in LVLM personalization, which aims to enable models to quickly and effectively learn out-of-distribution multimodal concepts to meet user-specific needs. However, many existing methods rely on inference-time training, which reduces efficiency. They also struggle to maintain accuracy in complex multi-image, multi-concept settings. These limitations restrict the broader deployment of LVLM-based systems. Therefore, this paper proposes in-context prompt tuning (ICPT). Specifically, ICPT employs a lightweight projection module capable of operating in complex scenarios to extract fine-grained visual semantics from multiple reference images, seamlessly transforming these features alongside identity-label mappings into continuous prompts. To maximize computational efficiency, this module adaptively determines the prompt length based on the intrinsic visual complexity of each concept. Crucially, to overcome the environmental biases and cross-concept interference prevalent in real-world applications, we introduce two novel geometric regularizations. These constraints refine prompt representations by decoupling key identities from transient environmental states and separating concepts to avoid semantic confusion. Extensive experiments show that ICPT achieves state-of-the-art personalization accuracy across diverse tasks and LVLM backbones.",
+      "authors": [
+        "Yanshu Li",
+        "Jiaqian Li",
+        "Kuai Yu",
+        "Xi Xiao",
+        "Dongfang Liu",
+        "Tianyang Wang",
+        "Ruixiang Tang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-05-29T16:31:25+00:00",
+      "link": "https://arxiv.org/pdf/2605.31513v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "query:multi-modal"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Personalization of large vision-language models",
+      "llm_evidence_cn": "大型视觉语言模型的个性化方法",
+      "llm_evidence": "大型视觉语言模型的个性化方法",
+      "canonical_evidence": "大型视觉语言模型的个性化方法",
+      "llm_tldr_en": "ICPT proposes in-context prompt tuning for efficient personalization of large vision-language models without inference-time training.",
+      "llm_tldr_cn": "针对大型视觉语言模型个性化中推理时训练效率低、多图像多概念场景准确度不足的问题，本文提出上下文提示调优（ICPT）。通过轻量级投影模块在复杂场景中快速学习多模态概念，无需推理时重新训练，在多个个性化基准上实现了高效且准确的性能，推动了多模态语言模型的实用化部署。",
+      "llm_tldr": "针对大型视觉语言模型个性化中推理时训练效率低、多图像多概念场景准确度不足的问题，本文提出上下文提示调优（ICPT）。通过轻量级投影模块在复杂场景中快速学习多模态概念，无需推理时重新训练，在多个个性化基准上实现了高效且准确的性能，推动了多模态语言模型的实用化部署。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "multimodal language model research",
+      "matched_requirement_id": "req-20",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.30775v1",
+      "source": "arxiv",
+      "title": "Bayesian Classification with Probit-link Split-and-merge Gaussian Process Prior in EEG-based Brain-Computer Interfaces",
+      "abstract": "A Brain-Computer Interface (BCI) speller systems based on Event-Related Potentials (ERPs) enables users to select characters by detecting brain responses to visual stimuli, recorded through electroencephalogram (EEG). One challenge is to accurately identify target-related responses, such as the P300 component. However, existing methods tend to ignore feature selection, perform feature selection without interpretability, or require large computational effort or data manipulation. To address these limitations, we propose a novel Bayesian generative modeling framework to the binary classification of EEG responses to stimuli. Our approach employs a Probit-link Split-and-merge Gaussian Process (P-SMGP) prior to perform spatial-temporal feature selection, effectively capturing the distinctions between target and non-target ERP responses. Through both simulation studies and real EEG data analysis, our approach can reduce computational complexity and provide statistical interpretations on transformed ERP functions while maintaining comparable prediction accuracy. These findings underscore the value of interpretable, stimulus-level modeling for advancing predictive and personalized BCI systems.",
+      "authors": [
+        "Yunong Wu",
+        "Jane E. Huggins",
+        "Jian Kang",
+        "Tianwen Ma"
+      ],
+      "primary_category": "stat.AP",
+      "categories": [
+        "stat.AP",
+        "stat.ML"
+      ],
+      "published": "2026-05-29T03:05:06+00:00",
+      "link": "https://arxiv.org/pdf/2605.30775v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:neural-ode"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Bayesian classification for EEG BCI decoding",
+      "llm_evidence_cn": "用于EEG BCI解码的贝叶斯分类方法",
+      "llm_evidence": "用于EEG BCI解码的贝叶斯分类方法",
+      "canonical_evidence": "用于EEG BCI解码的贝叶斯分类方法",
+      "llm_tldr_en": "Proposes a Bayesian generative classification framework with Probit-link Split-and-merge Gaussian Process prior for binary classification of EEG responses in BCI spellers, addressing feature selection and interpretability.",
+      "llm_tldr_cn": "针对EEG脑机接口拼写系统中P300目标识别问题，现有方法忽略特征选择或计算代价大。本文提出一种基于Probit链接分裂合并高斯过程先验的贝叶斯生成分类框架，实现EEG响应的二分类。该模型能够自动进行特征选择且具有可解释性，在保证分类性能的同时降低了计算复杂度，为EEG信号解码提供了一种新的贝叶斯方法。",
+      "llm_tldr": "针对EEG脑机接口拼写系统中P300目标识别问题，现有方法忽略特征选择或计算代价大。本文提出一种基于Probit链接分裂合并高斯过程先验的贝叶斯生成分类框架，实现EEG响应的二分类。该模型能够自动进行特征选择且具有可解释性，在保证分类性能的同时降低了计算复杂度，为EEG信号解码提供了一种新的贝叶斯方法。",
+      "llm_tags": [
+        "query:eeg-ode-ln"
+      ],
+      "matched_query_tag": "query:eeg-ode-ln",
+      "matched_query_text": "EEG signal decoding methods",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.25968v1",
+      "source": "arxiv",
+      "title": "Context-driven Missing-Modality Learning for Robust Medical Diagnosis with Image-Tabular Data",
+      "abstract": "While multimodal data integrating diverse imaging and clinical tabular records is crucial for accurate medical diagnosis, the arbitrary absence of specific modalities is prevalent in clinical practice, severely degrading the performance of multimodal models. Existing methods either discard missing modalities, leading to information loss, or struggle to synthesize them without capturing complex inter-modal dependencies. To address these limitations, we propose a novel Context-driven Missing-Modality Learning (CMML) framework, which sequentially performs modality synthesis and semantic alignment to achieve robust diagnosis under arbitrary missing conditions. Specifically, we design a Cascade Residual Transformer-based Autoencoder (CRTA) that leverages learnable context tokens acting as dataset-level semantic prior to capture inter-modal dependencies and synthesize key missing representations. These representations are further enriched by modality-specific memory banks. To resolve the discrepancy between original available and synthesized representations, we transform the learned context tokens into instance-adaptive semantic references by infusing multimodal representations from the CRTA's outputs. This reference guides the alignment of heterogeneous modality representations into a unified space, where class-aware contrastive refinement is finally applied to explore discriminative diagnostic cues. Extensive evaluations on skin lesion (Derm7pt), ocular disease (ODIR), and meningioma (MEN) datasets demonstrate that CMML significantly outperforms state-of-the-art (SOTA) methods, yielding AVG AUC improvements of 1.26%, 0.97%, and 1.32%, respectively.",
+      "authors": [
+        "Tianling Liu",
+        "Lequan Yu",
+        "Tong Han",
+        "Liang Wan"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-05-25T15:44:26+00:00",
+      "link": "https://arxiv.org/pdf/2605.25968v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:multi-modal",
+        "query:neural-ode"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Context-driven missing-modality learning for robust multimodal medical diagnosis",
+      "llm_evidence_cn": "基于上下文的缺失模态学习实现鲁棒多模态医学诊断",
+      "llm_evidence": "基于上下文的缺失模态学习实现鲁棒多模态医学诊断",
+      "canonical_evidence": "基于上下文的缺失模态学习实现鲁棒多模态医学诊断",
+      "llm_tldr_en": "CMML framework handles arbitrary missing modalities in medical imaging and tabular data via cascade residual transformer autoencoder and semantic alignment.",
+      "llm_tldr_cn": "本文提出CMML框架，通过级联残差Transformer自编码器依次进行模态合成和语义对齐，应对医学图像与表格数据中任意模态缺失问题。实验证明该方法在模态缺失条件下优于现有方法，实现了鲁棒诊断。",
+      "llm_tldr": "本文提出CMML框架，通过级联残差Transformer自编码器依次进行模态合成和语义对齐，应对医学图像与表格数据中任意模态缺失问题。实验证明该方法在模态缺失条件下优于现有方法，实现了鲁棒诊断。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "techniques for multimodal fusion",
+      "matched_requirement_id": "req-21",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.26283v1",
+      "source": "arxiv",
+      "title": "Benchmarking Convolutional, Transformer, Hybrid, and Vision Language Models for Multi Disease Retinal Screening",
+      "abstract": "Modern deep learning offers powerful tools for automated retinal screening, but it remains unclear how different visual model families compare in realistic multi-disease settings and under domain shift. In this work, we benchmark twelve architectures across four model families: convolutional neural networks, vision transformers, hybrid CNN-transformer backbones, and vision-language models, using the Retinal Fundus Multi-disease Image Dataset (RFMiD). We evaluate two tasks: binary screening for any retinal disease and multi-label classification across 28 disease classes. Using standardized training, calibration, and evaluation protocols, we report AUC, F1, precision, recall, and sensitivity at a clinically relevant operating point with specificity near 80%. On RFMiD, all architectures perform well on binary screening, with AUC above 84%, but attention-based models perform best. SwinTiny and the hybrid CoAtNet0 and MaxViTTiny models achieve the strongest binary screening results and improve macro and micro F1 in the multi-label setting. Vision-language models, including CLIP ViT-B/16 and SigLIP-Base384, are competitive with CNN baselines but do not surpass the best transformer and hybrid backbones. In external validation on Messidor-2 for referable diabetic retinopathy, AUC ranges from 66.8% to 84.7%, with hybrid and transformer models again showing strong performance. These results provide a reproducible reference for model selection in multi-disease retinal screening and guide future automated screening tools for clinical deployment.",
+      "authors": [
+        "Durjoy Dey",
+        "Aymane Ajbar",
+        "Yuhong Yan"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.LG"
+      ],
+      "published": "2026-05-25T19:09:35+00:00",
+      "link": "https://arxiv.org/pdf/2605.26283v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:multi-modal",
+        "query:neural-ode"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "benchmarks vision-language models for medical screening",
+      "llm_evidence_cn": "在视网膜筛查中基准测试视觉语言模型",
+      "llm_evidence": "在视网膜筛查中基准测试视觉语言模型",
+      "canonical_evidence": "在视网膜筛查中基准测试视觉语言模型",
+      "llm_tldr_en": "Benchmarks 12 architectures including vision-language models for multi-disease retinal screening, reporting AUC and F1 scores.",
+      "llm_tldr_cn": "该论文在视网膜多疾病图像数据集上，系统比较了卷积神经网络、视觉Transformer、混合模型和视觉语言模型四种家族的12种架构在二分类和多标签分类任务中的表现，报告了AUC、F1、精确率等指标，评估了模型在域偏移下的鲁棒性，为医学影像分析中的模型选择提供了基准。",
+      "llm_tldr": "该论文在视网膜多疾病图像数据集上，系统比较了卷积神经网络、视觉Transformer、混合模型和视觉语言模型四种家族的12种架构在二分类和多标签分类任务中的表现，报告了AUC、F1、精确率等指标，评估了模型在域偏移下的鲁棒性，为医学影像分析中的模型选择提供了基准。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "multimodal language model research",
+      "matched_requirement_id": "req-20",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.30968v1",
+      "source": "arxiv",
+      "title": "Variational Adapter for Cross-modal Similarity Representation",
+      "abstract": "The core of vision-language models lies in measuring cross-modal similarity within a unified representation space. However, most image-text matching or multi-class image classification datasets lack fine-grained cross-modal matching annotations, forcing the continuous similarity space into binary classification boundaries. This compression induces false negative samples and significantly impairs the generalization performance of cross-modal tasks. While prior research has attempted to mitigate this by modeling intra-modal ambiguity, it often overlooks inherent annotation flaws, leading to suboptimal uncertainty allocation. To address these challenges, we propose a Variational Adapter for Cross-modal Similarity Representation (VACSR). This approach reformulates image-text matching with fine-grained semantic scarcity as a variational inference problem. It constructs a latent space for cross-modal similarity and uses regularization techniques to mitigate overfitting to binary annotations. Experiments on image-text retrieval, domain generalization, and base-to-novel generalization demonstrate the proposed method's effectiveness and robust generalization ability.",
+      "authors": [
+        "WenZhang Wei",
+        "Zhipeng Gui",
+        "Dehua Peng",
+        "Tiandi Ye",
+        "Huayi Wu"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.AI"
+      ],
+      "published": "2026-05-29T08:08:15+00:00",
+      "link": "https://arxiv.org/pdf/2605.30968v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:multi-modal",
+        "query:neural-ode"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Variational Adapter for cross-modal similarity representation in vision-language models",
+      "llm_evidence_cn": "用于视觉-语言模型跨模态相似性表示的变分适配器",
+      "llm_evidence": "用于视觉-语言模型跨模态相似性表示的变分适配器",
+      "canonical_evidence": "用于视觉-语言模型跨模态相似性表示的变分适配器",
+      "llm_tldr_en": "VACSR reformulates cross-modal similarity learning with a variational adapter to handle annotation noise in vision-language models, improving generalization.",
+      "llm_tldr_cn": "针对图像-文本匹配中粗粒度标注导致假负样本和泛化下降的问题，本文提出变分适配器（VACSR），将跨模态相似性学习重新表述为变分推理，通过建模不确定性来缓解标注缺陷，在多个基准上提升了跨模态任务的泛化性能。",
+      "llm_tldr": "针对图像-文本匹配中粗粒度标注导致假负样本和泛化下降的问题，本文提出变分适配器（VACSR），将跨模态相似性学习重新表述为变分推理，通过建模不确定性来缓解标注缺陷，在多个基准上提升了跨模态任务的泛化性能。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "learning cross modal representations",
+      "matched_requirement_id": "req-23",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.30994v1",
+      "source": "arxiv",
+      "title": "Dynamic Interaction-Aware and Causality-Disentangled Framework for Multimodal Sentiment Analysis",
+      "abstract": "Although Multimodal Sentiment Analysis (MSA) effectively leverages rich information from language, visual, and acoustic modalities, existing methods still face two core challenges: 1) static conflict suppression mechanisms fail to adapt to dynamic variations across samples, and 2) the inherent sentimental bias within the language modality, which can misguide learning from other modalities, remains entangled. To this end, we propose a Dynamic Multimodal Causal Disentanglement and Adaptive Fusion Framework (MCAF). Its cornerstone is the Multi-Granularity Causal Dynamic Router and a Conditional Diffusion Denoising Module. First, we introduce a causal intervention module based on the information bottleneck principle, which builds a Structural Causal Model to disentangle sentimental bias from language features, yielding a \"de-confounded\" language representation as a pure guiding signal. Second, we devise a Dynamic Multimodal Router that evaluates the interaction states (complementary, conflicting, or redundant) among visual, acoustic, and de-confounded language signals in real-time across three levels: feature, temporal, and modality, then adaptively allocates weights and routes information flow for fine-grained regulation. Finally, a lightweight Conditional Diffusion Denoising Module performs iterative denoising on the fused joint representation to explicitly filter out residual irrelevant information, generating a robust hyper-modality representation. Extensive experiments on the CMU-MOSI and CMU-MOSEI benchmarks show that MCAF sets new state-of-the-art on key classification metrics, achieving an Acc-2/F1 of 86.52%/86.51% on MOSI and 86.72%/86.65% on MOSEI, while remaining highly competitive on others. Comprehensive analyses and visualizations further validate its efficacy in dynamically perceiving interactions, disentangling bias, and enhancing interpretability.",
+      "authors": [
+        "Guangyuan Dong",
+        "Ziwei Hong",
+        "Shenghao Liu",
+        "Chenyu Wu",
+        "Yuanyuan Fang",
+        "Zihao Li",
+        "Xudong Zhang",
+        "Bingchen Liu",
+        "Yuchen Zhang",
+        "Haitao Ding",
+        "Zhenzhou Zhou",
+        "Ziyu Song"
+      ],
+      "primary_category": "cs.MM",
+      "categories": [
+        "cs.MM"
+      ],
+      "published": "2026-05-29T08:28:48+00:00",
+      "link": "https://arxiv.org/pdf/2605.30994v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "query:EEG-ODE-LN",
+        "query:multi-modal"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "multimodal fusion framework for sentiment analysis",
+      "llm_evidence_cn": "多模态情感分析融合框架",
+      "llm_evidence": "多模态情感分析融合框架",
+      "canonical_evidence": "多模态情感分析融合框架",
+      "llm_tldr_en": "Proposes MCAF, a dynamic causal disentanglement and adaptive fusion framework for multimodal sentiment analysis, using multi-granularity causal router and diffusion denoising to address static conflict and language bias.",
+      "llm_tldr_cn": "现有静态融合方法无法适应样本动态变化，且语言模态存在情感偏差。本文提出动态多模态因果解耦与自适应融合框架（MCAF），通过多粒度因果动态路由器和条件扩散去噪模块实现模态间的因果干预和自适应融合。在多个基准数据集上，该方法显著提升了多模态情感分析的鲁棒性和准确性。",
+      "llm_tldr": "现有静态融合方法无法适应样本动态变化，且语言模态存在情感偏差。本文提出动态多模态因果解耦与自适应融合框架（MCAF），通过多粒度因果动态路由器和条件扩散去噪模块实现模态间的因果干预和自适应融合。在多个基准数据集上，该方法显著提升了多模态情感分析的鲁棒性和准确性。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "techniques for multimodal fusion",
+      "matched_requirement_id": "req-21",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2605.31229v1",
+      "source": "arxiv",
+      "title": "Beyond Classification: Dynamic Adapter Routing for Continual Multimodal Retrieval",
+      "abstract": "While retrieval is a core function of vision-language models, continually updating these models for retrieval tasks remains critically underexplored. Existing work often approaches continual retrieval through the lens of class-incremental learning (CIL), evaluating both standard CIL methods and retrieval-oriented adaptations in settings that may not fully capture the retrieval-specific dynamics. To address this, we introduce a new, principled evaluation framework for continual multimodal retrieval (CMR) spanning diverse visual domains, and systematically evaluate common approaches within this setting. Our empirical analysis shows that standard CIL methods fail to yield meaningful gains in our more challenging scenario. Therefore, we propose Dynamic Adapter Routing (DAR), a novel approach based on adapters selected through prototype-based routing and combined via model merging.DAR achieves superior performance over the previous baselines and demonstrates strong generalization under out-of-distribution evaluation. Our results highlights the unique challenges of CMR and encourages further research in this direction.",
+      "authors": [
+        "Alicja Dobrzeniecka",
+        "Filip Szatkowski",
+        "Sebastian Cygert",
+        "Szymon Lukasik",
+        "Bartlomiej Twardowski"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.AI"
+      ],
+      "published": "2026-05-29T12:32:59+00:00",
+      "link": "https://arxiv.org/pdf/2605.31229v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "query:EEG-ODE-LN",
+        "query:multi-modal",
+        "query:neural-ode"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "continual multimodal retrieval for vision-language models; dynamic adapter routing",
+      "llm_evidence_cn": "视觉语言模型的持续多模态检索；动态适配器路由",
+      "llm_evidence": "视觉语言模型的持续多模态检索；动态适配器路由",
+      "canonical_evidence": "视觉语言模型的持续多模态检索；动态适配器路由",
+      "llm_tldr_en": "Introduces a continual multimodal retrieval benchmark and proposes dynamic adapter routing to overcome CIL limitations.",
+      "llm_tldr_cn": "该论文针对视觉语言模型在持续多模态检索任务中的不足，提出新的评估框架并发现标准类增量学习方法无效。为此提出动态适配器路由方法，使模型在持续学习新域时保持检索性能，推动了多模态检索的实用化。",
+      "llm_tldr": "该论文针对视觉语言模型在持续多模态检索任务中的不足，提出新的评估框架并发现标准类增量学习方法无效。为此提出动态适配器路由方法，使模型在持续学习新域时保持检索性能，推动了多模态检索的实用化。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "multimodal language model research",
+      "matched_requirement_id": "req-20",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "2605.25540v1",
+      "source": "arxiv",
+      "title": "A Multimodal Framework for Dementia Detection via Linguistic and Acoustic Representation Learning",
+      "abstract": "Alzheimer's disease (AD) is a progressive neurodegenerative disorder and the leading cause of dementia, affecting memory, reasoning, communication, and daily functioning. Early diagnosis is particularly important, as timely intervention may help slow cognitive decline and improve patient care. Recent studies have demonstrated that spontaneous speech contains valuable linguistic and acoustic biomarkers associated with dementia. However, existing approaches often rely on independently trained modality-specific models, feature concatenation strategies, ensemble methods, or attention-based fusion mechanisms that do not explicitly maximize the dependency between speech and transcript representations. In this work, we propose a multimodal deep learning framework for automatic dementia detection that jointly exploits speech and transcript information in an end-to-end trainable manner. Specifically, speech recordings are divided into 10-second segments and passed through a pre-trained HuBERT model to extract contextualized acoustic representations. To better capture informative temporal speech characteristics, attentive statistics pooling is employed to aggregate frame-level acoustic embeddings. For the textual modality, transcripts are encoded using a pre-trained BERT model, where the [CLS] token representation is used as the linguistic embedding. The acoustic and textual representations are subsequently combined using an attention-based Audio-Text Fusion (AT-Fusion) mechanism. In addition, we introduce a MINE objective to maximize the mutual information between modalities and improve multimodal representation alignment. The fused multimodal representation is finally used for dementia classification. Experiments conducted on the publicly available ADReSS Challenge and PROCESS-2 dataset demonstrate the effectiveness and robustness of the proposed approach for speech-based dementia assessment.",
+      "authors": [
+        "Loukas Ilias",
+        "Dimitris Askounis"
+      ],
+      "primary_category": "cs.SD",
+      "categories": [
+        "cs.SD",
+        "cs.LG"
+      ],
+      "published": "2026-05-25T07:57:49+00:00",
+      "link": "https://arxiv.org/pdf/2605.25540v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:neural-ode"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Multimodal framework for dementia detection using linguistic and acoustic data",
+      "llm_evidence_cn": "基于语言和声学数据的多模态痴呆检测框架",
+      "llm_evidence": "基于语言和声学数据的多模态痴呆检测框架",
+      "canonical_evidence": "基于语言和声学数据的多模态痴呆检测框架",
+      "llm_tldr_en": "Proposes a multimodal framework that learns joint representations from speech and transcript data for dementia detection, using an approach to maximize cross-modal dependency beyond simple fusion.",
+      "llm_tldr_cn": "针对早期阿尔茨海默病检测，现有方法分别训练模态模型或简单拼接特征，未能充分挖掘语音与转录之间的依赖关系。本文提出一种多模态表示学习框架，通过最大化跨模态依赖性来融合语言和声学特征。在痴呆检测任务上，该方法优于传统多模态融合方法，表明有效利用跨模态信息对疾病诊断具有重要意义。",
+      "llm_tldr": "针对早期阿尔茨海默病检测，现有方法分别训练模态模型或简单拼接特征，未能充分挖掘语音与转录之间的依赖关系。本文提出一种多模态表示学习框架，通过最大化跨模态依赖性来融合语言和声学特征。在痴呆检测任务上，该方法优于传统多模态融合方法，表明有效利用跨模态信息对疾病诊断具有重要意义。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "multimodal language model research",
+      "matched_requirement_id": "req-20",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2605.29043v1",
+      "source": "arxiv",
+      "title": "Multimodal Optical Feature Extraction with a Free-Space Photonic Extreme Learning Machine",
+      "abstract": "Photonic extreme learning machines (PELMs) replace a digitally trained hidden layer by a fixed optical transformation, allowing a high dimensional feature map to be generated by physical propagation while only the final readout is learned. Existing free-space PELM demonstrations have established this principle for image and tabular benchmarks, but a unified multimodal optical feature extractor spanning structurally different data types has remained largely undeveloped. Here we demonstrate a single free-space PELM platform for image, audio derived, binary tabular, and regression tasks using phase only SLM encoding, Fourier like free space propagation, and camera intensity detection. The same optical apparatus achieves 96.56% accuracy on MNIST, 95.67% on spoken digit audio from log-Mel spectrograms, 100.00% on Mushroom classification, and 0.0699 NRMSE on Abalone regression. To our knowledge, this is the first free space PELM spanning image, audio derived, and tabular tasks in one physical pipeline, and the first PELM implementation of spectrogram based spoken digit classification. Empirical distance preservation and kernel alignment diagnostics reveal two operating regimes: geometry preserving for image and regression tasks, and distributed class mean accumulation for audio derived spectrograms. These results establish multimodal PELMs as a practical route toward general purpose optical machine learning.",
+      "authors": [
+        "Anushka Kumari",
+        "Anushree Khisti",
+        "Abhinav Choube",
+        "Devansh Satra",
+        "Srivatsa Murali",
+        "Anshuman Kumar"
+      ],
+      "primary_category": "physics.optics",
+      "categories": [
+        "physics.optics"
+      ],
+      "published": "2026-05-27T19:48:49+00:00",
+      "link": "https://arxiv.org/pdf/2605.29043v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:multi-modal",
+        "query:neural-ode"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "single free-space PELM for multimodal optical feature extraction across image, audio, and tabular data",
+      "llm_evidence_cn": "单一自由空间光极限学习机实现图像、音频和表格数据多模态特征提取",
+      "llm_evidence": "单一自由空间光极限学习机实现图像、音频和表格数据多模态特征提取",
+      "canonical_evidence": "单一自由空间光极限学习机实现图像、音频和表格数据多模态特征提取",
+      "llm_tldr_en": "This work demonstrates a unified free-space photonic extreme learning machine that extracts features from image, audio, and tabular data with 96.56% accuracy, enabling multimodal optical computing.",
+      "llm_tldr_cn": "针对现有光极限学习机无法统一处理多种数据类型的问题，本文展示了一个单一自由空间光平台，通过相位空间光调制器编码和傅里叶传播对图像、音频和表格数据进行特征提取，在多项任务上达到96.56%准确率，为多模态光计算提供了硬件基础。",
+      "llm_tldr": "针对现有光极限学习机无法统一处理多种数据类型的问题，本文展示了一个单一自由空间光平台，通过相位空间光调制器编码和傅里叶传播对图像、音频和表格数据进行特征提取，在多项任务上达到96.56%准确率，为多模态光计算提供了硬件基础。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "multimodal learning methods",
+      "matched_requirement_id": "req-24",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2605.29980v1",
+      "source": "arxiv",
+      "title": "Genetically Aligned Patient Representations Improve Hematological Diagnosis",
+      "abstract": "Multimodal alignment of histopathology encoders with transcriptomic and genomic data has been shown to significantly improve performance in downstream diagnostic tasks. Hematological cytology is unique in that visual single-cell evaluation is often paired with cytogenetics and molecular genetics for blood cancer diagnosis. In this study, we present a framework to align single white blood cell images with chromosomal aberrations (karyotype) and somatic mutations from targeted gene panels. Our training strategy follows a two-stage approach: (i) self-supervised, vision-only pretraining of a transformer aggregator using an iBOT head on a cohort of over 1500 patients, and (ii) genetic alignment via supervised contrastive loss on acute myeloid leukemia patients. Our genetically aligned patient encoder improves hematological diagnostic tasks, outperforming slide-level histopathology foundation models. Additionally, the model provides off-the-shelf retrieval capabilities for diseases and genetic alterations. Incorporating genetic data into patient encoders increases the quality of patient representations, providing a framework that aligns with clinical diagnostic workflows and paves the way for future multimodal hematology-specific AI. The code and model weights are available at https://github.com/marrlab/GenBloom.",
+      "authors": [
+        "Muhammed Furkan Dasdelen",
+        "Fatih Ozlugedik",
+        "Ilaria Looser",
+        "Rao Muhammad Umer",
+        "Christian Pohlkamp",
+        "Carsten Marr"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.AI",
+        "cs.LG"
+      ],
+      "published": "2026-05-28T14:17:31+00:00",
+      "link": "https://arxiv.org/pdf/2605.29980v1",
+      "tags": [
+        "keyword:multi-modal",
+        "keyword:neural-ode"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "multimodal alignment of histopathology images with genomic data for diagnosis",
+      "llm_evidence_cn": "组织病理学图像与基因组数据的多模态对齐用于诊断",
+      "llm_evidence": "组织病理学图像与基因组数据的多模态对齐用于诊断",
+      "canonical_evidence": "组织病理学图像与基因组数据的多模态对齐用于诊断",
+      "llm_tldr_en": "Aligns single-cell images with karyotype and mutations via contrastive learning, improving hematological diagnosis.",
+      "llm_tldr_cn": "该论文针对血液肿瘤诊断中的多模态融合需求，提出将单细胞形态图像与染色体核型及基因突变进行对比对齐。通过两阶段训练（自监督预训练+遗传对齐），显著提升了白血病诊断准确率，验证了视觉-基因组跨模态对齐在精准医疗中的价值。",
+      "llm_tldr": "该论文针对血液肿瘤诊断中的多模态融合需求，提出将单细胞形态图像与染色体核型及基因突变进行对比对齐。通过两阶段训练（自监督预训练+遗传对齐），显著提升了白血病诊断准确率，验证了视觉-基因组跨模态对齐在精准医疗中的价值。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "techniques for multimodal fusion",
+      "matched_requirement_id": "req-21",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "biorxiv-10-1101-2025-06-25-661237-v2",
+      "source": "biorxiv",
+      "title": "Bimodal masked language modeling for bulk RNA-seq and DNA methylation representation learning",
+      "abstract": "Oncologists are increasingly relying on multiple modalities to model the complexity of diseases. Within this landscape, transcriptomic and epigenetic data have proven to be particularly instrumental and play an increasingly vital role in clinical applications. However, their integration into multimodal models remains a challenge, especially considering their high dimensionality. In this work, we present a novel bimodal model that jointly learns representations of bulk RNA-seq and DNA methylation leveraging self-supervision from masked language modeling. We implement an architecture that reduces the memory footprint usually attributed to purely transformer-based models when dealing with long sequences. We demonstrate that the obtained bimodal embeddings can be used to fine-tune cancer-type classification and survival models that achieve state-of-the-art performance compared to unimodal models. Furthermore, we introduce a robust learning framework that maintains downstream task performance despite missing modalities, enhancing the models applicability in real-world clinical settings.",
+      "authors": [
+        "Gelard, M.",
+        "Benkirane, H.",
+        "Pierrot, T.",
+        "Richard, G.",
+        "Cournede, P.-H."
+      ],
+      "primary_category": "bioinformatics",
+      "categories": [
+        "bioinformatics"
+      ],
+      "published": "2026-05-29T00:00:00+00:00",
+      "link": "https://www.biorxiv.org/content/10.1101/2025.06.25.661237v2.full.pdf",
+      "tags": [
+        "keyword:multi-modal",
+        "keyword:neural-ode",
+        "query:multi-modal",
+        "query:neural-ode"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "bimodal representation learning for RNA-seq and DNA methylation; general multimodal learning method",
+      "llm_evidence_cn": "RNA-seq和DNA甲基化的双模态表示学习；通用多模态学习方法",
+      "llm_evidence": "RNA-seq和DNA甲基化的双模态表示学习；通用多模态学习方法",
+      "canonical_evidence": "RNA-seq和DNA甲基化的双模态表示学习；通用多模态学习方法",
+      "llm_tldr_en": "Proposes a bimodal masked language model to jointly learn representations from RNA-seq and DNA methylation, reducing memory footprint.",
+      "llm_tldr_cn": "该论文针对转录组和表观遗传组数据的高维及整合难题，提出双模态掩码语言模型，通过自监督联合学习两种组学数据的表示。采用轻量级架构降低内存占用，在多个癌症诊断任务上验证了多模态表示的有效性，为组学融合提供了新范式。",
+      "llm_tldr": "该论文针对转录组和表观遗传组数据的高维及整合难题，提出双模态掩码语言模型，通过自监督联合学习两种组学数据的表示。采用轻量级架构降低内存占用，在多个癌症诊断任务上验证了多模态表示的有效性，为组学融合提供了新范式。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "multimodal learning methods",
+      "matched_requirement_id": "req-24",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2605.30552v1",
+      "source": "arxiv",
+      "title": "High-Fidelity 3D Simulator for Synthetic fNIRS Data Generation",
+      "abstract": "Functional near-infrared spectroscopy (fNIRS) provides a noninvasive window into brain activity by measuring task-related changes in oxygenated and deoxygenated hemoglobin in the cortex. A key advantage of fNIRS is its promise of use with mobile participants in complex, real-world environments, such as walking, sports, classroom learning, driving simulations, or social interactions. However, analyzing fNIRS data is challenging because of motion artifacts, physiological noise, and other confounding factors. This challenge is further compounded by the limited availability of annotated datasets, which hinders the development and validation of new analysis pipelines, particularly given the growing use of AI methods. Recognizing these challenges, we introduce a 3D fNIRS simulator that uses mesh-based Monte Carlo simulations to create physiologically realistic, full-head synthetic recordings with high spatiotemporal fidelity. Our simulator combines anatomically accurate sensitivity profiles with parameterized models of hemodynamic responses, systemic physiology, and nonsystematic artifacts. As a result, users can generate virtually unlimited labeled datasets for testing denoising algorithms, data augmentation, mechanistic modeling, or \\textit{in silico} experimentation. We validate the simulator using experimental fNIRS data from open-source finger-tapping, pain-assessment, and surgical-skill datasets and provide an open-source implementation to support reproducibility and broad adoption.",
+      "authors": [
+        "Condell Eastmond",
+        "Niels Bracher",
+        "Xavier Intes",
+        "Stefan T. Radev"
+      ],
+      "primary_category": "q-bio.NC",
+      "categories": [
+        "q-bio.NC"
+      ],
+      "published": "2026-05-28T20:34:27+00:00",
+      "link": "https://arxiv.org/pdf/2605.30552v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "3D simulator for synthetic fNIRS data generation",
+      "llm_evidence_cn": "用于合成fNIRS数据生成的3D模拟器",
+      "llm_evidence": "用于合成fNIRS数据生成的3D模拟器",
+      "canonical_evidence": "用于合成fNIRS数据生成的3D模拟器",
+      "llm_tldr_en": "Introduces a high-fidelity 3D simulator that generates synthetic fNIRS data with realistic motion artifacts and physiological noise, addressing limited annotated datasets.",
+      "llm_tldr_cn": "fNIRS数据分析因运动伪迹和生理噪声而困难，且标注数据集稀缺。本文提出一个高保真3D模拟器，可生成带有真实运动伪迹和生理噪声的合成fNIRS数据。该模拟器利用3D头部模型和光学传播仿真，产生多样化的训练数据，促进AI方法发展。它填补了fNIRS数据增强工具的空缺。",
+      "llm_tldr": "fNIRS数据分析因运动伪迹和生理噪声而困难，且标注数据集稀缺。本文提出一个高保真3D模拟器，可生成带有真实运动伪迹和生理噪声的合成fNIRS数据。该模拟器利用3D头部模型和光学传播仿真，产生多样化的训练数据，促进AI方法发展。它填补了fNIRS数据增强工具的空缺。",
+      "llm_tags": [
+        "query:eeg-ode-ln"
+      ],
+      "matched_query_tag": "query:eeg-ode-ln",
+      "matched_query_text": "multimodal EEG fNIRS studies",
+      "matched_requirement_id": "req-10",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "biorxiv-10-1101-2025-10-12-681961-v2",
+      "source": "biorxiv",
+      "title": "Generative enhancement of non-invasive datasets for motor brain-computer interface by synthesizing task-relevant neural signals",
+      "abstract": "Despite the increasing adoption of deep neural networks (DNNs) in brain-computer interfaces (BCIs), developing high-degree-of-freedom (DOF) systems capable of decoding continuous movements, such as limb kinematics, remains a significant challenge. This difficulty stems from limited availability of task-specific neural features within individual neural signal datasets. To overcome this, we proposed a generative adversarial network (GAN) framework to enrich training features within neural signal datasets. Specifically, we synthesized artificial neural signal waveforms of the primary motor cortex (M1) from functionally related cortical regions, thereby enhancing neural datasets for improved motor kinematics decoding via DNN. Using magnetoencephalography (MEG) recordings during goal-directed arm-reaching tasks, our results showed that enhancing individual datasets with GAN-synthesized M1 signals significantly improved decoding performance by about 10% (p < 0.05). Such improved performance is sustained even in the absence of real M1 signals. We further generalized the proposed enhancement to the motor imagery BCI competition dataset to improve classification accuracy. Our results highlight the potential of signal-generative networks to improve and augment motor BCIs to achieve freely intended movements.",
+      "authors": [
+        "Kim, H.",
+        "Kim, J. S."
+      ],
+      "primary_category": "neuroscience",
+      "categories": [
+        "neuroscience"
+      ],
+      "published": "2026-05-24T00:00:00+00:00",
+      "link": "https://www.biorxiv.org/content/10.1101/2025.10.12.681961v2.full.pdf",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:multi-modal",
+        "query:neural-ode"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "generative data augmentation for BCI; transferable to emotion recognition",
+      "llm_evidence_cn": "生成式数据增强用于脑机接口；可迁移至情绪识别",
+      "llm_evidence": "生成式数据增强用于脑机接口；可迁移至情绪识别",
+      "canonical_evidence": "生成式数据增强用于脑机接口；可迁移至情绪识别",
+      "llm_tldr_en": "This paper uses a GAN to synthesize neural signals for motor BCI, addressing data scarcity; the method can enhance EEG/BCI datasets for emotion decoding.",
+      "llm_tldr_cn": "该论文针对脑机接口数据不足的问题，提出用生成对抗网络合成运动皮层神经信号来增强数据集，从而提升连续运动解码性能。虽然任务为运动脑机接口，但其数据增强方法可直接应用于情绪识别的EEG解码，为克服数据局限提供了通用工具。",
+      "llm_tldr": "该论文针对脑机接口数据不足的问题，提出用生成对抗网络合成运动皮层神经信号来增强数据集，从而提升连续运动解码性能。虽然任务为运动脑机接口，但其数据增强方法可直接应用于情绪识别的EEG解码，为克服数据局限提供了通用工具。",
+      "llm_tags": [
+        "query:eeg-ode-ln:composite"
+      ],
+      "matched_query_tag": "query:eeg-ode-ln:composite",
+      "matched_query_text": "Papers central to 查找EEG解码（最好情绪识别）以及EEG+fNIRs多模态的文章, especially work that connects or combines: EEG signal decoding methods; multimodal EEG and fNIRS for brain activity decoding; affective computing using EEG; brain-computer interface for emotion; multimodal fusion of EEG and fNIRS; deep learning for EEG classification; Find papers on EEG decoding for emotion recognition; Search for multimodal EEG and fNIRS studies; EEG decoding for emotion recognition; multimodal EEG fNIRS studies.",
+      "matched_requirement_id": "req-composite-eeg-ode-ln",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2605.30917v1",
+      "source": "arxiv",
+      "title": "Inference-Free Multimodal Learned Sparse Retrieval for Production-Scale Visual Document Search",
+      "abstract": "As large-scale visual-document corpora such as arXiv papers and enterprise PDFs continue to grow, visual-document retrieval has gained increasing attention; yet it still lacks a deployable system that lexically indexes visual documents to serve queries without neural encoding at scale. Existing methods either achieve strong retrieval quality with VLM-based dense or multi-vector models but require neural query encoding at serving time, or avoid query encoding with OCR- or caption-based BM25 at the cost of time-consuming text extraction or generation. To fill this missing serving regime, we present V-SPLADE, an inference-free sparse retriever for visual-document retrieval. However, such inference-free multimodal learned sparse retrieval systems remain underexplored and have not yet shown dense-level effectiveness under high sparsity. We attribute this limitation to a lexical grounding problem: visual sparse representations often fail to capture the lexical content embedded in document images. To address this problem, we introduce caption-gated token supervision, a training-only signal that uses VLM-generated captions as lexical cues to activate retrieval-relevant vocabulary dimensions. With this supervision, V-SPLADE improves average NDCG@5 across six visual-document retrieval benchmarks by +13.8pp over the same-scale dense baseline and by up to +6.3pp over OCR- or caption-based BM25 baselines. On an 18.7M-document corpus, it more than doubles R@5 over the same-scale dense baseline and further improves competing retrievers through score fusion by up to +2.4pp R@5. Code will be released soon at https://github.com/naver/v-splade.",
+      "authors": [
+        "Gyu-Hwung Cho",
+        "Youngjune Lee",
+        "Kiyoon Jeong",
+        "Siyoung Lee",
+        "Sanggyu Han",
+        "Hervé Dejean",
+        "Stéphane Clinchant",
+        "Seung-won Hwang"
+      ],
+      "primary_category": "cs.IR",
+      "categories": [
+        "cs.IR",
+        "cs.CV"
+      ],
+      "published": "2026-05-29T07:01:45+00:00",
+      "link": "https://arxiv.org/pdf/2605.30917v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "query:multi-modal"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Proposes V-SPLADE, an inference-free multimodal learned sparse retriever for visual document search, involving multimodal fusion techniques",
+      "llm_evidence_cn": "提出V-SPLADE，一种免推理的多模态学习稀疏检索器，涉及视觉文档搜索中的多模态融合技术",
+      "llm_evidence": "提出V-SPLADE，一种免推理的多模态学习稀疏检索器，涉及视觉文档搜索中的多模态融合技术",
+      "canonical_evidence": "提出V-SPLADE，一种免推理的多模态学习稀疏检索器，涉及视觉文档搜索中的多模态融合技术",
+      "llm_tldr_en": "V-SPLADE enables inference-free multimodal sparse retrieval for visual documents by learning a joint sparse representation that integrates visual and textual modalities without neural query encoding at serving time.",
+      "llm_tldr_cn": "现有视觉文档检索要么需要在线神经编码，要么依赖耗时的OCR。本文提出V-SPLADE，一种免推理的稀疏检索模型，通过学习视觉与文本的联合稀疏表示，实现索引时多模态融合且查询时无需神经编码。该方法在保持高效检索的同时具备良好的可扩展性，为大规模视觉文档搜索提供了实用的多模态融合方案。",
+      "llm_tldr": "现有视觉文档检索要么需要在线神经编码，要么依赖耗时的OCR。本文提出V-SPLADE，一种免推理的稀疏检索模型，通过学习视觉与文本的联合稀疏表示，实现索引时多模态融合且查询时无需神经编码。该方法在保持高效检索的同时具备良好的可扩展性，为大规模视觉文档搜索提供了实用的多模态融合方案。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "techniques for multimodal fusion",
+      "matched_requirement_id": "req-21",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "biorxiv-10-1101-2025-01-24-634799-v4",
+      "source": "biorxiv",
+      "title": "ECLARE: multi-teacher contrastive learning via ensemble distillation for diagonal integration of single-cell multi-omic data",
+      "abstract": "Integrating multimodal single-cell data such as scRNA-seq and scATAC-seq is key for decoding gene regulatory networks. Still, integration remains challenging due to issues related to feature harmonization and limited quantity of paired data. To address these challenges, we introduce ECLARE, a novel framework combining multi-teacher ensemble knowledge distillation with contrastive learning for integrating unpaired single-cell multi-omic data. Briefly, ECLARE trains teacher models on paired datasets to guide a student model for aligning unpaired data, leveraging a refined contrastive objective and optimal-transport-based loss for precise cross-modality alignment. In computational benchmarking, experiments demonstrate ECLAREs competitive performance in cell pairing accuracy, multimodal integration and biological structure preservation, indicating that multi-teacher knowledge distillation provides an effective means to improve a diagonal integration model beyond its zero-shot capabilities. In biological case studies, we demonstrate ECLAREs applicability using unpaired snRNA-seq and snATAC-seq datasets in major depressive disorder (MDD). Firstly, our results revealed transcription factors and target gene combinations differentially regulated in depression with sex- and cell-type specificity. These findings further reveal gene regulatory interactions in excitatory neurons that are highly relevant to MDD neuropathology, such as those involving EGR1, SOX2, and NR3C1. Secondly, we show that ECLARE can learn continuous data manifolds useful for deciphering longitudinal biological processes in neurodevelopment and disease, revealing altered neurodevelopmental programs as potential regulators of depression in females, strongly associated with EGR1 target genes. Altogether, we propose ECLARE as a robust solution for diagonal integration of unpaired multimodal single-cell data that enables the study of altered gene regulation in disease.",
+      "authors": [
+        "Mann-Krzisnik, D.",
+        "Chawla, A.",
+        "Turecki, G.",
+        "Nagy, C.",
+        "Li, Y."
+      ],
+      "primary_category": "bioinformatics",
+      "categories": [
+        "bioinformatics"
+      ],
+      "published": "2026-05-27T00:00:00+00:00",
+      "link": "https://www.biorxiv.org/content/10.1101/2025.01.24.634799v4.full.pdf",
+      "tags": [
+        "keyword:multi-modal",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:multi-modal",
+        "query:neural-ode"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "multi-teacher contrastive learning for integrating multimodal single-cell data",
+      "llm_evidence_cn": "多教师对比学习整合多模态单细胞数据",
+      "llm_evidence": "多教师对比学习整合多模态单细胞数据",
+      "canonical_evidence": "多教师对比学习整合多模态单细胞数据",
+      "llm_tldr_en": "ECLARE uses multi-teacher ensemble distillation and contrastive learning to align unpaired single-cell multi-omic data, achieving precise cross-modality integration.",
+      "llm_tldr_cn": "针对单细胞多组学数据整合中特征协调和配对数据稀缺的问题，本文提出ECLARE框架，利用多教师集成知识蒸馏与对比学习对齐未配对数据，通过优化对比目标和最优传输损失实现精确跨模态对齐。基准测试表明该方法在整合效果上优于现有方法，为生物医学多模态融合提供了新思路。",
+      "llm_tldr": "针对单细胞多组学数据整合中特征协调和配对数据稀缺的问题，本文提出ECLARE框架，利用多教师集成知识蒸馏与对比学习对齐未配对数据，通过优化对比目标和最优传输损失实现精确跨模态对齐。基准测试表明该方法在整合效果上优于现有方法，为生物医学多模态融合提供了新思路。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "techniques for multimodal fusion",
+      "matched_requirement_id": "req-21",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "biorxiv-10-64898-2026-05-07-723396-v3",
+      "source": "biorxiv",
+      "title": "Investigating sensorimotor beta burst dynamics as a robust biomarker for graded force modulation in humans",
+      "abstract": "The most prominent signature associated with motor execution and motor imagery is the event-related desynchronisation and synchronisation (ERD/S) in the mu and beta bands (8-30 Hz). In the context of brain-computer interfaces (BCI), this ERD/S signature is helpful for binary decisions, such as left vs. right imagery, but it is not a robust biomarker for continuous prediction, such as precisely decoding different levels of force application. This is essential for developing better BCI applications with precise dynamic force outputs. Recent studies have revealed that sensorimotor beta bursts have a stronger relationship with motor control, even at a single-trial level, than beta band power. We, therefore, investigated whether the transient nature of beta bursts provide an alternative, but robust biomarker for BCI force decoding. Here, we designed an experiment where human participants (N = 16) performed both motor execution (ME) at four force levels (10%, 25%, 50%, and 75% of maximum voluntary contraction) and imagined exerting the same, i.e. a motor imagery (MI) task, as their electroencephalogram was recorded. We observed a clear and classical ERD pattern in the motor cortex during the ME task, whereas it was less pronounced during the MI task. After extracting sensorimotor beta bursts, we observed differences in spectral burst features between motor execution and imagery including burst amplitude, spectral width, and temporal width. Moreover, different force levels were correlated with changes in the burst amplitude and burst spectral width, specifically during motor execution. Interestingly, we found that different beta burst waveforms are associated with the different force levels and conditions. This suggests that the bursts-level features could be driven by changes in the underlying beta burst waveforms. Overall, our study shows that sensorimotor beta burst can be an important piece of the puzzle to implementing precise force control in brain-computer interface-based prosthetics.",
+      "authors": [
+        "Perwez, M. S.",
+        "Bonaiuto, J. J.",
+        "Suthar, B.",
+        "Muralidharan, V."
+      ],
+      "primary_category": "neuroscience",
+      "categories": [
+        "neuroscience"
+      ],
+      "published": "2026-05-29T00:00:00+00:00",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.05.07.723396v3.full.pdf",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "query:EEG-ODE-LN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Sensorimotor beta burst dynamics for decoding force modulation in BCI",
+      "llm_evidence_cn": "利用感觉运动β爆发动态解码BCI中的力调制",
+      "llm_evidence": "利用感觉运动β爆发动态解码BCI中的力调制",
+      "canonical_evidence": "利用感觉运动β爆发动态解码BCI中的力调制",
+      "llm_tldr_en": "Investigates beta burst dynamics as a biomarker for continuous force decoding in BCI, showing stronger predictive power than band power, enabling better graded force control.",
+      "llm_tldr_cn": "在脑机接口中，传统的频带功率难以实现连续的力等级解码。本研究证明感觉运动β爆发动态在单次试验水平上比β频带功率更能预测力的精细调制。通过分析β爆发特征，可以更准确地解码不同力等级，为开发具有精细动态力输出的BCI应用提供了新的生物标记物。",
+      "llm_tldr": "在脑机接口中，传统的频带功率难以实现连续的力等级解码。本研究证明感觉运动β爆发动态在单次试验水平上比β频带功率更能预测力的精细调制。通过分析β爆发特征，可以更准确地解码不同力等级，为开发具有精细动态力输出的BCI应用提供了新的生物标记物。",
+      "llm_tags": [
+        "query:eeg-ode-ln"
+      ],
+      "matched_query_tag": "query:eeg-ode-ln",
+      "matched_query_text": "EEG signal decoding methods",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "biorxiv-10-64898-2026-05-25-727308-v1",
+      "source": "biorxiv",
+      "title": "Learning dynamical systems with biochemically informed neural ordinary differential equations",
+      "abstract": "Ordinary differential equation models of biochemical reactions are often formulated as stoichiometric systems in which the dynamics arise from a collection of interacting processes. A central challenge is that the functional form of each process is rarely known a priori and may be difficult to infer from data. We propose biochemically informed neural ordinary differential equations (BINODEs), a neural-ODE framework that retains the stoichiometric structure of mechanistic models while representing individual processes by neural networks. In BINODEs, the outputs of neural network processes (NNPs) are mapped to state derivatives through a linear layer analogous to a stoichiometric matrix. This architecture allows biological side information, such as process-specific inputs, sign constraints, and monotonicity assumptions, to be built directly into the model. We characterize the approximation properties of NNPs for several standard biochemical rate laws and show that the proposed framework recovers both trajectories and process-level structure in Monod, Lotka-Volterra, pharmacokinetic, and ultradian endocrine models. These results suggest that BINODEs offer a useful compromise between mechanistic interpretability and data-driven flexibility for modeling partially known biochemical or biological dynamical systems.",
+      "authors": [
+        "Fonseca, L. L.",
+        "Laubenbacher, R.",
+        "Boettcher, L."
+      ],
+      "primary_category": "systems biology",
+      "categories": [
+        "systems biology"
+      ],
+      "published": "2026-05-28T00:00:00+00:00",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.05.25.727308v1.full.pdf",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "keyword:neural-ode",
+        "query:multi-modal",
+        "query:neural-ode"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Neural ordinary differential equations applied to biochemical dynamical systems",
+      "llm_evidence_cn": "神经常微分方程应用于生化动力系统",
+      "llm_evidence": "神经常微分方程应用于生化动力系统",
+      "canonical_evidence": "神经常微分方程应用于生化动力系统",
+      "llm_tldr_en": "This paper proposes biochemically informed neural ODEs (BINODEs) that retain stoichiometric structure while learning process dynamics from data, demonstrating improved interpretability and data efficiency.",
+      "llm_tldr_cn": "针对生化反应建模中先验未知的问题，提出生化信息引导的神经常微分方程（BINODEs），保留化学计量结构并将每个过程用神经网络表示。该方法在合成数据中表现出较好的数据效率和可解释性，为将神经ODE应用于更广泛的科学问题提供了通用框架。",
+      "llm_tldr": "针对生化反应建模中先验未知的问题，提出生化信息引导的神经常微分方程（BINODEs），保留化学计量结构并将每个过程用神经网络表示。该方法在合成数据中表现出较好的数据效率和可解释性，为将神经ODE应用于更广泛的科学问题提供了通用框架。",
+      "llm_tags": [
+        "query:neural-ode"
+      ],
+      "matched_query_tag": "query:neural-ode",
+      "matched_query_text": "neural ordinary differential equation medical image analysis",
+      "matched_requirement_id": "req-11",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}

@@ -6,62 +6,77 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-05-31
-- 运行时间：2026-05-31 20:16:47 UTC
+- 最新运行日期：2026-06-01
+- 运行时间：2026-06-01 23:19:27 UTC
 - 运行状态：成功
-- 本次总论文数：14
-- 精读区：3
+- 本次总论文数：19
+- 精读区：8
 - 速读区：11
 
 ### 今日简报（AI）
-对多模态学习与脑解码模型进行精读，并速读行为识别、语义分割等内容。最值得关注的是跨被试脑到视觉解码的少样本残差校准方法，以及多模态双向智能体层框架。建议进一步探索多模态融合中的少样本适应策略与跨模态对齐技术。
-- 详情：[/202605/31/README](/202605/31/README)
+今日共推荐19篇论文，精读8篇，重点推荐两篇9.0分精读论文。最值得关注的方向是Stiefel流形上的自适应子空间选择在跨域脑电解码中的优势，以及基于几何的Schrödinger桥方法提升多模态融合的可信度。建议读者优先精读这两篇高评分工作，再结合速读列表中的多模态检索与疾病检测研究，拓展对跨领域自适应与融合可靠性的理解。
+- 详情：[/202606/01/README](/202606/01/README)
 
 ### 精读区论文标签
-1. [MindAdapter: Few-Shot Parameter-Efficient Residual Calibration of Cross-Subject Brain-to-Visual Decoding Models](/202605/31/2605.24679v1-mindadapter-few-shot-parameter-efficient-residual-calibration-of-cross-subject-brain-to-visual-decoding-models)  
+1. [Routing on the Stiefel Manifold: When Does Adaptive Subspace Selection Help for Cross-Domain EEG Decoding?](/202606/01/2605.31043v1-routing-on-the-stiefel-manifold-when-does-adaptive-subspace-selection-help-for-cross-domain-eeg-decoding)  
    标签：评分：9.0/10、query:eeg-ode-ln
-   evidence：跨被试脑信号解码用于脑机接口
-2. [MAIL++: Multi-Modal Bi-directional Agent Layer for Vision-Language Models](/202605/31/2605.25479v1-mail-multi-modal-bi-directional-agent-layer-for-vision-language-models)  
+   evidence：提出动态Stiefel路由方法用于跨域EEG解码
+2. [Geometry-based Schrödinger Bridges for Trustworthy Multimodal Fusion](/202606/01/2605.31193v1-geometry-based-schrdinger-bridges-for-trustworthy-multimodal-fusion)  
    标签：评分：9.0/10、query:multi-modal
-   evidence：用于视觉语言模型的多模态交互代理层
-3. [Evi-Steer: Learning to Steer Biomedical Vision-Language Models through Efficient and Generalizable Evidential Tuning](/202605/31/2605.26292v1-evi-steer-learning-to-steer-biomedical-vision-language-models-through-efficient-and-generalizable-evidential-tuning)  
+   evidence：基于几何的Schrodinger桥多模态融合方法用于可信融合
+3. [Personalize Your Large Vision-language Models With In-context Prompt Tuning](/202606/01/2605.31513v1-personalize-your-large-vision-language-models-with-in-context-prompt-tuning)  
+   标签：评分：9.0/10、query:multi-modal
+   evidence：大型视觉语言模型的个性化方法
+4. [Context-driven Missing-Modality Learning for Robust Medical Diagnosis with Image-Tabular Data](/202606/01/2605.25968v1-context-driven-missing-modality-learning-for-robust-medical-diagnosis-with-image-tabular-data)  
    标签：评分：8.0/10、query:multi-modal
-   evidence：生物医学视觉语言模型微调，引入证据学习
+   evidence：基于上下文的缺失模态学习实现鲁棒多模态医学诊断
+5. [Benchmarking Convolutional, Transformer, Hybrid, and Vision Language Models for Multi Disease Retinal Screening](/202606/01/2605.26283v1-benchmarking-convolutional-transformer-hybrid-and-vision-language-models-for-multi-disease-retinal-screening)  
+   标签：评分：8.0/10、query:multi-modal
+   evidence：在视网膜筛查中基准测试视觉语言模型
+6. [Bayesian Classification with Probit-link Split-and-merge Gaussian Process Prior in EEG-based Brain-Computer Interfaces](/202606/01/2605.30775v1-bayesian-classification-with-probit-link-split-and-merge-gaussian-process-prior-in-eeg-based-brain-computer-interfaces)  
+   标签：评分：8.0/10、query:eeg-ode-ln
+   evidence：用于EEG BCI解码的贝叶斯分类方法
+7. [Variational Adapter for Cross-modal Similarity Representation](/202606/01/2605.30968v1-variational-adapter-for-cross-modal-similarity-representation)  
+   标签：评分：8.0/10、query:multi-modal
+   evidence：用于视觉-语言模型跨模态相似性表示的变分适配器
+8. [Dynamic Interaction-Aware and Causality-Disentangled Framework for Multimodal Sentiment Analysis](/202606/01/2605.30994v1-dynamic-interaction-aware-and-causality-disentangled-framework-for-multimodal-sentiment-analysis)  
+   标签：评分：8.0/10、query:multi-modal
+   evidence：多模态情感分析融合框架
 
 ### 速读区论文标签
-1. [Cross-Modal Action Recognition in Egocentric Video Using Mamba: Integrating RGB and Hand Skeleton Streams via CLS Token Fusion Strategies](/202605/31/2605.24302v2-cross-modal-action-recognition-in-egocentric-video-using-mamba-integrating-rgb-and-hand-skeleton-streams-via-cls-token-fusion-strategies)  
+1. [Beyond Classification: Dynamic Adapter Routing for Continual Multimodal Retrieval](/202606/01/2605.31229v1-beyond-classification-dynamic-adapter-routing-for-continual-multimodal-retrieval)  
+   标签：评分：8.0/10、query:multi-modal
+   evidence：视觉语言模型的持续多模态检索；动态适配器路由
+2. [A Multimodal Framework for Dementia Detection via Linguistic and Acoustic Representation Learning](/202606/01/2605.25540v1-a-multimodal-framework-for-dementia-detection-via-linguistic-and-acoustic-representation-learning)  
    标签：评分：7.0/10、query:multi-modal
-   evidence：RGB与骨架的跨模态融合用于动作识别
-2. [Frequency-Guided Fusion For RGB-Thermal Semantic Segmentation](/202605/31/2605.26273v1-frequency-guided-fusion-for-rgb-thermal-semantic-segmentation)  
+   evidence：基于语言和声学数据的多模态痴呆检测框架
+3. [Genetically Aligned Patient Representations Improve Hematological Diagnosis](/202606/01/2605.29980v1-genetically-aligned-patient-representations-improve-hematological-diagnosis)  
    标签：评分：7.0/10、query:multi-modal
-   evidence：面向语义分割的RGB-热红外频率引导融合
-3. [Utility-Aware Multimodal Contrastive Learning for Product Image Generation](/202605/31/2605.28733v1-utility-aware-multimodal-contrastive-learning-for-product-image-generation)  
-   标签：评分：7.0/10、query:multi-modal
-   evidence：多模态对比学习用于产品图像生成
-4. [MIRAGE: Adaptive Multimodal Gating for Whole-Brain fMRI Encoding](/202605/31/2605.29850v1-mirage-adaptive-multimodal-gating-for-whole-brain-fmri-encoding)  
-   标签：评分：7.0/10、query:multi-modal
-   evidence：通过自适应门控实现脑编码的多模态融合
-5. [Behavioural and neural signatures across diverse cognitive demands in a multimodal electroencephalography-functional magnetic resonance imaging design](/202605/31/biorxiv-10-64898-2026-05-24-727533-v1-behavioural-and-neural-signatures-across-diverse-cognitive-demands-in-a-multimodal-electroencephalography-functional-magnetic-resonance-imaging-design)  
+   evidence：组织病理学图像与基因组数据的多模态对齐用于诊断
+4. [High-Fidelity 3D Simulator for Synthetic fNIRS Data Generation](/202606/01/2605.30552v1-high-fidelity-3d-simulator-for-synthetic-fnirs-data-generation)  
    标签：评分：7.0/10、query:eeg-ode-ln
-   evidence：多模态EEG和fMRI设计用于认知需求
-6. [A genetic algorithm for self-supervised models of oscillatory neurodynamics](/202605/31/biorxiv-10-1101-2024-12-31-630823-v5-a-genetic-algorithm-for-self-supervised-models-of-oscillatory-neurodynamics)  
-   标签：评分：6.0/10、query:eeg-ode-ln
-   evidence：用于振荡神经动力学的自监督模型遗传算法，与EEG相关
-7. [Generative enhancement of non-invasive datasets for motor brain-computer interface by synthesizing task-relevant neural signals](/202605/31/biorxiv-10-1101-2025-10-12-681961-v2-generative-enhancement-of-non-invasive-datasets-for-motor-brain-computer-interface-by-synthesizing-task-relevant-neural-signals)  
-   标签：评分：6.0/10、query:eeg-ode-ln
-   evidence：基于GAN的数据增强用于运动脑机接口，增强脑电图解码
-8. [Cycle-consistent deep generative modeling unifies cellular states across unpaired spatial and single-cell modalities](/202605/31/biorxiv-10-64898-2026-05-25-727736-v1-cycle-consistent-deep-generative-modeling-unifies-cellular-states-across-unpaired-spatial-and-single-cell-modalities)  
+   evidence：用于合成fNIRS数据生成的3D模拟器
+5. [Inference-Free Multimodal Learned Sparse Retrieval for Production-Scale Visual Document Search](/202606/01/2605.30917v1-inference-free-multimodal-learned-sparse-retrieval-for-production-scale-visual-document-search)  
+   标签：评分：7.0/10、query:multi-modal
+   evidence：提出V-SPLADE，一种免推理的多模态学习稀疏检索器，涉及视觉文档搜索中的多模态融合技术
+6. [ECLARE: multi-teacher contrastive learning via ensemble distillation for diagonal integration of single-cell multi-omic data](/202606/01/biorxiv-10-1101-2025-01-24-634799-v4-eclare-multi-teacher-contrastive-learning-via-ensemble-distillation-for-diagonal-integration-of-single-cell-multi-omic-data)  
+   标签：评分：7.0/10、query:multi-modal
+   evidence：多教师对比学习整合多模态单细胞数据
+7. [Investigating sensorimotor beta burst dynamics as a robust biomarker for graded force modulation in humans](/202606/01/biorxiv-10-64898-2026-05-07-723396-v3-investigating-sensorimotor-beta-burst-dynamics-as-a-robust-biomarker-for-graded-force-modulation-in-humans)  
+   标签：评分：7.0/10、query:eeg-ode-ln
+   evidence：利用感觉运动β爆发动态解码BCI中的力调制
+8. [Learning dynamical systems with biochemically informed neural ordinary differential equations](/202606/01/biorxiv-10-64898-2026-05-25-727308-v1-learning-dynamical-systems-with-biochemically-informed-neural-ordinary-differential-equations)  
+   标签：评分：7.0/10、query:neural-ode
+   evidence：神经常微分方程应用于生化动力系统
+9. [Multimodal Optical Feature Extraction with a Free-Space Photonic Extreme Learning Machine](/202606/01/2605.29043v1-multimodal-optical-feature-extraction-with-a-free-space-photonic-extreme-learning-machine)  
    标签：评分：6.0/10、query:multi-modal
-   evidence：通过循环一致生成模型实现多模态融合
-9. [The Neurodynamic Core of Meditation: Dissociating Meditation from Rest and Task in a Reliability-based EEG study](/202605/31/biorxiv-10-64898-2026-05-27-728082-v1-the-neurodynamic-core-of-meditation-dissociating-meditation-from-rest-and-task-in-a-reliability-based-eeg-study)  
+   evidence：单一自由空间光极限学习机实现图像、音频和表格数据多模态特征提取
+10. [Bimodal masked language modeling for bulk RNA-seq and DNA methylation representation learning](/202606/01/biorxiv-10-1101-2025-06-25-661237-v2-bimodal-masked-language-modeling-for-bulk-rna-seq-and-dna-methylation-representation-learning)  
+   标签：评分：6.0/10、query:multi-modal
+   evidence：RNA-seq和DNA甲基化的双模态表示学习；通用多模态学习方法
+11. [Generative enhancement of non-invasive datasets for motor brain-computer interface by synthesizing task-relevant neural signals](/202606/01/biorxiv-10-1101-2025-10-12-681961-v2-generative-enhancement-of-non-invasive-datasets-for-motor-brain-computer-interface-by-synthesizing-task-relevant-neural-signals)  
    标签：评分：6.0/10、query:eeg-ode-ln
-   evidence：基于可靠性设计的冥想状态EEG解码
-10. [The Neurodynamic Core of Meditation: Dissociating Meditation from Rest and Task in a Reliability-based EEG study](/202605/31/biorxiv-10-64898-2026-05-27-728082-v2-the-neurodynamic-core-of-meditation-dissociating-meditation-from-rest-and-task-in-a-reliability-based-eeg-study)  
-   标签：评分：6.0/10、query:eeg-ode-ln
-   evidence：基于可靠性的多会话EEG研究区分冥想状态
-11. [Electrophysiological lag threads reveal a temporal hierarchy of the human cortex](/202605/31/biorxiv-10-64898-2026-05-27-728161-v1-electrophysiological-lag-threads-reveal-a-temporal-hierarchy-of-the-human-cortex)  
-   标签：评分：6.0/10、query:eeg-ode-ln
-   evidence：EEG/MEG延迟结构分析
+   evidence：生成式数据增强用于脑机接口；可迁移至情绪识别
 
 
 <div class="dpr-home-promo-card">
