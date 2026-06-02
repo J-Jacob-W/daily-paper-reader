@@ -6,77 +6,65 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-06-01
-- 运行时间：2026-06-01 23:19:27 UTC
+- 最新运行日期：2026-06-02
+- 运行时间：2026-06-02 23:19:39 UTC
 - 运行状态：成功
-- 本次总论文数：19
+- 本次总论文数：15
 - 精读区：8
-- 速读区：11
+- 速读区：7
 
 ### 今日简报（AI）
-今日共推荐19篇论文，精读8篇，重点推荐两篇9.0分精读论文。最值得关注的方向是Stiefel流形上的自适应子空间选择在跨域脑电解码中的优势，以及基于几何的Schrödinger桥方法提升多模态融合的可信度。建议读者优先精读这两篇高评分工作，再结合速读列表中的多模态检索与疾病检测研究，拓展对跨领域自适应与融合可靠性的理解。
-- 详情：[/202606/01/README](/202606/01/README)
+今天精读15篇论文，重点聚焦跨域情感识别统一框架与LLM-脑电共享价轴规律两大发现。最值得关注的是UF-AMA自适应多模态对齐方法及AI模型与人类脑电的饱和规律。建议深挖多模态对齐在情感计算中的实际应用，并跟踪脑电与AI认知交叉验证的后续进展。
+- 详情：[/202606/02/README](/202606/02/README)
 
 ### 精读区论文标签
-1. [Routing on the Stiefel Manifold: When Does Adaptive Subspace Selection Help for Cross-Domain EEG Decoding?](/202606/01/2605.31043v1-routing-on-the-stiefel-manifold-when-does-adaptive-subspace-selection-help-for-cross-domain-eeg-decoding)  
+1. [UF-AMA: A unified framework for cross-domain emotion recognition via adaptive multimodal alignment](/202606/02/2606.00170v1-uf-ama-a-unified-framework-for-cross-domain-emotion-recognition-via-adaptive-multimodal-alignment)  
+   标签：评分：10.0/10、query:eeg-ode-ln
+   evidence：基于EEG等多模态生理信号的自适应对齐情感识别
+2. [A Shared Valence Axis Across Modern LLMs and Human EEG: The Saturation Regularity](/202606/02/2606.00129v1-a-shared-valence-axis-across-modern-llms-and-human-eeg-the-saturation-regularity)  
    标签：评分：9.0/10、query:eeg-ode-ln
-   evidence：提出动态Stiefel路由方法用于跨域EEG解码
-2. [Geometry-based Schrödinger Bridges for Trustworthy Multimodal Fusion](/202606/01/2605.31193v1-geometry-based-schrdinger-bridges-for-trustworthy-multimodal-fusion)  
+   evidence：LLM导出的效价轴与人类EEG情感解码对齐
+3. [OmniEEG-Bench: A Standardized Evaluation Benchmark for EEG Foundation Models](/202606/02/2606.00815v1-omnieeg-bench-a-standardized-evaluation-benchmark-for-eeg-foundation-models)  
+   标签：评分：9.0/10、query:eeg-ode-ln
+   evidence：包含情绪任务的EEG基础模型统一基准
+4. [Dive into Waves: Morlet Spectral Transformer for Cross-Subject Emotion Decoding from EEG](/202606/02/2606.00884v1-dive-into-waves-morlet-spectral-transformer-for-cross-subject-emotion-decoding-from-eeg)  
+   标签：评分：9.0/10、query:eeg-ode-ln
+   evidence：使用Morlet频谱Transformer进行跨主体EEG情感解码
+5. [Towards Understanding Modality Interaction in Multimodal Language Models via Partial Information Decomposition](/202606/02/2606.00959v1-towards-understanding-modality-interaction-in-multimodal-language-models-via-partial-information-decomposition)  
    标签：评分：9.0/10、query:multi-modal
-   evidence：基于几何的Schrodinger桥多模态融合方法用于可信融合
-3. [Personalize Your Large Vision-language Models With In-context Prompt Tuning](/202606/01/2605.31513v1-personalize-your-large-vision-language-models-with-in-context-prompt-tuning)  
+   evidence：通过部分信息分解分析多模态大模型中的模态交互
+6. [Feature Alignment Determines Fusion Strategy: A Comparative Study of Cross-Attention and Concatenation in Multimodal Learning](/202606/02/2606.01207v1-feature-alignment-determines-fusion-strategy-a-comparative-study-of-cross-attention-and-concatenation-in-multimodal-learning)  
    标签：评分：9.0/10、query:multi-modal
-   evidence：大型视觉语言模型的个性化方法
-4. [Context-driven Missing-Modality Learning for Robust Medical Diagnosis with Image-Tabular Data](/202606/01/2605.25968v1-context-driven-missing-modality-learning-for-robust-medical-diagnosis-with-image-tabular-data)  
-   标签：评分：8.0/10、query:multi-modal
-   evidence：基于上下文的缺失模态学习实现鲁棒多模态医学诊断
-5. [Benchmarking Convolutional, Transformer, Hybrid, and Vision Language Models for Multi Disease Retinal Screening](/202606/01/2605.26283v1-benchmarking-convolutional-transformer-hybrid-and-vision-language-models-for-multi-disease-retinal-screening)  
-   标签：评分：8.0/10、query:multi-modal
-   evidence：在视网膜筛查中基准测试视觉语言模型
-6. [Bayesian Classification with Probit-link Split-and-merge Gaussian Process Prior in EEG-based Brain-Computer Interfaces](/202606/01/2605.30775v1-bayesian-classification-with-probit-link-split-and-merge-gaussian-process-prior-in-eeg-based-brain-computer-interfaces)  
-   标签：评分：8.0/10、query:eeg-ode-ln
-   evidence：用于EEG BCI解码的贝叶斯分类方法
-7. [Variational Adapter for Cross-modal Similarity Representation](/202606/01/2605.30968v1-variational-adapter-for-cross-modal-similarity-representation)  
-   标签：评分：8.0/10、query:multi-modal
-   evidence：用于视觉-语言模型跨模态相似性表示的变分适配器
-8. [Dynamic Interaction-Aware and Causality-Disentangled Framework for Multimodal Sentiment Analysis](/202606/01/2605.30994v1-dynamic-interaction-aware-and-causality-disentangled-framework-for-multimodal-sentiment-analysis)  
-   标签：评分：8.0/10、query:multi-modal
-   evidence：多模态情感分析融合框架
+   evidence：比较跨注意力和拼接的多模态融合策略
+7. [EvoBrain: Continual Learning of EEG Foundation Models Across Heterogeneous BCI Tasks](/202606/02/2606.01767v1-evobrain-continual-learning-of-eeg-foundation-models-across-heterogeneous-bci-tasks)  
+   标签：评分：9.0/10、query:eeg-ode-ln
+   evidence：面向BCI任务的EEG基础模型持续学习
+8. [EVA-Net: Subject-Independent EEG Motor Decoding with Video-Derived Motor Priors](/202606/02/2606.01884v1-eva-net-subject-independent-eeg-motor-decoding-with-video-derived-motor-priors)  
+   标签：评分：9.0/10、query:eeg-ode-ln
+   evidence：利用跨模态视频先验进行跨主体EEG运动解码
 
 ### 速读区论文标签
-1. [Beyond Classification: Dynamic Adapter Routing for Continual Multimodal Retrieval](/202606/01/2605.31229v1-beyond-classification-dynamic-adapter-routing-for-continual-multimodal-retrieval)  
+1. [Hypergraphs from multivariate connectivity: caCoh-based EEG/MEG representation](/202606/02/2606.01357v1-hypergraphs-from-multivariate-connectivity-cacoh-based-eegmeg-representation)  
+   标签：评分：8.0/10、query:eeg-ode-ln
+   evidence：基于规范相干性从EEG/MEG多变量连接构建超图表示
+2. [Turing Patterns for Multimedia: Reaction-Diffusion Multi-Modal Fusion for Language-Guided Video Moment Retrieval](/202606/02/2606.01615v1-turing-patterns-for-multimedia-reaction-diffusion-multi-modal-fusion-for-language-guided-video-moment-retrieval)  
    标签：评分：8.0/10、query:multi-modal
-   evidence：视觉语言模型的持续多模态检索；动态适配器路由
-2. [A Multimodal Framework for Dementia Detection via Linguistic and Acoustic Representation Learning](/202606/01/2605.25540v1-a-multimodal-framework-for-dementia-detection-via-linguistic-and-acoustic-representation-learning)  
-   标签：评分：7.0/10、query:multi-modal
-   evidence：基于语言和声学数据的多模态痴呆检测框架
-3. [Genetically Aligned Patient Representations Improve Hematological Diagnosis](/202606/01/2605.29980v1-genetically-aligned-patient-representations-improve-hematological-diagnosis)  
-   标签：评分：7.0/10、query:multi-modal
-   evidence：组织病理学图像与基因组数据的多模态对齐用于诊断
-4. [High-Fidelity 3D Simulator for Synthetic fNIRS Data Generation](/202606/01/2605.30552v1-high-fidelity-3d-simulator-for-synthetic-fnirs-data-generation)  
+   evidence：基于反应扩散的多模态融合方法用于视频语言对齐
+3. [Towards Resolving Optimization Conflicts Between Image- and Text-Based Person Re-Identification](/202606/02/2606.02242v1-towards-resolving-optimization-conflicts-between-image--and-text-based-person-re-identification)  
+   标签：评分：8.0/10、query:multi-modal
+   evidence：联合优化图像和文本重识别解决模态差异
+4. [Robust Frequency-Calibrated Virtual EEG Channel Generation from Four Frontal Electrodes for Wearable EEG Augmentation](/202606/02/2605.29263v2-robust-frequency-calibrated-virtual-eeg-channel-generation-from-four-frontal-electrodes-for-wearable-eeg-augmentation)  
    标签：评分：7.0/10、query:eeg-ode-ln
-   evidence：用于合成fNIRS数据生成的3D模拟器
-5. [Inference-Free Multimodal Learned Sparse Retrieval for Production-Scale Visual Document Search](/202606/01/2605.30917v1-inference-free-multimodal-learned-sparse-retrieval-for-production-scale-visual-document-search)  
-   标签：评分：7.0/10、query:multi-modal
-   evidence：提出V-SPLADE，一种免推理的多模态学习稀疏检索器，涉及视觉文档搜索中的多模态融合技术
-6. [ECLARE: multi-teacher contrastive learning via ensemble distillation for diagonal integration of single-cell multi-omic data](/202606/01/biorxiv-10-1101-2025-01-24-634799-v4-eclare-multi-teacher-contrastive-learning-via-ensemble-distillation-for-diagonal-integration-of-single-cell-multi-omic-data)  
-   标签：评分：7.0/10、query:multi-modal
-   evidence：多教师对比学习整合多模态单细胞数据
-7. [Investigating sensorimotor beta burst dynamics as a robust biomarker for graded force modulation in humans](/202606/01/biorxiv-10-64898-2026-05-07-723396-v3-investigating-sensorimotor-beta-burst-dynamics-as-a-robust-biomarker-for-graded-force-modulation-in-humans)  
+   evidence：可穿戴EEG虚拟通道生成方法
+5. [A 1000-hour EEG-EMG-audio dataset of Japanese speech production](/202606/02/2606.01264v1-a-1000-hour-eeg-emg-audio-dataset-of-japanese-speech-production)  
    标签：评分：7.0/10、query:eeg-ode-ln
-   evidence：利用感觉运动β爆发动态解码BCI中的力调制
-8. [Learning dynamical systems with biochemically informed neural ordinary differential equations](/202606/01/biorxiv-10-64898-2026-05-25-727308-v1-learning-dynamical-systems-with-biochemically-informed-neural-ordinary-differential-equations)  
-   标签：评分：7.0/10、query:neural-ode
-   evidence：神经常微分方程应用于生化动力系统
-9. [Multimodal Optical Feature Extraction with a Free-Space Photonic Extreme Learning Machine](/202606/01/2605.29043v1-multimodal-optical-feature-extraction-with-a-free-space-photonic-extreme-learning-machine)  
-   标签：评分：6.0/10、query:multi-modal
-   evidence：单一自由空间光极限学习机实现图像、音频和表格数据多模态特征提取
-10. [Bimodal masked language modeling for bulk RNA-seq and DNA methylation representation learning](/202606/01/biorxiv-10-1101-2025-06-25-661237-v2-bimodal-masked-language-modeling-for-bulk-rna-seq-and-dna-methylation-representation-learning)  
-   标签：评分：6.0/10、query:multi-modal
-   evidence：RNA-seq和DNA甲基化的双模态表示学习；通用多模态学习方法
-11. [Generative enhancement of non-invasive datasets for motor brain-computer interface by synthesizing task-relevant neural signals](/202606/01/biorxiv-10-1101-2025-10-12-681961-v2-generative-enhancement-of-non-invasive-datasets-for-motor-brain-computer-interface-by-synthesizing-task-relevant-neural-signals)  
+   evidence：大规模EEG数据集支持解码方法研究
+6. [AI-based Psychiatric Prediction in Youth: Neuroimaging Provides Minimal Gains Beyond Confounds](/202606/02/biorxiv-10-64898-2026-05-22-727174-v1-ai-based-psychiatric-prediction-in-youth-neuroimaging-provides-minimal-gains-beyond-confounds)  
    标签：评分：6.0/10、query:eeg-ode-ln
-   evidence：生成式数据增强用于脑机接口；可迁移至情绪识别
+   evidence：用AI模型从EEG数据预测精神表型
+7. [Transcriptomics-Conditioned Virtual Tissue Synthesis via Diffusion Transformers](/202606/02/biorxiv-10-64898-2026-05-26-727902-v1-transcriptomics-conditioned-virtual-tissue-synthesis-via-diffusion-transformers)  
+   标签：评分：6.0/10、query:multi-modal
+   evidence：通过跨注意力利用基因表达和形态条件合成
 
 
 <div class="dpr-home-promo-card">
