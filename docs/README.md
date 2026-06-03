@@ -6,65 +6,58 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-06-02
-- 运行时间：2026-06-02 23:19:39 UTC
+- 最新运行日期：2026-06-03
+- 运行时间：2026-06-03 23:13:40 UTC
 - 运行状态：成功
-- 本次总论文数：15
-- 精读区：8
-- 速读区：7
+- 本次总论文数：12
+- 精读区：7
+- 速读区：5
 
 ### 今日简报（AI）
-今天精读15篇论文，重点聚焦跨域情感识别统一框架与LLM-脑电共享价轴规律两大发现。最值得关注的是UF-AMA自适应多模态对齐方法及AI模型与人类脑电的饱和规律。建议深挖多模态对齐在情感计算中的实际应用，并跟踪脑电与AI认知交叉验证的后续进展。
-- 详情：[/202606/02/README](/202606/02/README)
+今日精选12篇论文，聚焦多模态大模型前沿：具身推理地理定位与跨域情感识别成亮点。  
+最值得关注精读中的《ERGeoBench》和《UF-AMA》，分别提供了多模态模型在现实定位和情感理解中的新基准与统一框架。  
+建议普通读者优先阅读这两篇论文，理解当前多模态模型在复杂场景下的评估与对齐能力，为后续应用打基础。
+- 详情：[/202606/03/README](/202606/03/README)
 
 ### 精读区论文标签
-1. [UF-AMA: A unified framework for cross-domain emotion recognition via adaptive multimodal alignment](/202606/02/2606.00170v1-uf-ama-a-unified-framework-for-cross-domain-emotion-recognition-via-adaptive-multimodal-alignment)  
-   标签：评分：10.0/10、query:eeg-ode-ln
-   evidence：基于EEG等多模态生理信号的自适应对齐情感识别
-2. [A Shared Valence Axis Across Modern LLMs and Human EEG: The Saturation Regularity](/202606/02/2606.00129v1-a-shared-valence-axis-across-modern-llms-and-human-eeg-the-saturation-regularity)  
-   标签：评分：9.0/10、query:eeg-ode-ln
-   evidence：LLM导出的效价轴与人类EEG情感解码对齐
-3. [OmniEEG-Bench: A Standardized Evaluation Benchmark for EEG Foundation Models](/202606/02/2606.00815v1-omnieeg-bench-a-standardized-evaluation-benchmark-for-eeg-foundation-models)  
-   标签：评分：9.0/10、query:eeg-ode-ln
-   evidence：包含情绪任务的EEG基础模型统一基准
-4. [Dive into Waves: Morlet Spectral Transformer for Cross-Subject Emotion Decoding from EEG](/202606/02/2606.00884v1-dive-into-waves-morlet-spectral-transformer-for-cross-subject-emotion-decoding-from-eeg)  
-   标签：评分：9.0/10、query:eeg-ode-ln
-   evidence：使用Morlet频谱Transformer进行跨主体EEG情感解码
-5. [Towards Understanding Modality Interaction in Multimodal Language Models via Partial Information Decomposition](/202606/02/2606.00959v1-towards-understanding-modality-interaction-in-multimodal-language-models-via-partial-information-decomposition)  
+1. [ERGeoBench:A Comprehensive Benchmark for Embodied Reasoning and Geo-localization in Multimodal Large Language Models](/202606/03/2605.31251v1-ergeobencha-comprehensive-benchmark-for-embodied-reasoning-and-geo-localization-in-multimodal-large-language-models)  
    标签：评分：9.0/10、query:multi-modal
-   evidence：通过部分信息分解分析多模态大模型中的模态交互
-6. [Feature Alignment Determines Fusion Strategy: A Comparative Study of Cross-Attention and Concatenation in Multimodal Learning](/202606/02/2606.01207v1-feature-alignment-determines-fusion-strategy-a-comparative-study-of-cross-attention-and-concatenation-in-multimodal-learning)  
+   evidence：多模态大语言模型在具身地理定位中的基准
+2. [UF-AMA: A unified framework for cross-domain emotion recognition via adaptive multimodal alignment](/202606/03/2606.00170v1-uf-ama-a-unified-framework-for-cross-domain-emotion-recognition-via-adaptive-multimodal-alignment)  
+   标签：评分：9.0/10、query:eeg-ode-ln
+   evidence：基于自适应多模态对齐的EEG情绪识别
+3. [OmniEEG-Bench: A Standardized Evaluation Benchmark for EEG Foundation Models](/202606/03/2606.00815v1-omnieeg-bench-a-standardized-evaluation-benchmark-for-eeg-foundation-models)  
+   标签：评分：9.0/10、query:eeg-ode-ln
+   evidence：EEG基础模型基准，涵盖解码、情绪、脑机接口
+4. [ERP-XTTN: Interpretable Prototype-Guided Cross-Attention for Cross-Subject ERP Classification](/202606/03/2606.02939v1-erp-xttn-interpretable-prototype-guided-cross-attention-for-cross-subject-erp-classification)  
+   标签：评分：9.0/10、query:eeg-ode-ln
+   evidence：可解释的原型引导交叉注意力用于跨被试ERP分类
+5. [Visual Instruction Tuning Aligns Modalities through Abstraction](/202606/03/2606.03871v1-visual-instruction-tuning-aligns-modalities-through-abstraction)  
    标签：评分：9.0/10、query:multi-modal
-   evidence：比较跨注意力和拼接的多模态融合策略
-7. [EvoBrain: Continual Learning of EEG Foundation Models Across Heterogeneous BCI Tasks](/202606/02/2606.01767v1-evobrain-continual-learning-of-eeg-foundation-models-across-heterogeneous-bci-tasks)  
-   标签：评分：9.0/10、query:eeg-ode-ln
-   evidence：面向BCI任务的EEG基础模型持续学习
-8. [EVA-Net: Subject-Independent EEG Motor Decoding with Video-Derived Motor Priors](/202606/02/2606.01884v1-eva-net-subject-independent-eeg-motor-decoding-with-video-derived-motor-priors)  
-   标签：评分：9.0/10、query:eeg-ode-ln
-   evidence：利用跨模态视频先验进行跨主体EEG运动解码
+   evidence：视觉语言模型架构分析
+6. [World Models in Words: Auditing Physical State-Transition Commitments in Vision-Language Models](/202606/03/2605.29585v1-world-models-in-words-auditing-physical-state-transition-commitments-in-vision-language-models)  
+   标签：评分：8.0/10、query:multi-modal
+   evidence：提出视觉语言模型的物理承诺审计框架，推进多模态语言模型研究
+7. [A Minimalist Brain-Computer Musical Interface for Real-Time Emotion-Driven Sonification: System Design and Preliminary Evaluation](/202606/03/2606.01473v1-a-minimalist-brain-computer-musical-interface-for-real-time-emotion-driven-sonification-system-design-and-preliminary-evaluation)  
+   标签：评分：8.0/10、query:eeg-ode-ln
+   evidence：基于前置EEG的实时脑机音乐界面用于情感驱动
 
 ### 速读区论文标签
-1. [Hypergraphs from multivariate connectivity: caCoh-based EEG/MEG representation](/202606/02/2606.01357v1-hypergraphs-from-multivariate-connectivity-cacoh-based-eegmeg-representation)  
-   标签：评分：8.0/10、query:eeg-ode-ln
-   evidence：基于规范相干性从EEG/MEG多变量连接构建超图表示
-2. [Turing Patterns for Multimedia: Reaction-Diffusion Multi-Modal Fusion for Language-Guided Video Moment Retrieval](/202606/02/2606.01615v1-turing-patterns-for-multimedia-reaction-diffusion-multi-modal-fusion-for-language-guided-video-moment-retrieval)  
-   标签：评分：8.0/10、query:multi-modal
-   evidence：基于反应扩散的多模态融合方法用于视频语言对齐
-3. [Towards Resolving Optimization Conflicts Between Image- and Text-Based Person Re-Identification](/202606/02/2606.02242v1-towards-resolving-optimization-conflicts-between-image--and-text-based-person-re-identification)  
-   标签：评分：8.0/10、query:multi-modal
-   evidence：联合优化图像和文本重识别解决模态差异
-4. [Robust Frequency-Calibrated Virtual EEG Channel Generation from Four Frontal Electrodes for Wearable EEG Augmentation](/202606/02/2605.29263v2-robust-frequency-calibrated-virtual-eeg-channel-generation-from-four-frontal-electrodes-for-wearable-eeg-augmentation)  
-   标签：评分：7.0/10、query:eeg-ode-ln
-   evidence：可穿戴EEG虚拟通道生成方法
-5. [A 1000-hour EEG-EMG-audio dataset of Japanese speech production](/202606/02/2606.01264v1-a-1000-hour-eeg-emg-audio-dataset-of-japanese-speech-production)  
-   标签：评分：7.0/10、query:eeg-ode-ln
-   evidence：大规模EEG数据集支持解码方法研究
-6. [AI-based Psychiatric Prediction in Youth: Neuroimaging Provides Minimal Gains Beyond Confounds](/202606/02/biorxiv-10-64898-2026-05-22-727174-v1-ai-based-psychiatric-prediction-in-youth-neuroimaging-provides-minimal-gains-beyond-confounds)  
-   标签：评分：6.0/10、query:eeg-ode-ln
-   evidence：用AI模型从EEG数据预测精神表型
-7. [Transcriptomics-Conditioned Virtual Tissue Synthesis via Diffusion Transformers](/202606/02/biorxiv-10-64898-2026-05-26-727902-v1-transcriptomics-conditioned-virtual-tissue-synthesis-via-diffusion-transformers)  
+1. [FTibSuite: A Comprehensive Resource Suite for Tibetan Vision-Language Modeling](/202606/03/2605.26601v1-ftibsuite-a-comprehensive-resource-suite-for-tibetan-vision-language-modeling)  
+   标签：评分：7.0/10、query:multi-modal
+   evidence：针对藏语视觉语言建模的综合资源套件，包含数据、基准和基线模型
+2. [Towards Automated Discovery: A Review of Generative Models, Multimodal Learning and Closed-Loop Workflows in Inverse Materials Design](/202606/03/2606.02507v1-towards-automated-discovery-a-review-of-generative-models-multimodal-learning-and-closed-loop-workflows-in-inverse-materials-design)  
+   标签：评分：7.0/10、query:multi-modal
+   evidence：综述多模态学习和融合技术
+3. [SMAC: Spatial-Modal Joint Modeling and Adaptive Representation Collapse for Multimodal Object Tracking](/202606/03/2606.03370v1-smac-spatial-modal-joint-modeling-and-adaptive-representation-collapse-for-multimodal-object-tracking)  
+   标签：评分：7.0/10、query:multi-modal
+   evidence：空间-模态联合建模与自适应多模态融合用于目标跟踪
+4. [Beyond Task Success: Behavioral and Representational Diagnostics for WAM and VLA](/202606/03/2606.01095v1-beyond-task-success-behavioral-and-representational-diagnostics-for-wam-and-vla)  
    标签：评分：6.0/10、query:multi-modal
-   evidence：通过跨注意力利用基因表达和形态条件合成
+   evidence：比较视觉-语言-动作模型与世界-动作模型架构
+5. [Decoding the Grammar of Protein-Protein Interaction Interfaces with Multimodal Representations](/202606/03/biorxiv-10-64898-2026-05-29-728739-v1-decoding-the-grammar-of-protein-protein-interaction-interfaces-with-multimodal-representations)  
+   标签：评分：6.0/10、query:multi-modal
+   evidence：多模态表示用于蛋白质相互作用预测
 
 
 <div class="dpr-home-promo-card">
