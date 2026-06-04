@@ -1,0 +1,478 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-04T22:10:41.169655+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 3,
+    "deep_divecandidates": 6,
+    "deep_cap": 8,
+    "deep_selected": 6,
+    "quick_candidates": 5,
+    "quick_skim_target": 13,
+    "quick_selected": 5
+  },
+  "deep_dive": [
+    {
+      "id": "2606.00573v1",
+      "source": "arxiv",
+      "title": "LASER: Loss-Aware Singular-value Decomposition and Rank Allocation for Efficient Low-Precision Vision-Language Models",
+      "abstract": "Vision-language models (VLMs) deliver strong multimodal reasoning capabilities, but their large computational cost and high parameter counts make deployment challenging on resource-constrained devices. Low-rank decomposition has emerged as a promising compression technique, yet existing methods often optimize local matrix reconstruction error, rely on uniform or heuristic rank allocation, and focus mainly on attention projections while leaving feed-forward networks underexplored. In this paper, we propose~\\textit{LASER} (\\textbf{L}oss-\\textbf{A}ware \\textbf{S}ingular-value d\\textbf{E}composition and \\textbf{R}ank allocation), a low-rank compression framework for efficient low-precision VLM inference. LASER derives a curvature-weighted SVD objective from a second-order approximation of the model loss and uses Kronecker-factored Fisher information to guide decomposition toward downstream performance rather than reconstruction alone. We further introduce a loss-aware cross-layer rank allocation strategy based on calibration gradients, enabling more effective parameter budgeting across layers. Finally, we extend low-rank compression to FFN layers through a hybrid scheme that combines SVD with quantization. The evaluation results show that LASER achieves more than $2.3\\times$ decoding speedup over previous work while preserving strong accuracy under low-precision inference.",
+      "authors": [
+        "Haiyu Wang",
+        "Yutong Wang",
+        "Leshu Li",
+        "Yihui Ren",
+        "Sai Qian Zhang"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG"
+      ],
+      "published": "2026-05-30T06:53:23+00:00",
+      "link": "https://arxiv.org/pdf/2606.00573v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "keyword:neural-ode",
+        "query:multi-modal",
+        "query:neural-ode"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Low-rank compression framework for vision-language models",
+      "llm_evidence_cn": "针对视觉语言模型的低秩压缩框架",
+      "llm_evidence": "针对视觉语言模型的低秩压缩框架",
+      "canonical_evidence": "针对视觉语言模型的低秩压缩框架",
+      "llm_tldr_en": "Proposes LASER, a loss-aware low-rank decomposition method that reduces computational cost of VLMs while maintaining accuracy, enabling efficient deployment on resource-limited devices.",
+      "llm_tldr_cn": "提出LASER框架，通过感知损失的奇异值分解和秩分配，对视觉语言模型进行低秩压缩，显著降低计算开销和参数数量，同时保持多模态推理能力。实验表明在多个VLM基准上压缩效果显著，适用于资源受限设备部署。",
+      "llm_tldr": "提出LASER框架，通过感知损失的奇异值分解和秩分配，对视觉语言模型进行低秩压缩，显著降低计算开销和参数数量，同时保持多模态推理能力。实验表明在多个VLM基准上压缩效果显著，适用于资源受限设备部署。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "vision language model architectures",
+      "matched_requirement_id": "req-22",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.01767v2",
+      "source": "arxiv",
+      "title": "EvoBrain: Continual Learning of EEG Foundation Models Across Heterogeneous BCI Tasks",
+      "abstract": "Electroencephalography (EEG) is the cornerstone of non-invasive brain-computer interfaces (BCIs), yet conventional decoding relies on fragmented, task-specific architectures that severely limit cross-task scalability. While EEG foundation models pre-trained on massive corpora promise universal brain decoding, current post-training depends on task-isolated fine-tuning. This static paradigm restricts knowledge transfer across heterogeneous tasks, hinders model scalability, and incurs computational and storage overheads that scale linearly with task count. To overcome these bottlenecks, we formulate downstream adaptation as a cross-task continual learning problem and propose EvoBrain, a dynamic, task-aware continual learning framework for unified EEG decoding. EvoBrain addresses the plasticity-stability trade-off via two complementary components: (1) Neuro-Spectral Task Normalization (NSN) aligns incoming tasks with historical statistics while recalibrating spectral responses to handle distributional and neuro-spectral shifts; and (2) Response-Affinity Distillation (RAD), combined with time-dependent replay, preserves old-task response geometry and promotes selective knowledge transfer between spectrally compatible tasks, effectively mitigating forgetting. Extensive evaluations across six distinct BCI tasks demonstrate that EvoBrain consistently surpasses state-of-the-art methods across diverse foundation backbones, optimally balancing plasticity and stability. To our knowledge, this work pioneers cross-task continual learning in the EEG domain, advancing the realization of a unified, one-for-all brain decoding system.",
+      "authors": [
+        "Yangxuan Zhou",
+        "Sha Zhao",
+        "Jiquan Wang",
+        "Shijian Li",
+        "Gang Pan"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-06-01T06:49:50+00:00",
+      "link": "https://arxiv.org/pdf/2606.01767v2",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:neural-ode"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "EEG foundation model continual learning for BCI",
+      "llm_evidence_cn": "EEG基础模型持续学习用于脑机接口",
+      "llm_evidence": "EEG基础模型持续学习用于脑机接口",
+      "canonical_evidence": "EEG基础模型持续学习用于脑机接口",
+      "llm_tldr_en": "Proposes EvoBrain, a continual learning framework for EEG foundation models that enables dynamic knowledge transfer across heterogeneous BCI tasks, addressing fragmentation and scalability issues.",
+      "llm_tldr_cn": "脑电图（EEG）解码通常依赖碎片化的任务专用架构，难以跨任务扩展。本文提出EvoBrain，一种动态任务感知的持续学习框架，将下游适配建模为跨任务持续学习问题。该方法在多个异构BCI任务上实现知识迁移，避免了任务孤立微调带来的存储和计算开销。实验表明EvoBrain在保持先前任务性能的同时显著提升新任务学习效率，为可扩展的EEG通用解码提供了新范式。",
+      "llm_tldr": "脑电图（EEG）解码通常依赖碎片化的任务专用架构，难以跨任务扩展。本文提出EvoBrain，一种动态任务感知的持续学习框架，将下游适配建模为跨任务持续学习问题。该方法在多个异构BCI任务上实现知识迁移，避免了任务孤立微调带来的存储和计算开销。实验表明EvoBrain在保持先前任务性能的同时显著提升新任务学习效率，为可扩展的EEG通用解码提供了新范式。",
+      "llm_tags": [
+        "query:eeg-ode-ln:composite"
+      ],
+      "matched_query_tag": "query:eeg-ode-ln:composite",
+      "matched_query_text": "Papers central to 查找EEG解码（最好情绪识别）以及EEG+fNIRs多模态的文章, especially work that connects or combines: EEG signal decoding methods; multimodal EEG and fNIRS for brain activity decoding; affective computing using EEG; brain-computer interface for emotion; multimodal fusion of EEG and fNIRS; deep learning for EEG classification; Find papers on EEG decoding for emotion recognition; Search for multimodal EEG and fNIRS studies; EEG decoding for emotion recognition; multimodal EEG fNIRS studies.",
+      "matched_requirement_id": "req-composite-eeg-ode-ln",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "biorxiv-10-1101-2025-09-02-673728-v2",
+      "source": "biorxiv",
+      "title": "CARACAS, a novel automated tool for Cardiac Artifact Removal in Absence of CArdiac Signal",
+      "abstract": "Background: EEG recordings can contain cardiac related artifacts. Independent Component Analysis (ICA) followed by removal of cardiac Independent Components (ICs) is a powerful and widely used strategy for artifact correction. Most existing methods for automatic labeling of cardiac ICs require a simultaneously recorded ECG (e.g., to compute correlation with the IC time course). However, ECG is not always available. To address this limitation, we developed CARACAS (Cardiac Artifact Removal in Absence of CArdiac Signal), a novel tool that identifies cardiac ICs using only the IC time courses. New method: Because cardiac ICs exhibit temporal profiles highly similar to ECG signals, we used an existing tool designed to detect cardiac events (R waves) in ECG signals and applied it to each IC time course. Analysis of the detected events enabled the differentiation of cardiac ICs from non-cardiac ICs, where unrelated signal variations are incorrectly identified as cardiac events. Using the 375 EEG-ECG recordings of the open-source dataset OpenNeuro ds003690, we compared the performances of three algorithms: CARACAS, IClabel (a generic IC classifier which does not require ECG), and correlation with ECG channel. Results (comparison with existing methods): A total of 21,375 ICs were manually and automatically classified. CARACAS achieved high performance (sensitivity = 0.960, specificity = 0.976), substantially outperforming ICLabel (sensitivity = 0.210, specificity = 0.999) and approaching the performance of ECG correlation method (sensitivity = 0.975, specificity = 0.998). Conclusion: We present a reliable ECG-free algorithm for cardiac IC detection in EEG. CARACAS provides a practical solution when ECG is unavailable, and is implemented in the SASICA toolbox.",
+      "authors": [
+        "Champetier, P.",
+        "Oudiette, D.",
+        "Andrillon, T.",
+        "Chaumon, M."
+      ],
+      "primary_category": "neuroscience",
+      "categories": [
+        "neuroscience"
+      ],
+      "published": "2026-06-03T00:00:00+00:00",
+      "link": "https://www.biorxiv.org/content/10.1101/2025.09.02.673728v2.full.pdf",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:neural-ode"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "EEG artifact removal method for cardiac artifacts",
+      "llm_evidence_cn": "EEG心电伪迹去除方法",
+      "llm_evidence": "EEG心电伪迹去除方法",
+      "canonical_evidence": "EEG心电伪迹去除方法",
+      "llm_tldr_en": "Introduces CARACAS, a tool to remove cardiac artifacts from EEG without requiring ECG, using only IC time courses.",
+      "llm_tldr_cn": "EEG记录常受心电伪迹干扰，但现有方法需要同步ECG信号。本研究开发了CARACAS工具，仅利用独立成分的时间序列即可自动识别并去除心电伪迹，无需ECG辅助。该方法基于心电独立成分与ECG信号的高度时间相似性，提高了伪迹校正的自动化和适用性，对EEG信号预处理具有重要意义。",
+      "llm_tldr": "EEG记录常受心电伪迹干扰，但现有方法需要同步ECG信号。本研究开发了CARACAS工具，仅利用独立成分的时间序列即可自动识别并去除心电伪迹，无需ECG辅助。该方法基于心电独立成分与ECG信号的高度时间相似性，提高了伪迹校正的自动化和适用性，对EEG信号预处理具有重要意义。",
+      "llm_tags": [
+        "query:eeg-ode-ln"
+      ],
+      "matched_query_tag": "query:eeg-ode-ln",
+      "matched_query_text": "EEG signal decoding methods",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.00435v1",
+      "source": "arxiv",
+      "title": "Detect Before You Leap: Mirage Detection in Vision-Language Models",
+      "abstract": "Vision-language models (VLMs) can produce confident visual answers even when the required visual evidence is missing, blank, or unrelated to the question. This failure mode, known as mirage (Asadi et al. 2026), is especially concerning in medical and document visual question answering, where plausible but visually ungrounded responses may be mistaken for image-based evidence. We study pre-release mirage detection: given an image-question pair, the goal is to determine whether a VLM should answer or abstain before producing a response. We propose Text-Conditioned Layer-wise Internal Alignment (TC-LIA), a model-agnostic method that probes patch-token representations across the layers of a CLIP ViT-H/14 vision encoder. TC-LIA projects layer-wise image patch tokens into the final CLIP embedding space and measures their similarity to the question embedding, allowing the method to track whether question-relevant visual evidence emerges across vision layers. The resulting alignment trajectory is summarized using final image-text cosine similarity, late-layer top-k patch-text alignment, early-to-late gain, and layer-wise slope. These features are combined with pixel-statistic blank/noise detection, zero-shot domain routing, and structured VLM self-assessment in an ensemble. Across five VQA domains, three input conditions, and twelve VLM backbones, the best systems achieve approximately 94.6-94.7% three-class detection accuracy with mirage rates below 3%, while baseline mirage rates range from 21.7% to 66.6%.",
+      "authors": [
+        "Sayeed Shafayet Chowdhury",
+        "Md. Shaown Miah"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.AI"
+      ],
+      "published": "2026-05-29T23:51:35+00:00",
+      "link": "https://arxiv.org/pdf/2606.00435v1",
+      "tags": [
+        "keyword:multi-modal",
+        "keyword:neural-ode",
+        "query:multi-modal",
+        "query:neural-ode"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Mirage detection in vision-language models via layer-wise alignment",
+      "llm_evidence_cn": "通过分层对齐检测视觉语言模型中的幻觉",
+      "llm_evidence": "通过分层对齐检测视觉语言模型中的幻觉",
+      "canonical_evidence": "通过分层对齐检测视觉语言模型中的幻觉",
+      "llm_tldr_en": "Proposes TC-LIA to detect whether VLMs should abstain from answering due to missing visual evidence, probing patch-token representations across layers for mirage detection.",
+      "llm_tldr_cn": "针对视觉语言模型在缺乏视觉证据时仍给出自信答案的幻觉问题，提出文本条件分层内部对齐（TC-LIA）方法，通过探测CLIP视觉编码器各层块-令牌表征来预判是否应回避作答。在医疗和文档VQA上有效检测幻象，提升模型可靠性。该方法为VLM的安全推理提供了新思路。",
+      "llm_tldr": "针对视觉语言模型在缺乏视觉证据时仍给出自信答案的幻觉问题，提出文本条件分层内部对齐（TC-LIA）方法，通过探测CLIP视觉编码器各层块-令牌表征来预判是否应回避作答。在医疗和文档VQA上有效检测幻象，提升模型可靠性。该方法为VLM的安全推理提供了新思路。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "vision language model architectures",
+      "matched_requirement_id": "req-22",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.00602v1",
+      "source": "arxiv",
+      "title": "ASAP: Advancing Medical Volumetric Representation Learning with Anatomy-aware Semantically-adaptive Pre-training",
+      "abstract": "Learning transferable and interpretable representations from medical volumetric scans remains challenging due to complex anatomical structures and weak, heterogeneous supervision provided by radiology reports. In this paper, we propose Anatomy-aware Semantically-Adaptive Pre-training (ASAP), a principled vision-language pre-training framework for fine-grained medical volumetric representation learning from large-scale chest CT scans and their corresponding radiology reports. ASAP integrates three key components: (1) an anatomy-aware knowledge injection module that incorporates organ-level structural priors via off-the-shelf segmentation tool to encourage anatomically coherent representations; (2) a semantically-adaptive selective alignment mechanism that dynamically associates sentence-level findings with localized volumetric regions; and (3) a semantically-adaptive fusion module for effective interaction between anatomically informed visual features and grounded textual cues under dual-modal masked modeling paradigm. Beyond methodological contributions, we establish a comprehensive benchmark for medical volumetric vision-language pre-training on chest CT, covering 15 datasets and 22 downstream tasks spanning abnormality classification, segmentation, disease prognosis prediction, report generation, vocabulary classification, cross-modal retrieval and visual question answering. This benchmark provides standardized evaluation protocols to systematically assess representation quality under diverse clinical settings and data regimes. Extensive experiments demonstrate that ASAP consistently achieves state-of-the-art performance across tasks and datasets, with particularly pronounced gains under limited supervision and distribution shift, validating its effectiveness in learning transferable and clinically meaningful volumetric representations.",
+      "authors": [
+        "Rongsheng Wang",
+        "Fenghe Tang",
+        "Zihang Jiang",
+        "Yingtai Li",
+        "Xu Zhang",
+        "Haoran Lai",
+        "Wenxin Ma",
+        "Wei Wei",
+        "Zhiyang He",
+        "Xiaodong Tao",
+        "Rui Yan",
+        "Qingsong Yao",
+        "Shaohua Kevin Zhou"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-05-30T07:59:21+00:00",
+      "link": "https://arxiv.org/pdf/2606.00602v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:multi-modal",
+        "query:neural-ode"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "vision-language pre-training for medical volumetric scans",
+      "llm_evidence_cn": "用于医学体扫描的视觉-语言预训练",
+      "llm_evidence": "用于医学体扫描的视觉-语言预训练",
+      "canonical_evidence": "用于医学体扫描的视觉-语言预训练",
+      "llm_tldr_en": "Proposes ASAP, a vision-language pre-training framework for medical volumetric representation learning using chest CT scans and radiology reports, incorporating anatomical priors and semantic alignment.",
+      "llm_tldr_cn": "该论文提出ASAP，一种用于医学体扫描的视觉-语言预训练框架，利用胸部CT和放射学报告，结合解剖先验和语义对齐，学习可迁移的表征。这与多模态语言模型研究高度相关，属于视觉-语言模型架构在医学领域的应用。",
+      "llm_tldr": "该论文提出ASAP，一种用于医学体扫描的视觉-语言预训练框架，利用胸部CT和放射学报告，结合解剖先验和语义对齐，学习可迁移的表征。这与多模态语言模型研究高度相关，属于视觉-语言模型架构在医学领域的应用。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "multimodal language model research",
+      "matched_requirement_id": "req-20",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.02659v1",
+      "source": "arxiv",
+      "title": "CL-DMDF:Dynamic Multimodal Data Fusion Model Based on Contrastive Learning",
+      "abstract": "Multimodal data fusion involves integrating and analyzing information from multiple modalities to uncover latent correlations and complementary patterns, thereby enhancing data processing and decision-making. While existing methods for structured multimodal inputs are typically designed around specific tasks and assume fully observed modalities, real-world applications often suffer from uncertain or missing modality inputs due to various factors. Some traditional models overly emphasize local interactions within missing modalities, neglecting the global complementary cues embedded in multimodal representations. To overcome these limitations, we propose a Dynamic Multimodal Data Fusion model based on Contrastive Learning (CL-DMDF). CL-DMDF introduces a novel attention mechanism that operates across both feature and modality dimensions to compute reliable attention scores, effectively reflecting importance at each level. The CL-DMDF further incorporates an entity-centroid contrastive learning module that constructs centroid-based positive samples from entity features to enhance discriminative learning. Additionally, an adaptive fusion module is employed to improve the efficiency and accuracy of dynamic fusion strategies. Extensive experiments conducted on three datasets demonstrate the effectiveness of the CL-DMDF across diverse multimodal fusion tasks.",
+      "authors": [
+        "Dong Li",
+        "Lingling Zhang",
+        "Binghao Han",
+        "Linlin Ding",
+        "Yue Kou"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.AI"
+      ],
+      "published": "2026-06-01T07:12:17+00:00",
+      "link": "https://arxiv.org/pdf/2606.02659v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:multi-modal",
+        "query:neural-ode"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Proposes dynamic multimodal data fusion model using contrastive learning",
+      "llm_evidence_cn": "提出基于对比学习的动态多模态数据融合模型",
+      "llm_evidence": "提出基于对比学习的动态多模态数据融合模型",
+      "canonical_evidence": "提出基于对比学习的动态多模态数据融合模型",
+      "llm_tldr_en": "Proposes CL-DMDF, a dynamic multimodal fusion model using contrastive learning to handle missing modalities and capture global complementary cues.",
+      "llm_tldr_cn": "针对实际应用中多模态输入不确定或缺失的问题，本文提出CL-DMDF动态多模态数据融合模型。该模型基于对比学习，通过挖掘多模态表示中的全局互补线索，克服了传统模型过于关注缺失模态局部交互的局限。实验表明该方法能有效融合多模态信息，提升决策性能。贡献在于提供了一种鲁棒的多模态融合方案。",
+      "llm_tldr": "针对实际应用中多模态输入不确定或缺失的问题，本文提出CL-DMDF动态多模态数据融合模型。该模型基于对比学习，通过挖掘多模态表示中的全局互补线索，克服了传统模型过于关注缺失模态局部交互的局限。实验表明该方法能有效融合多模态信息，提升决策性能。贡献在于提供了一种鲁棒的多模态融合方案。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "techniques for multimodal fusion",
+      "matched_requirement_id": "req-21",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2606.00967v1",
+      "source": "arxiv",
+      "title": "Flexible Control of 3D CT Generation via Text and Semantically-Defined Segmentation Prompts",
+      "abstract": "Generative models for volumetric medical images have found many applications in medical imaging, ranging from data augmentation to serving as priors for inverse problems. For these applications, generating high-resolution 3D images with strong controllability is essential but remains highly challenging. Existing approaches typically control generation either through radiology reports used as text prompts or through full image segmentation. While text-based prompting is flexible, it provides limited spatial control over the location, shape, and boundary of abnormalities. In contrast, segmentation-based methods receive precise spatial guidance but are restrictive in requiring full-organ annotations. In this work, we propose a flexible multimodal framework for controllable volumetric image generation that supports input from radiology reports and segmentation prompts (both optional). Our approach allows users to provide segmentation of a specific anatomy or abnormality without requiring full-organ annotations. The semantic meaning of the segmentation mask is specified through an accompanying text description, resulting in a highly flexible and scalable conditioning mechanism. We develop a memory-efficient architecture based on a modified diffusion transformer that jointly processes image and segmentation tokens. The model further incorporates gated attention to effectively attend to long radiology reports. Experiments demonstrate that our method achieves state-of-the-art perceptual and semantic scores (e.g., 24% relative improvement in mean FID), generates high-resolution anatomically consistent CT volumes, and improves data efficiency when used for data augmentation. Radiologists' evaluation further confirms strong alignment between generated and real medical images.",
+      "authors": [
+        "Weicheng Dai",
+        "Chenyu Wang",
+        "Andy Li",
+        "Shantanu Ghosh",
+        "Kayhan Batmanghelich"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-05-31T02:55:05+00:00",
+      "link": "https://arxiv.org/pdf/2606.00967v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:neural-ode"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "text and segmentation prompts for 3D medical image generation",
+      "llm_evidence_cn": "文本和分割提示用于3D医学图像生成",
+      "llm_evidence": "文本和分割提示用于3D医学图像生成",
+      "canonical_evidence": "文本和分割提示用于3D医学图像生成",
+      "llm_tldr_en": "Proposes a flexible method for generating 3D CT images controlled by both text and semantically-defined segmentation prompts, combining flexibility of text with spatial precision of segmentation.",
+      "llm_tldr_cn": "生成可控的3D医学图像很具挑战性，纯文本提示缺乏空间控制，完整分割则限制灵活性。本文提出结合文本和语义分割提示的灵活控制框架，通过条件扩散模型将文本嵌入与分割掩码融合，允许用户指定感兴趣区域的位置、形状和边界。实验表明该方法在生成质量和空间可控性上优于纯文本或纯分割方法，为数据增强和逆问题先验提供了更灵活的工具。",
+      "llm_tldr": "生成可控的3D医学图像很具挑战性，纯文本提示缺乏空间控制，完整分割则限制灵活性。本文提出结合文本和语义分割提示的灵活控制框架，通过条件扩散模型将文本嵌入与分割掩码融合，允许用户指定感兴趣区域的位置、形状和边界。实验表明该方法在生成质量和空间可控性上优于纯文本或纯分割方法，为数据增强和逆问题先验提供了更灵活的工具。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "vision language model architectures",
+      "matched_requirement_id": "req-22",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.01047v1",
+      "source": "arxiv",
+      "title": "Learning Multi-Modal Trajectory Policies for Data-Efficient Robotic Manipulation",
+      "abstract": "Robotic manipulation requires the effective integration of heterogeneous inputs, including visual observations, language instructions, and trajectory representations, to generate accurate actions. Existing transformer-based policies typically process these heterogeneous modalities within a shared parameter space, which often leads to modality interference and inefficient representation learning, especially in data-scarce scenarios. While Mixture-of-Experts (MoE) offers a scalable solution through expert specialization, conventional routing mechanisms are often sensitive to such cross-modal representation discrepancies, resulting in unstable expert assignment and expert collapse. In this work, we propose MATE (Multi-ModAl TrajEctory Policies), a novel trajectory prediction framework built upon MoE. Specifically, we introduce a Multi-Modal MoE architecture to achieve fine-grained sub-token feature decoupling, and design a cross-modal cosine router for stable and scale-invariant expert assignment across heterogeneous modalities. We further employ temperature-controlled routing and stochastic noise injection to improve expert balance and prevent premature routing collapse under scarce demonstrations. Experiments on the LIBERO benchmark show that our MATE consistently outperforms prior work under data scarcity. It achieves a 4.75% improvement in average success rate over the trajectory-guided counterpart. Real-world experiments on robotic ping-pong also suggest that the predicted trajectories can provide useful guidance for downstream robotic execution, further indicating the practical feasibility of our algorithm.",
+      "authors": [
+        "Zijia Chen",
+        "Yuenan Hou",
+        "Xinhua Jiang",
+        "Yu Li",
+        "Weijie Li",
+        "Li Liu"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO"
+      ],
+      "published": "2026-05-31T06:35:10+00:00",
+      "link": "https://arxiv.org/pdf/2606.01047v1",
+      "tags": [
+        "keyword:multi-modal",
+        "query:multi-modal"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Multi-modal trajectory policies for robotic manipulation, relevant to multimodal fusion and learning",
+      "llm_evidence_cn": "用于机器人操作的多模态轨迹策略，与多模态融合和学习相关",
+      "llm_evidence": "用于机器人操作的多模态轨迹策略，与多模态融合和学习相关",
+      "canonical_evidence": "用于机器人操作的多模态轨迹策略，与多模态融合和学习相关",
+      "llm_tldr_en": "MATE proposes multi-modal trajectory policies using mixture-of-experts for robotic manipulation, effectively integrating visual, language, and trajectory modalities.",
+      "llm_tldr_cn": "本文提出MATE（多模态轨迹策略），使用混合专家（MoE）处理视觉、语言和轨迹等多种模态输入，解决共享参数空间中的模态干扰和专家坍缩问题。在机器人操作任务上，MATE实现了数据高效的策略学习，展示了多模态融合在机器人领域的优势。",
+      "llm_tldr": "本文提出MATE（多模态轨迹策略），使用混合专家（MoE）处理视觉、语言和轨迹等多种模态输入，解决共享参数空间中的模态干扰和专家坍缩问题。在机器人操作任务上，MATE实现了数据高效的策略学习，展示了多模态融合在机器人领域的优势。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "techniques for multimodal fusion",
+      "matched_requirement_id": "req-21",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.01784v1",
+      "source": "arxiv",
+      "title": "MoRE: A Mixture-of-Experts-Based Task-Adaptive End-to-End Network for Multimodal MRI Reconstruction",
+      "abstract": "Although accelerated MRI reconstruction has advanced rapidly through end-to-end learning, deploying a single unified network that generalizes across diverse anatomies and contrasts under constrained computational resources remains challenging. In this paper, we introduce MoRE, a sparsely activated mixture-of-experts (MoE) module integrated into an end-to-end variational network. MoRE couples a shared encoder with sample-wise, unsupervised routing to activate a minimal subset of expert decoders while strictly preserving physics-based data consistency. Evaluated on the fastMRI multi-coil brain and knee datasets under 8x undersampling, MoRE achieves highly stable SSIM and PSNR performance across multi-contrast datasets. Furthermore, t-SNE visualization of the routing embeddings reveals interpretable, modality-aware expert specialization. The sparse conditional computation mechanism ensures that the architectural overhead remains modest. These results demonstrate that MoE-style capacity scaling can significantly enhance general-purpose MRI reconstruction without requiring proportional increases in computational power.",
+      "authors": [
+        "Yuyang Li",
+        "Yipin Deng",
+        "Wenlei Shang",
+        "Juncen Wu",
+        "Xin Bai",
+        "Zijian Zhou",
+        "Peng Hu"
+      ],
+      "primary_category": "eess.IV",
+      "categories": [
+        "eess.IV"
+      ],
+      "published": "2026-06-01T07:04:12+00:00",
+      "link": "https://arxiv.org/pdf/2606.01784v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:multi-modal",
+        "query:neural-ode"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Multimodal MRI reconstruction using mixture-of-experts, relevant to multimodal fusion techniques",
+      "llm_evidence_cn": "使用混合专家进行多模态MRI重建，与多模态融合技术相关",
+      "llm_evidence": "使用混合专家进行多模态MRI重建，与多模态融合技术相关",
+      "canonical_evidence": "使用混合专家进行多模态MRI重建，与多模态融合技术相关",
+      "llm_tldr_en": "MoRE integrates a mixture-of-experts module into an end-to-end variational network for multimodal MRI reconstruction, achieving stable performance across contrasts.",
+      "llm_tldr_cn": "本文提出MoRE，将稀疏激活的混合专家（MoE）模块集成到端到端变分网络中，用于多模态MRI重建。MoRE共享编码器并通过无监督路由激活最少的专家解码器，同时保留物理一致性。在fastMRI数据集上的实验表明，跨不同对比度下重建性能稳定，展示了多模态融合在医学成像中的有效性。",
+      "llm_tldr": "本文提出MoRE，将稀疏激活的混合专家（MoE）模块集成到端到端变分网络中，用于多模态MRI重建。MoRE共享编码器并通过无监督路由激活最少的专家解码器，同时保留物理一致性。在fastMRI数据集上的实验表明，跨不同对比度下重建性能稳定，展示了多模态融合在医学成像中的有效性。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "techniques for multimodal fusion",
+      "matched_requirement_id": "req-21",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.04040v1",
+      "source": "arxiv",
+      "title": "Channel-Oriented Design for EEG-to-Music Reconstruction",
+      "abstract": "Brain-computer interfaces aim to decode naturalistic stimuli from neural signals, yet most progress to date has focused on vision and language. In this article, we study a more challenging but far less explored setting, EEG-to-music reconstruction, where signals are weak, distributed, and highly susceptible to noise and channel variability. Our central finding is that early channel mixing destroys weak but discriminative EEG signals. To address this, we propose a channel-oriented design with three key components. Specifically, channel-wise tokenization treats each electrode as an explicit token to retain spatially localized neural evidence, channel-wise multi-view self-distillation enforces consistency across temporal crops and random channel subsets to learn robust and distributed representations, and channel-wise data augmentation introduces structured channel dropout to improve invariance to noise, artifacts, and missing electrodes. Together, these components preserve weak yet informative signals across channels and enable stable alignment to a semantic music representation space. We integrate this channel-oriented design within an encoding-alignment-decoding pipeline for EEG-to-music reconstruction. Theoretically, we characterize when preserving channel-level structure leads to improved alignment. Empirically, we compare with a range of state-of-the-art baselines and demonstrate consistent and significant performance gains.",
+      "authors": [
+        "Jiaxin Qing",
+        "Junwei Lu",
+        "Lexin Li"
+      ],
+      "primary_category": "cs.SD",
+      "categories": [
+        "cs.SD",
+        "cs.AI",
+        "eess.AS"
+      ],
+      "published": "2026-06-02T04:13:37+00:00",
+      "link": "https://arxiv.org/pdf/2606.04040v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "EEG-to-music reconstruction with channel-oriented design",
+      "llm_evidence_cn": "面向通道设计的EEG到音乐重建",
+      "llm_evidence": "面向通道设计的EEG到音乐重建",
+      "canonical_evidence": "面向通道设计的EEG到音乐重建",
+      "llm_tldr_en": "Proposes a channel-oriented design for EEG-to-music reconstruction, retaining spatial information via channel-wise tokenization and self-distillation.",
+      "llm_tldr_cn": "EEG到音乐重建信号弱且噪声大，早期通道混叠会破坏信号，该研究提出通道导向设计，将每个电极作为独立token并通过多视角自蒸馏学习鲁棒表示，在重建任务上取得突破，为EEG信号解码提供了保留空间信息的有效方法。",
+      "llm_tldr": "EEG到音乐重建信号弱且噪声大，早期通道混叠会破坏信号，该研究提出通道导向设计，将每个电极作为独立token并通过多视角自蒸馏学习鲁棒表示，在重建任务上取得突破，为EEG信号解码提供了保留空间信息的有效方法。",
+      "llm_tags": [
+        "query:eeg-ode-ln:composite"
+      ],
+      "matched_query_tag": "query:eeg-ode-ln:composite",
+      "matched_query_text": "Papers central to 查找EEG解码（最好情绪识别）以及EEG+fNIRs多模态的文章, especially work that connects or combines: EEG signal decoding methods; multimodal EEG and fNIRS for brain activity decoding; affective computing using EEG; brain-computer interface for emotion; multimodal fusion of EEG and fNIRS; deep learning for EEG classification; Find papers on EEG decoding for emotion recognition; Search for multimodal EEG and fNIRS studies; EEG decoding for emotion recognition; multimodal EEG fNIRS studies.",
+      "matched_requirement_id": "req-composite-eeg-ode-ln",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "biorxiv-10-64898-2026-05-31-729074-v1",
+      "source": "biorxiv",
+      "title": "Quilting the Brain: Whole-Brain iEEG Reconstruction via Incomplete Observation Linear Mixed Models",
+      "abstract": "Mapping human brain function at high spatiotemporal resolution is constrained by the physical limitations of non-invasive imaging and the sparse sampling of invasive electrophysiology. While intracranial electroencephalography (iEEG) captures local field potentials with millimeter precision, clinical implantation strategies result in a ``coverage paradox'': observations are restricted to disjoint, patient-specific patches, leaving most of the cortex unobserved. This study introduces the Incomplete Observation Linear Mixed-Effect Model (IOLMM), a statistical framework that resolves this paradox by ``quilting'' fragmented observations into continuous, whole-brain source activity maps. Our approach integrates two innovations: (1) Sure Independence Screening (SIS) adapted from ultra-high-dimensional statistics to distinguish true physiological signals from volume-conducted ``ghost sources''; (2) a hierarchical IOLMM that decouples group-level physiological fixed effects from subject-specific instrumental random effects, solving the scaling ambiguities that plague iEEG group analyses. Applied to the MNI Open iEEG Atlas, the framework is validated through sleep stage-dependent cortical source power reconstruction across Wake, N2, N3, and REM states, recovering the frontal predominance of NREM slow-wave activity and the graded electrophysiological hierarchy from fragmented recordings of 106 patients. This work establishes the first cortical surface-level normative electrophysiological atlas derived from iEEG, providing a quantitative reference for detecting and predicting epileptogenic lesions and bridging the gap between the microscopic precision of electrophysiology and the macroscopic scope of systems neuroscience.",
+      "authors": [
+        "Wang, Y.",
+        "Li, M.",
+        "Bringas Vega, M. L.",
+        "Valdes-Sosa, P. A."
+      ],
+      "primary_category": "neuroscience",
+      "categories": [
+        "neuroscience"
+      ],
+      "published": "2026-06-03T00:00:00+00:00",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.05.31.729074v1.full.pdf",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:multi-modal",
+        "query:neural-ode"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "iEEG whole-brain reconstruction method for neural decoding",
+      "llm_evidence_cn": "颅内脑电图全脑重建方法用于神经解码",
+      "llm_evidence": "颅内脑电图全脑重建方法用于神经解码",
+      "canonical_evidence": "颅内脑电图全脑重建方法用于神经解码",
+      "llm_tldr_en": "Proposes IOLMM to reconstruct whole-brain iEEG from sparse patches, enabling continuous source activity mapping for neural decoding.",
+      "llm_tldr_cn": "该研究针对颅内脑电图(iEEG)覆盖不全的问题，提出不完全观测线性混合效应模型(IOLMM)，将分散的iEEG观测拼接成全脑连续源活动图。该方法整合了空间补全与统计推断，实现了高时空分辨率的脑功能映射，为EEG解码方法提供了新的重建框架。",
+      "llm_tldr": "该研究针对颅内脑电图(iEEG)覆盖不全的问题，提出不完全观测线性混合效应模型(IOLMM)，将分散的iEEG观测拼接成全脑连续源活动图。该方法整合了空间补全与统计推断，实现了高时空分辨率的脑功能映射，为EEG解码方法提供了新的重建框架。",
+      "llm_tags": [
+        "query:eeg-ode-ln:composite"
+      ],
+      "matched_query_tag": "query:eeg-ode-ln:composite",
+      "matched_query_text": "Papers central to 查找EEG解码（最好情绪识别）以及EEG+fNIRs多模态的文章, especially work that connects or combines: EEG signal decoding methods; multimodal EEG and fNIRS for brain activity decoding; affective computing using EEG; brain-computer interface for emotion; multimodal fusion of EEG and fNIRS; deep learning for EEG classification; Find papers on EEG decoding for emotion recognition; Search for multimodal EEG and fNIRS studies; EEG decoding for emotion recognition; multimodal EEG fNIRS studies.",
+      "matched_requirement_id": "req-composite-eeg-ode-ln",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}

@@ -1,0 +1,202 @@
+Title: MoRE: A Mixture-of-Experts-Based Task-Adaptive End-to-End Network for Multimodal MRI Reconstruction
+
+URL Source: https://arxiv.org/pdf/2606.01784v1
+
+Published Time: Tue, 02 Jun 2026 02:11:18 GMT
+
+Number of Pages: 6
+
+Markdown Content:
+# MoRE: A Mixture-of-Experts-Based Task-Adaptive End-to-End Network for Multimodal MRI Reconstruction 
+
+1st Yuyang Li 
+
+School of Biomedical Engineering ShanghaiTech University 
+
+Shanghai, China liyuyang@shanghaitech.edu.cn 
+
+2nd Yipin Deng 
+
+School of Biomedical Engineering ShanghaiTech University 
+
+Shanghai, China dengyp2024@shanghaitech.edu.cn 
+
+3rd Wenlei Shang 
+
+School of Biomedical Engineering ShanghaiTech University 
+
+Shanghai, China shangwl2022@shanghaitech.edu.cn 
+
+4th Juncen Wu 
+
+School of Biomedical Engineering ShanghaiTech University 
+
+Shanghai, China wujc2024@shanghaitech.edu.cn 
+
+5th Xin Bai 
+
+School of Biomedical Engineering ShanghaiTech University 
+
+Shanghai, China baixin2023@shanghaitech.edu.cn 
+
+6th Zijian Zhou 
+
+School of Biomedical Engineering ShanghaiTech University 
+
+Shanghai, China zhouzj@shanghaitech.edu.cn 
+
+7th Peng Hu 
+
+School of Biomedical Engineering ShanghaiTech University 
+
+Shanghai, China hupeng@shanghaitech.edu.cn 
+
+Abstract —Although accelerated MRI reconstruction has ad-vanced rapidly through end-to-end learning, deploying a single unified network that generalizes across diverse anatomies and contrasts under constrained computational resources remains challenging. In this paper, we introduce MoRE, a sparsely activated mixture-of-experts (MoE) module integrated into an end-to-end variational network. MoRE couples a shared encoder with sample-wise, unsupervised routing to activate a minimal subset of expert decoders while strictly preserving physics-based data consistency. Evaluated on the fastMRI multi-coil brain and knee datasets under 8× undersampling, MoRE achieves highly stable SSIM and PSNR performance across multi-contrast datasets. Furthermore, t-SNE visualization of the routing em-beddings reveals interpretable, modality-aware expert special-ization. The sparse conditional computation mechanism ensures that the architectural overhead remains modest. These results demonstrate that MoE-style capacity scaling can significantly enhance general-purpose MRI reconstruction without requiring proportional increases in computational power. 
+
+Index Terms —MRI reconstruction, variational networks, mixture-of-experts, multimodal learning, sparse conditional com-putation, fastMRI, data consistency 
+
+I. I NTRODUCTION 
+
+Magnetic resonance imaging (MRI) provides exceptional soft-tissue contrast, detailed anatomical visualization, and quantitative information, making it indispensable in modern clinical practice [1]. However, the lengthy acquisition required for fully sampled k-space measurements remains a major limitation. To reduce scan time, accelerated MRI techniques acquire undersampled measurements and recover missing in-formation using methods such as parallel imaging [2], com-pressed sensing, and deep learning [3]. Based on these ad-vances, end-to-end trained neural networks have demonstrated superior performance over classical reconstruction methods in many high-acceleration settings [4]. Among them, End-to-End Variational Networks (E2EVarNet) [5] are particularly compelling, as they combine learned image priors with explicit physics-based data consistency, producing robust reconstruc-tion performance and a more interpretable framework [4], [6]. Despite this progress, deploying deep reconstruction mod-els in practice remains challenging due to the competing demands of cross-task generalization and computational ef-ficiency. While conventional learning-based reconstruction models are often trained for specific anatomies, contrasts, or sampling settings, recent studies suggest that careful network design, training strategies, and dataset composition can enable a single model to generalize across tasks [7]. In addition, recent evidence indicates that training on heterogeneous data distributions can yield robustness comparable to, or even better than, training on a single distribution, whereas overfitting to a single dataset may degrade out-of-distribution reconstruction quality [8]. Meanwhile, recent benchmarks and challenge studies suggest that higher-capacity networks often achieve stronger general-purpose performance [4], [6], [7]. However, this improvement typically comes with substantial computa-tional and memory demands, which may limit adoption in resource-constrained academic settings. A promising direction is the mixture-of-experts (MoE) 
+
+> arXiv:2606.01784v1 [eess.IV] 1 Jun 2026
+
+paradigm [9], which has gained increasing attention as a scalable approach to increasing model capacity. Unlike con-ventional dense modules that activate all parameters for every input, MoE conditionally routes inputs to a sparsely selected subset of experts based on input features. This mechanism fos-ters expert specialization and can enable substantial parameter scaling without a proportional increase in per-sample com-putation. Moreover, MoE-induced sparsity has been reported to improve robustness in multitask learning [10]. Although MoE has been widely adopted in natural language processing, recent studies have also extended it to medical imaging. Luo et al. [11] introduced mixture skip connections into U-Net for multitask segmentation, while another study combined a ViT [12] with an MoE feedforward network to achieve spatial, patch-wise adaptive MRI denoising [13]. However, the use of MoE for physics-constrained, end-to-end MRI reconstruction remains underexplored. We summarize our main contributions as follows:  
+
+> •
+
+We propose MoRE (Mixture-of-Reconstruction Experts), a task-adaptive MoE framework for general-purpose MRI reconstruction. To the best of our knowledge, this is the first application of MoE to physics-constrained, end-to-end variational-network MRI reconstruction.  
+
+> •
+
+We develop a MoE-specific training strategy for end-to-end MRI reconstruction and analyze the learned routing behavior to assess modality-aware expert specialization under different MoE configurations.  
+
+> •
+
+We evaluate MoRE on the fastMRI datasets [14]. Our re-sults indicate that, with comparable per-sample computa-tion, a properly trained conditionally sparse MoE network can better balance reconstruction performance across dif-ferent distribution modes in multi-contrast datasets than a dense baseline. II. R ELATED WORK 
+
+Considering the parallel MRI acquisition model y = Ax for an image x, where y represents the measured k-space data, we estimate x by solving the following optimization problem: 
+
+ˆx = arg min 
+
+> x
+
+ 12 ∥Ax − y∥22 + λ Ψ( x)
+
+
+
+(1) which can be solved iteratively based on E2EVarNet [5] by unrolling: 
+
+xc+1 = xc − ηcA∗ (Ax c − y) + D( xc) (2) where ˆx denotes the estimated image. A is the forward operator that applies coil-sensitivity encoding followed by subsampled Fourier encoding. Ψ is a denoising regularizer and 
+
+λ is its weighting coefficient. The unrolled network comprises cascades indexed by c, each alternating a data-consistency step with a learned denoiser. Supervised training uses paired data consisting of simulated undersampled inputs x and fully sampled targets y. D is a learnable denoising network. III. M ETHOD 
+
+In this paper, we propose MoRE, a U-Net-based denoising network [15] that employs a shared encoder to extract multi-scale features, an unsupervised router to adaptively classify samples from different modalities, and dynamically selects and activates different expert decoders to map them to the task space (as Fig. 1). 
+
+A. Routing and Experts Weighting 
+
+We introduce a sample-wise router that uses multi-scale features to enable modality-adaptive, semantically meaningful expert selection, with minimal overhead and maximal reuse of existing features. Using a U-Net [15] with three downsampling stages as an example, all inputs to the router are detached from the computation graph so that router gradients do not perturb the high-fidelity, data-consistent features required for reconstruction, thereby stabilizing backbone convergence. We first concatenate, along the channel dimension, features from different encoder levels {E1, E 2, E 3, E 4}. To reduce computation while keeping fine detail, we center-crop the high-resolution features ( E1–E3) to match E4. Since the router gradients are detached from the backbone, we strengthen the router with a lightweight auxiliary two-layer convolutional feature extractor (with nonlinearity and channel attention [16]). The scale-adaptive feature extraction is as follows: 
+
+Er = CAB 2(Cat c(Crop( {Ei}))) , i = 1 , 2, 3, 4 (3) 
+
+Fr = MLP(GAP( Er )) (4) where Crop( ·) center-crops the input set to the smallest spatial size, Cat c(·) denotes concatenation along the channel dimension, and CAB n denotes a stack of n channel-attention convolutional blocks (as Fig. 1c). The combination of global average pooling (GAP) and a Multilayer Perceptron (MLP) maps Er to a fixed-dimensional embedding vector. We then use the aggregated multi-level semantic feature 
+
+Fr to tailor the routing scheme G(·) and to select the active decoder(s) along with their mixture weights for each sample. We use Linear Gating [9]. A linear projection z = W F r maps 
+
+Fr to a vector z with a dimensionality equal to the number of experts. Then a set of weights {gi}Ni=1 for N experts is calculated as follows: 
+
+gi = exp( zi)
+
+PNj=1 exp( zj ) (5) 
+
+G(·) = X
+
+> i∈K
+
+gi Dec i(·), K := TopK( {gi}, K ) (6) where Dec i denotes the i-th expert decoder, and TopK 
+
+returns the indices of the K largest values in the set. Fig. 1. The framework of our MoRE, comprising (a) a U-Net backbone with expert decoders, (b) router, and (c) CAB. TABLE I RECONSTRUCTION METRICS ACROSS MODALITIES .SSIM (%)/PSNR (dB) Method AXFLAIR AXT1POST AXT2 AXT1 AXT1PRE knee-fs knee-nofs E2EVarNet 89.80 /34.87 93.99/37.16 91.85/33.88 90.79 /35.84 92.17/35.99 84.14/34.53 92.59/35.99 PromptMR-plus 88.88/34.94 94.53/37.54 92.71 /34.81 89.87/36.08 92.37/35.94 84.40/35.01 93.37/36.56 Ours 89.50/ 35.32 94.69 /38.11 92.69/34.79 90.42/ 36.33 92.43 /36.42 84.92 /35.34 93.64 /36.96 
+
+B. Expert Load Balancing and Training Strategies 
+
+In sparsely activated MoE networks, the router tends to favor faster-learning experts rather than encouraging task-aligned specialization. This bias can self-reinforce and rapidly collapse into a de facto single-expert network, negating the benefits of MoE. Expert balancing aims to promote the utiliza-tion of all experts during training, enabling each to specialize on its domain within the training distribution, and thereby improving the effectiveness of the MoE. In this section, we present the load-balancing mechanism we adopt. 
+
+1) Router Loss: We use three losses: an auxiliary loss penalizing popular experts, a sparsity loss sharpening the weight distribution, and a z-loss bounding logits for stability, which are computed as follows: 
+
+loss = α1
+
+> N
+
+X
+
+> i=1
+
+pigi
+
+| {z }
+
+> aux-loss
+
+− α2
+
+> N
+
+X
+
+> i=1
+
+gi log gi
+
+| {z }
+
+> sparse-loss
+
++ α3 log 
+
+> N
+
+X
+
+> i=1
+
+e zi
+
+!2
+
+| {z }
+
+> z-loss
+
+(7) where pi denotes the normalized probability computed from the count (rather than the weight) of samples already routed to the i-th expert in the batch after the TopK step. The coefficients αi are hyperparameters. Note that the auxiliary loss and the sparsity loss operate over similar scopes but encourage opposing behaviors; their weights should be tuned carefully. 
+
+2) Noise and annealing: We inject additive Gaussian noise 
+
+ε, controlled by a temperature parameter τ , into the TopK selection only, which is computed as follows: 
+
+TopK( {gi}, K ) = 1gi + τ ε i ≥ θK
+
+ g + τ ε  Ni=1 . (8) where θK (·) denotes the K-th largest threshold. We use a larger τ at the beginning of training to ensure a balanced and sufficient initialization between experts, and maintain a smaller 
+
+τ in later stages to help similar samples cross boundaries, thus achieving a balance between specialization and generalization. 
+
+3) Dummy batch: End-to-end MRI reconstruction typically uses tiny batches (often 1), risking trivial solutions of router unsupervised clustering; we mitigate this by only augmenting each iteration’s router batch with K cached input from recent iterations, improving robustness at low cost. Note that for all router inputs, including cached batches, the gradients are detached from the backbone denoising network so that the router losses do not influence the training of the backbone network. IV. R ESULTS 
+
+We conducted experiments on the NYU fastMRI multi-coil brain and knee datasets [14]. To enable controlled comparisons under a feasible experimental budget, we used a subset of 400 training volumes selected by stratified random sampling from seven fastMRI categories. Specifically, we selected 50 volumes from each of the five brain contrasts (AXT1, AXT1PRE, AXT1POST, AXT2, and AXFLAIR) and 75 volumes from each of the two knee acquisition types (fat-suppressed and non-fat-suppressed), resulting in 250 brain volumes and 150 knee volumes. The larger number of knee volumes per acqui-sition type was used to avoid under-representing knee data in the mixed-anatomy training set, since the knee dataset contains fewer acquisition categories than the brain dataset. (a) Reconstruction cases 
+
+(b) t-SNE of Brain (c) t-SNE of Knee  
+
+> Fig. 2. Reconstruction examples and t-SNE visualizations of the routing scheme. (a) Reconstruction results for non–fat-suppressed (left) and fat-suppressed (right) knee images. (b–c) t-SNE visualizations for brain and knee datasets.
+
+We retained the original fastMRI contrast labels rather than merging visually similar categories, since these labels may reflect acquisition- or site-dependent distributional differences. All experiments used an 8 × undersampling mask. We further partitioned the official fastMRI validation set into validation and test subsets with an equal number of samples per modality. All networks are configured with 12 cascades and channel widths of [16, 20, 24, 28], and optimized using AdamW with a learning rate of 2 × 10 −4 for up to 40 epochs. Baseline methods, including E2EVarNet [5] and PromptMR-plus [11], are trained under identical hyperparameter settings. During our experiments, we observed that the E2EVarNet baseline without normalization layers exhibited mild fluctuations in validation metrics during the later stages of training, without a clear upward or downward trend. Consequently, early stopping with patience of 3 was applied to all experimental settings. For MoRE, the temperature parameter τ is annealed from 1.0 to 0.01, while the auxiliary loss weight is decayed from 0.1 to 0.001. The z-loss is set to 0.001, and the sparsity regularization coefficient is fixed at 0.005. Table I shows that MoRE maintains a well-balanced recon-struction performance across multiple modalities while achiev-ing excellent SSIM/PSNR, although it exhibits suboptimal metrics in certain modalities. Fig. 2 illustrates knee reconstruc-tions where global error maps improve more markedly than SSIM. t-SNE of routing embeddings indicates clear modality separation despite unsupervised routing. V. D ISCUSSION 
+
+As shown in Table I, our method achieves the highest average PSNR across modalities and obtains the best PSNR in six out of seven modalities, with only a marginal gap of 0.02 dB on AXT2. In some cases, however, the PSNR improvement is accompanied by a slight decrease in SSIM. For example, on AXFLAIR and AXT1, our method achieves the best PSNR but a slightly lower SSIM than E2EVarNet. This suggests that reducing pixel-wise reconstruction error does not always translate into improved structural similarity. One possible explanation is the implicit averaging effect introduced by expert aggregation, which may suppress noise-like variations but can also smooth fine structures or attenuate high-frequency details. Although our method does not always achieve the high-est SSIM, it obtains the best SSIM in four out of seven modalities and ranks first or second across all modalities. When ranking second, the SSIM gaps are relatively small. These results suggest that, when properly trained, a sparsely activated MoE network can provide balanced reconstruction performance across heterogeneous modalities and improve the robustness of the E2EVarNet backbone under modality-dependent distribution shifts. This supports the motivation of using conditional expert specialization for unified MRI reconstruction across different anatomies and contrasts. We adopt sample-level decoder routing rather than finer-grained block-wise or layer-wise routing as a practical trade-off between stability, interpretability, and efficiency. The rout-ing decision is computed from features close to the input of the expert decoder, reducing potential mismatch between the gating signal and the representation processed by the selected experts. In contrast, applying MoE at multiple decoder blocks would require repeated routing decisions and additional expert activations across variational cascades. This would substantially increase memory consumption during training, since intermediate expert activations and routing states must be stored for backpropagation, and the cost further scales with the number of MoE blocks, selected experts, and cascades. Decoder-level routing also makes expert specialization easier to interpret, since each expert corresponds to a complete reconstruction decoder. Despite these promising results, several limitations should be acknowledged. First, MoRE is sensitive to expert load balancing and currently relies on several regularization terms and expert-training heuristics, which increases the burden of hyperparameter tuning and prolongs training. Second, our experiments are conducted on a controlled 400-volume subset rather than the full fastMRI training set; although this design enables controlled comparisons under a feasible experimental budget, larger-scale training may further reveal the scaling behavior and potential of MoRE. Future work will inves-tigate more robust routing networks, more efficient expert aggregation schemes, and larger-scale evaluations to improve the robustness of MoE-based reconstruction while reducing engineering and computational overhead. VI. C ONCLUSION 
+
+We introduced MoRE, a sparsely activated mixture-of-experts framework for end-to-end variational MRI reconstruc-tion. By combining model-based reconstruction with sparse conditional computation, MoRE enables expert specialization for heterogeneous MRI modalities within a unified model. On the fastMRI dataset, MoRE achieves competitive or superior SSIM/PSNR across seven modalities, including the highest average PSNR. These results suggest that sparse expert spe-cialization is a promising direction for robust multimodal MRI reconstruction. ACKNOWLEDGMENT 
+
+This work was supported in part by the National Natural Science Foundation of China (grant number 82302295). The authors also acknowledge the support of the HPC Platform of ShanghaiTech University. ETHICS STATEMENT 
+
+This study used the publicly available fastMRI dataset [14], whose data curation was conducted under an IRB-approved study and whose metadata were de-identified before release. No new human subject experiments were conducted in this work. REFERENCES [1] J. P. Earls, V. B. Ho, T. K. Foo, E. Castillo, and S. D. Flamm, “Cardiac MRI: Recent progress and continued challenges,” Journal of Magnetic Resonance Imaging , vol. 16, no. 2, pp. 111–127, 2002. [Online]. Available: https://onlinelibrary.wiley.com/doi/abs/10.1002/jmri.10154 [2] J. Hamilton, D. Franson, and N. Seiberlich, “Recent advances in parallel imaging for MRI,” Progress in Nuclear Magnetic Resonance Spectroscopy , vol. 101, pp. 71–95, 2017. [Online]. Available: https://www.sciencedirect.com/science/article/pii/S0079656517300031 [3] F. Knoll, K. Hammernik, C. Zhang et al. , “Deep-Learning Methods for Parallel Magnetic Resonance Imaging Reconstruction: A Survey of the Current Approaches, Trends, and Issues,” IEEE Signal Processing Magazine , vol. 37, no. 1, pp. 128–140, 2020. [4] M. J. Muckley, B. Riemenschneider, A. Radmanesh et al. , “Results of the 2020 fastMRI Challenge for Machine Learning MR Image Reconstruction,” IEEE Transactions on Medical Imaging , vol. 40, no. 9, pp. 2306–2317, 2021. [5] A. Sriram, J. Zbontar, T. Murrell et al. , “End-to-End Variational Networks for Accelerated MRI Reconstruction,” 2020. [Online]. Available: https://arxiv.org/abs/2004.06688 [6] J. Lyu, C. Qin, S. Wang et al. , “The state-of-the-art in cardiac MRI reconstruction: Results of the CMRxRecon challenge in MICCAI 2023,”               
+
+> Medical Image Analysis , vol. 101, p. 103485, 2025. [Online]. Available: https://www.sciencedirect.com/science/article/pii/S1361841525000337 [7] F. Wang, Z. Wang, Y. Li et al. , “Towards Modality- and Sampling-Universal Learning Strategies for Accelerating Cardiovascular Imaging: Summary of the CMRxRecon2024 Challenge,” Dec. 2025. [Online]. Available: https://arxiv.org/abs/2503.03971 [8] K. Lin and R. Heckel, “Robustness of Deep Learning for Accelerated MRI: Benefits of Diverse Training Data,” 2024. [Online]. Available: https://arxiv.org/abs/2312.10271 [9] “A Comprehensive Survey of Mixture-of-Experts: Algorithms, Theory, and Applications, author=Siyuan Mu and Sen Lin,” 2026. [Online]. Available: https://arxiv.org/abs/2503.07137 [10] S. Gupta, S. Mukherjee, K. Subudhi et al. ,“Sparsely Activated Mixture-of-Experts are Robust Multi-Task Learners,” 2022. [Online]. Available: https://arxiv.org/abs/2204.07689
+
+[11] Z. Luo, X. Zhu, L. Zhang, and B. Sun, “Rethinking U-Net: Task-Adaptive Mixture of Skip Connections for Enhanced Medical Image Segmentation,” Proceedings of the AAAI Conference on Artificial Intelligence , vol. 39, no. 6, p. 5874–5882, Apr. 2025. [Online]. Available: https://ojs.aaai.org/index.php/AAAI/article/view/32627 [12] A. Dosovitskiy, L. Beyer, A. Kolesnikov et al. , “An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale,” 2021. [Online]. Available: https://arxiv.org/abs/2010.11929 [13] Z. Deng and J. Campbell, “Sparse Mixture-of-Experts for Non-Uniform Noise Reduction in MRI Images,” in 2025 IEEE/CVF Winter Conference on Applications of Computer Vision Workshops (WACVW) . IEEE, Feb. 2025, p. 260–268. [Online]. Available: http://dx.doi.org/10.1109/WACVW65960.2025.00036 [14] J. Zbontar, F. Knoll, A. Sriram et al. , “fastMRI: An Open Dataset and Benchmarks for Accelerated MRI,” 2019. [Online]. Available: https://arxiv.org/abs/1811.08839 [15] O. Ronneberger, P. Fischer, and T. Brox, “U-Net: Convolutional Networks for Biomedical Image Segmentation,” 2015. [Online]. Available: https://arxiv.org/abs/1505.04597 [16] Y. Zhang, K. Li, K. Li et al. , “Image Super-Resolution Using Very Deep Residual Channel Attention Networks,” 2018. [Online]. Available: https://arxiv.org/abs/1807.02758

@@ -6,58 +6,53 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-06-03
-- 运行时间：2026-06-03 23:13:40 UTC
+- 最新运行日期：2026-06-04
+- 运行时间：2026-06-04 22:16:12 UTC
 - 运行状态：成功
-- 本次总论文数：12
-- 精读区：7
+- 本次总论文数：11
+- 精读区：6
 - 速读区：5
 
 ### 今日简报（AI）
-今日精选12篇论文，聚焦多模态大模型前沿：具身推理地理定位与跨域情感识别成亮点。  
-最值得关注精读中的《ERGeoBench》和《UF-AMA》，分别提供了多模态模型在现实定位和情感理解中的新基准与统一框架。  
-建议普通读者优先阅读这两篇论文，理解当前多模态模型在复杂场景下的评估与对齐能力，为后续应用打基础。
-- 详情：[/202606/03/README](/202606/03/README)
+今日推荐11篇论文，精读6篇，聚焦高效低精度视觉语言模型与持续学习脑电基础模型。最值得关注的是LASER提出损失感知SVD分解优化低精度VLM，以及EvoBrain实现异构BCI任务的持续学习。建议优先精读这两篇高分论文，了解模型压缩与任务适应性前沿方法。
+- 详情：[/202606/04/README](/202606/04/README)
 
 ### 精读区论文标签
-1. [ERGeoBench:A Comprehensive Benchmark for Embodied Reasoning and Geo-localization in Multimodal Large Language Models](/202606/03/2605.31251v1-ergeobencha-comprehensive-benchmark-for-embodied-reasoning-and-geo-localization-in-multimodal-large-language-models)  
+1. [LASER: Loss-Aware Singular-value Decomposition and Rank Allocation for Efficient Low-Precision Vision-Language Models](/202606/04/2606.00573v1-laser-loss-aware-singular-value-decomposition-and-rank-allocation-for-efficient-low-precision-vision-language-models)  
    标签：评分：9.0/10、query:multi-modal
-   evidence：多模态大语言模型在具身地理定位中的基准
-2. [UF-AMA: A unified framework for cross-domain emotion recognition via adaptive multimodal alignment](/202606/03/2606.00170v1-uf-ama-a-unified-framework-for-cross-domain-emotion-recognition-via-adaptive-multimodal-alignment)  
+   evidence：针对视觉语言模型的低秩压缩框架
+2. [EvoBrain: Continual Learning of EEG Foundation Models Across Heterogeneous BCI Tasks](/202606/04/2606.01767v2-evobrain-continual-learning-of-eeg-foundation-models-across-heterogeneous-bci-tasks)  
    标签：评分：9.0/10、query:eeg-ode-ln
-   evidence：基于自适应多模态对齐的EEG情绪识别
-3. [OmniEEG-Bench: A Standardized Evaluation Benchmark for EEG Foundation Models](/202606/03/2606.00815v1-omnieeg-bench-a-standardized-evaluation-benchmark-for-eeg-foundation-models)  
+   evidence：EEG基础模型持续学习用于脑机接口
+3. [CARACAS, a novel automated tool for Cardiac Artifact Removal in Absence of CArdiac Signal](/202606/04/biorxiv-10-1101-2025-09-02-673728-v2-caracas-a-novel-automated-tool-for-cardiac-artifact-removal-in-absence-of-cardiac-signal)  
    标签：评分：9.0/10、query:eeg-ode-ln
-   evidence：EEG基础模型基准，涵盖解码、情绪、脑机接口
-4. [ERP-XTTN: Interpretable Prototype-Guided Cross-Attention for Cross-Subject ERP Classification](/202606/03/2606.02939v1-erp-xttn-interpretable-prototype-guided-cross-attention-for-cross-subject-erp-classification)  
-   标签：评分：9.0/10、query:eeg-ode-ln
-   evidence：可解释的原型引导交叉注意力用于跨被试ERP分类
-5. [Visual Instruction Tuning Aligns Modalities through Abstraction](/202606/03/2606.03871v1-visual-instruction-tuning-aligns-modalities-through-abstraction)  
-   标签：评分：9.0/10、query:multi-modal
-   evidence：视觉语言模型架构分析
-6. [World Models in Words: Auditing Physical State-Transition Commitments in Vision-Language Models](/202606/03/2605.29585v1-world-models-in-words-auditing-physical-state-transition-commitments-in-vision-language-models)  
+   evidence：EEG心电伪迹去除方法
+4. [Detect Before You Leap: Mirage Detection in Vision-Language Models](/202606/04/2606.00435v1-detect-before-you-leap-mirage-detection-in-vision-language-models)  
    标签：评分：8.0/10、query:multi-modal
-   evidence：提出视觉语言模型的物理承诺审计框架，推进多模态语言模型研究
-7. [A Minimalist Brain-Computer Musical Interface for Real-Time Emotion-Driven Sonification: System Design and Preliminary Evaluation](/202606/03/2606.01473v1-a-minimalist-brain-computer-musical-interface-for-real-time-emotion-driven-sonification-system-design-and-preliminary-evaluation)  
-   标签：评分：8.0/10、query:eeg-ode-ln
-   evidence：基于前置EEG的实时脑机音乐界面用于情感驱动
+   evidence：通过分层对齐检测视觉语言模型中的幻觉
+5. [ASAP: Advancing Medical Volumetric Representation Learning with Anatomy-aware Semantically-adaptive Pre-training](/202606/04/2606.00602v1-asap-advancing-medical-volumetric-representation-learning-with-anatomy-aware-semantically-adaptive-pre-training)  
+   标签：评分：8.0/10、query:multi-modal
+   evidence：用于医学体扫描的视觉-语言预训练
+6. [CL-DMDF:Dynamic Multimodal Data Fusion Model Based on Contrastive Learning](/202606/04/2606.02659v1-cl-dmdfdynamic-multimodal-data-fusion-model-based-on-contrastive-learning)  
+   标签：评分：8.0/10、query:multi-modal
+   evidence：提出基于对比学习的动态多模态数据融合模型
 
 ### 速读区论文标签
-1. [FTibSuite: A Comprehensive Resource Suite for Tibetan Vision-Language Modeling](/202606/03/2605.26601v1-ftibsuite-a-comprehensive-resource-suite-for-tibetan-vision-language-modeling)  
+1. [Flexible Control of 3D CT Generation via Text and Semantically-Defined Segmentation Prompts](/202606/04/2606.00967v1-flexible-control-of-3d-ct-generation-via-text-and-semantically-defined-segmentation-prompts)  
    标签：评分：7.0/10、query:multi-modal
-   evidence：针对藏语视觉语言建模的综合资源套件，包含数据、基准和基线模型
-2. [Towards Automated Discovery: A Review of Generative Models, Multimodal Learning and Closed-Loop Workflows in Inverse Materials Design](/202606/03/2606.02507v1-towards-automated-discovery-a-review-of-generative-models-multimodal-learning-and-closed-loop-workflows-in-inverse-materials-design)  
+   evidence：文本和分割提示用于3D医学图像生成
+2. [Learning Multi-Modal Trajectory Policies for Data-Efficient Robotic Manipulation](/202606/04/2606.01047v1-learning-multi-modal-trajectory-policies-for-data-efficient-robotic-manipulation)  
    标签：评分：7.0/10、query:multi-modal
-   evidence：综述多模态学习和融合技术
-3. [SMAC: Spatial-Modal Joint Modeling and Adaptive Representation Collapse for Multimodal Object Tracking](/202606/03/2606.03370v1-smac-spatial-modal-joint-modeling-and-adaptive-representation-collapse-for-multimodal-object-tracking)  
+   evidence：用于机器人操作的多模态轨迹策略，与多模态融合和学习相关
+3. [MoRE: A Mixture-of-Experts-Based Task-Adaptive End-to-End Network for Multimodal MRI Reconstruction](/202606/04/2606.01784v1-more-a-mixture-of-experts-based-task-adaptive-end-to-end-network-for-multimodal-mri-reconstruction)  
    标签：评分：7.0/10、query:multi-modal
-   evidence：空间-模态联合建模与自适应多模态融合用于目标跟踪
-4. [Beyond Task Success: Behavioral and Representational Diagnostics for WAM and VLA](/202606/03/2606.01095v1-beyond-task-success-behavioral-and-representational-diagnostics-for-wam-and-vla)  
-   标签：评分：6.0/10、query:multi-modal
-   evidence：比较视觉-语言-动作模型与世界-动作模型架构
-5. [Decoding the Grammar of Protein-Protein Interaction Interfaces with Multimodal Representations](/202606/03/biorxiv-10-64898-2026-05-29-728739-v1-decoding-the-grammar-of-protein-protein-interaction-interfaces-with-multimodal-representations)  
-   标签：评分：6.0/10、query:multi-modal
-   evidence：多模态表示用于蛋白质相互作用预测
+   evidence：使用混合专家进行多模态MRI重建，与多模态融合技术相关
+4. [Channel-Oriented Design for EEG-to-Music Reconstruction](/202606/04/2606.04040v1-channel-oriented-design-for-eeg-to-music-reconstruction)  
+   标签：评分：7.0/10、query:eeg-ode-ln
+   evidence：面向通道设计的EEG到音乐重建
+5. [Quilting the Brain: Whole-Brain iEEG Reconstruction via Incomplete Observation Linear Mixed Models](/202606/04/biorxiv-10-64898-2026-05-31-729074-v1-quilting-the-brain-whole-brain-ieeg-reconstruction-via-incomplete-observation-linear-mixed-models)  
+   标签：评分：7.0/10、query:eeg-ode-ln
+   evidence：颅内脑电图全脑重建方法用于神经解码
 
 
 <div class="dpr-home-promo-card">
