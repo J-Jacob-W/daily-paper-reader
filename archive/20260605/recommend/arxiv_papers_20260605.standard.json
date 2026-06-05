@@ -1,0 +1,648 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-05T22:13:10.769453+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 3,
+    "deep_divecandidates": 12,
+    "deep_cap": 8,
+    "deep_selected": 8,
+    "quick_candidates": 7,
+    "quick_skim_target": 13,
+    "quick_selected": 7
+  },
+  "deep_dive": [
+    {
+      "id": "2606.01767v2",
+      "source": "arxiv",
+      "title": "EvoBrain: Continual Learning of EEG Foundation Models Across Heterogeneous BCI Tasks",
+      "abstract": "Electroencephalography (EEG) is the cornerstone of non-invasive brain-computer interfaces (BCIs), yet conventional decoding relies on fragmented, task-specific architectures that severely limit cross-task scalability. While EEG foundation models pre-trained on massive corpora promise universal brain decoding, current post-training depends on task-isolated fine-tuning. This static paradigm restricts knowledge transfer across heterogeneous tasks, hinders model scalability, and incurs computational and storage overheads that scale linearly with task count. To overcome these bottlenecks, we formulate downstream adaptation as a cross-task continual learning problem and propose EvoBrain, a dynamic, task-aware continual learning framework for unified EEG decoding. EvoBrain addresses the plasticity-stability trade-off via two complementary components: (1) Neuro-Spectral Task Normalization (NSN) aligns incoming tasks with historical statistics while recalibrating spectral responses to handle distributional and neuro-spectral shifts; and (2) Response-Affinity Distillation (RAD), combined with time-dependent replay, preserves old-task response geometry and promotes selective knowledge transfer between spectrally compatible tasks, effectively mitigating forgetting. Extensive evaluations across six distinct BCI tasks demonstrate that EvoBrain consistently surpasses state-of-the-art methods across diverse foundation backbones, optimally balancing plasticity and stability. To our knowledge, this work pioneers cross-task continual learning in the EEG domain, advancing the realization of a unified, one-for-all brain decoding system.",
+      "authors": [
+        "Yangxuan Zhou",
+        "Sha Zhao",
+        "Jiquan Wang",
+        "Shijian Li",
+        "Gang Pan"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-06-01T06:49:50+00:00",
+      "link": "https://arxiv.org/pdf/2606.01767v2",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:neural-ode"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "continual learning for EEG foundation models over BCI tasks",
+      "llm_evidence_cn": "跨BCI任务的脑电图基础模型持续学习",
+      "llm_evidence": "跨BCI任务的脑电图基础模型持续学习",
+      "canonical_evidence": "跨BCI任务的脑电图基础模型持续学习",
+      "llm_tldr_en": "Proposes EvoBrain, a continual learning framework for EEG foundation models across heterogeneous BCI tasks, improving scalability and knowledge transfer.",
+      "llm_tldr_cn": "针对传统EEG基础模型在异构BCI任务上微调时知识迁移受限、计算开销大等问题，提出EvoBrain持续学习框架，将下游适应建模为跨任务持续学习，实现动态任务感知学习，提升跨任务扩展性和知识迁移效率。",
+      "llm_tldr": "针对传统EEG基础模型在异构BCI任务上微调时知识迁移受限、计算开销大等问题，提出EvoBrain持续学习框架，将下游适应建模为跨任务持续学习，实现动态任务感知学习，提升跨任务扩展性和知识迁移效率。",
+      "llm_tags": [
+        "query:eeg-ode-ln"
+      ],
+      "matched_query_tag": "query:eeg-ode-ln",
+      "matched_query_text": "EEG signal decoding methods",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.04040v1",
+      "source": "arxiv",
+      "title": "Channel-Oriented Design for EEG-to-Music Reconstruction",
+      "abstract": "Brain-computer interfaces aim to decode naturalistic stimuli from neural signals, yet most progress to date has focused on vision and language. In this article, we study a more challenging but far less explored setting, EEG-to-music reconstruction, where signals are weak, distributed, and highly susceptible to noise and channel variability. Our central finding is that early channel mixing destroys weak but discriminative EEG signals. To address this, we propose a channel-oriented design with three key components. Specifically, channel-wise tokenization treats each electrode as an explicit token to retain spatially localized neural evidence, channel-wise multi-view self-distillation enforces consistency across temporal crops and random channel subsets to learn robust and distributed representations, and channel-wise data augmentation introduces structured channel dropout to improve invariance to noise, artifacts, and missing electrodes. Together, these components preserve weak yet informative signals across channels and enable stable alignment to a semantic music representation space. We integrate this channel-oriented design within an encoding-alignment-decoding pipeline for EEG-to-music reconstruction. Theoretically, we characterize when preserving channel-level structure leads to improved alignment. Empirically, we compare with a range of state-of-the-art baselines and demonstrate consistent and significant performance gains.",
+      "authors": [
+        "Jiaxin Qing",
+        "Junwei Lu",
+        "Lexin Li"
+      ],
+      "primary_category": "cs.SD",
+      "categories": [
+        "cs.SD",
+        "cs.AI",
+        "eess.AS"
+      ],
+      "published": "2026-06-02T04:13:37+00:00",
+      "link": "https://arxiv.org/pdf/2606.04040v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "EEG decoding for music reconstruction with channel-oriented design",
+      "llm_evidence_cn": "面向通道的EEG音乐重建解码方法",
+      "llm_evidence": "面向通道的EEG音乐重建解码方法",
+      "canonical_evidence": "面向通道的EEG音乐重建解码方法",
+      "llm_tldr_en": "Proposes a channel-oriented design for EEG-to-music reconstruction, using channel-wise tokenization and multi-view self-distillation to preserve weak EEG signals.",
+      "llm_tldr_cn": "脑机接口旨在从神经信号解码自然刺激，但EEG到音乐重建因信号微弱和通道变异性极具挑战。该文发现早期通道混合会破坏弱判别信号，提出面向通道的设计：通道级分词保留空间信息，通道级多视图自蒸馏增强鲁棒性。实验表明该方法在EEG到音乐重建任务上显著优于现有方案，为EEG解码提供了新范式。",
+      "llm_tldr": "脑机接口旨在从神经信号解码自然刺激，但EEG到音乐重建因信号微弱和通道变异性极具挑战。该文发现早期通道混合会破坏弱判别信号，提出面向通道的设计：通道级分词保留空间信息，通道级多视图自蒸馏增强鲁棒性。实验表明该方法在EEG到音乐重建任务上显著优于现有方案，为EEG解码提供了新范式。",
+      "llm_tags": [
+        "query:eeg-ode-ln"
+      ],
+      "matched_query_tag": "query:eeg-ode-ln",
+      "matched_query_text": "EEG signal decoding methods",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.05843v1",
+      "source": "arxiv",
+      "title": "Mechanistic Insights into Functional Sparsity in Multimodal LLMs via CoRe Heads",
+      "abstract": "While Multimodal Large Language Models (MLLMs) demonstrate remarkable proficiency on complex vision-language tasks, the mechanisms by which they extract query-relevant visual features from complex, noisy contexts remain opaque. In this paper, we present an in-depth interpretability study that uncovers a profound structural property within MLLMs: functional sparsity in cross-modal retrieval. Leveraging a token-level metric termed Retrieval Attention Mass (RAM), we identify and characterize a highly specialized subset of attention heads, referred to as Context-aware Retrieval (CoRe) heads. Across diverse visual domains and model scales, we observe a clear functional division: CoRe heads act as dedicated information extractors, while most other heads distribute attention over broader contextual regions. Causal interventions further demonstrate the necessity of these specialized heads. Ablating only the top 5% of CoRe heads causes significant degradation in multimodal reasoning performance, whereas ablating lower-ranked heads has minimal effect. Moreover, acceleration experiments validate the utility of CoRe heads, showing that leveraging this localized sparsity significantly accelerates inference while maintaining robust task performance. Our findings reveal a structural principle of functional sparsity within MLLMs, refining the current understanding of mechanistic interpretability and laying a theoretical foundation that can inspire future architecture design and model optimization.",
+      "authors": [
+        "Ruoxi Sun",
+        "Quantong Qiu",
+        "Juntao Li",
+        "Zecheng Tang",
+        "Yihang Lou",
+        "Min Zhang"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL",
+        "cs.AI"
+      ],
+      "published": "2026-06-04T08:18:31+00:00",
+      "link": "https://arxiv.org/pdf/2606.05843v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "query:EEG-ODE-LN",
+        "query:multi-modal"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Interpretability study on cross-modal retrieval sparsity in multimodal LLMs",
+      "llm_evidence_cn": "多模态大语言模型中跨模态检索稀疏性的解释性研究",
+      "llm_evidence": "多模态大语言模型中跨模态检索稀疏性的解释性研究",
+      "canonical_evidence": "多模态大语言模型中跨模态检索稀疏性的解释性研究",
+      "llm_tldr_en": "Reveals functional sparsity in cross-modal retrieval of MLLMs via Context-aware Retrieval (CoRe) heads, providing mechanistic insights.",
+      "llm_tldr_cn": "多模态大语言模型在视觉语言任务上表现出色，但跨模态检索机制不透明。该研究通过检索注意力质量指标，发现模型中存在功能稀疏性：CoRe头作为专用信息提取器，而其他头承担不同角色。这种分工在不同视觉领域和模型规模上一致，揭示了MLLM处理跨模态信息的内在机制。",
+      "llm_tldr": "多模态大语言模型在视觉语言任务上表现出色，但跨模态检索机制不透明。该研究通过检索注意力质量指标，发现模型中存在功能稀疏性：CoRe头作为专用信息提取器，而其他头承担不同角色。这种分工在不同视觉领域和模型规模上一致，揭示了MLLM处理跨模态信息的内在机制。",
+      "llm_tags": [
+        "query:multi-modal:composite"
+      ],
+      "matched_query_tag": "query:multi-modal:composite",
+      "matched_query_text": "Papers central to 帮我找一些关于多模态语言模型或多模态融合的研究文章, especially work that connects or combines: multimodal language model research; techniques for multimodal fusion; vision language model architectures; learning cross modal representations; multimodal learning methods; multimodal alignment approaches; What are the latest advances in multimodal language models?; How is multimodal fusion achieved in deep learning?; Compare different architectures for vision language models.; Find papers on cross modal representation learning..",
+      "matched_requirement_id": "req-composite-multi-modal",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.05855v1",
+      "source": "arxiv",
+      "title": "EEGDancer: Dynamic Emotion Latent Space Masked Modeling with Reinforcement Learning for EEG Continuous Emotion Prediction",
+      "abstract": "Continuous electroencephalography (EEG) emotion prediction aims to model the temporal evolution of human emotional states from EEG signals. Unlike conventional discrete emotion recognition, continuous prediction requires capturing long-range temporal dependencies and coherent emotional dynamics. However, existing methods mainly rely on point-wise regression and directly model noisy high-dimensional EEG features, limiting their ability to characterize continuous emotional evolution.To address these challenges, we propose EEGDancer, a dynamic emotional latent space learning framework for continuous EEG emotion prediction. The framework integrates vector-quantized representation learning, masked temporal modeling, and reinforcement learning-based trajectory optimization into a unified architecture.Specifically, a causal spatiotemporal Vector-Quantization Variational Autoencoder (VQ-VAE) is designed to learn structured emotional prototypes and construct a discrete-continuous emotional latent space from EEG signals. Based on the learned latent representations, a Transformer-based masked dynamic modeling strategy captures long-range emotional dependencies and temporal evolution patterns. Furthermore, continuous emotion prediction is formulated as a sequential decision-making problem, and a Soft Actor-Critic (SAC) framework is introduced to optimize emotional prediction trajectories at the sequence level instead of frame-wise local fitting.Extensive experiments on the SEED, SEED-IV, and Long-Term Naturalistic Emotion datasets demonstrate that EEGDancer consistently outperforms existing machine learning and deep learning methods. Ablation studies further verify the effectiveness of the proposed latent space and reinforcement learning-based trajectory optimization for modeling continuous EEG emotional dynamics.",
+      "authors": [
+        "Zhihao Zhou",
+        "Weishan Ye",
+        "Li Zhang",
+        "Gan Huang",
+        "Zhen Liang"
+      ],
+      "primary_category": "cs.HC",
+      "categories": [
+        "cs.HC",
+        "cs.AI"
+      ],
+      "published": "2026-06-04T08:28:31+00:00",
+      "link": "https://arxiv.org/pdf/2606.05855v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:neural-ode"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "EEG-based affective computing with emotion prediction",
+      "llm_evidence_cn": "基于EEG的情感计算与情绪预测",
+      "llm_evidence": "基于EEG的情感计算与情绪预测",
+      "canonical_evidence": "基于EEG的情感计算与情绪预测",
+      "llm_tldr_en": "EEGDancer uses vector-quantized representation learning and masked temporal modeling with reinforcement learning for continuous EEG emotion prediction, capturing long-range dependencies.",
+      "llm_tldr_cn": "现有EEG连续情绪预测方法主要依赖逐点回归，难以建模长程时间依赖和连贯情感动态。EEGDancer提出一种动态情绪潜在空间学习框架，集成向量量化表示学习、掩码时序建模和强化学习，从高维噪声EEG中提取情感相关特征。实验证明，该方法在连续情感预测任务中显著提升了皮尔逊相关系数和均方误差，能够更好地捕捉情绪的时序演化，为情感脑机接口提供了有效的动态建模方法。",
+      "llm_tldr": "现有EEG连续情绪预测方法主要依赖逐点回归，难以建模长程时间依赖和连贯情感动态。EEGDancer提出一种动态情绪潜在空间学习框架，集成向量量化表示学习、掩码时序建模和强化学习，从高维噪声EEG中提取情感相关特征。实验证明，该方法在连续情感预测任务中显著提升了皮尔逊相关系数和均方误差，能够更好地捕捉情绪的时序演化，为情感脑机接口提供了有效的动态建模方法。",
+      "llm_tags": [
+        "query:eeg-ode-ln"
+      ],
+      "matched_query_tag": "query:eeg-ode-ln",
+      "matched_query_text": "affective computing using EEG",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.06104v1",
+      "source": "arxiv",
+      "title": "A Sliced-Wasserstein Framework on Correlation Matrices for EEG Decoding",
+      "abstract": "Electroencephalography (EEG) offers noninvasive, millisecond resolution recordings of neuronal activity and is widely used in neuroscience and healthcare. Many EEG decoding pipelines rely on covariance descriptors for their robustness to noise, but such representations are sensitive to channel-wise scaling. Recent studies have therefore advocated full-rank correlation matrices as a scale-invariant alternative for EEG decoding. In this paper, we propose a general framework for Sliced Wasserstein (SW) discrepancies on manifolds endowed with Pullback Euclidean Metrics (PEMs), termed Pullback Euclidean Metric Sliced Wasserstein (PEMSW). Within this framework, we instantiate two Correlation Sliced-Wasserstein (CorSW) discrepancies on the manifold of full-rank correlation matrices under two recently introduced correlation geometries, \\textit{i.e.}, the Off-Log Metric (OLM) and Log-Scaled Metric (LSM). Building on CorSW, we further develop a domain generalization (DG) framework for EEG decoding. Experiments on three EEG datasets demonstrate improved generalization under distribution shifts, with low training overhead and no additional inference cost. The source code is available at https://github.com/ChenHu-ML/CorSW.",
+      "authors": [
+        "Chen Hu",
+        "Rui Wang",
+        "Jiale Zhou",
+        "Jingjun Yi",
+        "Shaocheng Jin",
+        "Yidong Song",
+        "Yefeng Zheng"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG"
+      ],
+      "published": "2026-06-04T12:47:49+00:00",
+      "link": "https://arxiv.org/pdf/2606.06104v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:neural-ode"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Sliced-Wasserstein framework for EEG decoding",
+      "llm_evidence_cn": "基于切片Wasserstein距离的脑电解码框架",
+      "llm_evidence": "基于切片Wasserstein距离的脑电解码框架",
+      "canonical_evidence": "基于切片Wasserstein距离的脑电解码框架",
+      "llm_tldr_en": "Proposes a Sliced-Wasserstein framework on correlation matrices for EEG decoding, using pullback Euclidean metrics.",
+      "llm_tldr_cn": "针对脑电解码中对噪声鲁棒的协方差表示存在尺度敏感问题，提出基于全秩相关矩阵的切片Wasserstein距离框架，在Pullback欧几里得度量下实例化两种相关切片Wasserstein距离，为脑电解码提供尺度不变的新方法。",
+      "llm_tldr": "针对脑电解码中对噪声鲁棒的协方差表示存在尺度敏感问题，提出基于全秩相关矩阵的切片Wasserstein距离框架，在Pullback欧几里得度量下实例化两种相关切片Wasserstein距离，为脑电解码提供尺度不变的新方法。",
+      "llm_tags": [
+        "query:eeg-ode-ln"
+      ],
+      "matched_query_tag": "query:eeg-ode-ln",
+      "matched_query_text": "EEG signal decoding methods",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.06485v1",
+      "source": "arxiv",
+      "title": "PAR3D: A Unified 3D-MLLM with Part-Aware Representation for Scene Understanding",
+      "abstract": "Recent advances in 3D multimodal large language models (3D-MLLMs) have enabled unified solutions for 3D scene understanding tasks, including visual question answering, captioning, and referring segmentation. However, existing 3D-MLLMs remain largely object-centric, limiting their ability to model fine-grained part structures that are essential for embodied interaction with 3D environments. In this work, we present PAR3D, a unified part-aware 3D-MLLM framework that enables models to understand, reason about, and ground both objects and their parts in 3D scenes. To enable training and evaluation of part-aware 3D scene understanding, we introduce ScenePart, a synthetic 3D scene dataset with part-level annotations and language instructions. We further develop Part-Aware 3D Representation Learning to enrich 3D visual representations with fine-grained part-level semantics, and propose Hierarchical Segmentation Query Generation to ground part targets via hierarchical object-part queries. Extensive experiments show that our method substantially improves part-level question answering and referring segmentation, while also achieving strong performance across object-level vision-language tasks.",
+      "authors": [
+        "Shaohui Dai",
+        "Yansong Qu",
+        "You Shen",
+        "Shengchuan Zhang",
+        "Liujuan Cao"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-06-04T17:59:04+00:00",
+      "link": "https://arxiv.org/pdf/2606.06485v1",
+      "tags": [
+        "keyword:multi-modal",
+        "keyword:neural-ode",
+        "query:multi-modal",
+        "query:neural-ode"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "unified 3D-MLLM with part-aware representation for scene understanding",
+      "llm_evidence_cn": "具有部件感知表示的统一3D多模态大语言模型用于场景理解",
+      "llm_evidence": "具有部件感知表示的统一3D多模态大语言模型用于场景理解",
+      "canonical_evidence": "具有部件感知表示的统一3D多模态大语言模型用于场景理解",
+      "llm_tldr_en": "PAR3D presents a unified 3D multimodal large language model with part-aware representations, enabling understanding and grounding of objects and parts in 3D scenes, along with a new dataset ScenePart.",
+      "llm_tldr_cn": "现有3D多模态大语言模型多局限于物体级别，无法建模精细部件结构。本文提出PAR3D框架，通过部件感知表示实现3D场景中物体和部件的理解与定位。同时构建合成数据集ScenePart用于训练和评估，推动了3D场景理解向细粒度交互发展。",
+      "llm_tldr": "现有3D多模态大语言模型多局限于物体级别，无法建模精细部件结构。本文提出PAR3D框架，通过部件感知表示实现3D场景中物体和部件的理解与定位。同时构建合成数据集ScenePart用于训练和评估，推动了3D场景理解向细粒度交互发展。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "multimodal language model research",
+      "matched_requirement_id": "req-20",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "biorxiv-10-64898-2026-05-31-729074-v1",
+      "source": "biorxiv",
+      "title": "Quilting the Brain: Whole-Brain iEEG Reconstruction via Incomplete Observation Linear Mixed Models",
+      "abstract": "Mapping human brain function at high spatiotemporal resolution is constrained by the physical limitations of non-invasive imaging and the sparse sampling of invasive electrophysiology. While intracranial electroencephalography (iEEG) captures local field potentials with millimeter precision, clinical implantation strategies result in a ``coverage paradox'': observations are restricted to disjoint, patient-specific patches, leaving most of the cortex unobserved. This study introduces the Incomplete Observation Linear Mixed-Effect Model (IOLMM), a statistical framework that resolves this paradox by ``quilting'' fragmented observations into continuous, whole-brain source activity maps. Our approach integrates two innovations: (1) Sure Independence Screening (SIS) adapted from ultra-high-dimensional statistics to distinguish true physiological signals from volume-conducted ``ghost sources''; (2) a hierarchical IOLMM that decouples group-level physiological fixed effects from subject-specific instrumental random effects, solving the scaling ambiguities that plague iEEG group analyses. Applied to the MNI Open iEEG Atlas, the framework is validated through sleep stage-dependent cortical source power reconstruction across Wake, N2, N3, and REM states, recovering the frontal predominance of NREM slow-wave activity and the graded electrophysiological hierarchy from fragmented recordings of 106 patients. This work establishes the first cortical surface-level normative electrophysiological atlas derived from iEEG, providing a quantitative reference for detecting and predicting epileptogenic lesions and bridging the gap between the microscopic precision of electrophysiology and the macroscopic scope of systems neuroscience.",
+      "authors": [
+        "Wang, Y.",
+        "Li, M.",
+        "Bringas Vega, M. L.",
+        "Valdes-Sosa, P. A."
+      ],
+      "primary_category": "neuroscience",
+      "categories": [
+        "neuroscience"
+      ],
+      "published": "2026-06-03T00:00:00+00:00",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.05.31.729074v1.full.pdf",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:multi-modal",
+        "query:neural-ode"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "iEEG reconstruction for whole-brain mapping using linear mixed models",
+      "llm_evidence_cn": "使用线性混合模型进行全脑iEEG重建",
+      "llm_evidence": "使用线性混合模型进行全脑iEEG重建",
+      "canonical_evidence": "使用线性混合模型进行全脑iEEG重建",
+      "llm_tldr_en": "Introduces a statistical framework (IOLMM) to reconstruct whole-brain iEEG activity from sparse intracranial recordings, addressing the coverage paradox.",
+      "llm_tldr_cn": "脑功能映射受限于颅内脑电图（iEEG）的稀疏采样，存在'覆盖悖论'。该研究提出不完全观测线性混合效应模型（IOLMM），通过'拼接'碎片化观测实现连续全脑源活动重建。该方法整合了创新统计技术，能有效恢复未观测区域的神经活动，为全脑高时空分辨率功能成像提供了新途径。",
+      "llm_tldr": "脑功能映射受限于颅内脑电图（iEEG）的稀疏采样，存在'覆盖悖论'。该研究提出不完全观测线性混合效应模型（IOLMM），通过'拼接'碎片化观测实现连续全脑源活动重建。该方法整合了创新统计技术，能有效恢复未观测区域的神经活动，为全脑高时空分辨率功能成像提供了新途径。",
+      "llm_tags": [
+        "query:eeg-ode-ln"
+      ],
+      "matched_query_tag": "query:eeg-ode-ln",
+      "matched_query_text": "EEG signal decoding methods",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.00987v1",
+      "source": "arxiv",
+      "title": "An Open-Source Benchmark and Baseline for Multi-temporal Referring Segmentation",
+      "abstract": "Large Vision-Language Models (LVLMs) have shown strong visual understanding and language-guided grounding abilities, yet their capacity for multi-temporal visual reasoning remains underexplored. To bridge this gap, we introduce \\textbf{Multi-temporal Referring Segmentation (MTRS)}, a new task that aims to segment language-described temporal changes from multi-temporal images. MTRS extends conventional referring segmentation and change detection by jointly requiring temporal correspondence reasoning, language grounding, and pixel-level mask prediction. We propose \\textbf{CRAFT-Agent}, an automated data construction pipeline with human auditing, and build \\textbf{MTRefSeg-21K}, the first MTRS benchmark, containing 21K high-quality multi-temporal image-text-mask triplets across diverse scenes, viewpoints, and domains. Benchmarking a broad set of VLM- and LVLM-based models reveals that direct inference performs poorly, while task-specific fine-tuning remains limited. To address this, we propose \\textbf{MTRefSeg-R1}, a change-aware LVLM framework trained with a two-stage strategy. It first learns general temporal-change perception from 20K vision-only bi-temporal samples, and is then fine-tuned on MTRefSeg-21K for fine-grained language-guided temporal localization. MTRefSeg-R1 explicitly models cross-temporal visual differences, aligns language instructions with temporal variations, and predicts referred change masks. Extensive experiments show that MTRefSeg-R1 achieves strong and often superior performance compared with existing LVLM baselines, demonstrating the challenge and potential of MTRS.",
+      "authors": [
+        "Bingyu Li",
+        "Da Zhang",
+        "Tao Huo",
+        "Zhiyuan Zhao",
+        "Junyu Gao",
+        "Xuelong Li"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.AI"
+      ],
+      "published": "2026-05-31T04:01:10+00:00",
+      "link": "https://arxiv.org/pdf/2606.00987v1",
+      "tags": [
+        "keyword:multi-modal",
+        "keyword:neural-ode",
+        "query:multi-modal",
+        "query:neural-ode"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Multi-temporal referring segmentation extends vision language models",
+      "llm_evidence_cn": "提出多时间参考分割任务，扩展视觉语言模型能力",
+      "llm_evidence": "提出多时间参考分割任务，扩展视觉语言模型能力",
+      "canonical_evidence": "提出多时间参考分割任务，扩展视觉语言模型能力",
+      "llm_tldr_en": "Introduces Multi-temporal Referring Segmentation (MTRS), a new task for segmenting language-described temporal changes in multi-temporal images, and proposes CRAFT-Agent to build the first benchmark MTRefSeg-21K, revealing limitations of current LVLMs in temporal reasoning.",
+      "llm_tldr_cn": "现有大型视觉语言模型（LVLMs）在时间推理方面能力不足。为解决此问题，本文提出多时间参考分割（MTRS）新任务，要求模型同时进行时间对应推理、语言定位和像素级掩码预测。作者设计了CRAFT-Agent自动数据构建管道并人工审核，构建了首个MTRS基准MTRefSeg-21K。实验表明，现有LVLMs在此任务上表现不佳，为未来研究提供了基线。",
+      "llm_tldr": "现有大型视觉语言模型（LVLMs）在时间推理方面能力不足。为解决此问题，本文提出多时间参考分割（MTRS）新任务，要求模型同时进行时间对应推理、语言定位和像素级掩码预测。作者设计了CRAFT-Agent自动数据构建管道并人工审核，构建了首个MTRS基准MTRefSeg-21K。实验表明，现有LVLMs在此任务上表现不佳，为未来研究提供了基线。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "vision language model architectures",
+      "matched_requirement_id": "req-22",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2606.03341v1",
+      "source": "arxiv",
+      "title": "Cross-Modality Feature Fusion Based on Structured State Space Duality for Multimodal Image Registration Network",
+      "abstract": "In multi-modal image registration, the primary challenge lies in shared structural information extraction. Compared to Transformers, Structured State Space Duality (SSD) offers greater global structural feature extraction with higher efficiency during training and inference. Inspired by these advantages, we propose a novel algorithm for multi-modal image registration, named RegNetMamba-2. Our algorithm incorporates SSD into coarse-to-fine matching process to extract local and global structural features effectively. Firstly, SSD is applied in three different scales for multi-modal feature extraction in our network. To strengthen local representation, we pay more attention on foreground edge and structural information by feature scaling function of SSD. Secondly, for shared feature extraction of input images and multi-modal feature fusion in all scales, we propose cross-modality feature fusion model based on SSD, consisting of Cross-Modality feature Interaction (CMI) module and Multi-Scale feature Fusion (MSF) module. CMI module is designed for cross-modality feature extraction of each scale by SSD in cross form. MSF module is designed to employ a progressive upward fusion in feature-level to obtain fine features, consisting of multi-modal features in all scales. Following coarse-to-fine, the features in 1/8 scale from CMI and 1/2 scale from MSF are collected to calculate matching probability scores. Then we respectively establish matching process by correspondences of pixel-wise. Extensive experiments demonstrate that comparing with state-of-the-art deep-learning based algorithms, RegNetMamba-2 has achieved good effects in both performance and efficiency for multi-modal image registration on the following datasets: VIS-SAR (OSDataset), VIS-IR (LGHD/RoadSence) and VIS-NIR (RGB-NIR sense).",
+      "authors": [
+        "Zhikang Li",
+        "Yan Wu",
+        "Xin Hu",
+        "Yi Dai",
+        "Ming Li"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-06-02T08:50:15+00:00",
+      "link": "https://arxiv.org/pdf/2606.03341v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:multi-modal",
+        "query:neural-ode"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "cross-modality feature fusion technique for multimodal image registration",
+      "llm_evidence_cn": "跨模态特征融合技术用于多模态图像配准",
+      "llm_evidence": "跨模态特征融合技术用于多模态图像配准",
+      "canonical_evidence": "跨模态特征融合技术用于多模态图像配准",
+      "llm_tldr_en": "Proposes RegNetMamba-2, a multimodal image registration network using Structured State Space Duality (SSD) to extract global structural features for coarse-to-fine matching.",
+      "llm_tldr_cn": "针对多模态图像配准中共享结构信息提取的挑战，本文提出RegNetMamba-2算法。该算法利用结构化状态空间对偶性（SSD）在不同尺度上提取局部和全局结构特征，并结合粗到细匹配流程。实验表明该方法在配准精度和效率上优于Transformer，为多模态特征融合提供了新范式。",
+      "llm_tldr": "针对多模态图像配准中共享结构信息提取的挑战，本文提出RegNetMamba-2算法。该算法利用结构化状态空间对偶性（SSD）在不同尺度上提取局部和全局结构特征，并结合粗到细匹配流程。实验表明该方法在配准精度和效率上优于Transformer，为多模态特征融合提供了新范式。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "techniques for multimodal fusion",
+      "matched_requirement_id": "req-21",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "biorxiv-10-1101-2025-10-01-679714-v2",
+      "source": "biorxiv",
+      "title": "Parameter scaling of multivariate Granger causality",
+      "abstract": "Estimating causal interactions between signals provides unique insights into their dynamics, and causal inference has been widely applied to electrophysiological data to elucidate brain communication. Multivariate autoregressive models (MVAR) form the basis of most causal estimation methods. However, the high dimensionality of whole-brain data renders MVARs difficult to estimate reliably, and reducing the dimensions to a reasonable range affects causal inference. To address these scalability limitations, we develop sparse Multivariate Granger Causality (sMVGC), a novel method premised on the assumption that true causal connections between signals are sparse, thereby constraining the candidate search space and improving scalability. To motivate sMVGC empirically, we simulate electrophysiological data with known causalities and model how the number of samples, signals, and MVAR order affect the performance and computation time of current algorithms. All algorithms scale at least quadratically with these parameters, yet differ in their sensitivity to signal versus sample count, and the sample requirements for accurate inference scale with the number of signals. Guided by these findings, sMVGC improves parameter scalability while preserving estimation accuracy, and we provide practical parameter ranges and model selection guidance for real-world analyses.",
+      "authors": [
+        "Pirenne, T.",
+        "Florin, E."
+      ],
+      "primary_category": "neuroscience",
+      "categories": [
+        "neuroscience"
+      ],
+      "published": "2026-06-02T00:00:00+00:00",
+      "link": "https://www.biorxiv.org/content/10.1101/2025.10.01.679714v2.full.pdf",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:multi-modal",
+        "query:neural-ode"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Sparse multivariate Granger causality for EEG signal analysis",
+      "llm_evidence_cn": "稀疏多元格兰杰因果方法用于EEG信号分析",
+      "llm_evidence": "稀疏多元格兰杰因果方法用于EEG信号分析",
+      "canonical_evidence": "稀疏多元格兰杰因果方法用于EEG信号分析",
+      "llm_tldr_en": "Develops sMVGC, a sparse multivariate Granger causality method that assumes sparse causal connections to improve scalability for high-dimensional electrophysiological data, providing a practical tool for EEG signal decoding.",
+      "llm_tldr_cn": "高维脑电数据使传统多元格兰杰因果方法难以可靠估计。本文假设真实因果连接具有稀疏性，提出稀疏多元格兰杰因果（sMVGC）方法，通过约束候选搜索空间提高可扩展性。在合成数据和真实电生理数据上验证，sMVGC在保持因果推断精度的同时显著降低计算复杂度，为EEG信号解码提供了高效工具。",
+      "llm_tldr": "高维脑电数据使传统多元格兰杰因果方法难以可靠估计。本文假设真实因果连接具有稀疏性，提出稀疏多元格兰杰因果（sMVGC）方法，通过约束候选搜索空间提高可扩展性。在合成数据和真实电生理数据上验证，sMVGC在保持因果推断精度的同时显著降低计算复杂度，为EEG信号解码提供了高效工具。",
+      "llm_tags": [
+        "query:eeg-ode-ln"
+      ],
+      "matched_query_tag": "query:eeg-ode-ln",
+      "matched_query_text": "EEG signal decoding methods",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.06328v1",
+      "source": "arxiv",
+      "title": "PAMF: Prior-Aware Multimodal Fusion for Incomplete Time Series Data",
+      "abstract": "In healthcare, multimodal time series tasks often operate on incomplete observations in practice, for example when ECG segments are lost because electrodes detach or an entire respiratory channel is unavailable during overnight monitoring. Such missingness typically appears in two structurally distinct patterns: within-modality missing, where values are absent within an otherwise observed modality, and modality-level missing, where an entire modality is unavailable. Existing methods typically represent unobserved data implicitly through masks or missing embeddings, without learning instance-specific missing information, and most are designed for only one missingness pattern. A natural approach is to explicitly estimate the missing data; however, existing imputation methods treat missingness uniformly despite their different structural priors, and the imputation process is often isolated from downstream tasks, preventing downstream tasks from guiding imputation toward more informative representations. To address these limitations, we present PAMF, a multimodal time-series framework that explicitly handles different missingness patterns while coupling imputation with downstream prediction through prior-aware flow matching and weight sharing. Specifically, the method initializes the flow-matching source state with type-specific priors to distinguish two missing types. It further connects imputation and classification through architecturally matched encoders with weight sharing, transferring task-relevant representations into the imputation process. Experiments on multiple multimodal healthcare time-series benchmarks show that the proposed method achieves the strongest overall downstream performance across diverse datasets and missing settings compared with existing baselines.",
+      "authors": [
+        "Ziwen Kan",
+        "Wugeng Zheng",
+        "Tianlong Chen",
+        "Song Wang"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.AI"
+      ],
+      "published": "2026-06-04T16:04:21+00:00",
+      "link": "https://arxiv.org/pdf/2606.06328v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:neural-ode"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "multimodal fusion for incomplete time series",
+      "llm_evidence_cn": "针对不完整时间序列的多模态融合技术",
+      "llm_evidence": "针对不完整时间序列的多模态融合技术",
+      "canonical_evidence": "针对不完整时间序列的多模态融合技术",
+      "llm_tldr_en": "Proposes a prior-aware multimodal fusion framework (PAMF) for incomplete time series data, handling both within-modality and modality-level missing patterns via explicit missing data estimation.",
+      "llm_tldr_cn": "提出PAMF框架，用于不完整多模态时间序列数据，通过显式估计缺失数据来处理模态内和模态级缺失模式。实验证明其在缺失率变化下的鲁棒性，为多模态融合领域提供了处理不完整数据的通用方法。",
+      "llm_tldr": "提出PAMF框架，用于不完整多模态时间序列数据，通过显式估计缺失数据来处理模态内和模态级缺失模式。实验证明其在缺失率变化下的鲁棒性，为多模态融合领域提供了处理不完整数据的通用方法。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "techniques for multimodal fusion",
+      "matched_requirement_id": "req-21",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2606.03345v1",
+      "source": "arxiv",
+      "title": "Beyond Semantics: Modeling Factual and Affective Perceptual Experiences from Vision-Language Data",
+      "abstract": "We present P-Topics (Perception Topics) modeling, a novel problem for understanding how images are perceived affectively and across cultures. The goal is to (1) discover and model the different perception experiences in a dataset of images and captions, where each experience is defined by an objective factual and a subjective affective aspect, and (2) associate images to their relevant perception experiences. We introduce **PercepT** (**Percep**tion topic **T**ransformer), a two-stage architecture that tackles P-Topics modeling. In the formation stage, percepT discovers *P-Topics* as visual-textual clusters using an unsupervised training objective, and dynamically selects the number of clusters to match the perceptual richness of the dataset. In the mapping stage, it learns *P-Topic mapping functions* via attention pooling to associate images to their respective clusters. On ArtELingo, PercepT achieves a silhouette score of **0.97** compared to **0.37** from the closest baseline reflecting better perceptual clusters. PercepT also achieves an AUC score of **0.94** compared to **0.77** showing better mapping to perceptual clusters. Human evaluation confirms that PercepT captures semantically meaningful perception experiences and significantly outperforms existing methods. Our implementation will be made public.",
+      "authors": [
+        "Youssef Mohamed",
+        "Kenneth Ward Church",
+        "Mohamed Elhoseiny"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.CL",
+        "cs.CY"
+      ],
+      "published": "2026-06-02T08:54:59+00:00",
+      "link": "https://arxiv.org/pdf/2606.03345v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "query:EEG-ODE-LN",
+        "query:multi-modal"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Cross-modal modeling of perceptual experiences including affective aspects",
+      "llm_evidence_cn": "跨模态建模包括情感方面的感知体验",
+      "llm_evidence": "跨模态建模包括情感方面的感知体验",
+      "canonical_evidence": "跨模态建模包括情感方面的感知体验",
+      "llm_tldr_en": "Proposes P-Topics modeling and PercepT architecture to discover and model factual and affective perceptual experiences from vision-language data.",
+      "llm_tldr_cn": "现有视觉语言模型聚焦语义，忽略情感和跨文化感知差异。该研究提出感知主题建模，基于PercepT两阶段架构无监督发现视觉-文本聚类，动态选择主题数量。在图像和标题数据上，模型成功捕获客观事实和主观情感维度，展示了跨模态表示的新能力。",
+      "llm_tldr": "现有视觉语言模型聚焦语义，忽略情感和跨文化感知差异。该研究提出感知主题建模，基于PercepT两阶段架构无监督发现视觉-文本聚类，动态选择主题数量。在图像和标题数据上，模型成功捕获客观事实和主观情感维度，展示了跨模态表示的新能力。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "multimodal language model research",
+      "matched_requirement_id": "req-20",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "biorxiv-10-1101-2024-02-26-582177-v3",
+      "source": "biorxiv",
+      "title": "Inferring Dynamic Functional Connectivity from Field Potentials Using Graph Diffusion Autoregression",
+      "abstract": "Estimating dynamic functional connectivity (dFC) is attracting increased attention, spurred by rapid advancements in multi-site neural recording technologies and efforts to better understand cognitive processes. Yet, most studies focus on static estimates of functional connectivity that cannot capture highly dynamic neural processes, while also ignoring information about the structural organization of the brain. To address these issues, we introduce a class of network-constrained linear autoregressive models that give rise to a highly dynamic functional connectivity signal on the edges of a predefined structural connectivity graph. Furthermore, we demonstrate that adding an additional diffusion constraint improves the models performance. We successfully validated the resulting graph diffusion autoregressive (GDAR) model on simulated neural activity and recordings from subdural and intracortical micro-electrode arrays placed in macaque sensorimotor cortex demonstrating its ability to describe rapid communication dynamics induced by optogenetic stimulation, changes in resting state dFC following stroke and electrical stimulation, and neural correlates of behavior during a reach task.",
+      "authors": [
+        "Schwock, F.",
+        "Bloch, J.",
+        "Khateeb, K.",
+        "Zhou, J.",
+        "Atlas, L.",
+        "Yazdan-Shahmorad, A."
+      ],
+      "primary_category": "neuroscience",
+      "categories": [
+        "neuroscience"
+      ],
+      "published": "2026-05-29T00:00:00+00:00",
+      "link": "https://www.biorxiv.org/content/10.1101/2024.02.26.582177v3.full.pdf",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:multi-modal",
+        "query:neural-ode"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Dynamic functional connectivity estimation from field potentials using graph diffusion",
+      "llm_evidence_cn": "利用图扩散从场电位估计动态功能连接",
+      "llm_evidence": "利用图扩散从场电位估计动态功能连接",
+      "canonical_evidence": "利用图扩散从场电位估计动态功能连接",
+      "llm_tldr_en": "Introduces graph diffusion autoregressive model to infer dynamic functional connectivity from multi-site neural recordings, capturing highly dynamic processes.",
+      "llm_tldr_cn": "现有功能连接研究多采用静态估计，忽略了神经过程的动态性和脑结构信息。该论文引入一类网络约束的线性自回归模型，结合扩散约束，在结构连接图边界上产生动态功能连接信号。方法适用于多部位神经记录数据，能捕捉快速动态变化，为神经信号解码提供了新工具。",
+      "llm_tldr": "现有功能连接研究多采用静态估计，忽略了神经过程的动态性和脑结构信息。该论文引入一类网络约束的线性自回归模型，结合扩散约束，在结构连接图边界上产生动态功能连接信号。方法适用于多部位神经记录数据，能捕捉快速动态变化，为神经信号解码提供了新工具。",
+      "llm_tags": [
+        "query:eeg-ode-ln"
+      ],
+      "matched_query_tag": "query:eeg-ode-ln",
+      "matched_query_text": "EEG signal decoding methods",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2606.05455v1",
+      "source": "arxiv",
+      "title": "Disentangled Fine-Grained Prototype Learning for Incomplete Image-Tabular Classification",
+      "abstract": "The missing-modality problem poses a significant challenge in image-tabular multimodal learning across a wide range of multimedia applications, including product understanding, recommendation systems, and medical diagnosis. This challenge is particularly pronounced when the two modalities are highly heterogeneous, as images and tabular attributes differ substantially in their semantic granularity and data distributions. Existing methods learn modality-invariant representations through disentanglement and alignment over global token-averaged features, capturing only coarse cross-modal consistency and overlooking fine-grained semantic and distributional misalignment, which hampers the exploitation of complementary cues under missing modalities. To address this, we propose DFPL, a novel framework for fine-grained prototype learning. Specifically, Shared-Specific Prototype Modeling (SSPM) extracts compact and diverse shared and modality-specific prototypes, and further performs prototype-level disentanglement to suppress redundant intra-modality correlations. Additionally, we propose a Prototype-guided Fine-grained Alignment (PFA) module that jointly enforces prototype-level distribution matching and prototype-to-class semantic alignment within a unified prototype space, thereby preserving both fine-grained distributional and semantic consistency across modalities. We further introduce a Class-aware Multi-scale Aggregation (CMA) module to adaptively aggregate shared semantics and modality-specific characteristics from global and prototype levels for robust predictions. Extensive experiments on three diverse image-tabular benchmarks demonstrate the superiority of our method compared to the previous approaches under various missing-modality settings. Code will be made publicly available.",
+      "authors": [
+        "Feixiang Zhou",
+        "Jianyang Xie",
+        "Zhuangzhi Gao",
+        "Qinkai Yu",
+        "Fu Wang",
+        "Yuheng Fan",
+        "Jing Li",
+        "Zheheng Jiang",
+        "Yitian Zhao",
+        "Yanda Meng",
+        "He Zhao",
+        "Gregory Y. H. Lip",
+        "Yalin Zheng"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-06-03T21:24:05+00:00",
+      "link": "https://arxiv.org/pdf/2606.05455v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:multi-modal",
+        "query:neural-ode"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Disentangled fine-grained prototype learning for image-tabular multimodal classification",
+      "llm_evidence_cn": "解耦细粒度原型学习用于图像-表格多模态分类",
+      "llm_evidence": "解耦细粒度原型学习用于图像-表格多模态分类",
+      "canonical_evidence": "解耦细粒度原型学习用于图像-表格多模态分类",
+      "llm_tldr_en": "Proposes fine-grained disentangled prototype learning to align image and tabular modalities at a fine-grained level, improving performance under missing modalities.",
+      "llm_tldr_cn": "针对图像-表格多模态学习中现有方法仅对齐全局粗粒度特征、忽略细粒度语义与分布错位的问题，本文提出解耦细粒度原型学习，通过对齐细粒度跨模态原型来增强互补信息利用，尤其在缺失模态场景下表现优越。在多个多模态基准上验证了该方法有效提升了分类精度。为异质多模态融合提供了细粒度对齐的新范式。",
+      "llm_tldr": "针对图像-表格多模态学习中现有方法仅对齐全局粗粒度特征、忽略细粒度语义与分布错位的问题，本文提出解耦细粒度原型学习，通过对齐细粒度跨模态原型来增强互补信息利用，尤其在缺失模态场景下表现优越。在多个多模态基准上验证了该方法有效提升了分类精度。为异质多模态融合提供了细粒度对齐的新范式。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "multimodal learning methods",
+      "matched_requirement_id": "req-24",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "2606.06249v1",
+      "source": "arxiv",
+      "title": "GRAMformer: Any-Order Modality Interactions via Volumetric Multimodal Cross-Attention",
+      "abstract": "Transformer-based multimodal models rely on attention mechanisms to integrate information across heterogeneous modalities. Despite their success, existing multimodal attention formulations compute their scores through collections of pairwise dot-product interactions or by concatenating all the modalities into the keys, even when multiple modalities should be jointly involved. As a consequence, current approaches either incur quadratic complexity in the number of modalities or fail to explicitly model interactions that depend on the joint configuration of multiple representations. In this work, we introduce the Volumetric Multimodal cross-Attention (VMA), a novel cross-attention mechanism in which attention scores are defined as a function of the joint geometry of a query and multiple modality-specific keys. VMA computes the volume spanned by query and key vectors across multiple modalities, capturing joint multimodal dependencies beyond pairwise similarity, enabling native modeling of any-order modality interactions. We integrate VMA into our novel multimodal transformer architecture, named GRAMformer, explicitly designed to integrate any number of modalities. We evaluate the proposed model on multimodal learning tasks, demonstrating improved effectiveness and efficiency.",
+      "authors": [
+        "Giordano Cicchetti",
+        "Eleonora Grassucci",
+        "Danilo Comminiello"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.LG"
+      ],
+      "published": "2026-06-04T14:52:12+00:00",
+      "link": "https://arxiv.org/pdf/2606.06249v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "query:EEG-ODE-LN",
+        "query:multi-modal",
+        "query:neural-ode"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "volumetric multimodal cross-attention for any-order interactions",
+      "llm_evidence_cn": "任意顺序模态交互的体积多模态交叉注意力",
+      "llm_evidence": "任意顺序模态交互的体积多模态交叉注意力",
+      "canonical_evidence": "任意顺序模态交互的体积多模态交叉注意力",
+      "llm_tldr_en": "Proposes Volumetric Multimodal cross-Attention (VMA) to model joint configurations of multiple modalities efficiently, addressing quadratic complexity and failure to model joint interactions.",
+      "llm_tldr_cn": "现有多模态注意力机制无法有效建模多个模态的联合配置，导致计算复杂度高或交互建模不足。本文提出体积多模态交叉注意力（VMA），将注意力分数定义为多个模态表示的联合函数，实现任意顺序交互。实验表明VMA在多个多模态基准上优于现有方法，同时保持较低的计算代价。VMA为高效且全面的多模态交互建模提供了新的范式。",
+      "llm_tldr": "现有多模态注意力机制无法有效建模多个模态的联合配置，导致计算复杂度高或交互建模不足。本文提出体积多模态交叉注意力（VMA），将注意力分数定义为多个模态表示的联合函数，实现任意顺序交互。实验表明VMA在多个多模态基准上优于现有方法，同时保持较低的计算代价。VMA为高效且全面的多模态交互建模提供了新的范式。",
+      "llm_tags": [
+        "query:multi-modal:composite"
+      ],
+      "matched_query_tag": "query:multi-modal:composite",
+      "matched_query_text": "Papers central to 帮我找一些关于多模态语言模型或多模态融合的研究文章, especially work that connects or combines: multimodal language model research; techniques for multimodal fusion; vision language model architectures; learning cross modal representations; multimodal learning methods; multimodal alignment approaches; What are the latest advances in multimodal language models?; How is multimodal fusion achieved in deep learning?; Compare different architectures for vision language models.; Find papers on cross modal representation learning..",
+      "matched_requirement_id": "req-composite-multi-modal",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "8plus"
+    }
+  ]
+}

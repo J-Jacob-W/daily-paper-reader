@@ -1,0 +1,775 @@
+Title: Quilting the Brain: Whole-Brain iEEG Reconstruction via Incomplete Observation Linear Mixed Models
+
+URL Source: https://www.biorxiv.org/content/10.64898/2026.05.31.729074v1.full.pdf
+
+Number of Pages: 33
+
+Markdown Content:
+# Quilting the Brain: Whole-Brain iEEG Reconstruction via Incomplete Observation Linear Mixed Models 
+
+Ying Wang a, †, Min Li b, †,∗, Maria L. Bringas-Vega a,c , Pedro A. Valdes-Sosa a,c, ∗ 
+
+> a
+
+China-Cuba Belt and Road Joint Laboratory on Neurotechnology and Brain-Apparatus Communication, University of Electronic Science and Technology of China, Chengdu, China  
+
+> b
+
+Hangzhou Dianzi University, Hangzhou, Zhejiang, China  
+
+> c
+
+Cuban Neuroscience Center, Havana, Cuba  
+
+> †
+
+These authors contributed equally to this work.  
+
+> ∗
+
+Corresponding authors: Min Li (minli231314@gmail.com), Pedro A. Valdes-Sosa (pedro.valdes@neuroinformatics-collaboratory.org). 
+
+Abstract 
+
+Mapping human brain function at high spatiotemporal resolution is constrained by the physical limitations of non-invasive imaging and the sparse sampling of invasive elec-trophysiology. While intracranial electroencephalography (iEEG) captures local eld potentials with millimeter precision, clinical implantation strategies result in a cover-age paradox: observations are restricted to disjoint, patient-specic patches, leaving most of the cortex unobserved. This study introduces the Incomplete Observation Linear Mixed-Eect Model (IOLMM), a statistical framework that resolves this para-dox by quilting fragmented observations into continuous, whole-brain source activity maps. Our approach integrates two innovations: (1) Sure Independence Screening (SIS) adapted from ultra-high-dimensional statistics to distinguish true physiological signals from volume-conducted ghost sources; (2) a hierarchical IOLMM that decou-ples group-level physiological xed eects from subject-specic instrumental random eects, solving the scaling ambiguities that plague iEEG group analyses. Applied to the MNI Open iEEG Atlas, the framework is validated through sleep stage-dependent cortical source power reconstruction across Wake, N2, N3, and REM states, recovering the frontal predominance of NREM slow-wave activity and the graded electrophysiologi-cal hierarchy from fragmented recordings of 106 patients. This work establishes the rst cortical surface-level normative electrophysiological atlas derived from iEEG, providing a quantitative reference for detecting and predicting epileptogenic lesions and bridging the gap between the microscopic precision of electrophysiology and the macroscopic scope of systems neuroscience. 
+
+Keywords: Intracranial EEG (iEEG); Spatial Signal Quilting; Source Imaging; Incomplete Observation Linear Mixed Models; Geometric Eigenmodes; Sleep Stage Validation 1
+
+> .CC-BY-NC-ND 4.0 International license available under a (which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made The copyright holder for this preprint this version posted June 3, 2026. ;https://doi.org/10.64898/2026.05.31.729074 doi: bioRxiv preprint
+
+Highlights: 
+
+ Solving the Coverage Paradox: A novel IOLMM statistical framework quilts sparse, non-overlapping iEEG data into a unied whole-brain probabilistic map. 
+
+ Geometric Screening: Adapts high-dimensional Sure Independence Screening (SIS) using cortical geometric eigenmodes to eectively lter out spurious ghost sources in inverse solutions. 
+
+ Robust Harmonization: Decouples group-level physiological xed eects from subject-specic random eects, resolving scaling ambiguities inherent in heterogeneous multi-center recordings. 
+
+ Biological Validation: Validates the framework on real multi-center iEEG data by reconstructing sleep stage-dependent cortical source power maps, recovering known electrophysiological signatures of NREM and REM sleep from fragmented recordings. 
+
+# 1 Introduction 
+
+1.1 The Coverage Paradox in Brain Functional Mapping and the Renaissance of Intracranial Electrophysiology 
+
+The grand objective of Human Brain Mapping is to parse the complex spatiotemporal dynam-ics of neuronal activity, thereby elucidating the neural mechanisms underlying cognition, per-ception, and pathological states. Historically, this eld has been dominated by non-invasive imaging technologies such as functional Magnetic Resonance Imaging (fMRI), Magnetoen-cephalography (MEG), and scalp Electroencephalography (EEG) (He et al., 2019; Friston, 2011). These technologies oer whole-brain coverage, enabling researchers to infer large-scale functional network architectures and global dynamic propagation (Sanz-Leon et al., 2015; Breakspear, 2017; Deco et al., 2008). However, these modalities face insurmountable biophysical limitations: scalp EEG and MEG suer severe attenuation due to the volume conduction eect, where the skull and scalp act as low-pass lters, resulting in the loss of high-frequency signals and blurred source localization (Haufe et al., 2013; Van de Steen et al., 2019; Gonzalez-Moreira et al., 2020); conversely, fMRI relies on the hemodynamic response, the temporal resolution of which lags behind neuronal ring by seconds, failing to capture millisecond-scale neural dynamics (Bailes et al., 2023). In contrast, Intracranial Electroencephalography (iEEG), including Stereoelectroen-cephalography (SEEG) and Electrocorticography (ECoG), oers an unparalleled window for observing the human brain with clarity. By implanting electrodes directly into deep brain tissue or placing them on the cortical surface, iEEG bypasses the ltering eects of the skull, capturing local eld potentials (LFP) with millimeter-level spatial precision and millisecond-level temporal resolution, including high-frequency oscillations (HFOs) that provide direct access to local neuronal population dynamics (Parvizi and Kastner, 2018; Mercier et al., 2022; van Blooijs et al., 2023). This makes iEEG the gold standard for validating non-invasive ndings, widely used to reveal ne spectral characteristics of visual 2
+
+> .CC-BY-NC-ND 4.0 International license available under a (which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made The copyright holder for this preprint this version posted June 3, 2026. ;https://doi.org/10.64898/2026.05.31.729074 doi: bioRxiv preprint
+
+processing streams (Vidal et al., 2010; Hamamé et al., 2014; Moraresku et al., 2025) and the propagation mechanisms of epileptic discharges (Smith et al., 2016; Sinha et al., 2017). However, this high-delity signal comes with an inherent limitationthe Coverage Para-dox. Unlike the uniform sensor arrays of MEG or the regular voxel grids of fMRI, iEEG sampling strategies are dictated entirely by clinical needs, typically used for presurgical evalu-ation in drug-resistant epilepsy patients to dene the seizure onset zone (SOZ) and functional cortex (Parvizi and Kastner, 2018; Mercier et al., 2022). This clinically oriented implantation strategy results in a spotlight mode of observation: while it illuminates specic cortical patches, the vast majority of the brain remains in darkness (Parvizi and Kastner, 2018). This inherent sparsity means that no single subject can provide a complete map of whole-brain activity. Consequently, the core challenge in iEEG research is how to aggregate these fragmented, non-overlapping, and spatially discrete individual observations into a coherent group-level whole-brain physiological atlas. Prior eorts have addressed this through channel-level nor-mative mapping (Frauscher et al., 2018) or region-of-interest aggregation (Taylor et al., 2022; Pidnebesna et al., 2022), but these approaches operate in sensor space and sacrice the spa-tial resolution that makes iEEG valuable. In statistics and signal processing, this aggregation challenge is often referred to as the quilting problem (Vinci et al., 2023; Chang et al., 2023). This is not merely a data stitching issue but a complex Incomplete Observation Inference problem, as the data missingness is structural rather than random. Solving this requires transcending traditional channel-level averaging to establish statistical models capable of handling structural missingness and extreme heterogeneity. This paper aims to propose a framework based on the Incomplete Observation Linear Mixed-Eect Model (IOLMM), which reconstructs a whole-brain neural activity map by quilting sparse source-space esti-mates onto a unied group manifold. In constructing an iEEG group atlas, researchers must overcome two distinct types of heterogeneity: spatial sampling heterogeneity and signal amplitude heterogeneity. 
+
+1.2 Spatial Inconsistency and the Ill-Posed Inverse Problem 
+
+In traditional neuroimaging group analysis, spatial normalization is typically used to register individual brains to a standard stereotactic space (e.g., MNI152), enabling voxel-level cross-subject comparison (Mercier et al., 2022; Frauscher et al., 2018). However, for iEEG, even after spatial registration, electrode distribution between patients exhibits immense random-ness and variance (Pidnebesna et al., 2022). One patient may have dense depth electrode coverage in the medial temporal lobe and orbitofrontal cortex, while another may only have electrodes in the operculum and insula. This spatial discrepancy renders traditional region of interest (ROI)-based averaging methods suboptimal. While computationally convenient, such approaches inherently necessitate a sacrice of spatial resolution, thereby blurring func-tional boundaries and neglecting the ne-grained geometric orientation of neural generators (Taylor et al., 2022). To preserve spatial resolution and bridge coverage gaps, recent research has turned to Electrophysiological Source Imaging (ESI) techniques (Cho et al., 2011) adapted for iEEG. ESI attempts to infer current density on the cortical surface from limited sensor voltage measurements by solving the inverse problem. However, the iEEG inverse problem possesses 3
+
+> .CC-BY-NC-ND 4.0 International license available under a (which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made The copyright holder for this preprint this version posted June 3, 2026. ;https://doi.org/10.64898/2026.05.31.729074 doi: bioRxiv preprint
+
+unique ill-posedness. Unlike scalp EEG sensors that surround the volume conductor, iEEG sensors are embedded within it, making them extremely sensitive to near-eld sources while remaining virtually blind to far-eld sources. Although algorithms like exact low-resolution brain electromagnetic tomography (eLORETA) are widely used for their zero-error localiza-tion properties, under sparse and irregular electrode arrays, the leadeld matrixthe physi-cal model quantifying each source's contribution to each sensorbecomes highly sensitive to individual implantation schemes. Without rigorous spatial screening, inverse solutions often yield numerous ghost sources 1, which are spurious activations caused by noise or volume conduction far from the actual recording sites. 
+
+1.3 Signal Amplitude Scaling Discrepancies and the Failure of Global Normalization 
+
+Beyond spatial fragmentation, signal amplitude normalization presents a more insidious but fatal challenge. In scalp EEG analysis, applying a global scale factor (GSF) to normalize spectral energy across subjects is standard practice (Hernandez et al., 1994). The theoretical basis for GSF assumes that under a standardized sensor array (whole-scalp coverage), the total electric eld energy recorded across individuals is roughly equivalent, with dierences stemming primarily from non-physiological factors like skull thickness, skin impedance, or amplier gain. However, this assumption breaks down in the context of iEEG. Because the number of electrodes and the brain volume they cover are random and heterogeneous for each patient, the recorded total energy is eectively a function of sampling density, not the physiological state of the brain. A patient implanted with 150 electrodes covering a broad epileptic network will naturally record substantially higher total power than a patient with only 50 electrodes implanted to probe focal cortical dysplasia. Forcing a GSF normalization based on observed channel means in this scenario introduces systematic bias: more densely sampled regions or individuals may be compressed to a greater extent, causing true physiological strengths to be obscured by sampling bias. Furthermore, the physical properties of the electrodes themselves (e.g., contact surface area, impedance) and their distance from neural generators (located in gray matter vs. white matter) introduce subject-specic or even channel-specic multiplicative scaling factors. Ex-isting normalization methods, such as calculating percent signal change relative to a pre-stimulus baseline or Z-scores, are eective in event-related designs but are insucient for resting-state analysis or atlas construction, due to the lack of a unied reference baseline for comparing absolute activation levels. 
+
+1.4 Statistical Framework for Incomplete Data: From Imputation to Mixed-Eects Inference 
+
+From a statistical perspective, the problem of constructing a whole-brain atlas from sparse observations shares theoretical connections with matrix completion or graph quilting (Chang et al., 2023; Vinci et al., 2023). In these frameworks, the goal is to infer missing 
+
+> 1Spurious source leakage derived from the ill-posed inverse operator acting on noise or distal signals.
+
+4
+
+> .CC-BY-NC-ND 4.0 International license available under a (which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made The copyright holder for this preprint this version posted June 3, 2026. ;https://doi.org/10.64898/2026.05.31.729074 doi: bioRxiv preprint
+
+entries in a covariance matrix or data tensor using observed local correlation structures. It is important to note that graph quilting targets second-order statistics (covariance/precision matrix estimation from block-missing data), whereas the present work addresses rst-order 
+
+statistics (estimating the population mean activation map from partially observed subjects). While low-rank matrix completion techniques show promise in calcium imaging and func-tional connectomics (Chang et al., 2023), they typically assume the data possesses a low-rank structure or stationarity, which may not hold for the high-dimensional and highly dynamic human brain source space. Moreover, pure imputation methods often ignore the hierar-chical structure of the datanamely, that electrodes are nested within subjectsand the confounding of biological and technical sources of variation. Linear Mixed Models (LMM) oer a more exible and statistically rigorous alternative (Stroup, 2016). LMMs are widely used in neuroimaging to handle longitudinal data, repeated measures, and multi-level grouped designs. Their core advantage lies in the ability to decom-pose the variance of observed data into xed eects and random eects. In the context of sparse iEEG, LMM allows us to model the observed source power at any cortical vertex as a linear combination of: true group-level physiological activity (xed eects), subject-specic scaling biases (random eects), and measurement error. Crucially, LMM does not require a balanced design; as long as the missing mechanism is reasonably modeled or adheres to the missing at random (MAR) assumption, LMM can provide unbiased parameter estimates even in the presence of substantial missing data. How-ever, applying LMM to an iEEG source space with tens of thousands of vertices, while facing structural missingness (i.e., some subjects have absolutely no data in certain brain regions), requires specic model adaptation. This leads to the concept of the Incomplete Obser-vation Linear Mixed-Eect Model (IOLMM), which introduces a binary selection matrix to explicitly map the sparse individual observation space to the dense group source space manifold. 
+
+1.5 High-Dimensional Screening and Geometric Eigenmode Con-straints 
+
+Before utilizing IOLMM for quilting, the reliability of the input data must be ensured. As previously noted, the iEEG inverse problem is underdetermined, meaning innite source congurations can explain the same set of sensor data. This uncertainty is amplied under sparse sampling, making the generation of Ghost Sources highly probable. If all recon-structed sources are directly input into the model, the group atlas will be overwhelmed by noise. To address this, we must introduce screening techniques from high-dimensional statistics. Sure Independence Screening (SIS) theory, proposed by Fan and Lv (2008), proves that in ultra-high-dimensional regression problems (where the number of predictors p is far greater than the sample size n), screening based on marginal correlations can retain all important variables with probability approaching 1. In this study, we transfer this concept to source selection in ESI: by simulating smooth source activity that conforms to brain geometric structures and calculating the correlation between simulated sources and inverse solutions, we screen for credible source locations. 5
+
+> .CC-BY-NC-ND 4.0 International license available under a (which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made The copyright holder for this preprint this version posted June 3, 2026. ;https://doi.org/10.64898/2026.05.31.729074 doi: bioRxiv preprint
+
+To generate biologically plausible simulated sources, we introduce cortical Geometric Eigenmodes. Recent research indicates that brain functional activity is strongly constrained by its anatomical geometry (Pang et al., 2023); by solving for the eigenfunctions of the corti-cal mesh's Laplace-Beltrami Operator (LBO), one can obtain basis functions describing the brain's intrinsic standing wave modes. Null models constructed based on these eigenmodes not only ensure the spatial continuity of simulated signals but also serve as a benchmark for screening the quality of real iEEG source reconstruction, thereby identifying condent patches where electrode coverage is sucient and the solution is stable. 
+
+1.6 Research Objectives and Contributions 
+
+Addressing the Quilting Problem of multi-center iEEG data, this paper proposes a unied computational framework fusing Electrophysiological Source Imaging (ESI), high-dimensional variable screening, and Incomplete Observation Linear Mixed Models (IOLMM). Our method overcomes the limitations of traditional ROI averaging and interpolation by explicitly modeling the group mean and individual scaling factors in the signal generation process, allowing high-resolution whole-brain source activity reconstruction from structurally incomplete observations. Specically, the main contributions of this study are as follows: 1. Validating Screening Protocols: Adapting high-dimensional regression screening meth-ods based on geometric eigenmode simulations (Fig. 1A) to identify reliable cortical vertices for source reconstruction under sparse sampling conditions (Fig. 1B), eectively eliminating ghost sources. 2. Establishing the IOLMM Framework: Constructing a linear mixed model containing subject-specic random eects ( bi, to correct amplitude dierences) and group-level xed eects ( β, representing the population-mean source power map), and solving parameters using the Expectation-Maximization (EM) algorithm to obtain the group-level activity of the whole brain instead of naïve average (Fig. 1C). 3. Evaluating Normalization Performance: Comparing the performance of scaling factors inferred by IOLMM against the traditional Global Scale Factor (GSF) under hetero-geneous coverage, demonstrating the greater stability of the mixed-model approach in handling structurally missing data (Fig. 1D). 4. Biological Validation via Sleep Stages: Applying this pipeline to a large multi-center iEEG dataset from the Montreal Neurological Institute (MNI) (Frauscher et al., 2018), reconstructing sleep stage-dependent (Wake, N2, N3, REM) cortical source power maps from 106 patients with fragmented coverage, and recovering well-established electro-physiological signatures including the frontal predominance of NREM slow-wave activ-ity (Fig. 1D). This framework not only provides a solid mathematical foundation for group-level in-ference in iEEG data but also bridges the gap between micro-scale neuronal activity and macro-scale brain imaging atlases, with the potential for constructing normative electro-physiological references and localizing pathological anomalies. 6
+
+> .CC-BY-NC-ND 4.0 International license available under a (which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made The copyright holder for this preprint this version posted June 3, 2026. ;https://doi.org/10.64898/2026.05.31.729074 doi: bioRxiv preprint
+
+Figure 1: The whole diagram of brain quilting. A: Simulated ground truth mean surface activity and synthetic sensor samples randomly sampled from the forward model of the ground truth; B: Estimated source activity samples with spatial screening and the spatial preservation threshold selection; C: Comparison between simple sample average and quilting with IOLMM; D: Application to real iEEG data for individual scale estimation and sleep stage-dependent source power reconstruction. 7
+
+> .CC-BY-NC-ND 4.0 International license available under a (which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made The copyright holder for this preprint this version posted June 3, 2026. ;https://doi.org/10.64898/2026.05.31.729074 doi: bioRxiv preprint
+
+# 2 Methods 
+
+Before formalizing the model, we conceptually frame the problem: each patient contributes a locally observed source-space patch that diers in both location and amplitude (scaling). Our goal is to stitch these patches together (quilting) while simultaneously adjusting their amplitudes to a common standard (mixed-eects modeling). 
+
+2.1 Materials 
+
+We analyzed stereoelectroencephalography (sEEG) and electrocorticography (ECoG) data from the MNI Open iEEG Atlas , as described by Frauscher et al. (2018). The dataset comprises recordings from 106 patients with therapy-refractory focal epilepsy, totaling 1,772 intracranial EEG (iEEG) electrodes. Specically, we utilized 60-second segments of resting-state wakefulness recordings (eyes closed). To balance temporal resolution with spectral estimation stability, the data were divided into 47 epochs of 2.5 seconds each, with a 50% overlap. All recordings were down-sampled to 200 Hz and bandpass ltered between 0.5 and 80 Hz, consistent with the prepro-cessing procedures in Frauscher et al. (2018). For the sleep-stage validation, we additionally analyzed sleep recordings from the same dataset as described by von Ellenrieder et al. (2020). Sleep stages (N2, N3, and REM) were scored by board-certied epileptologists using concurrent scalp EEG according to the American Academy of Sleep Medicine (AASM) criteria (von Ellenrieder et al., 2020). Sixty-second artifact-free segments were selected from the rst sleep cycle for each stage. The same channel inclusion criteria and preprocessing pipeline as for the wakefulness data were applied. Not all patients had usable recordings in every sleep stage, resulting in dierent sample sizes across conditions (Wake: N = 105 ; N2/N3: N = 87 ; REM: N = 61 ). To ensure that group comparisons were not confounded by diering electrode coverage, all statistical analyses between stages were restricted to patients with recordings available in both compared stages (i.e., paired analyses). We adhered to the inclusion criteria established in the original study, retaining only chan-nels that were: (1) located in non-lesional tissue as conrmed by MRI; (2) positioned outside the seizure onset zone; (3) free of interictal epileptic discharges and slow-wave anomalies; and (4) not recorded immediately following seizures or electrical stimulation. All electrode co-ordinates were mapped to the standard Montreal Neurological Institute (MNI) space to facilitate group-level aggregation. One subject was excluded from this study due to hav-ing only a single electrode, which was insucient for the subsequent inverse problem-based scaling analysis. 
+
+2.2 Electrophysiological Source Imaging (ESI) Problem 
+
+For subject i (i = 1 , . . . , N ), the estimation of cortical activity from sensor data is framed as an inverse problem, 
+
+Vi = LiJi + εi (1) Here, Vi ∈ Rni×T represents the sensor voltage with ni sensor channels, and Ji ∈ RM ×T
+
+represents the source current density with M source locations. Li ∈ Rni×M is the leadeld 8
+
+> .CC-BY-NC-ND 4.0 International license available under a (which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made The copyright holder for this preprint this version posted June 3, 2026. ;https://doi.org/10.64898/2026.05.31.729074 doi: bioRxiv preprint
+
+matrix quantifying the physical contribution of each source to each sensor. The estimated source activity ˆJi is obtained via eLORETA (Pascual-Marqui et al., 2011), which overcomes the depth bias inherent in algorithms like MNE and LORETA, exhibiting lower spatial dispersion and fewer ghost sources. The leadeld matrix was computed using the DUNEuro Finite Element Method (FEM) via the Brainstorm toolbox (Medani et al., 2023) utilizing individual MRI-derived head mod-els to account for tissue conductivity. Importantly, bipolar recordings were re-referenced to a unipolar montage to ensure compatibility with the leadeld calculation. This conversion is necessary because the leadeld calculation requires knowledge of the potential at each elec-trode with respect to a common reference, which is provided by the unipolar conguration. 
+
+2.3 Screening Method for High-Dimensional Regression 
+
+In the context of Electrical Source Imaging (ESI), estimating neural source activity from observed EEG signals constitutes an ill-posed and high-dimensional inverse problem. Given the sparse electrode coverage characteristic of sEEG and ECoG recordings, it is necessary to mitigate potential spurious source activity introduced by individual leadelds before the quilting procedure. To address this, we implemented a stable spatial projection solution for each leadeld by screening the individual source-space signals derived from ESI. Inspired by the marginal correlation screening of Fan and Lv (2008), we calculated the correlation coecients between a large-scale set of simulated source signals and their reconstructed counterparts (obtained via the forward-inverse modeling loop using the individual leadeld). This metric was used to spatially select reliable source estimates, thereby establishing a stable projection relationship between the individual observations and the source space. In the simulation, neural activity was constrained to the cortical spatial manifold . To produce source-space activity that conforms to the brain's geometric topology, we generated spatially smooth null models based on the geometric eigenmodes (Fig. 2A) of the human cortex, using the following equation (Fig. 2B): 
+
+˜Jm(t) = 
+
+> K
+
+X
+
+> d=1
+
+αd(t) ϕd(m) (2) The simulated source activity at snapshot t is ˜J(t) ∈ RM , which represents a potential neural source conguration based on physiological assumptions. Here, ϕd(m) is the d-th eigenfunc-tion derived from the fs_LR_32k cortical surface template. We set K = 50 eigenmodes. A reconstruction analysis (Appendix B) conrmed that the screening correlation plateaus for K ≥ 40 , with negligible improvement beyond K = 50 , indicating that 50 eigenmodes suce to probe all spatial directions resolvable by the forwardinverse loop. αd(t) is the 
+
+d-th coecient of snapshot t, generated via a Monte Carlo sampling algorithm. We generate synthetic source activity with T = 1000 sets of random coecients {αd(t)}Tt=1 .To ensure a stable and accurate inverse projection for each leadeld, we assessed the spatial correlation between synthetic activity ˜J and estimated source activities ˆJi. As shown in Fig. 2C, the estimated activity was obtained through a forward-inverse modeling loop utilizing the individual leadeld matrix. 9
+
+> .CC-BY-NC-ND 4.0 International license available under a (which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made The copyright holder for this preprint this version posted June 3, 2026. ;https://doi.org/10.64898/2026.05.31.729074 doi: bioRxiv preprint
+
+Figure 2: The procedure of spatial screening. A: Spatial geometric modes generated from the MNI-space cortical surface mesh (see Appendix A for details); B: Synthetic source activity ˜J
+
+generated from snapshot t1 to tn using Equation (2); C: Sensor samples ˜Vi generated via the forward model based on individual leadeld matrices; D: Estimated source activity ˆJi via the inverse model based on individual leadeld matrices; E: Spatial screening matrix corre-sponding to each leadeld; F: Schematic diagram of spatial correlation matrix computation; G: Threshold selection for spatial screening; H: Surface map of estimated activity ˆJi before screening; I: Surface map of estimated activity ˆJi after applying screening masks. 10 
+
+> .CC-BY-NC-ND 4.0 International license available under a (which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made The copyright holder for this preprint this version posted June 3, 2026. ;https://doi.org/10.64898/2026.05.31.729074 doi: bioRxiv preprint
+
+The spatial correlation coecient for subject i (with leadeld matrix Li), ri(m), between the simulated ˜J and reconstructed source activity ˆJi at location m is calculated as follows (illustrated in Fig. 2F): 
+
+ri(m) = Cov   ˜Jm, ˆJi,m 
+
+
+
+σ ˜Jm σ ˆJi,m 
+
+(3) Here, σ ˜Jm and σ ˆJi,m denote the standard deviations of ˜Jm and ˆJi,m , respectively. For sub-ject i, the estimated source signal at location m is preserved when ri(m) > τ , where τ is the screening threshold (Fig. 2G), controlling the trade-o between spatial coverage and reconstruction delity. The threshold was selected via a systematic sensitivity analysis on synthetic data (Appendix C). This yields a reliable screening mask (Fig. 2E). By applying the obtained screening mask to the estimated source activity of the real data (Fig. 2H), we derive a reliable source estimate (Fig. 2I). Here, it should be noted that the screening method based on correlation with a null model ensures spatial continuity inherited from the geometric eigenfunctions and guarantees the priority of higher leadeld gains, which cannot be achieved through global averaging methods like GSF. 
+
+2.4 Quilting with IOLMM 
+
+For each subject i, the screened source power is log-transformed to stabilize variance and convert multiplicative scaling dierences into additive shifts: 
+
+yi,m = log 10 
+
+  ˆPi,m 
+
+, m ∈ M i (4) where ˆPi,m is the estimated source power spectral density at vertex m, and Mi = {m :
+
+ri(m) > τ } denotes the set of vertices retained by the screening mask for subject i.To construct a whole-brain source power map from sparse data, we aggregate the log-transformed, screened source power vectors {yi}Ni=1 (Equation 4) across subjects using the IOLMM. The model explicitly accommodates two key sources of inter-subject variability: the spatial heterogeneity of electrode implantation and discrepancies in signal amplitudes. For each subject i (i = 1 , . . . , N ), the log-transformed screened source power yi (Equa-tion 4) is modeled as: 
+
+yi = Siβ + zibi + ηi (5) Because yi is on the log 10 scale, the inherently multiplicative amplitude scaling dierences between subjects become additive components. The variables are: 
+
+ yi ∈ Rmi : Log-transformed screened source power for subject i (Equation 4), where 
+
+mi ≤ M is the number of vertices retained by the screening mask ( ri(m) > τ ). 
+
+ Si ∈ { 0, 1}mi×M : Binary selection matrix constructed from the screening mask, map-ping the full M -dimensional source space to the mi retained vertices. Row j of Si
+
+contains a single 1 at column k if yi,j corresponds to cortical vertex k.
+
+ β ∈ RM : Fixed eect vector representing the population-mean log source power across all M cortical vertices. 11 
+
+> .CC-BY-NC-ND 4.0 International license available under a (which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made The copyright holder for this preprint this version posted June 3, 2026. ;https://doi.org/10.64898/2026.05.31.729074 doi: bioRxiv preprint
+
+ zi = 1mi ∈ Rmi : Design vector for the random eect (a column of ones with length 
+
+mi). 
+
+ bi ∼ N (0 , σ 2 
+
+> b
+
+): Subject-specic random eect (scalar), representing a global log-scale amplitude shift for subject i.
+
+ ηi ∈ Rmi : Residual error vector, ηi ∼ N (0, σ 2 
+
+> η
+
+Imi ).Table 1 summarizes the physical interpretation of each model component. Table 1: IOLMM eect structure and physical interpretation. 
+
+Eect Symbol Interpretation Estimated from 
+
+Fixed (group) β Population-mean log source power Pooled screened sources Random (subject) bi Subject-specic amplitude scaling Individual log-scale oset Residual ηi Measurement noise Within-subject residual 
+
+For a more general formulation, the residual covariance may assume structures beyond 
+
+σ2 
+
+> η
+
+I, ranging from deterministic forms based on the LaplaceBeltrami operator to Bayesian models employing a Wishart distribution (Gonzalez-Moreira et al., 2020; Paz-Linares et al., 2023). The parameters {β, b i, σ 2 
+
+> η
+
+, σ 2 
+
+> b
+
+} are estimated via the EM algorithm (Appendix D). Once the EM algorithm (Appendix D) converges, the subject-specic scale factors are computed from the estimated random eects: 
+
+ci = e−ˆbi (6) These scale factors adjust the amplitude of each subject's source estimates to align them onto a common scale. Subtracting the random eect in log space yields the scale-adjusted observation: 
+
+˜yi = yi − ziˆbi (7) The group-level whole-brain activation map is then constructed by aggregating the ad-justed source estimates across subjects. Under complete observationi.e., Si = IM and 
+
+mi = M for all ithe estimator of β reduces to the simple sample mean: 
+
+ˆβcomplete = 1
+
+N
+
+> N
+
+X
+
+> i=1
+
+˜yi (8) In practice, each subject observes only mi ≪ M vertices, so the selection matrices Si dier across subjects. A naïve application of Equation (8) to the back-projected vectors S⊤ 
+
+> i
+
+˜yii.e., dividing by N would systematically underestimate vertices with low coverage: the j-th component would equal (nj /N ) ¯ ˜yj , where nj is the number of subjects observing vertex j.For vertices with nj ≪ N , the factor nj /N attenuates the estimate toward zero. The EM-derived maximum-likelihood estimator (Appendix D) corrects for this by normalizing each vertex by its actual observation count: 
+
+ˆβ =
+
+> N
+
+X
+
+> i=1
+
+S⊤ 
+
+> i
+
+Si
+
+!−1 NX
+
+> i=1
+
+S⊤ 
+
+> i
+
+˜yi (9) 12 
+
+> .CC-BY-NC-ND 4.0 International license available under a (which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made The copyright holder for this preprint this version posted June 3, 2026. ;https://doi.org/10.64898/2026.05.31.729074 doi: bioRxiv preprint
+
+Since P 
+
+> i
+
+S⊤ 
+
+> i
+
+Si is diagonal with the j-th entry equal to nj , the j-th component of ˆβ is the sample mean of ˜yi,j over only the nj subjects who observe vertex j. When Si = IM for all i,every diagonal entry equals N and Equation (9) reduces to Equation (8). Thus, the EM algorithm jointly estimates the per-subject scale factors ci (Equation 6) and the group-level source power map ˆβ (Equation 9), tiling the non-overlapping , partially covering , and scale-divergent individual observations {yi}Ni=1 into a single whole-brain representation. 
+
+# 3 Results 
+
+To validate the eectiveness of the screening and quilting method for high-dimensional regres-sion in selecting condent sources for ESI, we conducted a series of validation experiments based on simulated synthetic data. These simulations aimed to assess the method's ability to accurately identify relevant sources and improve the reconstruction quality under conditions mimicking the sparse and non-uniform electrode coverage inherent in iEEG recordings. Here, we detail the protocol for generating synthetic samples, present the validation results for the screening and quilting steps, and summarize the biological validation of the framework using real iEEG data across sleep stages. 
+
+3.1 The Procedure of Synthetic Data Generation 
+
+To obtain realistic synthetic data, we employed structural geometric constraints for source data generation. Geometric modes (Fig. 3A) were generated based on the MNI-space cortical surface mesh (see Appendix A for details). The synthetic source activity was produced using Equation (2) (Fig. 3B), with coecients derived via Monte Carlo sampling. We then calculated the source covariance matrix to facilitate the subsequent generation of sensor activity. By applying the forward model with individual leadeld matrices, we obtained the co-variance matrix in the sensor space (Fig. 3C). Consequently, subject-specic synthetic sensor activities were generated by sampling from a Gaussian distribution dened by this covariance 
+
+ΣVi (Fig. 3D). 
+
+3.2 Validation of the Screening Method 
+
+To verify the necessity of spatial screening, we validated its eectiveness using synthetic data by comparing the mean source activities obtained with and without screening against the ground truth. To eliminate potential confounding factors, the synthetic samples were generated with a unit amplitude scale. Specically, following the method described in Section 3.1, we generated synthetic sensor activities (Fig. 4A) and derived the Power Spectral Density (PSD) in the source space via inverse solving. For each sample, two strategies were applied: (1) estimation PSD without spatial screening ˆP raw  
+
+> i
+
+(Fig. 4B); and (2) estimation with spatial screening applied to the PSD ˆP scr  
+
+> i
+
+(Fig. 4C). We then calculated the geometric mean across samples for both resulting source PSDs (denoted as ¯P raw and ¯P scr ). The correlation matrix (Fig. 4D) between the 13 
+
+> .CC-BY-NC-ND 4.0 International license available under a (which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made The copyright holder for this preprint this version posted June 3, 2026. ;https://doi.org/10.64898/2026.05.31.729074 doi: bioRxiv preprint
+
+Figure 3: A: Spatial geometric modes obtained from the MNI-space cortical surface mesh (see Appendix A for details); B: Synthetic source activity generated with coecients via Monte Carlo sampling; C: Covariance matrix in sensor space computed via the forward model for each individual leadeld matrix; D: Synthetic sensor signal sampled from a Gaussian distribution with the covariance matrix generated in C. 14 
+
+> .CC-BY-NC-ND 4.0 International license available under a (which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made The copyright holder for this preprint this version posted June 3, 2026. ;https://doi.org/10.64898/2026.05.31.729074 doi: bioRxiv preprint
+
+Figure 4: Validation of the spatial screening method. A: Ground truth source mean PSD ¯Ptrue 
+
+(left) and synthetic sensor activity ˜Vi generated without scale factor (right); B: Estimated source PSD without screening ˆP raw  
+
+> i
+
+(left) and its geometric mean (right); C: Estimated source PSD with screening ˆP scr  
+
+> i
+
+(left) and its geometric mean (right); D: Spatial correlation matrix between ground truth ¯Ptrue , unscreened mean ¯P raw , and screened mean ¯P scr .15 
+
+> .CC-BY-NC-ND 4.0 International license available under a (which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made The copyright holder for this preprint this version posted June 3, 2026. ;https://doi.org/10.64898/2026.05.31.729074 doi: bioRxiv preprint
+
+ground truth and the two mean maps reveals that the mean pattern derived with spatial screening maintains a high spatial correlation with the ground truth ( r = 0 .81 ). In contrast, the mean pattern without screening exhibits a correlation of only 0.54. These results strongly demonstrate the necessity of the spatial screening procedure. 
+
+3.3 Validation of the IOLMM Quilting Method 
+
+Here, we validated the eectiveness of scale correction across three dierent quilting methods using synthetic data. We compared the proposed IOLMM-based quilting method against two baselines: the straightforward Nearest Neighbor (NN) mean, and the Nadaraya-Watson (NW) interpolation algorithm. To obtain a systematic quantitative assessment, we employed three complementary metrics: (1) the Pearson correlation between the estimated source PSD and the ground truth PSD to quantify global pattern similarity; (2) ROC analysis for the detection of high-activity regions (top 25%, i.e., above the 75th percentile of ground truth values) to characterize local detection capability; and (3) the correlation between estimated and real scale factors, which provides direct evidence of scale estimation accuracy. As shown in Fig. 5A, the ground truth source mean map was generated using the method described in Section 3.1. The Nearest Neighbors quilting method represents the geometric mean across samples, while NW interpolation is a method that lls the source space directly from sensor space (details provided in Appendix E). The correlation matrix shows that the global spatial pattern derived from the IOLMM-corrected method is highly consistent with the ground truth, successfully recovering the overall activity distribution ( r = 0 .78 , Fig. 5B). Subject-specic amplitude scaling factors can severely impair the ability to localize orig-inal activity. Without correction, source signal intensity is overestimated in subjects with high scaling factors and underestimated in those with low scaling factors. This biases the group mean toward high-scale individuals, resulting in spatial pattern distortion. To further evaluate the spatial delity of the group map, we designed a detection task: identifying cortical regions with high source power (top 25th percentile of ground truth). The ROC analysis revealed that IOLMM-corrected estimates achieved a notably higher AUC (0.91) compared to Nearest Mean (0.89) and NW Interpolation (0.82) (Fig. 5C). This improvement demonstrates that removing subject-specic scaling factors enables the accurate recovery of the spatial distribution of source activity. Furthermore, the classication radar chart (Fig. 5D) shows that the IOLMM correction outperformed other methods in terms of F1-score, AUC, sensitivity, specicity, and precision. These results directly verify that scale correction restores the capacity to localize active sources. The 75th percentile of ground truth values was used to dene high-activity regions for the ROC analysis. Finally, we compared the real sample scale factors with the estimated scale factors and their distribution. The results show that their correlation value is r = 0 .823 (Fig. 5E), and the distribution correlation is 0.8 (Fig. 5F), which is higher than the other two methods, directly verifying the accuracy of IOLMM in scale estimation. 16 
+
+> .CC-BY-NC-ND 4.0 International license available under a (which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made The copyright holder for this preprint this version posted June 3, 2026. ;https://doi.org/10.64898/2026.05.31.729074 doi: bioRxiv preprint
+
+Figure 5: The validation of IOLMM. A: from left to right are: Generated ground truth source mean PSD, estimated source map which quilting with nearest neighbors, quilting with NW interpolation, quilting with IOLMM; B: Correlation matrix between ground truth with estimated source mean map; C: ROC curve of detection of cortical regions with high source power for IOLMM, NW interpolation and nearest mean methods; D: The classication performance of AUC, sensitivity, F1 score, precision, specicity among these three methods; E: The comparison between ground truth and estimated scale factor; F: The scale factors distribution comparison among methods. 17 
+
+> .CC-BY-NC-ND 4.0 International license available under a (which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made The copyright holder for this preprint this version posted June 3, 2026. ;https://doi.org/10.64898/2026.05.31.729074 doi: bioRxiv preprint
+
+3.4 Biological Validation: Sleep Stage-Dependent Cortical Source Power 
+
+To demonstrate IOLMM on real data, we reconstructed whole-brain source power maps across four sleep stages (Wake, N2, N3, REM) from the MNI Open iEEG Atlas (Wake: 
+
+N = 105 ; N2/N3: N = 87 ; REM: N = 61 ). 
+
+Stage-specic cortical power maps and lobe-level statistics. IOLMM-reconstructed source power maps (Fig. 6A) showed a progressive increase in cortical power from Wake through N2 to N3, with the strongest enhancement over frontal and cingulate cortex. REM power, by contrast, returned to or fell below Wake levels across most cortical regions. Rain-cloud plots of per-subject lobe-level source power (Fig. 6B) quantied this gradient: across all six lobes, the population ordering N3 > N2 > Wake > REM was maintained. FDR-corrected paired t-tests conrmed that N2 and N3 were signicantly elevated relative to Wake in every lobe (all pFDR < 0.001 ), while REM was signicantly below Wake only in posterior lobes (parietal, occipital). The frontal lobe exhibited the largest dynamic range, spanning nearly one order of magnitude between N3 ( −1.72 ) and Wake ( −2.55 ) in log 10 units, corroborating direct iEEG recordings of stage-dependent cortical power gradients (von Ellenrieder et al., 2020, 2022; Frauscher et al., 2018). 
+
+Spatial structure of stage contrasts and regional signicance. Vertex-wise dier-ence maps (Fig. 6C) revealed that N2Wake and N3Wake dierences were strongest over prefrontal and medial frontal cortex, while REMWake displayed a distinct anteriorposterior dissociationconsistent with the known antero-posterior power shift during REM sleep (Werth et al., 1996; De Gennaro et al., 2002). A Manhattan-style signicance plot (Fig. 6D) across 72 DK-92 atlas regions showed that N3 vs. Wake reached signicance in 67/72 re-gions (93%), N2 vs. Wake in 57/72 (79%), but REM vs. Wake in only 5/72 (7%)mirroring the graded electrophysiological hierarchy. A forest plot of the top 15 N3-vs-Wake regions (Fig. 6E) showed that the largest eects ( ∆ log 10 = 0 .90 0.92 ) concentrated in prefrontal and anterior cingulate cortex (13/15 regions), consistent with the frontal predominance of slow-wave activity (Massimini et al., 2004; Bernardi et al., 2018). 
+
+# 4 Discussion 
+
+4.1 Quilting the Brain: IOLMM's Solution to the Coverage Para-dox 
+
+The central contribution of this study lies in formalizing and validating the Incomplete Observation Linear Mixed-Eect Model (IOLMM) as an eective solution to the Quilting Problem in intracranial EEG analysis. Rather than treating sparse coverage as a limitation to work around, IOLMM reframes it as a structured missingness problem amenable to principled statistical inference. Our results demonstrate that this formulation can reconstruct coherent, whole-brain source power maps that recover known physiological patternsincluding the frontal predominance of slow-wave activity and the graded NREM 18 
+
+> .CC-BY-NC-ND 4.0 International license available under a (which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made The copyright holder for this preprint this version posted June 3, 2026. ;https://doi.org/10.64898/2026.05.31.729074 doi: bioRxiv preprint
+
+Figure 6: Sleep stage-dependent cortical source power reconstructed by IOLMM. A: Whole-brain source power maps for Wake, N2, N3, and REM; B: Raincloud plots of per-subject lobe-level source power; C: Vertex-wise dierence maps (N2Wake, N3Wake, REMWake); D: Manhattan-style signicance plot across DK-92 atlas regions; E: Forest plot of top 15 N3-vs-Wake regions ranked by eect size. 19 
+
+> .CC-BY-NC-ND 4.0 International license available under a (which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made The copyright holder for this preprint this version posted June 3, 2026. ;https://doi.org/10.64898/2026.05.31.729074 doi: bioRxiv preprint
+
+hierarchyfrom the fragmented observations of individual patients. This outcome suggests that the coverage paradox, while a genuine obstacle for channel-level analyses, is not a fun-damental barrier when the problem is cast in source space with appropriate hierarchical modeling. Key to the success of IOLMM is its handling of Scaling Ambiguity . As discussed in the introduction, the traditional Global Scale Factor (GSF) fails in iEEG because it conates the extent of observation with signal magnitude. Our analysis further conrms that when sensor arrays sample only a fraction of the brain volume, the assumption of total energy conservation underlying GSF is broken. IOLMM eectively decouples the biological signal of interest (i.e., the xed eect, β) from confounding variations introduced by electrode impedance, amplier gain dierences, and, crucially, coverage density dierences, by modeling subject-specic scaling factors ( bi) as Random Eects within a mixed-model framework. The logarithmic transformation employed in the model converts multiplicative scaling dierences into additive biases, which are then eciently estimated via the EM algorithm. This mathematical treatment is not merely for computational convenience but deeply re-ects the physical nature of the signalgain factors physically act multiplicatively on neural current density. The resulting group-level source power map ( ˆβ) represents a consensus physiologya statistical estimate of the expected iEEG power distribution if one could record from all positions simultaneously in a standard subject. This establishes a direct bridge between the sparse world of high-delity iEEG and the dense, continuous atlases of fMRI/MEG. It is instructive to compare IOLMM with existing approaches to iEEG normative map-ping. Frauscher et al. (2018) constructed the rst normative iEEG atlas using channel-level spectral features aggregated into anatomical parcels, while Taylor et al. (2022) extended this to normative z-score mapping for epileptogenic tissue localization. Both approaches operate in sensor space , inheriting the spatial resolution of the electrode array itself. In contrast, IOLMM operates in source space on the cortical surface mesh, oering vertex-level resolution that is independent of individual electrode placement. Furthermore, neither prior approach explicitly models inter-subject amplitude scaling; they rely on ROI averaging or simple z-scoring that can be biased by heterogeneous electrode coverage. IOLMM addresses this through random-eects modeling of subject-specic scaling factors, making it better suited for structurally incomplete data. 
+
+4.2 The Necessity of High-Dimensional Screening and the Value of Geometric Constraints 
+
+Another key nding of this study is that rigorous source space screening is indispensable prior to quilting. The iEEG inverse problem is notoriously unstable for regions distant from electrode contacts. Without screening, ESI algorithms (such as eLORETA) generate substantial Ghost Sources in uncovered regions, often driven by noise or volume conduction eects from active areas. Simply averaging these noisy estimates into a group atlas would severely degrade spatial resolution and introduce false positives, negating the high spatial precision advantage of iEEG. We addressed this by drawing on the concept of Sure Independence Screening (SIS) from 20 
+
+> .CC-BY-NC-ND 4.0 International license available under a (which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made The copyright holder for this preprint this version posted June 3, 2026. ;https://doi.org/10.64898/2026.05.31.729074 doi: bioRxiv preprint
+
+high-dimensional regression (Fan and Lv, 2008). By simulating smooth source activity based on the brain's Geometric Eigenmodes , we created a biologically plausible null model. Calculating the correlation between simulated sources and their inverse problem reconstruc-tions provides a reliable metric. This process eectively generates a Condence Mask for each subject, precisely identifying the cortical patches where that subject's electrode array provides credible information. This screening process transforms the input for IOLMM from a dense but noise-lled ma-trix into a sparse but high-condence matrix. IOLMM then acts as the weaver, stitching these high-condence patches together. This screen rst, quilt second strategy ensures that the nal group atlas retains the high spatial frequency information inherent to iEEG signals, rather than smoothing it away through low-condence extrapolation. This echoes recent theoretical work on Graph Quilting, which aims to infer the global structure of graph mod-els from block-missing covariance data (Vinci et al., 2023). Although our approach focuses on activation mapping (rst-order statistics) rather than connectivity (second-order statis-tics), the underlying logic is consistent: global inference requires identifying and exploiting overlapping information within reliable data subspaces. An important property of the screening procedure is that the per-vertex reliability metric 
+
+ri(m) (Equation 3) is determined by the resolution matrix Ri = TiLi, which encodes how faithfully each cortical vertex survives the forwardinverse modeling loop for a given elec-trode conguration. The geometric eigenmodes serve only as spatially smooth probe signals; any suciently smooth and spatially distributed basis (e.g., spherical harmonics, Fourier basis) would yield similar screening masks, because the discriminating factor is the subject-specic forwardinverse loop, not the input signal's spectral composition. This conrms that screening is a data-independent preprocessing step whose selectivity is governed by electrode geometry, not by the choice of probe basis. The following table summarizes the comparison between the IOLMM method and tradi-tional approaches in handling iEEG group analysis challenges: 
+
+4.3 Construction of Normative Atlases and Clinical Translational Signicance 
+
+Generating reliable group-level source power maps has direct implications for developing 
+
+Normative Atlases for iEEG. Prior work, such as the seminal study by Frauscher et al. (2018), relied primarily on strict exclusion criteria and simpler aggregation methods to dene normal iEEG activity. While foundational, these atlases mostly utilized channel-based or ROI-based metrics. Our source-space method oers a high-resolution alternative dened continuously on the cortical manifold. By providing estimates of vertex-level mean spectral power and its total variance (cap-tured by residual error σ2 
+
+> η
+
+and random eects variance σ2 
+
+> b
+
+), IOLMM enables the calculation of Z-score maps for individual patients relative to a normative baseline. Clinically, this function has practical value. In presurgical epilepsy evaluation, identifying the seizure onset zone often relies on detecting subtle deviations in background activity or interictal discharges. A normative atlas allows clinicians to statistically quantify the degree of abnormality at the source level, potentially highlighting Focal Cortical Dysplasia (FCD) or other lesions 21 
+
+> .CC-BY-NC-ND 4.0 International license available under a (which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made The copyright holder for this preprint this version posted June 3, 2026. ;https://doi.org/10.64898/2026.05.31.729074 doi: bioRxiv preprint
+
+Table 2: Comparison of methods for iEEG group analysis. 
+
+Method Strategy for Sparse Sam-pling Strategy for Amplitude Het-erogeneity Spatial Reso-lution Applicability 
+
+Direct Averag-ing Ignore missing data or interpo-late 0 None / Simple normalization Low (Limited by sensor loca-tion) Only for dense sampling ROI Analysis (Taylor et al., 2022) Aggregate to anatomical parcels Intra-regional av-eraging Low (Parcel-level) Traditional stan-dard, loses detail GSF (Her-nandez et al., 1994) Requires whole-brain coverage (inapplicable to iEEG) Global energy nor-malization High (Source space) Inapplicable to iEEG (introduces bias) 
+
+IOLMM (Proposed) 
+
+Binary Selection Matrix (Si) +Screening Random Eects Modeling ( bi)High (Vertex-level) Suitable for sparse, resting-state, heteroge-neous data 
+
+that are subtle on MRI but spectrally distinct. Furthermore, this method facilitates the fusion of iEEG with other modalities. The quilted iEEG atlas can be directly correlated with fMRI BOLD signals or MEG source reconstructions in a common space (e.g., MNI or fs_LR_32k). This promotes cross-modal validation studies, such as using the temporal precision of iEEG to dissociate neural drivers of hemodynamic signals observed in fMRI, or validating the source localization accuracy of non-invasive MEG. 
+
+4.4 Biological Validation: Sleep Stage-Dependent Source Power 
+
+The sleep-stage application validates the IOLMM pipeline by demonstrating that known physiological patterns can be recovered from fragmented iEEG coverage. Despite each sub-ject contributing electrodes covering only a small fraction of the cortex, IOLMM recovered the frontal predominance of NREM slow-wave activitya topographic signature established by high-density scalp EEG (Werth et al., 1996; Massimini et al., 2004) and conrmed by di-rect cortical recordings (von Ellenrieder et al., 2020). That the same spatial pattern emerges from quilting ∼100 partial-coverage subjects provides evidence that the screening step eec-tively removes ghost sources and the IOLMM quilting correctly adjusts inter-subject ampli-tude scaling. The method also exhibits appropriate sensitivity to graded electrophysiological eects: N3 eects were detected in 93% of regions, N2 in 79%, REM in only 7%, mirroring the known hierarchy and suggesting that IOLMM output retains sucient signal-to-noise for standard parametric inference. The near-absence of signicant REM eects rules out sys-tematic ination bias. Furthermore, the raincloud plots show that per-subject distributions overlap across stages within each lobe while population medians maintain strict orderinga 22 
+
+> .CC-BY-NC-ND 4.0 International license available under a (which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made The copyright holder for this preprint this version posted June 3, 2026. ;https://doi.org/10.64898/2026.05.31.729074 doi: bioRxiv preprint
+
+property required for normative Z-score atlases where individual patient deviations must be meaningfully quantied. 
+
+4.5 Limitations and Methodological Considerations 
+
+While the IOLMM framework shows considerable potential, several limitations warrant fur-ther discussion. First, the eectiveness of quilting relies heavily on a core assumption: that the Fixed Eect (i.e., group mean) is a meaningful biological entity. This implicitly assumes cross-subject Functional Homology that after stereotactic normalization, the Fusiform Face Area or Default Mode Network resides in roughly the same anatomical location across individuals. Although cortex-based alignment improves this correspondence compared to Volume-based registration, individual dierences in functional topology may contribute resid-ual variance. IOLMM accounts for amplitude variation via random eects but does not explicitly model spatial variation (i.e., displacement of functional peaks). Future work could incorporate spatial random eects or Optimal Transport metrics to further reduce this residual. A consideration shared by all iEEG normative studies is that the data originate from patients with epilepsy rather than healthy volunteers. This practice is well-established and defensible (Rutherford et al., 2023): rigorous channel exclusion criteriaremoving channels within the seizure onset zone, those exhibiting interictal epileptic discharges, and those in lesional tissue (Frauscher et al., 2018)yield recordings that approximate normal cortical activity. Moreover, epilepsy is increasingly recognized as a network disorder, and recent evidence shows that more complete resection of seizure onset regions is not necessarily asso-ciated with more favorable surgical outcomes (Gascoigne et al., 2024), suggesting that the boundary between pathological and normal tissue is itself uncertain. Nevertheless, elec-trode placement is determined by clinical need rather than scientic design, so frequently implanted regions (e.g., the temporal lobe) are over-represented relative to less commonly targeted areas. IOLMM handles the structural pattern of missingness via the selection ma-trix Si, but the statistical power of the group atlas is necessarily spatially non-uniform, with higher condence in densely sampled regions. Future multi-center data collection eorts could aim to broaden spatial coverage by pooling cohorts with complementary implantation strategies. Additionally, the current sleep-stage analysis is restricted to broadband source power. This broadband characterization provides the foundational validation of the quilting pipeline; frequency-resolved maps (e.g., slow oscillation vs. sigma/spindle band) are a natural next step that would yield more specic physiological ngerprints. Furthermore, eLORETA source localization, while exhibiting zero localization error for point sources, introduces spatial blurring (eective resolution ∼1520 mm) that propagates into the IOLMM vertex-level estimates. The geometric eigenmode screening mitigates ghost sources from the inverse solver, but cannot recover spatial detail ner than the leadeld resolution. Consequently, IOLMM maps should be interpreted at the gyral scale rather than at individual cortical columns. Looking ahead, the framework opens several concrete avenues. A direct extension is applying IOLMM to time-frequency data , enabling the quilting of event-related spec-23 
+
+> .CC-BY-NC-ND 4.0 International license available under a (which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made The copyright holder for this preprint this version posted June 3, 2026. ;https://doi.org/10.64898/2026.05.31.729074 doi: bioRxiv preprint
+
+tral dynamics or dynamic functional connectivity. This would require expanding the scalar random eect bi into time-varying or frequency-dependent scaling functions. Comparing IOLMM with other data harmonization techniques (e.g., ComBat; Johnson et al., 2007) is also warranted. While ComBat excels at removing batch eects in dense neuroimaging data, its application to sparse, structurally missing data is not straightforward; hybrid meth-ods combining ComBat's empirical Bayes estimation with IOLMM's mixed-model structure may yield further improvements in multi-center harmonization. Finally, the quilted atlas could serve as a reference for training generative models that fuse sparse iEEG with dense fMRI or MEG data, leveraging the complementary spatial and temporal resolution of these modalities. 
+
+4.6 Conclusion 
+
+In summary, the quilting of multi-center intracranial EEG data represents a critical step toward constructing a high-resolution human brain functional atlas. By combining high-condence source screening based on geometric eigenmodes with Incomplete Observation Linear Mixed-Eect Models, we provide a mathematically principled method to overcome the obstacles of sparse sampling and heterogeneous scaling. This approach not only validates the feasibility of group-level inference using iEEG but also establishes a new standard for building normative electrophysiological atlases, thereby bridging the chasm between neurons and networks, and between individual patients and the population. 
+
+Ethics Statement 
+
+This study used retrospective, de-identied data from the MNI Open iEEG Atlas (Frauscher et al., 2018). All patients provided written informed consent for their clinical data to be used for research purposes, and the original study was approved by the Research Ethics Board of the Montreal Neurological Institute and Hospital (McGill University). No additional ethical approval was required for the present secondary analysis of the publicly available, de-identied dataset. 
+
+Data Availability 
+
+The MNI Open iEEG Atlas data used in this study are publicly available at https:// mni-open-ieegatlas.research.mcgill.ca . The IOLMM code is available at https:// github.com/ccclab-bigdata/IOLMM .
+
+CRediT Author Statement 
+
+M.L., Y.W., and P.A.V-S. jointly conceived and designed the study. Y.W. and M.L. cu-rated the data, performed the whole data analyses, and wrote the manuscript. M.L.B-V. contributed to the development and critical revision of the manuscript. 24 
+
+> .CC-BY-NC-ND 4.0 International license available under a (which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made The copyright holder for this preprint this version posted June 3, 2026. ;https://doi.org/10.64898/2026.05.31.729074 doi: bioRxiv preprint
+
+Declaration of Competing Interests 
+
+The authors declare that they have no known competing nancial interests or personal relationships that could have appeared to inuence the work reported in this paper. 
+
+Acknowledgements 
+
+We thank Dr. Nicolás von Ellenrieder for generously sharing the MNI iEEG Atlas dataset and for his expert guidance on its use. This work was supported by the National Key R&D Program of China (2024YFE0215100), the CNS Program of the University of Electronic Sci-ence and Technology of China (UESTC) (Grant No. Y03023206100204). M.L. was supported by Hangzhou Dianzi University Seed Fund Project (KYS055623037) and Zhejiang Provincial Higher Education Institutions' Basic Operations Project (GK239909299001-025). 
+
+# A Calculation of Geometric Eigenfunctions 
+
+To obtain the eigenmodes, we dened the cortex space using a triangular cortical surface mesh obtained by downsampling the FreeSurfer cortical reconstruction of the ICBM152 template via Brainstorm (Tadel et al., 2011). Two resolutions are used: 2,003 vertices for screening validation and 15,002 vertices for the nal empirical atlas. As this template is a public stan-dard and independent of our data sample, it avoids any data information leakage. We then constructed the LaplaceBeltrami operator (LBO) from this surface mesh, which captures local vertex-to-vertex spatial relations and curvature. By solving the eigenvalue problem of the following equation, we can obtain the geometric eigenmodes, 
+
+−∇ 2ϕd = λdϕd (10) where ∇2 is the Laplace-Beltrami operator. {ϕd}Dd=1 are the eigenmodes with eigenvalues 
+
+{λd}Dd=1 . The eigenvalues are sorted in ascending order and all eigenfunctions are mutually orthogonal, forming a complete geometric basis. Synthetic source activity was generated as a linear combination of the rst K = 50 eigenmodes (see Appendix B for the sensitivity analysis justifying this choice). 
+
+# B Eigenmode Count Sensitivity Analysis 
+
+To verify the choice of K = 50 eigenmodes for the screening probe signals (Equation 2), we assessed how the number of eigenmodes aects the delity of the forwardinverse reconstruc-tion loop. For a representative sEEG electrode conguration, we generated a smooth ground-truth source pattern s = Φ1:200 c using all 200 eigenmodes with random coecients c. We then truncated the basis to the rst K modes ( K ∈ { 5, 10 , 15 , 20 , 30 , 40 , 50 , 75 , 100 , 150 , 200 }), passed the truncated signal through the resolution matrix Ri = TiLi, and measured the Pear-son correlation between the truncated reconstruction RiΦ1: K c1: K and the full reconstruction 
+
+Ri s.The reconstruction correlation increased from r = 0 .63 at K = 5 to r = 0 .84 at K = 40 ,after which it plateaued: r = 0 .84 at K = 50 and r = 0 .86 at K = 100 (Fig. 7). This plateau 25 
+
+> .CC-BY-NC-ND 4.0 International license available under a (which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made The copyright holder for this preprint this version posted June 3, 2026. ;https://doi.org/10.64898/2026.05.31.729074 doi: bioRxiv preprint
+
+indicates that beyond K ≈ 40 , additional eigenmodes contribute spatial frequencies that the resolution matrix cannot resolve, yielding diminishing returns for screening. We therefore adopted K = 50 as a conservative choice within the plateau region. 
+
+Figure 7: Reconstruction correlation as a function of eigenmode count K. A smooth ground-truth source pattern (generated from 200 eigenmodes) was truncated to the rst K modes and passed through the resolution matrix Ri = TiLi of a representative sEEG electrode conguration. The red dot marks K = 50 (r = 0 .84 ), which lies within the plateau region (K ≥ 40 ). The shaded area indicates the plateau region where reconstruction quality is stable. 
+
+# C Screening Threshold Sensitivity Analysis 
+
+The screening procedure retains source vertices where the spatial correlation ri(m) exceeds a threshold τ , controlling the trade-o between spatial coverage and reconstruction delity. A lenient threshold retains many vertices, including unreliable ghost sources, whereas a stringent threshold keeps only high-delity vertices but reduces coverage, potentially leaving gaps in the quilted map. To select τ , we performed a systematic sensitivity analysis on synthetic data (see Section 3.1 for details). We swept τ across [0 .1, 0.9] with a step size of 0.05 (17 values). For each τ , we executed the complete pipelinescreening, IOLMM tting (EM algorithm), and quiltingand evaluated reconstruction quality by computing the Pearson correlation between the quilted source map ˆβ and the synthetic ground truth 
+
+s0, as well as the area under the ROC curve (AUC) for detecting high-activity regions (top 25th percentile). Two baseline methods (Nearest Neighbor mean and NadarayaWatson interpolation) were evaluated in parallel to assess whether method ranking was consistent 26 
+
+> .CC-BY-NC-ND 4.0 International license available under a (which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made The copyright holder for this preprint this version posted June 3, 2026. ;https://doi.org/10.64898/2026.05.31.729074 doi: bioRxiv preprint
+
+across threshold values. We dened the optimal threshold τ ∗ as the smallest τ at which the IOLMM reconstruction correlation reached 95% of its maximum value across all tested thresholds, balancing reconstruction quality against coverage. Mean vertex coverage decreased monotonically from 32.7% ( τ = 0 .1) to 2.0% ( τ = 0 .9), conrming that stricter thresholds progressively exclude more source locations (blue curves in Fig. 8A and B). The IOLMM reconstruction quality increased monotonically with τ , as measured by both Pearson correlation (Fig. 8A; r: 0.63 at τ = 0 .1 to 0.88 at τ = 0 .85 )and AUC (Fig. 8B; 0.83 to 0.95). This demonstrates that the linear mixed-eect quilting mechanism eectively recovers the full source map even from sparse, high-quality inputs. In contrast, the Nearest Neighbor mean exhibited a non-monotonic pattern, peaking at 
+
+τ ≈ 0.50 (r = 0 .69 ) before declining at stricter thresholds due to insucient spatial sampling. The NadarayaWatson interpolation, which operates directly in sensor space, was largely invariant to τ (r ≈ 0.50 ), serving as a τ -independent baseline. Applying the 95%-of-maximum criterion yielded τ ∗ = 0 .65 , at which the IOLMM achieved 
+
+r = 0 .84 and AUC = 0.93 with a mean coverage of 6.1% of cortical vertices per subject. Crucially, the method ranking (IOLMM > Nearest Mean > NW interpolation) was consistent across all 17 tested τ values (100%), indicating that the comparative conclusions reported in this study are robust to threshold selection (Fig. 8). 
+
+Figure 8: Sensitivity of reconstruction quality to screening threshold τ . (A) Coverage correlation trade-o. Left y-axis (blue circles): mean fraction of cortical vertices retained per subject. Right y-axis: Pearson correlation between the quilted source map and syn-thetic ground truth for IOLMM (red squares), Nearest Neighbor mean (green triangles), and NadarayaWatson interpolation (orange diamonds). (B) CoverageAUC trade-o. Same lay-out as (A), with the right y-axis showing area under the ROC curve for detecting high-activity cortical regions (top 25th percentile). In both panels, the dashed vertical line indicates the selected threshold τ ∗ = 0 .65 , dened as the smallest τ at which the IOLMM metric reaches 95% of its maximum value. The method ranking (IOLMM > NN > NW) is consistent across all tested thresholds, conrming robustness to this parameter choice. 
+
+# D EM Algorithm for the IOLMM 
+
+EM Algorithm Steps: 
+
+27 
+
+> .CC-BY-NC-ND 4.0 International license available under a (which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made The copyright holder for this preprint this version posted June 3, 2026. ;https://doi.org/10.64898/2026.05.31.729074 doi: bioRxiv preprint
+
+1. Initialization: Initialize the xed eect β(0) and set the stop criteria. Initialize the variance components σ2,(0)  
+
+> b
+
+with a random value smaller than 1, σ2,(0)  
+
+> η
+
+.2. Expectation Step (E-step) (for each subject): Compute the conditional moments of the missing random eect bi given the current estimates of the xed eect and variance components {β(k), σ 2,(k) 
+
+> b
+
+, σ 2,(k) 
+
+> η
+
+} for each subject i with the following formulas, 
+
+ˆb(k) 
+
+> i
+
+= σ2,(k) 
+
+> b
+
+z⊤ 
+
+> i
+
+(yi − Siβ(k))
+
+σ2,(k) 
+
+> η
+
++ σ2,(k) 
+
+> b
+
+z⊤ 
+
+> i
+
+zi
+
+Var (bi | yi)(k) = σ2,(k) 
+
+> b
+
+σ2,(k)
+
+> η
+
+σ2,(k) 
+
+> η
+
++ σ2,(k) 
+
+> b
+
+z⊤ 
+
+> i
+
+zi
+
+(11) 3. Maximization Step (M-step) (for global likelihood): Update the estimates of the xed eect and variance components by maximizing the expected log-likelihood com-puted in the E-step. 
+
+Fixed Eect Update: 
+
+β(k+1) =
+
+> N
+
+X
+
+> i=1
+
+S⊤ 
+
+> i
+
+Si
+
+!−1 NX
+
+> i=1
+
+S⊤
+
+> i
+
+
+
+yi − ziˆb(k)
+
+> i
+
+
+
+(12) This is the estimator presented in Equation (9), applied iteratively within the EM loop. 
+
+Variance Components Update: Update σ2 
+
+> η
+
+and σ2 
+
+> b
+
+based on the residuals and estimated random eects. 
+
+σ2,(k+1)  
+
+> η
+
+= 1
+
+PNi=1 miNX
+
+> i=1
+
+yi − Siβ(k+1) − ziˆb(k)
+
+> i
+> 2
+
+(13) 
+
+σ2,(k+1)  
+
+> b
+
+= 1
+
+N
+
+> N
+
+X
+
+> i=1
+
+ˆb(k)
+
+> i
+
+2
+
++ Var (bi | yi)(k)
+
+
+
+(14) 4. Convergence Check: Evaluate the relative change in the log-likelihood between iterations. The algorithm terminates when the relative change falls below 10 −6 or the number of iterations reaches 1,000, whichever occurs rst. 5. Iteration: Repeat the E-step and M-step until convergence. 
+
+# E Nadaraya-Watson Kernel Regression for Source Space Interpolation 
+
+As a baseline quilting method, we employ the Nadaraya-Watson (NW) kernel regression estimator to interpolate source power from sparse sensor-level observations onto the dense cortical surface mesh. Unlike the IOLMM, which explicitly models subject-specic scaling via 28 
+
+> .CC-BY-NC-ND 4.0 International license available under a (which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made The copyright holder for this preprint this version posted June 3, 2026. ;https://doi.org/10.64898/2026.05.31.729074 doi: bioRxiv preprint
+
+random eects, NW interpolation is a non-parametric approach that constructs a continuous surface map by spatially weighted averaging of sensor-level power estimates. For each subject i, let x(k) 
+
+> i
+
+∈ R3 (k = 1 , . . . , n i) denote the 3D coordinates of the ni
+
+electrode midpoints (in MNI space), and let s(k) 
+
+> i
+
+denote the corresponding sensor-level power estimate (e.g., s(k) 
+
+> i
+
+= P 
+
+> t
+
+Vi,k (t)2). The goal is to estimate the source power ˆP (v) at every vertex v ∈ R3 of the cortical surface mesh. We adopt an isotropic Gaussian kernel. To ensure scale-invariance across coordinate dimensions, all electrode and vertex coordinates are rst standardized (z-scored) using the electrode population statistics: 
+
+¯x(k) = x(k) − μx
+
+σx
+
+(15) where μx and σx are the mean and standard deviation computed across all electrode positions from all subjects. The Gaussian kernel weight between electrode position ¯x(k) and query vertex ¯v is dened as: 
+
+Kh
+
+ ¯x(k), ¯v = 1
+
+√2π exp 
+
+
+
+−∥¯x(k) − ¯v∥2
+
+2h2
+
+
+
+(16) where h > 0 is the bandwidth parameter controlling the spatial extent of the smoothing. The NW estimator computes the source power at each cortical vertex v as a kernel-weighted average of all sensor-level power observations: 
+
+ˆPNW (v) = 
+
+> N
+
+X
+
+> i=1
+> ni
+
+X
+
+> k=1
+
+Kh
+
+ ¯x(k) 
+
+> i
+
+, ¯v · s(k)
+
+> iN
+
+X
+
+> i=1
+> ni
+
+X
+
+> k=1
+
+Kh
+
+ ¯x(k) 
+
+> i
+
+, ¯v (17) This formula pools all electrode observations from all subjects, weighting each observation by its spatial proximity to the query vertex. Electrodes closer to vertex v contribute more to the estimate than distant ones. The bandwidth h controls the bias-variance trade-o: a small h yields a locally adaptive but noisy estimate, while a large h produces a smoother but potentially over-smoothed map. We select h using Generalized Cross-Validation (GCV), which provides a data-driven, leave-one-out-equivalent criterion without requiring explicit cross-validation loops. The NW estimator can be expressed in matrix form. Let s = ( s1, . . . , s n)⊤ denote the pooled sensor power vector across all n = PNi=1 ni electrodes from all subjects. The NW estimate at the electrode locations themselves is: 
+
+ˆs = W(h) s (18) where the smoother matrix W(h) ∈ Rn×n has entries: 
+
+Wjk (h) = Kh(¯ xj , ¯xk)
+
+Pnℓ=1 Kh(¯ xj , ¯xℓ) (19) 29 
+
+> .CC-BY-NC-ND 4.0 International license available under a (which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made The copyright holder for this preprint this version posted June 3, 2026. ;https://doi.org/10.64898/2026.05.31.729074 doi: bioRxiv preprint
+
+The GCV criterion selects the bandwidth h∗ that minimizes: GCV (h) = 1
+
+n∥s − W(h)s∥2
+
+
+
+1 − 1
+
+ntr  W(h)2 (20) The numerator is the residual sum of squares (RSS) measuring the t to the observed data, while the denominator penalizes model complexity through tr( W), the eective number of parameters. This formulation approximates the leave-one-out cross-validation error without the computational burden of n-fold resampling (Golub et al., 1979). The optimal bandwidth is then: 
+
+h∗ = arg min  
+
+> h> 0
+
+GCV (h) (21) In practice, h∗ is found by evaluating GCV (h) over a logarithmically spaced grid of candidate bandwidths spanning the range from the median nearest-neighbor distance to the maximum spatial extent of the electrode array. The NW quilting procedure consists of the following steps: 1. Aggregate sensor power: For each subject i and each electrode k, compute the sensor-level power s(k) 
+
+> i
+
+from the recorded time series (e.g., sum of squared voltages or spectral power). 2. Standardize coordinates: Z-score all electrode positions {x(k) 
+
+> i
+
+} and cortical vertex coordinates {v} using the global electrode statistics. 3. Compute kernel weights: For every (electrode, vertex) pair, evaluate the Gaussian kernel Kh using Equation (16). 4. Interpolate: Apply the NW estimator (Equation 17) to obtain the estimated source power ˆPNW (v) at each cortical vertex. The NW estimator treats all sensor observations equally regardless of subject identity, eectively ignoring the hierarchical structure of the data. Consequently, it cannot disentangle inter-subject amplitude scaling dierences from true spatial power variations. If subject i
+
+has a high overall gain factor, its electrodes will disproportionately inate the estimated power at nearby vertices, producing a group map biased toward high-gain subjects. This is precisely the confound that the IOLMM framework resolves via explicit random-eects modeling of subject-specic scaling factors. 
+
+# References 
+
+Bernardi, G., et al. (2018). Human rapid eye movement sleep shows local increases in low-frequency oscillations and global decreases in high-frequency oscillations compared to resting wakefulness. eNeuro , 5(4):ENEURO.0293-18.2018. 30 
+
+> .CC-BY-NC-ND 4.0 International license available under a (which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made The copyright holder for this preprint this version posted June 3, 2026. ;https://doi.org/10.64898/2026.05.31.729074 doi: bioRxiv preprint
+
+Bailes, S. M., Gomez, D. E. P., Setzer, B., and Lewis, L. D. (2023). Resting-state fMRI signals contain spectral signatures of local hemodynamic response timing. eLife , 12:e86453. Breakspear, M. (2017). Dynamic models of large-scale brain activity. Nature Neuroscience ,20(3):340352. Chang, A., Zheng, L., Dasarathy, G., and Allen, G. I. (2023). Nonparanormal graph quilting with applications to calcium imaging. Stat , 12(1):e623. Cho, J.-H., Hong, S., Jung, Y.-J., et al. (2011). Evaluation of algorithms for intracranial EEG (iEEG) source imaging of extended sources. Brain Topography , 24:91104. De Gennaro, L., et al. (2002). Cortical EEG topography of REM onset: the posterior dominance of middle and high frequencies. Clinical Neurophysiology , 113(4):561570. Deco, G., Jirsa, V. K., Robinson, P. A., Breakspear, M., and Friston, K. (2008). The dynamic brain: From spiking neurons to neural masses and cortical elds. PLoS Computational Biology , 4(8):e1000092. Fan, J. and Lv, J. (2008). Sure independence screening for ultrahigh dimensional feature space. Journal of the Royal Statistical Society: Series B , 70(5):849911. Frauscher, B., von Ellenrieder, N., Zelmann, R., et al. (2018). Atlas of the normal intracranial electroencephalogram: Neurophysiological awake activity in dierent cortical areas. Brain ,141(4):11301144. Friston, K. J. (2011). Functional and eective connectivity: A review. Brain Connectivity ,1(1):1336. Gascoigne, S. J., Waldman, A. D., Seri, S., et al. (2024). Incomplete resection of the icEEG seizure onset zone is not associated with post-surgical outcomes. Epilepsia , 65(4):1065 1078. Golub, G. H., Heath, M., and Wahba, G. (1979). Generalized cross-validation as a method for choosing a good ridge parameter. Technometrics , 21(2):215223. Gonzalez-Moreira, E., Paz-Linares, D., Areces-Gonzalez, A., et al. (2020). Bottom-up control of leakage in spectral electrophysiological source imaging via structured sparse Bayesian learning. bioRxiv , 2020.02.25.964684. Hamamé, C. M., Vidal, J. R., Perrone-Bertolotti, M., et al. (2014). Functional selectivity in the human occipitotemporal cortex during natural vision. NeuroImage , 95:276286. Haufe, S., Nikulin, V. V., Müller, K.-R., and Nolte, G. (2013). A critical assessment of connectivity measures for EEG data: A simulation study. NeuroImage , 64:120133. He, B., Astol, L., Valdes-Sosa, P. A., et al. (2019). Electrophysiological brain connectivity: Theory and implementation. IEEE Transactions on Biomedical Engineering , 66(7):2115 2137. 31 
+
+> .CC-BY-NC-ND 4.0 International license available under a (which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made The copyright holder for this preprint this version posted June 3, 2026. ;https://doi.org/10.64898/2026.05.31.729074 doi: bioRxiv preprint
+
+Hernández, J. L., Valdés, P., Biscay, R., Virues, T., Szava, S., Bosch, J., Riquenes, A., and Clark, I. (1994). A global scale factor in brain topography. International Journal of Neuroscience , 76(34):267278. Johnson, W. E., Li, C., and Rabinovic, A. (2007). Adjusting batch eects in microarray expression data using empirical Bayes methods. Biostatistics , 8(1):118127. Medani, T., Garcia-Prieto, J., Tadel, F., et al. (2023). Brainstorm-DUNEuro: An integrated and user-friendly nite element method for modeling electromagnetic brain activity. Neu-roImage , 267:119851. Massimini, M., Huber, R., Ferrarelli, F., Hill, S. L., and Tononi, G. (2004). The sleep slow oscillation as a traveling wave. Journal of Neuroscience , 24(31):68626870. Mercier, M. R., Dubarry, A.-S., Tadel, F., et al. (2022). Advances in human intracranial electroencephalography research, guidelines and good practices. NeuroImage , 260:119438. Moraresku, S., Hammer, J., Dimakopoulos, V., et al. (2025). Neural dynamics of visual stream interactions during memory-guided actions investigated by intracranial EEG. Neu-roscience Bulletin , 41(8):13471363. Parvizi, J. and Kastner, S. (2018). Human intracranial EEG: Promises and limitations. 
+
+Nature Neuroscience , 21(4):474483. Pang, J. C., Aquino, K. M., Oldehinkel, M., et al. (2023). Geometric constraints on human brain function. Nature , 618(7965):566574. Pascual-Marqui, R. D., Lehmann, D., Koukkou, M., et al. (2011). Assessing interactions in the brain with exact low-resolution electromagnetic tomography. Philosophical Transac-tions of the Royal Society A , 369(1952):37683784. Paz-Linares, D., Gonzalez-Moreira, E., Areces Gonzalez, A., et al. (2023). Identifying oscilla-tory brain networks with hidden Gaussian graphical spectral models of MEEG. Scientic Reports , 13. Pidnebesna, A., Sanda, P., Kalina, A., et al. (2022). Tackling the challenges of group network inference from intracranial EEG data. Frontiers in Neuroscience , 16:1061867. Rutherford, S., Kia, S. M., Wolfers, T., et al. (2023). The normative modeling framework for computational psychiatry. Nature Protocols , 17(7):17111734. Sanz-Leon, P., Knock, S. A., Spiegler, A., and Jirsa, V. K. (2015). Mathematical framework for large-scale brain network modeling in The Virtual Brain. NeuroImage , 111:385430. Sinha, N., Dauwels, J., Kaiser, M., et al. (2017). Predicting neurosurgical outcomes in focal epilepsy patients using computational modelling. Brain , 140(2):319332. Smith, E. H., Liou, J.-y., Davis, T. S., et al. (2016). The ictal wavefront is the spatiotem-poral source of discharges during spontaneous human seizures. Nature Communications ,7(1):11098. 32 
+
+> .CC-BY-NC-ND 4.0 International license available under a (which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made The copyright holder for this preprint this version posted June 3, 2026. ;https://doi.org/10.64898/2026.05.31.729074 doi: bioRxiv preprint
+
+Stroup, W. W. (2016). Generalized Linear Mixed Models: Modern Concepts, Methods and Applications . CRC Press, Boca Raton. Tadel, F., Baillet, S., Mosher, J. C., Pantazis, D., and Leahy, R. M. (2011). Brainstorm: A user-friendly application for MEG/EEG analysis. Computational Intelligence and Neuro-science , 2011:879716. Taylor, P. N., Papasavvas, C. A., Owen, T. W., et al. (2022). Normative brain mapping of interictal intracranial EEG to localize epileptogenic tissue. Brain , 145(3):939949. Van de Steen, F., Faes, L., Karahan, E., Songsiri, J., Valdes-Sosa, P. A., and Marinazzo, D. (2019). Critical comments on EEG sensor space dynamical connectivity analysis. Brain Topography , 32(4):643654. van Blooijs, D., van den Boom, M. A., van der Aar, J. F., et al. (2023). Developmental trajectory of transmission speed in the human brain. Nature Neuroscience , 26(4):537541. von Ellenrieder, N., et al. (2020). How the human brain sleeps: direct cortical recordings of normal brain activity. Annals of Neurology , 87(2):289301. von Ellenrieder, N., Frauscher, B., et al. (2022). Region-specic complexity of the intracranial EEG in the sleeping human brain. Scientic Reports , 12:451. Vidal, J. R., Ossandón, T., Jerbi, K., et al. (2010). Category-specic visual responses: An intracranial study comparing gamma, beta, alpha, and ERP response selectivity. Frontiers in Human Neuroscience , 4. Werth, E., Achermann, P., and Borbély, A. A. (1996). Brain topography of the human sleep EEG: antero-posterior shifts of spectral power. NeuroReport , 8(1):123127. Vinci, G., Dasarathy, G., and Allen, G. I. (2023). Graph quilting: Graphical model selection from partially observed covariances. Journal of Computational and Graphical Statistics ,32(4):16721684. 33

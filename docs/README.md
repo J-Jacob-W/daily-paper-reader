@@ -6,53 +6,65 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-06-04
-- 运行时间：2026-06-04 22:16:12 UTC
+- 最新运行日期：2026-06-05
+- 运行时间：2026-06-05 22:20:32 UTC
 - 运行状态：成功
-- 本次总论文数：11
-- 精读区：6
-- 速读区：5
+- 本次总论文数：15
+- 精读区：8
+- 速读区：7
 
 ### 今日简报（AI）
-今日推荐11篇论文，精读6篇，聚焦高效低精度视觉语言模型与持续学习脑电基础模型。最值得关注的是LASER提出损失感知SVD分解优化低精度VLM，以及EvoBrain实现异构BCI任务的持续学习。建议优先精读这两篇高分论文，了解模型压缩与任务适应性前沿方法。
-- 详情：[/202606/04/README](/202606/04/README)
+今日精选15篇论文，聚焦脑机接口与多模态融合前沿。最值得关注的是两项高分精读：EEG基础模型的持续学习方法（EvoBrain）与基于通道设计的脑电图到音乐重建技术。面向普通读者，可深入了解脑电图模型如何跨任务自适应，以及脑信号转音乐的创新路径。
+- 详情：[/202606/05/README](/202606/05/README)
 
 ### 精读区论文标签
-1. [LASER: Loss-Aware Singular-value Decomposition and Rank Allocation for Efficient Low-Precision Vision-Language Models](/202606/04/2606.00573v1-laser-loss-aware-singular-value-decomposition-and-rank-allocation-for-efficient-low-precision-vision-language-models)  
+1. [EvoBrain: Continual Learning of EEG Foundation Models Across Heterogeneous BCI Tasks](/202606/05/2606.01767v2-evobrain-continual-learning-of-eeg-foundation-models-across-heterogeneous-bci-tasks)  
+   标签：评分：9.0/10、query:eeg-ode-ln
+   evidence：跨BCI任务的脑电图基础模型持续学习
+2. [Channel-Oriented Design for EEG-to-Music Reconstruction](/202606/05/2606.04040v1-channel-oriented-design-for-eeg-to-music-reconstruction)  
+   标签：评分：9.0/10、query:eeg-ode-ln
+   evidence：面向通道的EEG音乐重建解码方法
+3. [Mechanistic Insights into Functional Sparsity in Multimodal LLMs via CoRe Heads](/202606/05/2606.05843v1-mechanistic-insights-into-functional-sparsity-in-multimodal-llms-via-core-heads)  
    标签：评分：9.0/10、query:multi-modal
-   evidence：针对视觉语言模型的低秩压缩框架
-2. [EvoBrain: Continual Learning of EEG Foundation Models Across Heterogeneous BCI Tasks](/202606/04/2606.01767v2-evobrain-continual-learning-of-eeg-foundation-models-across-heterogeneous-bci-tasks)  
+   evidence：多模态大语言模型中跨模态检索稀疏性的解释性研究
+4. [EEGDancer: Dynamic Emotion Latent Space Masked Modeling with Reinforcement Learning for EEG Continuous Emotion Prediction](/202606/05/2606.05855v1-eegdancer-dynamic-emotion-latent-space-masked-modeling-with-reinforcement-learning-for-eeg-continuous-emotion-prediction)  
    标签：评分：9.0/10、query:eeg-ode-ln
-   evidence：EEG基础模型持续学习用于脑机接口
-3. [CARACAS, a novel automated tool for Cardiac Artifact Removal in Absence of CArdiac Signal](/202606/04/biorxiv-10-1101-2025-09-02-673728-v2-caracas-a-novel-automated-tool-for-cardiac-artifact-removal-in-absence-of-cardiac-signal)  
+   evidence：基于EEG的情感计算与情绪预测
+5. [A Sliced-Wasserstein Framework on Correlation Matrices for EEG Decoding](/202606/05/2606.06104v1-a-sliced-wasserstein-framework-on-correlation-matrices-for-eeg-decoding)  
    标签：评分：9.0/10、query:eeg-ode-ln
-   evidence：EEG心电伪迹去除方法
-4. [Detect Before You Leap: Mirage Detection in Vision-Language Models](/202606/04/2606.00435v1-detect-before-you-leap-mirage-detection-in-vision-language-models)  
+   evidence：基于切片Wasserstein距离的脑电解码框架
+6. [PAR3D: A Unified 3D-MLLM with Part-Aware Representation for Scene Understanding](/202606/05/2606.06485v1-par3d-a-unified-3d-mllm-with-part-aware-representation-for-scene-understanding)  
+   标签：评分：9.0/10、query:multi-modal
+   evidence：具有部件感知表示的统一3D多模态大语言模型用于场景理解
+7. [Quilting the Brain: Whole-Brain iEEG Reconstruction via Incomplete Observation Linear Mixed Models](/202606/05/biorxiv-10-64898-2026-05-31-729074-v1-quilting-the-brain-whole-brain-ieeg-reconstruction-via-incomplete-observation-linear-mixed-models)  
+   标签：评分：9.0/10、query:eeg-ode-ln
+   evidence：使用线性混合模型进行全脑iEEG重建
+8. [An Open-Source Benchmark and Baseline for Multi-temporal Referring Segmentation](/202606/05/2606.00987v1-an-open-source-benchmark-and-baseline-for-multi-temporal-referring-segmentation)  
    标签：评分：8.0/10、query:multi-modal
-   evidence：通过分层对齐检测视觉语言模型中的幻觉
-5. [ASAP: Advancing Medical Volumetric Representation Learning with Anatomy-aware Semantically-adaptive Pre-training](/202606/04/2606.00602v1-asap-advancing-medical-volumetric-representation-learning-with-anatomy-aware-semantically-adaptive-pre-training)  
-   标签：评分：8.0/10、query:multi-modal
-   evidence：用于医学体扫描的视觉-语言预训练
-6. [CL-DMDF:Dynamic Multimodal Data Fusion Model Based on Contrastive Learning](/202606/04/2606.02659v1-cl-dmdfdynamic-multimodal-data-fusion-model-based-on-contrastive-learning)  
-   标签：评分：8.0/10、query:multi-modal
-   evidence：提出基于对比学习的动态多模态数据融合模型
+   evidence：提出多时间参考分割任务，扩展视觉语言模型能力
 
 ### 速读区论文标签
-1. [Flexible Control of 3D CT Generation via Text and Semantically-Defined Segmentation Prompts](/202606/04/2606.00967v1-flexible-control-of-3d-ct-generation-via-text-and-semantically-defined-segmentation-prompts)  
-   标签：评分：7.0/10、query:multi-modal
-   evidence：文本和分割提示用于3D医学图像生成
-2. [Learning Multi-Modal Trajectory Policies for Data-Efficient Robotic Manipulation](/202606/04/2606.01047v1-learning-multi-modal-trajectory-policies-for-data-efficient-robotic-manipulation)  
-   标签：评分：7.0/10、query:multi-modal
-   evidence：用于机器人操作的多模态轨迹策略，与多模态融合和学习相关
-3. [MoRE: A Mixture-of-Experts-Based Task-Adaptive End-to-End Network for Multimodal MRI Reconstruction](/202606/04/2606.01784v1-more-a-mixture-of-experts-based-task-adaptive-end-to-end-network-for-multimodal-mri-reconstruction)  
-   标签：评分：7.0/10、query:multi-modal
-   evidence：使用混合专家进行多模态MRI重建，与多模态融合技术相关
-4. [Channel-Oriented Design for EEG-to-Music Reconstruction](/202606/04/2606.04040v1-channel-oriented-design-for-eeg-to-music-reconstruction)  
+1. [Cross-Modality Feature Fusion Based on Structured State Space Duality for Multimodal Image Registration Network](/202606/05/2606.03341v1-cross-modality-feature-fusion-based-on-structured-state-space-duality-for-multimodal-image-registration-network)  
+   标签：评分：8.0/10、query:multi-modal
+   evidence：跨模态特征融合技术用于多模态图像配准
+2. [Beyond Semantics: Modeling Factual and Affective Perceptual Experiences from Vision-Language Data](/202606/05/2606.03345v1-beyond-semantics-modeling-factual-and-affective-perceptual-experiences-from-vision-language-data)  
+   标签：评分：8.0/10、query:multi-modal
+   evidence：跨模态建模包括情感方面的感知体验
+3. [Disentangled Fine-Grained Prototype Learning for Incomplete Image-Tabular Classification](/202606/05/2606.05455v1-disentangled-fine-grained-prototype-learning-for-incomplete-image-tabular-classification)  
+   标签：评分：8.0/10、query:multi-modal
+   evidence：解耦细粒度原型学习用于图像-表格多模态分类
+4. [GRAMformer: Any-Order Modality Interactions via Volumetric Multimodal Cross-Attention](/202606/05/2606.06249v1-gramformer-any-order-modality-interactions-via-volumetric-multimodal-cross-attention)  
+   标签：评分：8.0/10、query:multi-modal
+   evidence：任意顺序模态交互的体积多模态交叉注意力
+5. [Parameter scaling of multivariate Granger causality](/202606/05/biorxiv-10-1101-2025-10-01-679714-v2-parameter-scaling-of-multivariate-granger-causality)  
    标签：评分：7.0/10、query:eeg-ode-ln
-   evidence：面向通道设计的EEG到音乐重建
-5. [Quilting the Brain: Whole-Brain iEEG Reconstruction via Incomplete Observation Linear Mixed Models](/202606/04/biorxiv-10-64898-2026-05-31-729074-v1-quilting-the-brain-whole-brain-ieeg-reconstruction-via-incomplete-observation-linear-mixed-models)  
-   标签：评分：7.0/10、query:eeg-ode-ln
-   evidence：颅内脑电图全脑重建方法用于神经解码
+   evidence：稀疏多元格兰杰因果方法用于EEG信号分析
+6. [PAMF: Prior-Aware Multimodal Fusion for Incomplete Time Series Data](/202606/05/2606.06328v1-pamf-prior-aware-multimodal-fusion-for-incomplete-time-series-data)  
+   标签：评分：6.0/10、query:multi-modal
+   evidence：针对不完整时间序列的多模态融合技术
+7. [Inferring Dynamic Functional Connectivity from Field Potentials Using Graph Diffusion Autoregression](/202606/05/biorxiv-10-1101-2024-02-26-582177-v3-inferring-dynamic-functional-connectivity-from-field-potentials-using-graph-diffusion-autoregression)  
+   标签：评分：6.0/10、query:eeg-ode-ln
+   evidence：利用图扩散从场电位估计动态功能连接
 
 
 <div class="dpr-home-promo-card">
