@@ -1,0 +1,557 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-06T21:25:10.953282+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 3,
+    "deep_divecandidates": 8,
+    "deep_cap": 8,
+    "deep_selected": 8,
+    "quick_candidates": 5,
+    "quick_skim_target": 13,
+    "quick_selected": 5
+  },
+  "deep_dive": [
+    {
+      "id": "2606.00180v1",
+      "source": "arxiv",
+      "title": "Beyond Augmentation: Score-Guided Pathological Prior for EEG-based Depression Detection",
+      "abstract": "Deep learning-based Major Depressive Disorder (MDD) detection using Electroencephalography (EEG) is fundamentally constrained by the \"small-sample dilemma.\" Prevailing generative data augmentation methods not only incur heavy computational overhead but also risk introducing synthetic noise, thereby blurring classification boundaries. To challenge the traditional \"data quantity first\" convention, we propose a novel framework \"Beyond Augmentation\": Score-Guided Classification (SGC). SGC does not synthesize pseudo-samples; instead, it utilizes an unsupervised generative network architecture to model the structural and statistical anomaly degrees of samples, serving as the core \"Pathological Prior\". This prior, after robust normalization, is explicitly fused with deep feature representations, thereby precisely guiding the classifier's decision boundary. Furthermore, to dynamically adapt to varying channel configurations, we propose a Cross-Channel Spatial Adaptation module, utilizing a spatial mapping mechanism to effectively resolve the hardware heterogeneity of mismatched channels in multi-center datasets. Extensive experiments on the Mumtaz2016 and high-density MODMA datasets demonstrate the effectiveness and exceptional generalizability of our method under the challenging \"zero data augmentation\" setting and at \"zero sample synthesis cost\".   Keywords: Electroencephalography (EEG), Depression Detection, Anomaly Score, Diffusion Models, Few-Shot Learning",
+      "authors": [
+        "Xiaojing Chen",
+        "Jingqi Cheng",
+        "Xu Zhao",
+        "Wan Jiang",
+        "Jingjing Wu"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.AI"
+      ],
+      "published": "2026-05-29T14:45:33+00:00",
+      "link": "https://arxiv.org/pdf/2606.00180v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:neural-ode"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "EEG-based depression detection using score-guided prior",
+      "llm_evidence_cn": "基于EEG的抑郁症检测，使用评分引导先验",
+      "llm_evidence": "基于EEG的抑郁症检测，使用评分引导先验",
+      "canonical_evidence": "基于EEG的抑郁症检测，使用评分引导先验",
+      "llm_tldr_en": "Proposes Score-Guided Classification (SGC) for EEG-based MDD detection without synthetic data, using a generative network as pathological prior.",
+      "llm_tldr_cn": "针对脑电抑郁检测中小样本困境，提出超越数据增强框架，不生成伪样本而利用无监督生成网络建模样本异常度作为病理先验，经过稳健归一化后提升分类性能，在少样本场景下显著优于传统方法。",
+      "llm_tldr": "针对脑电抑郁检测中小样本困境，提出超越数据增强框架，不生成伪样本而利用无监督生成网络建模样本异常度作为病理先验，经过稳健归一化后提升分类性能，在少样本场景下显著优于传统方法。",
+      "llm_tags": [
+        "query:eeg-ode-ln"
+      ],
+      "matched_query_tag": "query:eeg-ode-ln",
+      "matched_query_text": "EEG signal decoding methods",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.00909v1",
+      "source": "arxiv",
+      "title": "MLLM-Microscope: Unlocking Hidden Structure Within Multimodal Large Language Models",
+      "abstract": "This work presents MLLM-Microscope, a novel system designed for analyzing the hidden representations within Multimodal Large Language Models (MLLMs). Our system evaluates the linearity, intrinsic dimension, and anisotropy of multimodal token embeddings across transformer layers. Utilizing the ScienceQA dataset, we evaluate two state-of-the-art MLLMs, LLaVA-NeXT and OmniFusion. We find that both the main and residual streams for tokens of both modalities exhibit highly linear behaviors across transformer layers. However, LLaVA-NeXT's image tokens reveal a slight decline in linearity, whereas OmniFusion's remain consistent. Image token dimensions in OmniFusion remain consistently higher across layers compared to LLaVA-NeXT. Also, the OmniFusion's anisotropy is observed to stay consistently low throughout the layers. These findings suggest that the inner workings of MLLMs highly depend on the nature of modality fusion performed before passing the token sequence into LLM. This and other new potential insights obtainable from our system are surely capable of enhancing our understanding of the inner workings of MLLMs, informing future model design and optimization.",
+      "authors": [
+        "Ravil Mussabayev",
+        "Rustam Mussabayev"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL",
+        "cs.AI"
+      ],
+      "published": "2026-05-30T22:20:50+00:00",
+      "link": "https://arxiv.org/pdf/2606.00909v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "query:EEG-ODE-LN",
+        "query:multi-modal"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Analyzing hidden representations in multimodal LLMs",
+      "llm_evidence_cn": "分析多模态大语言模型的隐藏表示",
+      "llm_evidence": "分析多模态大语言模型的隐藏表示",
+      "canonical_evidence": "分析多模态大语言模型的隐藏表示",
+      "llm_tldr_en": "Presents MLLM-Microscope for analyzing hidden representations in multimodal LLMs, including linearity and intrinsic dimension.",
+      "llm_tldr_cn": "该论文提出MLLM-Microscope系统，用于分析多模态大语言模型（MLLMs）中的隐藏表示。系统评估了跨Transformer层的多模态token嵌入的线性性、内在维度和各向异性。在ScienceQA数据集上评估了LLaVA-NeXT和OmniFusion两个模型，发现主残差流均呈现高度线性，但图像token的线性性和维度存在差异，揭示了不同MLLMs内部结构特性。",
+      "llm_tldr": "该论文提出MLLM-Microscope系统，用于分析多模态大语言模型（MLLMs）中的隐藏表示。系统评估了跨Transformer层的多模态token嵌入的线性性、内在维度和各向异性。在ScienceQA数据集上评估了LLaVA-NeXT和OmniFusion两个模型，发现主残差流均呈现高度线性，但图像token的线性性和维度存在差异，揭示了不同MLLMs内部结构特性。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "multimodal language model research",
+      "matched_requirement_id": "req-20",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.05843v1",
+      "source": "arxiv",
+      "title": "Mechanistic Insights into Functional Sparsity in Multimodal LLMs via CoRe Heads",
+      "abstract": "While Multimodal Large Language Models (MLLMs) demonstrate remarkable proficiency on complex vision-language tasks, the mechanisms by which they extract query-relevant visual features from complex, noisy contexts remain opaque. In this paper, we present an in-depth interpretability study that uncovers a profound structural property within MLLMs: functional sparsity in cross-modal retrieval. Leveraging a token-level metric termed Retrieval Attention Mass (RAM), we identify and characterize a highly specialized subset of attention heads, referred to as Context-aware Retrieval (CoRe) heads. Across diverse visual domains and model scales, we observe a clear functional division: CoRe heads act as dedicated information extractors, while most other heads distribute attention over broader contextual regions. Causal interventions further demonstrate the necessity of these specialized heads. Ablating only the top 5% of CoRe heads causes significant degradation in multimodal reasoning performance, whereas ablating lower-ranked heads has minimal effect. Moreover, acceleration experiments validate the utility of CoRe heads, showing that leveraging this localized sparsity significantly accelerates inference while maintaining robust task performance. Our findings reveal a structural principle of functional sparsity within MLLMs, refining the current understanding of mechanistic interpretability and laying a theoretical foundation that can inspire future architecture design and model optimization.",
+      "authors": [
+        "Ruoxi Sun",
+        "Quantong Qiu",
+        "Juntao Li",
+        "Zecheng Tang",
+        "Yihang Lou",
+        "Min Zhang"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL",
+        "cs.AI"
+      ],
+      "published": "2026-06-04T08:18:31+00:00",
+      "link": "https://arxiv.org/pdf/2606.05843v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "query:EEG-ODE-LN",
+        "query:multi-modal"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Multimodal LLM cross-modal retrieval mechanism analysis",
+      "llm_evidence_cn": "多模态大语言模型跨模态检索机制分析",
+      "llm_evidence": "多模态大语言模型跨模态检索机制分析",
+      "canonical_evidence": "多模态大语言模型跨模态检索机制分析",
+      "llm_tldr_en": "Uncovers functional sparsity in multimodal LLMs via CoRe heads, analyzing cross-modal retrieval mechanisms.",
+      "llm_tldr_cn": "本文对多模态大语言模型（MLLMs）中跨模态检索机制进行深入可解释性研究，通过提出的检索注意力质量（RAM）指标，识别出一类专门用于信息提取的上下文感知检索（CoRe）注意力头。实验发现CoRe头充当专用信息提取器，其他头则负责不同功能，揭示了MLLMs中功能稀疏性的结构特性，为理解跨模态表示提供了新视角。",
+      "llm_tldr": "本文对多模态大语言模型（MLLMs）中跨模态检索机制进行深入可解释性研究，通过提出的检索注意力质量（RAM）指标，识别出一类专门用于信息提取的上下文感知检索（CoRe）注意力头。实验发现CoRe头充当专用信息提取器，其他头则负责不同功能，揭示了MLLMs中功能稀疏性的结构特性，为理解跨模态表示提供了新视角。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "multimodal language model research",
+      "matched_requirement_id": "req-20",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.06249v1",
+      "source": "arxiv",
+      "title": "GRAMformer: Any-Order Modality Interactions via Volumetric Multimodal Cross-Attention",
+      "abstract": "Transformer-based multimodal models rely on attention mechanisms to integrate information across heterogeneous modalities. Despite their success, existing multimodal attention formulations compute their scores through collections of pairwise dot-product interactions or by concatenating all the modalities into the keys, even when multiple modalities should be jointly involved. As a consequence, current approaches either incur quadratic complexity in the number of modalities or fail to explicitly model interactions that depend on the joint configuration of multiple representations. In this work, we introduce the Volumetric Multimodal cross-Attention (VMA), a novel cross-attention mechanism in which attention scores are defined as a function of the joint geometry of a query and multiple modality-specific keys. VMA computes the volume spanned by query and key vectors across multiple modalities, capturing joint multimodal dependencies beyond pairwise similarity, enabling native modeling of any-order modality interactions. We integrate VMA into our novel multimodal transformer architecture, named GRAMformer, explicitly designed to integrate any number of modalities. We evaluate the proposed model on multimodal learning tasks, demonstrating improved effectiveness and efficiency.",
+      "authors": [
+        "Giordano Cicchetti",
+        "Eleonora Grassucci",
+        "Danilo Comminiello"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.LG"
+      ],
+      "published": "2026-06-04T14:52:12+00:00",
+      "link": "https://arxiv.org/pdf/2606.06249v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "query:EEG-ODE-LN",
+        "query:multi-modal",
+        "query:neural-ode"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "volumetric multimodal cross-attention for modality fusion",
+      "llm_evidence_cn": "用于多模态融合的体积多模态交叉注意力机制",
+      "llm_evidence": "用于多模态融合的体积多模态交叉注意力机制",
+      "canonical_evidence": "用于多模态融合的体积多模态交叉注意力机制",
+      "llm_tldr_en": "Proposes Volumetric Multimodal cross-Attention (VMA) to jointly model interactions among multiple modalities, overcoming quadratic complexity and pairwise limitations in existing multimodal transformers.",
+      "llm_tldr_cn": "现有Transformer多模态模型在融合多种模态时，通常仅考虑两两点积或简单拼接，难以建模多模态联合交互且复杂度高。本文提出体积多模态交叉注意力（VMA），将注意力分数定义为多模态表示联合配置的函数，显式建模任意顺序的模态交互。实验表明，该方法在多个多模态任务上达到最先进性能，同时保持计算效率。该工作为多模态融合提供了新范式。",
+      "llm_tldr": "现有Transformer多模态模型在融合多种模态时，通常仅考虑两两点积或简单拼接，难以建模多模态联合交互且复杂度高。本文提出体积多模态交叉注意力（VMA），将注意力分数定义为多模态表示联合配置的函数，显式建模任意顺序的模态交互。实验表明，该方法在多个多模态任务上达到最先进性能，同时保持计算效率。该工作为多模态融合提供了新范式。",
+      "llm_tags": [
+        "query:multi-modal:composite"
+      ],
+      "matched_query_tag": "query:multi-modal:composite",
+      "matched_query_text": "Papers central to 帮我找一些关于多模态语言模型或多模态融合的研究文章, especially work that connects or combines: multimodal language model research; techniques for multimodal fusion; vision language model architectures; learning cross modal representations; multimodal learning methods; multimodal alignment approaches; What are the latest advances in multimodal language models?; How is multimodal fusion achieved in deep learning?; Compare different architectures for vision language models.; Find papers on cross modal representation learning..",
+      "matched_requirement_id": "req-composite-multi-modal",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.00496v1",
+      "source": "arxiv",
+      "title": "Torus Graphs for Large Scale Neural Phase Analysis",
+      "abstract": "Oscillatory neural signals such as electroencephalography (EEG) and local field potentials (LFPs) show phase relationships that coordinate communication across brain regions. Modern recordings capture hundreds of channels across many frequency bins, yet standard phase analyses are restricted to only a few variables. The Torus Graph (TG) model, an exponential-family distribution over phases whose univariate and pairwise potentials generalize von Mises distributions, infers principled structure among oscillations but models only static, undirected dependencies and is limited to $\\sim \\! 100$ variables because its score matching inference scales as $\\mathcal{O}(d^{6})$. We introduce a stochastic score matching procedure that reduces the per-iteration cost to $\\mathcal{O}(d^{2})$, enabling inference on datasets with thousands of variables. This scalable foundation supports analyses of 1,860 frequency-phase features from multi-electrode LFPs and enables two extensions previously inaccessible to TGs or classical circular statistics: (i) a TG Hidden Markov Model capturing state-dependent phase-coupling changes (e.g., spindle-related states during sleep) and (ii) an autoregressive TG inferring directional interactions via transfer-entropy estimation. Applied to LFP recordings, these models reveal state-dependent phase-interaction patterns between wakefulness and NREM sleep. Together, they enable systematic, large-scale mapping of dynamic and directional phase relationships across brain and cognitive states.",
+      "authors": [
+        "Jack Goffinet",
+        "Casey Hanks",
+        "David E. Carlson"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG"
+      ],
+      "published": "2026-05-30T02:56:56+00:00",
+      "link": "https://arxiv.org/pdf/2606.00496v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:neural-ode"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "EEG phase analysis using torus graph model",
+      "llm_evidence_cn": "使用环面图模型进行EEG相位分析",
+      "llm_evidence": "使用环面图模型进行EEG相位分析",
+      "canonical_evidence": "使用环面图模型进行EEG相位分析",
+      "llm_tldr_en": "Introduces stochastic score matching for torus graph model enabling large-scale EEG phase analysis, scaling to hundreds of channels.",
+      "llm_tldr_cn": "EEG等振荡神经信号的相位关系分析受限于变量数目。本文提出一种随机分数匹配方法，将环面图模型的可扩展性提升至数百个通道，同时捕捉高阶相位依赖。该方法显著降低了计算复杂度，为大规模神经相位动力学研究提供了高效工具。",
+      "llm_tldr": "EEG等振荡神经信号的相位关系分析受限于变量数目。本文提出一种随机分数匹配方法，将环面图模型的可扩展性提升至数百个通道，同时捕捉高阶相位依赖。该方法显著降低了计算复杂度，为大规模神经相位动力学研究提供了高效工具。",
+      "llm_tags": [
+        "query:eeg-ode-ln"
+      ],
+      "matched_query_tag": "query:eeg-ode-ln",
+      "matched_query_text": "EEG signal decoding methods",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.05535v1",
+      "source": "arxiv",
+      "title": "Noise-Aware Visual Representation Learning for Medical Visual Question Answering",
+      "abstract": "Medical visual question answering (Med-VQA) has strong potential for clinical decision support by enabling AI models to interpret medical images and answer clinically relevant queries. Recent approaches typically connect off-the-shelf vision encoders with large language models (LLMs) through lightweight mapping networks to reduce computational cost. However, these methods often overlook the importance of handling noise and small irrelevant changes in visual representations. To address these challenges, we propose a noise-aware Med-VQA framework that incorporates a denoising autoencoder before visual embeddings are mapped into the input space of an LLM. The denoising autoencoder is pretrained to reconstruct clean visual embeddings from corrupted inputs, encouraging the model to learn robust visual representations that are less sensitive to noise. The resulting embeddings are then projected into the language model embedding space using a multi-layer perceptron (MLP), forming visual prefix tokens that provide image information to the LLM. To enable efficient adaptation without full retraining, we employ parameter-efficient fine-tuning using low-rank adaptation (LoRA). The proposed method is evaluated on the SLAKE and PathVQA benchmarks. Experimental results show improved robustness to noisy input embeddings while maintaining competitive clean performance across multiple evaluation criteria. These findings suggest that learning more robust visual representations can enhance Med-VQA performance and robustness.",
+      "authors": [
+        "I Putu Adi Pratama",
+        "Bahadorreza Ofoghi",
+        "Atul Sajjanhar",
+        "Shang Gao"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.AI"
+      ],
+      "published": "2026-06-04T00:37:27+00:00",
+      "link": "https://arxiv.org/pdf/2606.05535v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:multi-modal",
+        "query:neural-ode"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "proposes noise-aware multimodal framework for medical VQA linking vision and language",
+      "llm_evidence_cn": "提出噪声感知的多模态医学VQA框架，连接视觉和语言",
+      "llm_evidence": "提出噪声感知的多模态医学VQA框架，连接视觉和语言",
+      "canonical_evidence": "提出噪声感知的多模态医学VQA框架，连接视觉和语言",
+      "llm_tldr_en": "Introduces a noise-aware Med-VQA framework with a denoising autoencoder to handle visual noise before feeding into LLM, improving robustness.",
+      "llm_tldr_cn": "针对医学视觉问答（Med-VQA）中视觉表示容易受噪声和小变化干扰的问题，本文提出噪声感知框架，在将视觉嵌入映射到大语言模型之前加入去噪自编码器。该自编码器通过预训练从损坏嵌入重建干净嵌入。实验表明，该方法有效提升了对视觉噪声的鲁棒性，在多个Med-VQA基准上取得更优性能。该工作突出了在多模态融合中处理视觉噪声的重要性。",
+      "llm_tldr": "针对医学视觉问答（Med-VQA）中视觉表示容易受噪声和小变化干扰的问题，本文提出噪声感知框架，在将视觉嵌入映射到大语言模型之前加入去噪自编码器。该自编码器通过预训练从损坏嵌入重建干净嵌入。实验表明，该方法有效提升了对视觉噪声的鲁棒性，在多个Med-VQA基准上取得更优性能。该工作突出了在多模态融合中处理视觉噪声的重要性。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "multimodal learning methods",
+      "matched_requirement_id": "req-24",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "biorxiv-10-64898-2026-06-02-729322-v1",
+      "source": "biorxiv",
+      "title": "NeuroCaptain v2 - Interactive Three-Dimensional fNIRS Optode and Probe Montage Design Platform Based on Blender",
+      "abstract": "Significance: Accurate and reproducible optode placement is crucial for obtaining high-quality fNIRS data in both individual and group-level neuroimaging studies. Conventional optode/probe montage design tools usually transform a probe layout defined in 2D Cartesian space onto a 3D head surface using a mass-spring model. Such mechanical transformation, combined with the indirect mapping between the 2D probe definition and the 3D target space, can introduce placement variations across different head surfaces and subjects. Aim: We introduce NeuroCaptain v2, an open-source Blender-based add-on designed to enable interactive, anatomically guided optode design, registration, and cortical sensitivity visualization for fNIRS head-cap and probe creation. Approach: NeuroCaptain v2 enables researchers to add, move, and edit fNIRS sources and detectors directly over a 3D head surface mesh, defining anchored optode positions, as well as setting the stiffness of the springs between adjacent optodes. It then utilizes a built-in Blender physical simulation engine to relax the initial probe layout to satisfy the mechanical constraints. With the built-in mesh-based Monte Carlo (MMC) and diffusion-solver Redbird, NeuroCaptain v2 computes and renders 3D sensitivity maps to guide iterative optode adjustment. The resulting 3D optode layout is stored in the form of barycentric coordinates defined in a 10-20 landmark mesh, enabling consistent probe transfer across different head models. Results: We demonstrate interactive 3D montage design, cross-head-atlas probe registration, and cortical sensitivity visualization across multiple head geometries. Registering a probe across seven Neurodevelopmental head atlases, the proposed anatomical-coordinate approach yields a mean per-optode standard deviation of 2.29 mm, a roughly 74% reduction in cross-subject placement variability compared to 8.68 mm using a conventional 2D-to-3D registration. Conclusions: NeuroCaptain v2 provides a reproducible, fully open-source workflow for fNIRS probe montage design that facilitates anatomically guided probe development and cross-subject registration directly in a three-dimensional anatomical environment.",
+      "authors": [
+        "McCann, A.",
+        "Fang, Q."
+      ],
+      "primary_category": "neuroscience",
+      "categories": [
+        "neuroscience"
+      ],
+      "published": "2026-06-05T00:00:00+00:00",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.06.02.729322v1.full.pdf",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:multi-modal",
+        "query:neural-ode"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "fNIRS optode montage design platform",
+      "llm_evidence_cn": "功能性近红外光谱光极布局设计平台",
+      "llm_evidence": "功能性近红外光谱光极布局设计平台",
+      "canonical_evidence": "功能性近红外光谱光极布局设计平台",
+      "llm_tldr_en": "Introduces NeuroCaptain v2, an open-source Blender-based add-on for interactive, anatomically guided fNIRS optode design and montage registration.",
+      "llm_tldr_cn": "针对fNIRS光极布局设计存在放置变异的问题，提出NeuroCaptain v2开源Blender插件，支持交互式、解剖引导的光极设计、配准和皮层灵敏度可视化，提高了不同被试间光极放置的准确性和可重复性。",
+      "llm_tldr": "针对fNIRS光极布局设计存在放置变异的问题，提出NeuroCaptain v2开源Blender插件，支持交互式、解剖引导的光极设计、配准和皮层灵敏度可视化，提高了不同被试间光极放置的准确性和可重复性。",
+      "llm_tags": [
+        "query:eeg-ode-ln"
+      ],
+      "matched_query_tag": "query:eeg-ode-ln",
+      "matched_query_text": "multimodal EEG and fNIRS for brain activity decoding",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "biorxiv-10-64898-2026-06-05-730193-v1",
+      "source": "biorxiv",
+      "title": "Disambiguation of two-tone images reveals semantic contributions to object recognition in the EEG",
+      "abstract": "Electrophysiological responses to visual objects carry information about stimulus identity and semantic category, but it remains difficult to know whether such information represents semantic knowledge or merely regularities in physical image features. Here, we presented two-tone images while recording EEG to dissociate the learned semantic concept from physical stimulus properties in the electrophysiological signal. Seventeen healthy participants completed a semantic disambiguation experiment with three phases: ambiguous two-tone images before disambiguation, their corresponding grayscale photographs, and the same two-tone images after disambiguation. We quantified representational change using Mahalanobis distances between EEG response patterns. After disambiguation, EEG responses to learned two-tone images became more similar to the response of their photo counterparts, indicating semantic enrichment of stimulus-specific representations. This effect emerged approximately 100 ms after stimulus onset and persisted across an extended time window. However, we found no evidence for an increase in semantic category-level responses after disambiguation. Furthermore, responses to spontaneously recognized two-tone images did not already show stronger alignment with the responses to their corresponding photo images before explicit visual disambiguation was performed. Together, these findings show that EEG can capture learned semantic modulations of responses to visually degraded stimuli, while also indicating that low-level visual properties dominate the representational structure. Two-tone images can therefore serve as a useful paradigm for probing semantic learning in the EEG, and may guide future research in children and patient populations whose ability to behaviorally confirm learning is limited.",
+      "authors": [
+        "Kessler, R.",
+        "Finnemann, J. J.",
+        "Skeide, M. A."
+      ],
+      "primary_category": "neuroscience",
+      "categories": [
+        "neuroscience"
+      ],
+      "published": "2026-06-05T00:00:00+00:00",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.06.05.730193v1.full.pdf",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:multi-modal",
+        "query:neural-ode"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "EEG decoding of object semantics",
+      "llm_evidence_cn": "脑电解码物体语义",
+      "llm_evidence": "脑电解码物体语义",
+      "canonical_evidence": "脑电解码物体语义",
+      "llm_tldr_en": "This study uses EEG to decode semantic contributions to object recognition by disambiguating two-tone images, revealing that EEG signals carry semantic knowledge beyond physical features.",
+      "llm_tldr_cn": "该研究通过呈现模糊的双色调图像并利用语义澄清范式，结合脑电图（EEG）记录，分离了物体识别中的语义知识与物理特征。采用马氏距离量化表征变化，发现EEG信号在物体识别中携带语义信息，超越了低层物理特征。这项研究为理解大脑如何将语义知识整合到视觉处理中提供了新见解，并展示了EEG在语义解码中的潜力。",
+      "llm_tldr": "该研究通过呈现模糊的双色调图像并利用语义澄清范式，结合脑电图（EEG）记录，分离了物体识别中的语义知识与物理特征。采用马氏距离量化表征变化，发现EEG信号在物体识别中携带语义信息，超越了低层物理特征。这项研究为理解大脑如何将语义知识整合到视觉处理中提供了新见解，并展示了EEG在语义解码中的潜力。",
+      "llm_tags": [
+        "query:eeg-ode-ln"
+      ],
+      "matched_query_tag": "query:eeg-ode-ln",
+      "matched_query_text": "EEG signal decoding methods",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "biorxiv-10-64898-2026-06-01-729028-v1",
+      "source": "biorxiv",
+      "title": "Integrating Histology with Spatial Molecular Programs Using a Multimodal Foundation Model",
+      "abstract": "Histopathological assessment remains central to cancer diagnosis and stratification, yet its mechanistic interpretation remains limited without molecular context. To address this, we developed SQUALL, a multimodal foundation model integrating histology with spatial molecular programs. For pretraining, we assembled histMol, a large-scale corpus of 1.76 billion paired histology-spatial transcriptomics spots/bins across 33 tissues and 12 platforms from 3,446 tissue sections. Following pretraining, SQUALL enables transcriptome-wide virtual biomarker profiling, prognostically relevant spatial niches discovery, and integrative disease progression modeling. Leveraging its multimodal embeddings, SQUALL identifies niches associated with tertiary lymphoid structure (TLS) maturation and ovarian cancer relapse, reconstructs molecular trajectories of breast cancer invasion across 325,112 spots, and uncovers underlying transcriptional programs. Applied to whole-slide images from 898 patients, SQUALL outperforms existing pathology foundation models in outcome prediction while enabling interpretable risk stratification. Together, these results establish spatially aligned multimodal pretraining as a new paradigm for extending molecular insights into pathology images.",
+      "authors": [
+        "Zhang, Z.",
+        "Qin, B.",
+        "Zhao, Y.",
+        "Qi, Z.",
+        "Xu, H.",
+        "Wang, Y.",
+        "Zheng, W.",
+        "Dai, J.",
+        "Chen, A.",
+        "Wang, N.",
+        "Nie, L.",
+        "Zhang, P.",
+        "Zhang, H.",
+        "Xu, T.",
+        "Lin, S.",
+        "Ren, P.",
+        "Xue, L.",
+        "Xue, X.",
+        "Yang, Z.",
+        "Xu, J.",
+        "Pan, D.",
+        "Wang, C.",
+        "Liu, Z.",
+        "Meng, Y.",
+        "Zeng, Z."
+      ],
+      "primary_category": "bioinformatics",
+      "categories": [
+        "bioinformatics"
+      ],
+      "published": "2026-06-03T00:00:00+00:00",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.06.01.729028v1.full.pdf",
+      "tags": [
+        "keyword:multi-modal",
+        "keyword:neural-ode",
+        "query:neural-ode"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Multimodal foundation model integrating histology and spatial transcriptomics; strong method for multimodal learning and fusion",
+      "llm_evidence_cn": "多模态基础模型整合组织学与空间转录组学，是多模态学习和融合的强方法",
+      "llm_evidence": "多模态基础模型整合组织学与空间转录组学，是多模态学习和融合的强方法",
+      "canonical_evidence": "多模态基础模型整合组织学与空间转录组学，是多模态学习和融合的强方法",
+      "llm_tldr_en": "SQUALL is a multimodal foundation model pretrained on 1.76B histology-transcriptomics pairs, enabling virtual biomarker profiling, spatial niche discovery, and disease progression modeling.",
+      "llm_tldr_cn": "SQUALL是一个多模态基础模型，在17.6亿对组织学-空间转录组数据上预训练，能够进行虚拟生物标志物分析、发现预后相关的空间生态位，并建模疾病进展。该模型利用多模态嵌入识别与三级淋巴结构相关的生态位，展示了整合组织学和分子数据的潜力。",
+      "llm_tldr": "SQUALL是一个多模态基础模型，在17.6亿对组织学-空间转录组数据上预训练，能够进行虚拟生物标志物分析、发现预后相关的空间生态位，并建模疾病进展。该模型利用多模态嵌入识别与三级淋巴结构相关的生态位，展示了整合组织学和分子数据的潜力。",
+      "llm_tags": [
+        "query:multi-modal:composite"
+      ],
+      "matched_query_tag": "query:multi-modal:composite",
+      "matched_query_text": "Papers central to 帮我找一些关于多模态语言模型或多模态融合的研究文章, especially work that connects or combines: multimodal language model research; techniques for multimodal fusion; vision language model architectures; learning cross modal representations; multimodal learning methods; multimodal alignment approaches; What are the latest advances in multimodal language models?; How is multimodal fusion achieved in deep learning?; Compare different architectures for vision language models.; Find papers on cross modal representation learning..",
+      "matched_requirement_id": "req-composite-multi-modal",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "biorxiv-10-1101-2024-07-31-605816-v3",
+      "source": "biorxiv",
+      "title": "Frequency and Laminar Profile of Feature Specific Visual Activity Revealed by Interleaved EEG-fMRI",
+      "abstract": "The role of cortical oscillations in brain function has been extensively debated, resulting in a variety of theoretical frameworks. Using interleaved simultaneous EEG-fMRI, we examined the layer-specific relationship between oscillatory activity and visual processing. We could demonstrate that {gamma}-band activity positively correlates with feature specific signals in superficial layers, but we were able to report a deep layer contribution as well. In addition, we could demonstrate that -band power not only correlates negatively with the feature unspecific BOLD signal, but related to feature specific BOLD as well. Lower frequency  was predominantly related to feature unspecific superficial layer BOLD, while upper frequency  was found to be related to feature specific BOLD in superficial and deep layers. We conclude that the role of -band oscillations extends beyond widespread inhibition and might be involved in active stimulus processing on the level of visual features.",
+      "authors": [
+        "Clausner, T.",
+        "Marques, J. J. P.",
+        "Scheeringa, R.",
+        "Bonnefond, M."
+      ],
+      "primary_category": "neuroscience",
+      "categories": [
+        "neuroscience"
+      ],
+      "published": "2026-06-03T00:00:00+00:00",
+      "link": "https://www.biorxiv.org/content/10.1101/2024.07.31.605816v3.full.pdf",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:neural-ode"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Multimodal EEG-fMRI for analyzing visual activity; relevant to EEG decoding and multimodal brain activity analysis",
+      "llm_evidence_cn": "利用交错EEG-fMRI分析视觉活动，与EEG解码和多模态脑活动分析相关",
+      "llm_evidence": "利用交错EEG-fMRI分析视觉活动，与EEG解码和多模态脑活动分析相关",
+      "canonical_evidence": "利用交错EEG-fMRI分析视觉活动，与EEG解码和多模态脑活动分析相关",
+      "llm_tldr_en": "This study uses interleaved simultaneous EEG-fMRI to examine layer-specific oscillatory activity during visual processing, showing gamma-band correlation with feature-specific BOLD in superficial and deep layers.",
+      "llm_tldr_cn": "该研究利用交错同步EEG-fMRI技术，研究视觉处理过程中的层特异性振荡活动。结果显示，伽马频段活动与浅层和深层的特征特异性BOLD信号正相关，而低频活动与特征非特异性BOLD相关。该工作揭示了EEG和fMRI在视觉特征编码中的互补作用。",
+      "llm_tldr": "该研究利用交错同步EEG-fMRI技术，研究视觉处理过程中的层特异性振荡活动。结果显示，伽马频段活动与浅层和深层的特征特异性BOLD信号正相关，而低频活动与特征非特异性BOLD相关。该工作揭示了EEG和fMRI在视觉特征编码中的互补作用。",
+      "llm_tags": [
+        "query:eeg-ode-ln:composite"
+      ],
+      "matched_query_tag": "query:eeg-ode-ln:composite",
+      "matched_query_text": "Papers central to 查找EEG解码（最好情绪识别）以及EEG+fNIRs多模态的文章, especially work that connects or combines: EEG signal decoding methods; multimodal EEG and fNIRS for brain activity decoding; affective computing using EEG; brain-computer interface for emotion; multimodal fusion of EEG and fNIRS; deep learning for EEG classification; Find papers on EEG decoding for emotion recognition; Search for multimodal EEG and fNIRS studies; EEG decoding for emotion recognition; multimodal EEG fNIRS studies.",
+      "matched_requirement_id": "req-composite-eeg-ode-ln",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "biorxiv-10-64898-2026-06-01-728505-v1",
+      "source": "biorxiv",
+      "title": "Electrophysiological Signature of Stroke Recovery: Investigating EEG Biomarkers for Prognostic Insights",
+      "abstract": "Stroke is a leading cause of long-term disability, often resulting in persistent motor impairments reflecting disruptions in large-scale brain networks. While electroencephalography (EEG) has long been used to monitor neurophysiological changes following stroke, an integrated framework capturing spatiotemporal dynamics would help understand changes over time. In this study, we analysed resting-state EEG from stroke patients at one week (Session 1) and three months (Session 2) post-stroke to investigate electrophysiological biomarkers of motor recovery, indexed by changes in the Fugl-Meyer scale ({Delta}FM). We quantified spectral properties, focusing on the relative alpha band power, microstate metrics such as mean duration, complexity, and transition probabilities, and measures of metastability and synchrony derived from the Kuramoto Order Parameter. Among all the EEG measures, the longitudinal change in relative alpha power emerged as the strongest single correlate of motor improvement, accounting for the largest proportion of variance among the examined EEG measures. Although metastability and synchrony alone did not reach statistical significance, they showed moderate positive correlations with {Delta}FM, particularly in the alpha and theta ranges, and once combined with alpha power, added 26% in explaining the variance in {Delta}FM. Microstate parameters did not explain additional variance in recovery once alpha power and network-level dynamics were considered. A hierarchical model combining alpha power, metastability/synchrony, and microstates explained over 78% of the variance in {Delta}FM, indicating that stroke recovery involves restoring balanced alpha oscillations and flexible large-scale brain coordination. Future research with larger samples and more frequent longitudinal assessments is required to confirm the prognostic utility of integrated EEG biomarkers for guiding personalised stroke rehabilitation strategies.",
+      "authors": [
+        "Khalili-Ardali, M.",
+        "Sharma, V.",
+        "Mandahar, T. S.",
+        "Pascoa dos Santos, F.",
+        "Tiesinga, P.",
+        "Ramsey, N."
+      ],
+      "primary_category": "neuroscience",
+      "categories": [
+        "neuroscience"
+      ],
+      "published": "2026-06-04T00:00:00+00:00",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.06.01.728505v1.full.pdf",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "query:EEG-ODE-LN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "EEG signal analysis for stroke recovery biomarkers",
+      "llm_evidence_cn": "EEG信号分析用于中风恢复生物标志物",
+      "llm_evidence": "EEG信号分析用于中风恢复生物标志物",
+      "canonical_evidence": "EEG信号分析用于中风恢复生物标志物",
+      "llm_tldr_en": "Analyses resting-state EEG from stroke patients to identify biomarkers of motor recovery, focusing on spectral and microstate metrics.",
+      "llm_tldr_cn": "本研究分析了中风患者在发作后一周和三个月的静息态EEG，探究运动恢复的电生理标志物。通过量化相对alpha频带功率和微状态指标，发现EEG特征与运动功能改善显著相关。该框架为卒中预后提供了基于EEG的非侵入性评估工具。",
+      "llm_tldr": "本研究分析了中风患者在发作后一周和三个月的静息态EEG，探究运动恢复的电生理标志物。通过量化相对alpha频带功率和微状态指标，发现EEG特征与运动功能改善显著相关。该框架为卒中预后提供了基于EEG的非侵入性评估工具。",
+      "llm_tags": [
+        "query:eeg-ode-ln"
+      ],
+      "matched_query_tag": "query:eeg-ode-ln",
+      "matched_query_text": "EEG signal decoding methods",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "biorxiv-10-64898-2026-06-02-727939-v1",
+      "source": "biorxiv",
+      "title": "Cross-modal applications of a neuromorphic olfactory learning algorithm",
+      "abstract": "We adapted an olfactory neuromorphic algorithm to image and sound recognition. To achieve this, we carried out specific preprocessing procedures that were tailored to each modality. For images, we used the NIST digits dataset directly. For sound, we used samples from the Google Speech Command dataset. A gammatone filter was applied to each to reduce the noise of the short audio sample and convert the temporal sound signal to a positional frequency signal. The single stimulus test algorithm was then modified to handle audio processing on extracted columns from a gammatone filter spectrogram obtained from the sound file. We also implemented PCA for all modalities, retaining around 90% of the variance. The results showed that over sequential 'olfactory' gamma cycles, the algorithm successfully achieved one-shot online learning over the image and sound modalities as well. However, PCA representations did not attain high similarities to their corresponding templates for all three modalities.",
+      "authors": [
+        "Dimitrov, A.",
+        "Helde, M. L."
+      ],
+      "primary_category": "neuroscience",
+      "categories": [
+        "neuroscience"
+      ],
+      "published": "2026-06-05T00:00:00+00:00",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.06.02.727939v1.full.pdf",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:multi-modal",
+        "query:neural-ode"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "cross-modal learning algorithm",
+      "llm_evidence_cn": "跨模态学习算法",
+      "llm_evidence": "跨模态学习算法",
+      "canonical_evidence": "跨模态学习算法",
+      "llm_tldr_en": "Adapts a neuromorphic olfactory algorithm to image and sound recognition, with PCA preprocessing, demonstrating cross-modal transfer.",
+      "llm_tldr_cn": "该论文将基于嗅觉的神经形态学习算法迁移至图像和声音识别任务。通过对不同模态进行定制预处理（如图像直接使用，声音经伽马通滤波器转换），并施加PCA降维，实现了跨模态应用。结果表明该算法可有效处理多种模态数据，支持多模态学习方法。",
+      "llm_tldr": "该论文将基于嗅觉的神经形态学习算法迁移至图像和声音识别任务。通过对不同模态进行定制预处理（如图像直接使用，声音经伽马通滤波器转换），并施加PCA降维，实现了跨模态应用。结果表明该算法可有效处理多种模态数据，支持多模态学习方法。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "multimodal learning methods",
+      "matched_requirement_id": "req-24",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "biorxiv-10-64898-2026-06-05-730499-v1",
+      "source": "biorxiv",
+      "title": "Flexible neural encoding predicts the comprehension of degraded speech",
+      "abstract": "How listeners track a variable and continuous acoustic speech signal and parse it into meaningful linguistic representations is a question central to auditory neuroscience. Moreover, the resilience of this process to acoustic signal degradation is not fully understood. The current study consists of a listening task wherein participants (n = 38) were presented with a naturalistic story whilst undergoing continuous electroencephalography (EEG). Critically, we manipulated access to speech information over two independent dimensions: Spectral clarity, which ranged from unprocessed to severely spectrally degraded; and language, which was either English, spoken by the participants, or Dutch, an incomprehensible language that is closely related to English. All stimuli were produced by the same bilingual speaker. We applied banded regression to model the neural response to a set of acoustic and linguistically derived features. We found that no single speech feature encoding reliably indicated speech understanding between conditions. Yet, differences in feature weights across experimental conditions could be summarised as a composite score that strongly predicted individual subjective comprehension of spectrally degraded but linguistically accessible speech in held-out data. Hence, the manner in which neural encoding flexibly adapts to listening context may be associated with advantageous perceptual strategies for degraded speech. These findings underscore the complex interplay between low- and high-level features during naturalistic speech perception and illustrate inter-condition differences in the neural encoding of these properties. Our results highlight natural variation within and between individuals in speech feature encoding, indicating a potential pathway towards individualised care for clinical populations.",
+      "authors": [
+        "MacIntyre, A. D.",
+        "Goehring, T.",
+        "Davis, M. H."
+      ],
+      "primary_category": "neuroscience",
+      "categories": [
+        "neuroscience"
+      ],
+      "published": "2026-06-05T00:00:00+00:00",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.06.05.730499v1.full.pdf",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "query:EEG-ODE-LN",
+        "query:multi-modal"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "EEG decoding of speech comprehension",
+      "llm_evidence_cn": "使用EEG解码语音理解",
+      "llm_evidence": "使用EEG解码语音理解",
+      "canonical_evidence": "使用EEG解码语音理解",
+      "llm_tldr_en": "Uses EEG and encoding models to predict how listeners comprehend degraded speech, revealing neural tracking of acoustic features.",
+      "llm_tldr_cn": "该研究通过连续脑电图(EEG)记录被试听自然故事时的脑活动,操作光谱清晰度和语言两个维度,探究大脑如何追踪退化语音信号。实验发现EEG神经编码可以预测语音理解程度,揭示了听觉系统对声学退化的弹性机制。",
+      "llm_tldr": "该研究通过连续脑电图(EEG)记录被试听自然故事时的脑活动,操作光谱清晰度和语言两个维度,探究大脑如何追踪退化语音信号。实验发现EEG神经编码可以预测语音理解程度,揭示了听觉系统对声学退化的弹性机制。",
+      "llm_tags": [
+        "query:eeg-ode-ln"
+      ],
+      "matched_query_tag": "query:eeg-ode-ln",
+      "matched_query_text": "EEG signal decoding methods",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

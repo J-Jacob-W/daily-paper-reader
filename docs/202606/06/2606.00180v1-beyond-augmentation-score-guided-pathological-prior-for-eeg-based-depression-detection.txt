@@ -1,0 +1,506 @@
+Title: Beyond Augmentation: Score-Guided Pathological Prior for EEG-based Depression Detection
+
+URL Source: https://arxiv.org/pdf/2606.00180v1
+
+Published Time: Tue, 02 Jun 2026 00:07:30 GMT
+
+Number of Pages: 11
+
+Markdown Content:
+# Beyond Augmentation: Score-Guided Pathological Prior for EEG-based Depression Detection 
+
+# Xiaojing Chen 
+
+School of Internet, Anhui University Hefei, China 
+
+# Jingqi Cheng 
+
+School of Internet, Anhui University Hefei, China shinz1804@163.com 
+
+# Xu Zhao 
+
+School of Internet, Anhui University Hefei, China 
+
+# Wan Jiang 
+
+School of Computer Science and Technology, Hefei University of Technology Hefei, China 
+
+# Jingjing Wu 
+
+School of Computer Science and Information Engineering, Hefei University of Technology Hefei, China 
+
+## Abstract 
+
+Deep learning-based Major Depressive Disorder (MDD) detection using Electroencephalography (EEG) is fundamentally constrained by the small-sample dilemma. Prevailing generative data augmen-tation methods not only incur heavy computational overhead but also risk introducing synthetic noise, thereby blurring classification boundaries. To challenge the traditional “data quantity first” conven-tion, we propose a novel framework: Score-Guided Classification (SGC) . SGC does not synthesize pseudo-samples; instead, it uti-lizes an unsupervised generative network architecture to model the structural and statistical anomaly degrees of samples, serving as the core pathological prior. This prior, after robust normalization, is explicitly fused with deep feature representations, thereby pre-cisely guiding the classifier’s decision boundary. Furthermore, to dynamically adapt to varying electrode configurations, we propose a Cross-electrode Spatial Adaptation module, utilizing a spatial map-ping mechanism to effectively resolve the hardware heterogeneity of mismatched electrodes in multi-center datasets. Extensive ex-periments on the Mumtaz2016 and high-density MODMA datasets demonstrate the effectiveness and exceptional generalizability of our method under the challenging zero data augmentation setting and at zero sample synthesis cost. 
+
+## CCS Concepts 
+
+• Computing methodologies → Anomaly detection ; • Applied computing → Health informatics .
+
+## Keywords 
+
+Electroencephalography (EEG), Depression Detection, Anomaly Score, Diffusion Models, Few-Shot Learning 
+
+## 1 Introduction 
+
+Developing robust computational architectures to decode Electroen-cephalography (EEG) signals is emerging as a critical frontier for the objective diagnosis of Major Depressive Disorder (MDD) [ 63 ]. This paradigm fundamentally addresses the limitations of tradi-tional psychiatric interviews, which are inherently vulnerable to subjective bias and inter-rater variability. By offering exceptional temporal resolution, EEG provides a direct, non-invasive window into latent cortical dynamics [ 26 ]. Therefore, the task of EEG-based 0.0 0.5 1.0 1.5 2.0 2.5                       
+
+> Original MDD (Real)
+> 0.0 0.5 1.0 1.5 2.0 2.5
+> Generated MDD (Diffusion Artifacts)
+> 0.0 0.5 1.0 1.5 2.0 2.5
+> Original HC (Real)
+> 0.0 0.5 1.0 1.5 2.0 2.5
+> Generated HC (Diffusion Artifacts)
+> 0.8 1.0 1.2 1.4 1.6 1.8 2.0
+> 0
+> 2
+> 4
+> 6
+> 8
+> 10
+> 12
+> Density
+> Shift: = 0.73
+> Distribution Shift: Quantifying Generation Flaws
+> Real Manifold
+> Generated (Distorted)
+
+Figure 1: Generative flaws in standard diffusion-based aug-mentation. Compared to authentic EEG (top/middle), gener-ated pseudo-signals exhibit severe high-frequency artifacts and morphological distortion. This degradation is quanti-tatively confirmed (bottom) by a stark distribution shift (Δ𝜎 = 0.73 ) in the KDE plot, demonstrating that synthetic samples fail to preserve the intrinsic statistical manifolds of neural activity. 
+
+depression detection has attracted widespread attention in psychi-atric informatics and clinical screening. To process these complex non-stationary signals, contemporary EEG-based MDD detection methodologies generally fall into three representation paradigms. Temporal sequence modeling utilizes 1D Convolutional Neural Networks (1D-CNNs) [ 47 ] or Recurrent Neu-ral Networks (RNNs) [ 2 ] to directly extract longitudinal morpholog-ical features from raw 1D EEG series. Spatial image transformations map EEG signals into 2D spectrograms or topographical represen-tations to leverage the powerful visual feature extraction capabili-ties of 2D Convolutional Neural Networks (2D-CNNs) [ 48 ].Lastly, spatio-temporal and topological modeling employs Graph Neural  
+
+> arXiv:2606.00180v1 [cs.LG] 29 May 2026 ACM MM ’26, 2026, TBD Trovato et al.
+
+Networks (GNNs) [ 34 ] or Transformers to jointly capture dynamic temporal dependencies and complex cross-electrode functional connectivity [ 5 ]. By autonomously mining these hierarchical repre-sentations, these advanced architectures have significantly elevated the diagnostic performance of automated depression detection. Despite their impressive performance improvements, these purely end-to-end supervised paradigms exhibit critical vulnerabilities in real-world clinical applications, primarily due to their susceptibility to shortcut learning. EEG signals are inherently plagued by ex-treme non-stationarity, pronounced inter-subject variability, and exceedingly low signal-to-noise ratios [ 35 ]. Consequently, mapping these chaotic signals directly to discrete labels forces parameter-heavy networks to degrade into uninterpretable black boxes [ 13 ]. Without explicit pathological prior guidance, models tend to overfit subject-specific physiological artifacts rather than isolating univer-sal neurophysiological biomarkers. This overfitting to idiosyncratic noise yields highly brittle decision boundaries, frequently causing a catastrophic degradation in cross-center generalization [24, 62]. Exacerbating these representational bottlenecks is the severe small-sample dilemma endemic to psychiatric EEG datasets, which typically comprise fewer than 100 subjects [ 12 ]. To circumvent this data scarcity, recent literature has increasingly turned to deep gen-erative models, including Graph Neural Networks (GNNs) [ 34 ] and Diffusion Models [ 68 , 69 ], for brute-force data augmentation [ 37 ]. However, the direct synthesis of high-dimensional, non-stationary raw EEG signals introduces fatal methodological flaws. As com-pellingly demonstrated in Fig. 1, the directly synthesized pseudo-signals are plagued by dense, high-frequency generative artifacts and severe morphological distortions [ 66 ]. Crucially, these halluci-nated samples exhibit a stark distribution shift ( Δ𝜎 = 0.73 ) away from the authentic data manifold. Consequently, this noisy augmen-tation paradigm actively injects spurious correlations, misleading downstream classifiers into memorizing synthetic noise distribu-tions rather than clinically meaningful biomarkers [6]. To fundamentally circumvent the representational bottlenecks of discriminative black boxes and the catastrophic noise injection endemic to generative augmentation, we propose a novel frame-work that steps beyond augmentation: Score-Guided Classification (SGC ). Distinct from existing paradigms that blindly hallucinate raw EEG, SGC redefines generative utility by modeling a norma-tive electrophysiological baseline. Specifically, we design an un-supervised dual-stream generative pipeline trained exclusively on healthy control (HC) cohorts to anchor the intrinsic manifold of normal brain dynamics. To comprehensively capture this normative baseline, the dual-stream architecture is meticulously constructed: one stream explicitly models the discrete structural morphology of healthy signals, while the complementary stream captures their continuous probabilistic distribution. For any input, SGC quantifies the structural reconstruction error and probabilistic distribution shift against this frozen template, distilling a fine-grained anomaly score [ 46 ]. Serving as a deterministic, noise-free pathological prior, this continuous score is explicitly fused into the downstream deep classifier to dynamically calibrate the decision boundary, effectively isolating genuine MDD biomarkers from complex background vari-ance. Beyond representational challenges, the real-world clinical de-ployment of EEG-based diagnostics is frequently bottlenecked by hardware-level data heterogeneity, such as varying electrode con-figurations across clinical centers, ranging from 19 to 128 channels. To equip the SGC architecture with hardware-agnostic generaliz-ability, we introduce a continuous spatial topology mapping strat-egy. By geometrically projecting arbitrary high-density raw signals onto a unified, standardized electrode layout, this mechanism max-imally preserves the global biophysical topography of the brain. Crucially, it eradicates the necessity for architecture-level structural retraining, thereby unlocking seamless zero-shot transfer and ro-bust cross-dataset adaptation across highly heterogeneous clinical environments. In summary, our contributions are: 
+
+❑ We propose Score-Guided Classification (SGC) , a novel augmentation-free framework that models a normative EEG base-line from healthy controls via an unsupervised dual-stream archi-tecture, and exploits the resulting pathological prior to enhance downstream depression detection by reshaping feature manifolds and broadening decision margins. 
+
+❑ We introduce a spatial topology mapping strategy that projects mismatched electrodes onto a unified layout. This resolves cross-cohort hardware heterogeneity and unlocks seamless zero-shot transfer without architectural retraining. 
+
+❑ Extensive evaluations on Mumtaz2016 and MODMA yield state-of-the-art performance (95.19% accuracy), empirically vali-dating that extracting explicit pathological priors is fundamentally more robust than standard generative augmentation. 
+
+## 2 Related Work 2.1 EEG-based Depression Detection 
+
+The landscape of automatic Major Depressive Disorder (MDD) detection has experienced a significant paradigm shift from tra-ditional handcrafted spectral feature engineering to data-driven deep learning architectures. Recent literature has extensively ex-plored various deep frameworks, including 1D Convolutional Neu-ral Networks (1D-CNNs), Graph Neural Networks (GNNs), and Transformer-based models, to capture complex spatio-temporal dy-namics and cross-channel topological dependencies within EEG sig-nals [ 18 , 33 , 41 , 50 , 51 , 60 ]. Despite their impressive representational capabilities, these purely supervised, parameter-heavy paradigms are notoriously susceptible to severe overfitting, particularly when deployed in the small-sample regimes endemic to clinical psychi-atric datasets [ 31 , 40 , 56 , 70 ]. Consequently, they frequently ex-hibit substantial performance degradation in subject-independent generalization scenarios [ 20 , 28 , 49 , 58 ]. This inherent limitation underscores the critical necessity for novel representation learning strategies that transcend the boundaries of simplistic end-to-end supervised classification. 
+
+## 2.2 Data Augmentation for EEG Analysis 
+
+To mitigate the pervasive data scarcity in EEG-based assessments, extensive research has been dedicated to data augmentation tech-niques, which broadly bifurcate into heuristic and generative ap-proaches. Traditional heuristic methods, such as random cropping, temporal masking, or signal flipping, attempt to expand the training manifold but frequently violate the intricate biophysical integrity of EEG recordings, inadvertently inducing semantic distortions and Beyond Augmentation: Score-Guided Pathological Prior for EEG-based Depression Detection ACM MM ’26, 2026, TBD 在此处键入公式。 
+
+> Healthy
+> EEG
+> Data (HC)
+> VQ-VAE Model
+> Learns Discrete Structural
+> Manifold
+> Learns Continuous Noise
+> Distribution
+> Learned Healthy
+> Manifold
+> Learned Healthy
+> Noise Distribution
+
+Unsupervised Stream: Healthy Manifold & Distribution Modeling   
+
+> ALL EEG
+> Data
+> (MDD/HC)
+> EEG Sample
+> Learned Healthy
+> Manifold
+> VQ-VAE
+> Reconstruction
+> Error ( )
+> EEG Sample
+> Statistical Deviation
+> DDPM
+> Diffusion
+> Loss ( )
+
+Prior incorporation  
+
+> 在此处键入公式。
+> Robust Scaling S'
+> (P 5-P 95 Normalization)
+> Max-Pool
+> Batch Norm
+> 1D-Conv
+> Layer 1
+> 1D-CNN
+> Add & Norm
+> Feed Forward
+> Add & Norm
+> Multi-Head Attention
+> Transformer Encoder
+> Position
+> Embedding
+> Global
+> Average
+> Pooling
+> Score-Guided
+> Feature
+> Fusion
+> MDD
+> Prediction
+> HC
+> Prediction
+> Final Prediction
+
+Supervised Stream: Anomaly Scoring 
+
+& Feature Fusion   
+
+> Max-Pool
+> Batch Norm
+> 1D-Conv
+> Layer 2
+> Encoder Discrete
+> Codebook
+
+𝑐 Decoder  
+
+> Cross-electrode Spatial
+> Adaptation
+> (Spherical Spline
+> Interpolation)
+> 128-Electrode
+
+→ 
+
+> 19-Electrode
+> ReLU ReLU
+> 𝑭 deep
+> Classify
+> 𝒚 ෝ
+> Healthy
+> EEG
+> Data (HC)
+> DDPM Model
+> Learned Healthy
+> Noise Distribution
+
+## 𝑥 ො଴𝑥 ଴
+
+> Structural Deviation
+
+𝑆 = 𝛼ℒ ୚୕  
+
+> ᇱ
+
++ 1 − 𝛼 ℒ ୈ୧୤୤ 
+
+> ᇱ
+> ℒ୚୕
+> ᇱ
+> ℒୈ୧୤୤
+> ᇱ
+
+Figure 2: Overall architecture of the Score-Guided Classification (SGC) framework. The unsupervised stream (top) exclusively models the normative healthy baseline using VQ-VAE and DDPM. The supervised stream (bottom) utilizes this frozen baseline to extract a pathological anomaly score ( 𝑆 ′) for incoming samples, while in parallel capturing deep spatio-temporal features (𝐹 deep ). Late-stage feature fusion integrates 𝑆 ′ to precisely guide the final decision boundary. 
+
+phase-coupling disruptions [ 23 , 27 , 29 , 45 ]. To circumvent these handcrafted limitations, recent advancements have increasingly leveraged deep generative architectures, notably Generative Adver-sarial Networks (GANs) [ 14 ] and Denoising Diffusion Probabilis-tic Models (DDPMs) [ 68 , 69 ], to synthesize high-fidelity pseudo-samples. However, deploying these generative frameworks in ultra-low-data scenarios introduces severe methodological bottlenecks [59 ]. As empirically demonstrated in our preliminary analysis (see Fig. 1), diffusion-based synthesis on limited EEG cohorts incurs pro-nounced high-frequency noise amplification and a stark distribution shift ( Δ𝜎 ) away from the authentic data manifold [ 16 , 30 ]. Rather than sharpening decision boundaries, such noisy data expansion irreparably blurs them. In contrast to these augmentation-centric paradigms, our SGC framework fundamentally shifts the focus to-ward unsupervised feature excavation, completely bypassing the risks associated with hallucinated raw signal generation. 
+
+## 2.3 Anomaly Detection as Pathological Priors 
+
+Conventional Anomaly Detection (AD) frameworks often reduce pathological deviations to rigid thresholds for outlier rejection [1 , 3, 10 ], underutilizing generative representations. Their reliance on holistic reconstruction errors or shallow statistical distances is easily confounded by EEG’s extreme non-stationarity and inter-subject variability. Departing from this rigid paradigm, SGC rede-fines anomaly scores as continuous pathological priors. By syn-ergizing structural quantization [ 55 ] and probabilistic diffusion [17 ], we construct a unified prior space isolating anomalies across complementary dimensions. Specifically, quantization identifies morphological distortions in temporal microstates, while diffusion captures subtle statistical drifts in background dynamics. This cali-bration dynamically reshapes the downstream decision boundary, transforming rudimentary outlier metrics into highly discrimina-tive features for robust MDD diagnostics. 
+
+## 3 Methodology 3.1 Problem Formulation and Dual-Stream Architecture 
+
+We formulate EEG-based depression detection as a prior-guided time-series classification task. Given a dataset D = {( x𝑖 , 𝑦 𝑖 )} 𝑁 𝑖 =1,where x𝑖 ∈ R𝐶 ×𝑇 denotes an EEG segment comprising 𝐶 channels and 𝑇 time steps, and 𝑦 𝑖 ∈ { 0, 1} represents the ground-truth label (0 for HC, 1 for MDD), our Score-Guided Classification (SGC) frame-work aims to learn an optimized mapping function F : x𝑖 → ˆ𝑦 𝑖 .Departing from conventional end-to-end paradigms, SGC dynam-ically calibrates the classifier’s decision boundary by explicitly ACM MM ’26, 2026, TBD Trovato et al. 
+
+injecting a robust pathological anomaly score 𝑆 ′ ∈ R, which is derived independently via unsupervised generative modeling. As illustrated in Fig. 2, the SGC framework is operationalized through a synergistic dual-stream architecture: 
+
+❑ Unsupervised Stream (Healthy Manifold & Distribution Model-ing): Trained exclusively on normative HC data, this offline genera-tive branch establishes a standard structural manifold and a baseline noise distribution to completely anchor the intrinsic patterns of healthy neural dynamics. 
+
+❑ Supervised Stream (Anomaly Scoring & Feature Fusion): Op-erating on incoming samples, this discriminative pipeline first stan-dardizes hardware heterogeneity via cross-electrode spatial adapta-tion. It then leverages the frozen unsupervised models to quantify the pathological deviation of the input (yielding the anomaly score 
+
+𝑆 ′), and explicitly fuses this score with deeply extracted spatiotem-poral features to guide the final classification. The fundamental insight of this architecture lies in its late-stage feature fusion. By leveraging unsupervised generative models to anchor the intrinsic normative patterns, SGC constructs a deter-ministic, noise-free pathological reference. This continuous prior explicitly steers the final Multi-Layer Perceptron (MLP) mapping, shielding the network from spurious correlations and ensuring highly robust MDD predictions. The subsequent subsections de-tail the spatial adaptation strategy for hardware heterogeneity, the specific designs of these two streams, and the overall training opti-mization. 
+
+## 3.2 Cross-electrode Spatial Adaptation 
+
+Cross-cohort EEG analysis is frequently hindered by heterogeneous electrode configurations, such as high-density 128-electrode arrays versus standard 19-electrode clinical systems.To ensure the broad generalizability of SGC without necessitating architectural mod-ifications or costly structural retraining, we formulate a spatial topology mapping strategy. Specifically, we project the arbitrary high-density signals Xorig ∈
+
+R𝐶 orig ×𝑇 onto a standardized 19-electrode spatial template (follow-ing the International 10-20 system [ 22 ]) via Spherical Spline In-terpolation [42 ]. By mathematically mapping each electrode to a 3D coordinate p on a normalized spherical manifold representing the human scalp, the interpolated voltage at any target electrode 
+
+p𝑡𝑎𝑟𝑔𝑒𝑡 is estimated using the original source electrodes p𝑗 :
+
+𝑓 (ptarget ) =
+
+> 𝐶 orig
+
+∑︁ 
+
+> 𝑗 =1
+
+𝑐 𝑗 𝑔 (∥ ptarget − p𝑗 ∥) (1) where 𝑔 (·) denotes the spherical spline Green’s function, and 𝑐 𝑗 
+
+represents the spatial interpolation coefficients. This geometric projection strictly enforces a consistent spatial dimensionality ( 𝐶 =
+
+19 ) for the downstream dual-stream network, thereby unlocking seamless cross-dataset zero-shot inference capabilities. 
+
+## 3.3 Unsupervised Healthy Manifold and Distribution Modeling 
+
+We design unsupervised healthy manifold and distribution model-ing branch to extract pathological prior from healthy samples. To this end, it excavates normative EEG characteristics via a one-class generative modeling paradigm. Modeling the authentic healthy EEG manifold poses significant challenges due to the intrinsic duality of the signals, which comprise discrete structural microstates, such as quasi-stable physiological waveforms, and continuous stochas-tic background dynamics. Monolithic generative models, including vanilla VAEs [ 21 ] and GANs [ 11 ], typically fail to capture both facets simultaneously, frequently suffering from blurry reconstructions or mode collapse. To overcome this representational bottleneck, we establish a robust Healthy Manifold [ 36 ] by training exclusively on Healthy Control (HC) data through a meticulously decoupled dual-stream pipeline. To handle these issues, first, we employ a Vector-Quantized Vari-ational Autoencoder (VQ-VAE) [ 55 , 65 ] as a Manifold Learner. Its discrete codebook mechanism is fundamentally suited to quan-tize and memorize the structural integrity of normative EEG pat-terns. Complementarily, a Denoising Diffusion Probabilistic Model (DDPM) [ 17 , 43 ] serves as a Noise Predictor . Its continuous Mar-kovian diffusion process is uniquely optimal for modeling the com-plex, high-dimensional probability distribution of the stochastic background. By establishing this dual baseline, the unsupervised stream perfectly encapsulates the normative electrophysiological state, laying the definitive foundation for quantifying pathological deviations in the subsequent supervised classification phase. 
+
+3.3.1 Structure Reconstruction . To effectively encode the complex, non-stationary temporal dynamics of EEG signals, we employ a 1D-CNN-based VQ-VAE architecture. The encoder 𝐸 (·) projects the input signal x ∈ R𝐶 ×𝑇 into a continuous latent space, yielding the representation z𝑒 . The quantizer 𝑄 (·) then discretizes z𝑒 into z𝑞 
+
+via nearest-neighbor mapping within a learnable codebook C =
+
+{e𝑘 }𝐾 𝑘 =1 [ 55 ]. Crucially, this discrete codebook ( 𝐾 = 512 , with a dimensionality of 64 ) is optimized exclusively on HC data. This constraint forces the network to map input signals into a finite set of 
+
+healthy basis atoms , effectively constructing a robust structural “dictionary” of normative EEG patterns. The decoder 𝐷 (·) subsequently reconstructs the signal from the quantized vector z𝑞 . To optimize this healthy manifold, the net-work is trained using the VQ-VAE objective LVQ , which combines the Mean Squared Error (MSE) for reconstruction fidelity with a codebook commitment loss: 
+
+LVQ = ∥x − 𝐷 (z𝑞 )∥ 22 + 𝛽 ∥sg [z𝑒 ] − z𝑞 ∥22 (2) where sg [·] denotes the stop-gradient operator, and the commit-ment cost 𝛽 is empirically set to 0.25 [ 55 ]. By strictly bounding the optimization landscape to normative HC data, LVQ is uniquely positioned to act as a rigorous metric: any subsequent out-of-distribution sample will inevitably incur a high reconstruction error when forced through this healthy dictionary. 
+
+3.3.2 Distributional Probability Modeling. To complement the VQ-VAE’s discrete representations, we independently train a Denoising Diffusion Probabilistic Model (DDPM) [ 17 ] to map the continuous probabilistic landscape of healthy EEG signals. The forward phase gradually corrupts a normative signal x0 by injecting Gaussian noise across 𝑇 = 500 steps. At timestep 𝑡 , the perturbed state is: 
+
+𝑞 (x𝑡 | x0) = N
+
+
+
+x𝑡 ; √ ¯𝛼 𝑡 x0, (1 − ¯𝛼 𝑡 )I
+
+
+
+, (3) where { ¯𝛼 𝑡 }𝑇 𝑡 =1 dictates the variance schedule. Beyond Augmentation: Score-Guided Pathological Prior for EEG-based Depression Detection ACM MM ’26, 2026, TBD 
+
+Conversely, the reverse generative process trains a parameter-ized network 𝜖 𝜃 to estimate the injected noise 𝜖 . To exclusively encapsulate the normative distribution, the network is optimized on HC data using the diffusion objective LDiff [17]: 
+
+LDiff = E𝑡, x0,𝜖 ∼N ( 0,I)
+
+∥𝜖 − 𝜖 𝜃 (x𝑡 , 𝑡 )∥ 22
+
+ . (4) By minimizing this loss, the DDPM learns the inherent stochastic baseline of healthy neurodynamics. Consequently, LDiff establishes a rigorous foundation to measure implicit statistical shifts in sub-sequent out-of-distribution samples, perfectly complementing the VQ-VAE. 
+
+## 3.4 Supervised Stream: Anomaly Scoring and Feature Fusion 
+
+To fully exploit the complex spatiotemporal dynamics of EEG sig-nals and explicitly leverage the learned normative baseline, we design a comprehensive supervised classification stream. As de-picted in the lower branch of our overall architecture, this phase shifts from offline generative modeling to online inference and classification. It sequentially performs three synergistic operations: anomaly score extraction via the frozen generative models, deep feature representation using a hybrid local-global backbone, and score-guided feature fusion. Crucially, rather than relying solely on raw morphological rep-resentations ( 𝐹 deep ), we introduce a feature-level fusion mechanism that explicitly injects the normalized anomaly score ( 𝑆 ′) as a de-terministic soft prior. By concatenating 𝑆 ′ with 𝐹 deep , we construct an augmented, prior-guided representation ( 𝐹 final ) to calibrate the final Multi-Layer Perceptron (MLP) classifier. This dual-awareness mechanism explicitly forces the network to focus on discriminative pathological patterns rather than idiosyncratic background noise. 
+
+3.4.1 Pathological Prior Incorporation (Anomaly Scoring). Specif-ically, SGC leverages the normative baselines established in the unsupervised stream (Section 3.3). For an incoming EEG segment x,we employ the frozen pre-trained VQ-VAE and DDPM architectures to act as fixed reference templates. By projecting x through these frozen models, we compute the inference-stage structural error 
+
+L′ 
+
+> VQ
+
+(via Eq. 2) and the statistical deviation L′ 
+
+> Diff
+
+(via Eq. 4), respec-tively. These metrics quantify the input’s pathological deviation from the learned healthy manifold and noise distribution. To syn-thesize these explicit structural and implicit statistical deviations, we compute a composite anomaly score 𝑆 :
+
+𝑆 = 𝛼 L′ 
+
+> VQ
+
++ ( 1 − 𝛼 )L ′
+
+> Diff
+
+, (5) where 𝛼 = 0.7 determined via a held-out pilot split. This higher weight favors the deterministic VQ-VAE error over the stochastic DDPM loss, ensuring the stability of the final anomaly score. Because raw scores are highly susceptible to inter-subject vari-ability and extreme outliers, we apply robust normalization to project 𝑆 into a bounded final prior 𝑆 ′ [9, 54]: 
+
+𝑆 ′ = clip 
+
+ 𝑆 − 𝑃 5
+
+𝑃 95 − 𝑃 5
+
+, 0, 1
+
+
+
+, (6) where 𝑃 5 and 𝑃 95 are training percentiles explicitly filtering the unpredictable 5% physiological noise tails. As shown in Fig. 3, while the MDD cohort exhibits substan-tially higher scores, the intrinsic non-stationarity of EEG induces 0.0 0.2 0.4 0.6 0.8 1.0 
+
+> Normalized Score
+> 0
+> 1
+> 2
+> 3
+> 4
+> 5
+> 6
+> 7
+> Density
+> Distribution of Pathological Prior (Anomaly Score)
+> HC
+> MDD
+
+Figure 3: Probability density distribution of the normalized anomaly scores ( 𝑆 ′). The inevitable boundary overlap moti-vates the integration of this score as a soft prior rather than a brittle hard threshold. 
+
+inevitable boundary overlaps. Consequently, rather than enforcing a rigid, error-prone diagnostic threshold, we seamlessly embed 𝑆 ′
+
+into the network as a continuous soft prior feature [7, 67 ]. This mapping acts as an informative anchor, explicitly signaling the magnitude of pathological deviation to the downstream classifier. 
+
+3.4.2 Hybrid Feature Extractor . The backbone extracts complex EEG characteristics through a hierarchical, two-stage architecture. Initially, a 1D-CNN frontend is deployed to capture local temporal morphological features, such as high-frequency oscillations and micro-state peaks. The raw input segment is iteratively updated via 1D convolution, Batch Normalization (BN) to mitigate internal covariate shifts [ 19 ], ReLU activation, and Max Pooling to progres-sively broaden the temporal receptive field and filter redundant noise. Subsequently, the downsampled CNN feature maps are sequence-projected and fed into a Transformer Encoder. To comprehensively model the long-range global dependencies across the entire tempo-ral dimension, we employ the standard Multi-Head Self-Attention (MHSA) mechanism [ 57 ]. Finally, a Global Average Pooling (GAP) layer aggregates the output token sequence into a compact, dis-criminative deep spatiotemporal feature vector, denoted as Fdeep .
+
+3.4.3 Score-Guided Feature Fusion. Unlike conventional classifiers relying solely on raw signals, SGC incorporates the normalized anomaly score 𝑆 ′ as an explicit pathological prior . Before the final Multi-Layer Perceptron (MLP) head, 𝑆 ′ is directly concatenated ( ⊕)with the deep spatiotemporal feature vector 𝐹 deep :
+
+𝐹 final = 𝐹 deep ⊕ 𝑆 ′ (7) This deterministic fusion endows the classifier with dual-awareness, simultaneously perceiving morphological representations and sta-tistical deviations. By treating the scalar prior as an influential trig-ger alongside high-dimensional features, it sharply refines the deci-sion boundary, effectively classifying challenging samples where ambiguous morphology is clarified by pathological scores. ACM MM ’26, 2026, TBD Trovato et al. 
+
+Table 1: Performance comparison with State-of-the-Art (SOTA) methods on Mumtaz2016 (10-fold cross-validation). Note: All baselines were re-implemented and evaluated under our unified zero-shot pipeline, resulting in slight numerical deviations from original reports. Methods Acc. (%) Prec. (%) Recall (%) F1 (%) AUC (%) Subj-Acc (%) 
+
+LR [15] 73.85 73.92 74.21 74.05 76.43 81.54 SVM [15] 76.12 77.05 75.81 76.32 79.21 83.15 XGBoost [15] 77.65 77.41 81.52 76.84 80.52 83.15 1D-CNN-LSTM [2] 86.41 87.05 90.62 87.65 87.31 88.45 1D-CNN-Transformer [41] 89.52 92.18 86.55 88.64 91.75 93.15 CWT-1D-CNN [44] 83.91 82.65 87.44 84.28 86.94 88.15 CWT-2D-CNN [44] 79.28 79.52 81.95 79.45 82.64 84.75 EEGNet [25] 85.15 – – 84.22 86.65 –InceptionNet [52] 86.18 85.85 87.82 86.35 87.12 86.82 TSception [8] 82.73 79.45 86.62 81.65 83.23 84.75 GRU-Conv [64] 87.15 88.82 86.45 86.92 87.93 88.15 DeprNet [47] 89.84 89.55 91.42 90.15 93.40 95.20 GC-GRU [34] 90.15 91.65 89.22 89.05 92.64 93.15 DiffMDD [61] 93.85 92.52 94.86 93.65 95.31 96.55 
+
+SGC (Ours) 95.19 93.17 97.31 95.10 98.82 97.50 
+
+## 3.5 Training Strategy Optimization 
+
+To counteract the severe overfitting and convergence instability endemic to small-sample EEG regimes, we devise a robust optimiza-tion protocol. 
+
+3.5.1 Optimizer and Regularization. We institute a dual-pronged regularization scheme. First, we discard standard step-wise decay in favor of a Cosine Annealing learning rate scheduler [ 32 ]. By periodically injecting energy into the optimization trajectory, this approach effectively propels the model out of sharp, spurious local minima, guiding the weights toward flatter regions of the loss landscape that inherently possess superior generalization bounds. Concurrently, to penalize the classifier’s tendency toward over-confidence on limited training manifolds, we introduce Label Smooth-ing [ 38 , 53 ]. This technique relaxes the rigid one-hot ground-truth labels 𝑦 𝑖 into continuous soft targets ˜𝑦 𝑖 :
+
+˜𝑦 𝑖 = (1 − 𝛿 ) · 𝑦 𝑖 + 𝛿 𝐾 , (8) where the smoothing margin 𝛿 is strictly set to 0.1 for our binary classification setting ( 𝐾 = 2). 
+
+3.5.2 Supervised Classification Loss. The end-to-end supervised stream is optimized via a smoothed binary cross-entropy objec-tive. For a mini-batch of 𝑁 predictions ˆ𝑦 𝑖 and their corresponding softened targets ˜𝑦 𝑖 (Eq. 8), the classification loss Lcls is formalized as: 
+
+Lcls = − 1
+
+𝑁 
+
+> 𝑁
+
+∑︁ 
+
+> 𝑖 =1
+
+[ ˜𝑦 𝑖 log ( ˆ𝑦 𝑖 ) + ( 1 − ˜𝑦 𝑖 ) log (1 − ˆ𝑦 𝑖 )] . (9) Synergizing this objective with the aforementioned regularization strategies strictly bounds the hypothesis space, ensuring stable convergence while effectively neutralizing the risk of memorizing dataset-specific noise. 
+
+## 4 Experiments and Results 4.1 Experimental Setup 
+
+4.1.1 Datasets and Preprocessing. Mumtaz2016 [ 39 ]: This bench-mark comprises resting-state, 19-electrode EEG recordings from 34 MDD patients and 30 HCs. Preprocessing includes a 0.5-50.0 Hz band-pass filter, 256 Hz resampling, and 5-second sliding window segmentation (50% overlap), yielding 13,953 segments. Under our subject-independent 10-fold cross-validation scheme, each fold par-titions the data into ∼12,557 training and ∼1,396 testing segments. To ensure zero data leakage, the unsupervised stream is indepen-dently retrained for each fold using only the healthy segments within the current training set ( ∼6,038 HC segments), while the supervised stream utilizes the entire ∼12,557-segment training set. 
+
+MODMA [ 4 ]: Serving as a rigorous cross-domain testbed, this dataset contains 128-electrode high-density EEG from 24 MDD and 29 HCs. Following artifact removal, we apply our Spatial Topology Mapping to geometrically project the 128 electrodes onto the stan-dard 19-electrode layout. Identical segmentation generates 6,355 samples, which are strictly reserved as an unseen zero-shot test set for final evaluation. 
+
+4.1.2 Implementation Details. Models are implemented in PyTorch on an NVIDIA RTX 6000 GPU, optimized via Adam and a Cosine Annealing scheduler. The unsupervised stream configures the VQ-VAE codebook ( 𝐾 = 512 , dimension 64 ) and DDPM ( 𝑇 = 500 ,linear noise 𝛽 ∈ [ 10 −4, 0.02 ]). The supervised stream uses an initial learning rate of 5 × 10 −4, weight decay of 1 × 10 −4, and 0.5 dropout. Label smoothing ( 𝛿 = 0.1) and early stopping (patience 15) are employed to mitigate overfitting. 
+
+Segment-level metrics that evaluate individual EEG windows include Accuracy (Acc), Precision, F1-Score, AUC, and Recall (Rec). 
+
+Subject-level Accuracy (Sub-Acc) determines the final patient-level diagnosis via majority voting across an individual’s segments. Beyond Augmentation: Score-Guided Pathological Prior for EEG-based Depression Detection ACM MM ’26, 2026, TBD 
+
+## 4.2 Comparison with State-of-the-Art 
+
+To rigorously evaluate SGC on the Mumtaz2016 dataset, we bench-mark against 14 established methods spanning four paradigms (de-tailed citations are provided in Table 1). These include traditional machine learning methods such as LR, SVM, and XGBoost; deep discriminative models like EEGNet, InceptionNet, and DeprNet; spatio-temporal architectures including 1D-CNN-LSTM, 1D-CNN-Transformer, CWT-CNNs, TSception, GRU-Conv, and GC-GRU; as well as generative augmentation approaches represented by DiffMDD. For fairness, all deep learning baselines are re-implemented and evaluated under our identical 10-fold cross-validation and zero-shot pipelines. As detailed in Table 1, SGC consistently dominates across all metrics. Compared to traditional 1D-CNNs (DeprNet: 89.84%) and spatio-temporal networks (GC-GRU: 90.15%), SGC achieves 95.19% accuracy without generating a single new sample. Crucially, it outperforms the SOTA generative augmentation model DiffMDD (93.85%). This compellingly demonstrates that explicitly extracting high-quality pathological priors is fundamentally more effective than incurring the computational costs and noise risks of pseudo-sample generation. 
+
+## 4.3 Cross-Dataset Generalization: Robustness to Electrode Heterogeneity 
+
+To rigorously evaluate SGC’s zero-shot clinical transferability, we conduct external validation on the MODMA dataset without any domain-specific fine-tuning. This presents a severe domain shift 
+
+due to extreme hardware disparities (128-electrode to 19-electrode interpolation) and distinct patient demographics. The results are detailed in Table 2. 
+
+Table 2: Cross-dataset zero-shot generalization (MODMA). Traditional SOTA models and generative augmentation suf-fer severe domain shift, while SGC remains robust. 
+
+Method Acc (%) Prec (%) Rec (%) F1 (%) Sub-Acc (%) 
+
+1D-CNN-LSTM [2] 57.20 54.35 58.12 56.18 58.50 CWT-1D-CNN [44] 59.80 57.66 57.34 58.47 60.75 XGBoost [15] 58.45 55.12 60.30 57.60 59.80 TSception [8] 60.12 56.45 59.85 58.10 61.25 DeprNet [47] 56.80 52.30 58.42 55.18 58.33 GC-GRU [34] 55.40 51.20 56.75 53.82 56.00 DiffMDD [61] 68.34 64.32 58.60 58.94 69.36 
+
+SGC (Ours) 78.50 70.82 75.34 69.96 79.94 
+
+1) Cross-Domain Brittleness of Existing Paradigms. Purely data-driven methods degrade catastrophically in zero-shot transfer. Notably, GC-GRU plummets to 55.40% accuracy, as cross-hardware spatial interpolation disrupts source-domain functional topolo-gies. Furthermore, even the state-of-the-art generative augmen-tation model, DiffMDD (68.34%), exhibits significant brittleness. This proves that synthesized pseudo-samples fail to bridge hard-ware gaps and inadvertently introduce domain-specific artifacts, whereas our SGC maintains a robust 78.50% accuracy. 
+
+2) Domain-Agnostic Robustness of Priors. Conversely, SGC achieves robust 78.50% (segment) and 79.94% (subject) accuracy under extreme domain shifts. Crucially, while baselines suffer cata-strophic clinical leakage (Recall ≤ 61% ), SGC maintains an excep-tional 75.34% Recall. This confirms that domain-agnostic anomaly priors immunize classifiers against hardware and demographic variations, capturing invariant pathological manifolds missed by existing paradigms. 
+
+3) Limitations and Future Work. Despite outperforming all zero-shot baselines, SGC’s intra- vs. cross-dataset performance gap (95.19% vs. 78.50%) indicates that hard electrode mapping loses fine-grained spatial information. Future work will integrate Un-supervised Domain Adaptation (UDA) to seamlessly align high-dimensional manifolds across heterogeneous hardware. 
+
+## 4.4 Effectiveness Beyond Augmentation: Mining Priors over Generation 
+
+To empirically validate our “mining over generation” philosophy, we define several internal variants: Supervised Baseline (Baseline), utilizing our pure 1D-CNN-Transformer backbone without score-guided fusion; Diffusion Augmentation (Diff-Aug), training the baseline on datasets expanded via DDPM synthesis; and Advanced Generative Heuristics, comprising Artifact Cleaning (Clean) to filter high-frequency synthesis artifacts, Hard Negative Mining (Hard Neg) to generate challenging boundary cases, and Spatial Hybridiza-tion (Hybrid) to dynamically blend spatial channels across multiple samples to enrich diversity. These exhaustive comparisons prove that complex sample synthesis fundamentally falls short of our zero-augmentation SGC. 
+
+Table 3: Comparison of generative augmentation vs. explicit prior mining across datasets.                                                               
+
+> Dataset Method Acc (%) Prec (%) Rec (%) F1 (%) Sub-Acc (%) Mumtaz2016
+> Baseline 85.57 84.86 88.13 84.98 86.52 Hard Neg 91.23 88.15 95.80 91.14 92.50 Hybrid 92.86 91.59 96.84 93.57 95.83 Clean 93.16 91.19 94.83 92.20 93.26 Diff-Aug 93.49 93.84 94.04 93.77 95.00
+> SGC (Ours) 95.19 93.17 97.31 95.10 97.50 MODMA
+> (Zero-shot) Baseline 61.88 53.71 62.48 55.69 62.33 Hard Neg 69.90 65.28 61.98 59.85 67.67 Hybrid 61.81 60.52 48.94 51.14 62.00 Clean 64.57 65.38 65.95 63.48 63.33 Diff-Aug 66.68 63.02 57.97 57.22 67.67
+> SGC (Ours) 78.50 70.82 75.34 69.96 79.94
+
+1) Performance Leap without Synthetic Noise. As shown in Table 3, while Diff-Aug improves upon the Baseline, it remains fundamentally inferior to SGC. Notably, SGC achieves a remarkable 95.19% on Mumtaz2016 and maintains a robust 78.50% in zero-shot transfer on MODMA, significantly outperforming Diff-Aug’s 93.49% and 66.68%. Furthermore, despite exploring advanced generative ACM MM ’26, 2026, TBD Trovato et al. 
+
+heuristics, including hard negative mining (Hard Neg), hybrid spa-tial augmentations (Hybrid), and artifact-filtered synthesis (Clean). These variants yield only marginal intra-dataset improvements over the Baseline, failing to surpass standard Diff-Aug. More criti-cally, none could overcome the catastrophic degradation in cross-dataset zero-shot transfer. This reinforces that explicitly extracting anomaly scores effectively bypasses the synthetic noise inherently introduced by generative data expansion. 
+
+2) Reshaping the Feature Space. Beyond numerical gains, the extracted prior serves as a potent feature calibrator. In the t-SNE pro-jections (Fig. 4), the Baseline model (Fig. 4a) struggles with inherent EEG noise, yielding entangled boundaries. By fusing the patholog-ical prior, SGC (Fig. 4b) forces the high-dimensional manifold to collapse into highly cohesive intra-class clusters while maximizing the inter-class margin. Feature Space (CNN+Transformer) 
+
+> Group
+> HC
+> MDD
+
+(a) Baseline model Feature Space (Score-Guided Fusion)  
+
+> Group
+> HC
+> MDD
+
+(b) SGC 
+
+Figure 4: t-SNE visualization. SGC (b) achieves explicit feature calibration, characterized by tightened intra-class cohesion compared to the entangled Baseline (a). 3) Clinical Utility via Maximized Recall. In psychiatric screen-ing, misclassifying an MDD patient as healthy incurs severe clinical repercussions. Fig. 5 contrasts the confusion matrices from a repre-sentative testing fold. While Diff-Aug (b) fails to resolve ambiguous boundary cases (missing 115 MDD patients), SGC (c) achieves a per-fect clinical safety net with zero missed diagnoses. This underscores the profound translational value of SGC as a robust diagnostic fail-safe. 
+
+## 4.5 Ablation Study: Complementarity of Generative Priors 
+
+To validate the contributions of SGC’s core modules, we evaluate three ablation variants across source (Mumtaz2016) and zero-shot (MODMA) domains. These include: a variant without distributional modeling (referred to as w/o Dist.), relying solely on VQ-VAE struc-tural error; a variant without structural reconstruction (referred to as w/o Struct.), depending entirely on DDPM distribution error; and a decision fusion variant (referred to as Dec. Fusion), replacing early feature concatenation with terminal logit summation. Results are presented in Table 4. 
+
+1) Dual-Stream Complementarity. Ablating either stream yields suboptimal accuracy on Mumtaz2016, whereas their integration achieves 95.19% (Table 4). This synergy becomes critical in MODMA zero-shot transfer: individual models struggle under severe domain shifts (65.32% and 63.40%), yet fusion reaches 78.50%. Notably, while Pred HC Pred MDD   
+
+> Actual HC Actual MDD
+> 773 183
+> 34 438
+> Confusion Matrix (Baseline)
+
+(a) Baseline Pred HC Pred MDD    
+
+> Actual HC Actual MDD
+> 459 19
+> 115 832
+> Confusion Matrix (Diff-Aug)
+
+(b) Diff-Aug Pred HC Pred MDD    
+
+> Actual HC Actual MDD
+> 574 23
+> 0688
+> Confusion Matrix (SGC)
+
+(c) SGC 
+
+Figure 5: Confusion matrices on a representative fold. SGC (c) completely eliminates the clinical leakage (False Negatives) suffered by generative augmentation (b). Table 4: Ablation study of SGC core components across datasets. 
+
+Dataset Variant Acc (%) Prec (%) Rec (%) F1 (%) Sub-Acc (%) Mumtaz2016 
+
+Baseline 85.57 84.86 88.13 84.98 86.52 w/o Dist. 90.40 90.69 92.72 90.91 91.67 w/o Struct. 93.11 92.38 94.34 92.95 95.00 Dec. Fusion 93.12 94.10 91.62 92.00 94.17 
+
+SGC (Ours) 95.19 93.17 97.31 95.10 97.50 MODMA 
+
+(Zero-shot) Baseline 61.88 53.71 62.48 55.69 62.33 w/o Dist. 65.32 61.63 66.09 59.52 62.33 w/o Struct. 63.40 60.40 59.92 56.63 63.67 Dec. Fusion 69.69 65.45 68.06 65.30 69.67 
+
+SGC (Ours) 78.50 70.82 75.34 69.96 79.94 
+
+distribution modeling dominates intra-dataset performance, struc-tural quantization exhibits superior resilience against cross-domain hardware variations. This confirms that explicit morphological and implicit distributional priors capture distinct, complementary facets of pathological EEG variance. 
+
+2) Necessity of Feature-Level Fusion. Replacing feature con-catenation with late Decision Fusion drops accuracy to 93.12% on Mumtaz2016 and triggers a catastrophic degradation to 69.69% on zero-shot MODMA (an 8.81% drop). This performance collapse proves that injecting anomaly scores as high-order features en-ables the global attention mechanism to dynamically calibrate spa-tiotemporal representations against pathological priors, optimizing non-linear decision boundaries far more effectively than shallow terminal logit fusion. 
+
+## 5 Conclusion 
+
+Existing deep learning methods for EEG-based depression detection rely heavily on generative data augmentation to overcome data scarcity. However, this prevailing “data-quantity-first” convention inevitably introduces synthetic noise and blurs classification bound-aries, compromising clinical reliability. To address this, we propose Score-Guided Classification (SGC), a novel framework that shifts the paradigm from sample generation to unsupervised prior mining. In SGC, we synergize structural anomaly metrics from a VQ-VAE and probabilistic distributional shifts from a DDPM, which con-structs a potent pathological prior. This prior explicitly guides the Beyond Augmentation: Score-Guided Pathological Prior for EEG-based Depression Detection ACM MM ’26, 2026, TBD 
+
+classifier’s decision boundary entirely within a zero-augmentation setting. Experiments demonstrate that SGC achieves state-of-the-art performance on the Mumtaz2016 benchmark and exhibits excep-tional domain-agnostic robustness in severe zero-shot cross-dataset evaluations. By prioritizing feature integrity over synthetic quan-tity, SGC establishes a reliable diagnostic pathway for complex medical time-series. Future work will integrate Unsupervised Do-main Adaptation (UDA) to further bridge multi-center hardware heterogeneities. ACM MM ’26, 2026, TBD Trovato et al. 
+
+## References 
+
+[1] Jinwon An and Sungzoon Cho. 2015. Variational autoencoder based anomaly detection using reconstruction probability. Special lecture on IE 2, 1 (2015), 1–18. [2] Betul Ay, Ozal Yildirim, Muhammed Talo, Ulas Baran Baloglu, Galip Aydin, Subha D Puthankattil, and U Rajendra Acharya. 2019. Automated depression detection using deep representation and sequence learning with EEG signals. 
+
+Journal of medical systems 43, 7 (2019), 205. [3] Christoph Baur, Benedikt Wiestler, Shadi Albarqouni, and Nassir Navab. 2018. Deep autoencoding models for unsupervised anomaly segmentation in brain MR images. In International MICCAI brainlesion workshop . Springer, 161–169. [4] Hanshu Cai, Zhenqin Yuan, Yiwen Gao, Shuting Sun, Na Li, Fuze Tian, Han Xiao, Jianxiu Li, Zhengwu Yang, Xiaowei Li, et al . 2022. A multi-modal open dataset for mental-disorder analysis. Scientific data 9, 1 (2022), 178. [5] Yu Chen and Chunfeng Yang. 2025. STGE-Former: Spatial-Temporal Graph-Enhanced Transformer for EEG-Based Major Depressive Disorder Detection. In 
+
+ICASSP 2025-2025 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP) . IEEE, 1–5. [6] Daniel Choi, Cordelia Yip, Andrew Choi, and Junho Park. 2026. Fail closed trust gated synthetic augmentation governs tail risk under subject shift in EEG. bioRxiv 
+
+(2026), 2026–01. [7] Kushan Choudhury, Shubhrodeep Roy, Ankur Chanda, Shubhajit Biswas, and Somenath Kuiry. 2025. Improving Predictive Confidence in Medical Imaging via Online Label Smoothing. In BIO Web of Conferences , Vol. 204. EDP Sciences, 01019. [8] Yi Ding, Neethu Robinson, Qiuhao Zeng, Duo Chen, Aung Aung Phyo Wai, Tih-Shih Lee, and Cuntai Guan. 2020. TSception: A deep learning framework for emotion detection using EEG. In 2020 international joint conference on neural networks (IJCNN) . IEEE, 1–7. [9] Mohamed El Kerdawy, Mohamed El Halaby, Afnan Hassan, Mohamed Maher, Hatem Fayed, Doaa Shawky, and Ashraf Badawi. 2020. The automatic detection of cognition using eeg and facial expressions. Sensors 20, 12 (2020), 3516. [10] Tharindu Fernando, Harshala Gammulle, Simon Denman, Sridha Sridharan, and Clinton Fookes. 2021. Deep learning for medical anomaly detection–a survey. 
+
+ACM computing surveys (CSUR) 54, 7 (2021), 1–37. [11] Ian Goodfellow, Jean Pouget-Abadie, Mehdi Mirza, Bing Xu, David Warde-Farley, Sherjil Ozair, Aaron Courville, and Yoshua Bengio. 2014. Generative adversarial nets. In Advances in neural information processing systems , Vol. 27. [12] Louisa Hallal, Jason Rhinelander, Ramesh Venkat, and Aaron Newman. 2026. Efficient Feature Extraction for EEG-Based Classification: A Comparative Review of Deep Learning Models. AI 7, 2 (2026), 50. [13] Amr M Hamed, Abdel-Fattah A Heliel, and Heba El-Behery. 2026. Explainable EEG Analysis of Major Psychiatric Disorders: Power Spectra, Functional Connec-tivity, and SHAP Interpretation. Journal of Contemporary Technology and Applied Engineering 5, 1 (2026), 32–48. [14] Kay Gregor Hartmann, Robin Tibor Schirrmeister, and Tonio Ball. 2018. EEG-GAN: Generative adversarial networks for electroencephalograhic (EEG) brain signals. arXiv preprint arXiv:1806.01875 (2018). [15] Marwa Hassan and Naima Kaabouch. 2024. Impact of feature selection techniques on the performance of machine learning models for depression detection using EEG data. Applied Sciences 14, 22 (2024), 10532. [16] Chao He, Jialu Liu, Yuesheng Zhu, and Wencai Du. 2021. Data augmentation for deep neural networks model in EEG classification task: a review. Frontiers in Human Neuroscience 15 (2021), 765525. [17] Jonathan Ho, Ajay Jain, and Pieter Abbeel. 2020. Denoising diffusion probabilistic models. Advances in neural information processing systems 33 (2020), 6840–6851. [18] Pengfei Hou, Xiaowei Li, Jing Zhu, and Bin Hu. 2025. A lightweight convolutional transformer neural network for EEG-based depression recognition. Biomedical Signal Processing and Control 100 (2025), 107112. [19] Sergey Ioffe and Christian Szegedy. 2015. Batch normalization: Accelerating deep network training by reducing internal covariate shift. In International conference on machine learning . pmlr, 448–456. [20] Jung-Hwan Kim, Hyerin Nam, Doyeon Won, and Chang-Hwan Im. 2025. Domain-generalized deep learning for improved subject-independent emotion recognition based on electroencephalography. Experimental Neurobiology 34, 3 (2025), 119. [21] Diederik P Kingma and Max Welling. 2013. Auto-encoding variational bayes. 
+
+arXiv preprint arXiv:1312.6114 (2013). [22] George H Klem. 1999. The ten-twenty electrode system of the international federation. The international federation of clinical neurophysiology. Electroen-cephalogr. Clin. Neurophysiol. Suppl. 52 (1999), 3–6. [23] Elnaz Lashgari, Dehua Liang, and Uri Maoz. 2020. Data augmentation for deep-learning-based electroencephalography. Journal of Neuroscience Methods 346 (2020), 108885. [24] Mustapha Abdulrahman Lawal, Abdultaofeek Abayomi, Abubakar Abba Salihu, Anes Aihong Aliyu, Muazu Aminu Aliyu, and Ismail Zahraddeen Yakubu. 2026. Transfer learning and domain adaptation in neuroinformatics. In Deep Learning Applications in Neuroinformatics . Elsevier, 287–310. [25] Vernon J Lawhern, Amelia J Solon, Nicholas R Waytowich, Stephen M Gordon, Chou P Hung, and Brent J Lance. 2018. EEGNet: a compact convolutional neural network for EEG-based brain–computer interfaces. Journal of neural engineering 
+
+15, 5 (2018), 056013. [26] Ivana Leccisotti, Anita Mollica, Rossana Laurello, Maria Claudia Moretti, Mario Altamura, Antonello Bellomo, Francesco Panza, and Madia Lozupone. 2026. Ma-chine learning-assisted resting-state electroencephalography improves diagnostic accuracy in psychiatric disorders: A narrative review. Advanced Technology in Neuroscience 3, 1 (2026), 21–33. [27] Cheol-Hui Lee, Hwa-Yeon Lee, and Dong-Joo Kim. 2026. RL-BioAug: Label-Efficient Reinforcement Learning for Self-Supervised EEG Representation Learn-ing. arXiv preprint arXiv:2601.13964 (2026). [28] Wei Li, Siyi Wang, Shitong Shao, and Kaizhu Huang. 2024. Distillation-based domain generalization for cross-dataset EEG-based emotion recognition. IEEE Transactions on Emerging Topics in Computational Intelligence 9, 3 (2024), 2474– 2490. [29] Chuncheng Liao, Shiyu Zhao, Xiangcun Wang, Jiacai Zhang, Yongzhong Liao, and Xia Wu. 2025. EEG Data Augmentation Method Based on the Gaussian Mixture Model. Mathematics 13, 5 (2025), 729. [30] Lequan Lin, Zhengkun Li, Ruikun Li, Xuliang Li, and Junbin Gao. 2024. Diffusion models for time-series applications: a survey. Frontiers of Information Technology & Electronic Engineering 25, 1 (2024), 19–41. [31] Yuan Liu, Changqin Pu, Shan Xia, Dingyu Deng, Xing Wang, and Mengqian Li. 2022. Machine learning approaches for diagnosing depression using EEG: A review. Translational Neuroscience 13, 1 (2022), 224–235. [32] Ilya Loshchilov and Frank Hutter. 2016. Sgdr: Stochastic gradient descent with warm restarts. arXiv preprint arXiv:1608.03983 (2016). [33] Haifeng Lu, Zhiyang You, Yi Guo, and Xiping Hu. 2024. Mast-gcn: Multi-scale adaptive spatial-temporal graph convolutional network for eeg-based depression recognition. IEEE Transactions on Affective Computing 15, 4 (2024), 1985–1996. [34] Gang Luo, Hong Rao, Panfeng An, Yunxia Li, Ruiyun Hong, Wenwu Chen, and Shengbo Chen. 2023. Exploring adaptive graph topologies and temporal graph networks for EEG-based depression detection. IEEE Transactions on Neural Systems and Rehabilitation Engineering 31 (2023), 3947–3957. [35] RuiFang Lyu. 2026. Deep learning approaches for EEG-based healthcare appli-cations: a comprehensive review. Frontiers in Human Neuroscience 19 (2026), 1689073. [36] Andre F Marquand, Iead Rezek, Jan Buitelaar, and Christian F Beckmann. 2016. Understanding heterogeneity in clinical cohorts using normative models: beyond case-control studies. Biological psychiatry 80, 7 (2016), 552–561. [37] Przemysław Mirowski and Anna Fabijańska. 2026. Diffusion model-based syn-thesis of brain images for data augmentation. Biomedical Signal Processing and Control 113 (2026), 108940. [38] Rafael Müller, Simon Kornblith, and Geoffrey E Hinton. 2019. When does label smoothing help? Advances in neural information processing systems 32 (2019). [39] Wajid Mumtaz, Likun Xia, Syed Saad Azhar Ali, Mohd Azhar Mohd Yasin, Muham-mad Hussain, and Aamir Saeed Malik. 2017. Electroencephalogram (EEG)-based computer-aided technique to diagnose major depressive disorder (MDD). Biomed-ical Signal Processing and Control 31 (2017), 108–115. [40] Sebastian Olbrich, Natalia Jaworska, Sara de la Salle, Verner Knott, Pierre Blier, Martin Brunovsky, Tobias Welt, Mateo de Bardeci, and Cheng Teng-Ip. 2026. Deep learning using electroencephalogram (EEG) data for diagnosing and predicting SSRI response in major depressive disorder. Communications Medicine 6, 1 (2026), 159. [41] Dan Peng, Wei-Long Zheng, and Bao-Liang Lu. 2025. Enhancing Depression Detection from Emotion EEG with Temporal-Spatial-Spectral Representation Learning. In 2025 47th Annual International Conference of the IEEE Engineering in Medicine and Biology Society (EMBC) . IEEE, 1–5. [42] François Perrin, Jacques Pernier, Olivier Bertrand, and Jean Francois Echallier. 1989. Spherical splines for scalp potential and current density mapping. Elec-troencephalography and clinical neurophysiology 72, 2 (1989), 184–187. [43] Walter HL Pinaya, Mark S Graham, Robert Gray, Pedro F Da Costa, Petru-Daniel Tudosiu, Paul Wright, Yee H Mah, Andrew D MacKinnon, James T Teo, Rolf Jager, et al . 2022. Fast unsupervised brain anomaly detection and segmentation with diffusion models. In International Conference on Medical Image Computing and Computer-Assisted Intervention . Springer, 705–714. [44] U Raghavendra, Anjan Gudigar, Yashas Chakole, Praneet Kasula, DP Subha, Nahrizul Adib Kadri, Edward J Ciaccio, and U Rajendra Acharya. 2023. Automated detection and screening of depression using continuous wavelet transform with electroencephalogram signals. Expert Systems 40, 4 (2023), e12803. [45] Cédric Rommel, Joseph Paillard, Thomas Moreau, and Alexandre Gramfort. 2022. Data augmentation for learning predictive models on EEG: a systematic compar-ison. Journal of Neural Engineering 19, 6 (2022), 066020. [46] Saige Rutherford, Seyed Mostafa Kia, Thomas Wolfers, Charlotte Fraza, Mariam Zabihi, Richard Dinga, Pierre Berthet, Amanda Worker, Serena Verdi, Henri-cus G Ruhe, et al . 2022. The normative modeling framework for computational psychiatry. Nature protocols 17, 7 (2022), 1711–1734. Beyond Augmentation: Score-Guided Pathological Prior for EEG-based Depression Detection ACM MM ’26, 2026, TBD 
+
+[47] Ayan Seal, Rishabh Bajpai, Jagriti Agnihotri, Anis Yazidi, Enrique Herrera-Viedma, and Ondrej Krejcar. 2021. DeprNet: A deep convolution neural network frame-work for detecting depression using EEG. IEEE Transactions on Instrumentation and Measurement 70 (2021), 1–13. [48] Geetanjali Sharma, Amit M Joshi, Richa Gupta, and Linga Reddy Cenkeramaddi. 2023. DepCap: a smart healthcare framework for EEG based depression detection using time-frequency response and deep neural network. IEEE Access 11 (2023), 52327–52338. [49] Jian Shen, Kang Wang, Zeguang Zhao, Yanan Zhang, Fuze Tian, Xiaowei Zhang, Qunxi Dong, and Bin Hu. 2025. WDANet: Wasserstein Distribution Inspired Dynamic Adversarial Network for EEG-Based Cross-Domain Depression Recog-nition. IEEE Transactions on Affective Computing (2025). [50] Anurag Singh, Vivek Tiwari, Harshita Patel, GN Vivekananda, Dharmendra Singh Rajput, et al . 2024. Slitranet: an EEG-based automated diagnosis framework for major depressive disorder monitoring using a novel LGCN and transformer-based hybrid deep learning approach. IEEE Access 12 (2024), 173109–173126. [51] Yubing Sun, Jiaqi Sun, Zijian Zhou, Jing Cai, Wenjie Cui, and Guangda Liu. 2026. A Novel Spatial-Temporal Graph Neural Network for Major Depressive Disorder Detection Based on Resting State EEG Signals. IEEE Sensors Journal 26, 6 (2026), 8660–8671. doi:10.1109/JSEN.2026.3657750 [52] Christian Szegedy, Wei Liu, Yangqing Jia, Pierre Sermanet, Scott Reed, Dragomir Anguelov, Dumitru Erhan, Vincent Vanhoucke, and Andrew Rabinovich. 2015. Going deeper with convolutions. In Proceedings of the IEEE conference on computer vision and pattern recognition . 1–9. [53] Christian Szegedy, Vincent Vanhoucke, Sergey Ioffe, Jon Shlens, and Zbigniew Wojna. 2016. Rethinking the inception architecture for computer vision. In 
+
+Proceedings of the IEEE conference on computer vision and pattern recognition .2818–2826. [54] Dung Truong and Arnaud Delorme. 2025. Data Normalization Strategies for EEG Deep Learning. arXiv preprint arXiv:2506.22455 (2025). [55] Aaron Van Den Oord, Oriol Vinyals, et al . 2017. Neural discrete representation learning. Advances in neural information processing systems 30 (2017). [56] Shruthi Narayanan Vaniya, Ahsan Habib, Maia Angelova, and Chandan Karmakar. 2026. Simplifying Depression Diagnosis: Single-Channel EEG and Deep Learning Approaches. IEEE Journal of Biomedical and Health Informatics (2026). [57] Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N Gomez, Łukasz Kaiser, and Illia Polosukhin. 2017. Attention is all you need. Advances in neural information processing systems 30 (2017). [58] Hui Wang, Jinghui Yin, Siyuan Gao, Ju Liu, and Qiang Wu. 2024. Major depressive disorder detection using graph domain adaptation with global message-passing based on eeg signals. IEEE Transactions on Affective Computing 16, 3 (2024), 1500–1513. [59] Shuqiang Wang, Yi Guo, Yihang Dong, Yanyan Shen, Zhiguo Zhang, Albert C. Cheung, Jiangbo Pu, Sheng-Hua Zhong, Raymond Kai-Yu Tong, Ye Li, Michael Kwok-Po Ng, Kim-Fung Tsang, and Guanhua Ren. 2026. Generative AI Empowers Brain-Computer Interfaces: A Review-Perspective on Technical Realities and Future Visions. IEEE Transactions on Consumer Electronics 72, 1 (2026), 11–20. doi:10.1109/TCE.2025.3650654 [60] Yuwen Wang, Yudan Peng, Mingxiu Han, Xinyi Liu, Haijun Niu, Jian Cheng, Suhua Chang, and Tao Liu. 2024. GCTNet: a graph convolutional transformer network for major depressive disorder detection based on EEG signals. Journal of Neural Engineering 21, 3 (2024), 036042. [61] Yilin Wang, Sha Zhao, Haiteng Jiang, Shijian Li, Benyan Luo, Tao Li, and Gang Pan. 2024. Diffmdd: A diffusion-based deep learning framework for mdd diagnosis using eeg. IEEE Transactions on Neural Systems and Rehabilitation Engineering 32 (2024), 728–738. [62] Xiaobin Wong, Zhonghua Zhao, Haoran Guo, Zhengyi Liu, Yu Wu, Feng Yan, Zhiren Wang, and Sen Song. 2026. CRCC: Contrast-Based Robust Cross-Subject and Cross-Site Representation Learning for EEG. arXiv preprint arXiv:2602.19138 
+
+(2026). [63] Chenyue Xu, Longzhu Zhu, Jianbo Lai, Zeyu Luo, Jiayao Ying, Shaohua Hu, Peige Song, and Jianzhong Yang. 2026. Global and regional quality of care index in major depressive disorder: the global burden of disease study 2021. International Journal for Equity in Health (2026). [64] Guixun Xu, Wenhui Guo, and Yanjiang Wang. 2023. Subject-independent EEG emotion recognition with hybrid spatio-temporal GRU-Conv architecture. Medi-cal & Biological Engineering & Computing 61, 1 (2023), 61–73. [65] Wenchao Yang, Weidong Yan, Wenkang Liu, Yulan Ma, and Yang Li. 2025. THD-BAR: Topology Hierarchical Derived Brain Autoregressive Modeling for EEG Generic Representations. arXiv preprint arXiv:2511.13733 (2025). [66] Jintao Zhang, Zirui Liu, Mingyue Cheng, Xianquan Wang, Zhiding Liu, and Qi Liu. 2026. StaTS: Spectral Trajectory Schedule Learning for Adaptive Time Series Forecasting with Frequency Guided Denoiser. arXiv preprint arXiv:2603.00037 
+
+(2026). [67] Jichang Zhang, Yuanjie Zheng, and Yunfeng Shi. 2023. A soft label method for medical image segmentation with multirater annotations. Computational Intelligence and Neuroscience 2023, 1 (2023), 1883597. [68] Yi-Dong Zhao, Yan-Kai Liu, Wei-Long Zheng, and Bao-Liang Lu. 2024. EEG data augmentation for emotion recognition using diffusion model. In 2024 46th annual international conference of the ieee engineering in medicine and biology society (embc) . IEEE, 1–4. [69] Tong Zhou, Xuhang Chen, Yanyan Shen, Martin Nieuwoudt, Chi-Man Pun, and Shuqiang Wang. 2023. Generative ai enables eeg data augmentation for alzheimer’s disease detection via diffusion model. In 2023 IEEE International Symposium on Product Compliance Engineering-Asia (ISPCE-ASIA) . IEEE, 1–6. [70] Ruslan Zhulduzbayev, Arian Ashourvan, Diana Arman, Alibek Bissembayev, and Almira Kustubayeva. 2026. A Structured Review of EEG-Based Machine Learning Approaches for Brain Age Prediction. Algorithms 19, 1 (2026), 91.
