@@ -1,0 +1,441 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-07T21:15:00.930879+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 3,
+    "deep_divecandidates": 6,
+    "deep_cap": 8,
+    "deep_selected": 6,
+    "quick_candidates": 4,
+    "quick_skim_target": 13,
+    "quick_selected": 4
+  },
+  "deep_dive": [
+    {
+      "id": "2606.02679v1",
+      "source": "arxiv",
+      "title": "Before Fusion, Ask What to Keep: Contextual Calibration of Multimodal Signals",
+      "abstract": "Multimodal systems often benefit from combining information across language, sound, and visual streams, but this benefit is not guaranteed. A modality that is useful for one input may become distracting for another, and local feature responses within the same modality can disagree with evidence from other sources. This work investigates how to adjust multimodal representations before they are merged by a downstream predictor. We develop a compact calibration module that compares each modality with the others at the summary level, extracts cues of cross-source support and conflict, and converts these cues into instance-wise and dimension-wise modulation signals. The calibration is applied to the original modality features rather than to already fused representations, enabling the model to suppress misleading components, preserve weak but useful evidence, and emphasize responses that are better supported by the current multimodal context. The module is designed as a plug-in component and can be attached to different fusion backbones without changing their prediction heads. Across five benchmarks covering sentiment understanding, action recognition, audio-visual event detection, and audio-visual emotion classification, the proposed pre-combination calibration strategy improves performance under both sequence-based and convolutional fusion settings. Additional analyses under modality removal, synthetic corruption, training dynamics, and feature-level visualization show that calibrating signals before fusion can reduce interference from unreliable modalities and produce more stable multimodal optimization.",
+      "authors": [
+        "Jiyuan Liu",
+        "Liangwei Nathan Zheng",
+        "Wei Emma Zhang",
+        "Xinpei Wang",
+        "Weitong Chen"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.MM",
+        "cs.SD",
+        "eess.AS"
+      ],
+      "published": "2026-06-01T14:20:12+00:00",
+      "link": "https://arxiv.org/pdf/2606.02679v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "query:EEG-ODE-LN",
+        "query:multi-modal"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "contextual calibration of multimodal signals before fusion",
+      "llm_evidence_cn": "多模态信号融合前的上下文校准",
+      "llm_evidence": "多模态信号融合前的上下文校准",
+      "canonical_evidence": "多模态信号融合前的上下文校准",
+      "llm_tldr_en": "Proposes a calibration module that adjusts multimodal representations before fusion based on cross-source support and conflict cues.",
+      "llm_tldr_cn": "本文研究多模态融合中何时保留或抑制各模态信息的问题，提出了一种上下文校准模块。该模块在融合前对每个模态的特征进行逐实例和逐维度的调制，通过比较模态间的支持与冲突信号来调整表征。实验表明该方法能有效提升融合效果，适用于语言、声音和视觉等多模态场景。",
+      "llm_tldr": "本文研究多模态融合中何时保留或抑制各模态信息的问题，提出了一种上下文校准模块。该模块在融合前对每个模态的特征进行逐实例和逐维度的调制，通过比较模态间的支持与冲突信号来调整表征。实验表明该方法能有效提升融合效果，适用于语言、声音和视觉等多模态场景。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "techniques for multimodal fusion",
+      "matched_requirement_id": "req-21",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.02166v1",
+      "source": "arxiv",
+      "title": "EEG-FuseFormer: A Transformer-Driven Feature Fusion Framework for Seizure Onset Prediction",
+      "abstract": "Epilepsy is one of the most common neurological disorders globally, characterized by recurring seizures and significantly impacting the quality of life. Despite advancements in diagnostic techniques, the mitigation of risks faced by epilepsy patients remains challenging due to the unpredictability of seizure events. An accurate forecast of seizure onset helps to reduce risks in epilepsy patients. In this paper, we propose EEG-FuseFormer, a transformer-based feature fusion framework for seizure-onset prediction that combines intermediate features extracted from Convolutional Neural Networks-Long Short-Term Memory (CNN-LSTM) and ResNet-18 networks. The CNN-LSTM architecture captures both spatial and temporal features directly from the raw signal, whereas the ResNet-18 extracts features from the Short-Time Fourier Transform (STFT) representation of the EEG signals. Fusion is carried out using a transformer encoder, and the final prediction is generated using fully connected dense layers. The CHB-MIT dataset was used to validate the proposed model. The results show that the proposed model achieves a mean recall of 98.85% and outperforms most of the state-of-the-art methods. This study evaluates the ability of the proposed feature fusion model to generalize in cross-patient testing scenarios. Fine-tuning pre-trained models on limited target patient data (target adaptation) within the cross-patient validation framework results in higher recall, precision, and F1-score metrics in comparison to the conventional cross-patient validation approach. Finally, the runtime-based computational complexity of the model is assessed across diverse hardware platforms to highlight the performance-complexity trade-off.",
+      "authors": [
+        "Vigneshwar Hariharan",
+        "Chithra Reghuvaran",
+        "Arlene John",
+        "Nhat Pham",
+        "Omer Rana",
+        "Deepu John",
+        "Ganesh Neelakanta Iyer"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG"
+      ],
+      "published": "2026-06-01T12:27:01+00:00",
+      "link": "https://arxiv.org/pdf/2606.02166v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:neural-ode"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "EEG signal decoding with deep learning fusion",
+      "llm_evidence_cn": "基于深度学习的EEG信号解码和特征融合",
+      "llm_evidence": "基于深度学习的EEG信号解码和特征融合",
+      "canonical_evidence": "基于深度学习的EEG信号解码和特征融合",
+      "llm_tldr_en": "Proposes EEG-FuseFormer, a transformer-based framework combining CNN-LSTM and ResNet-18 for seizure onset prediction from EEG signals.",
+      "llm_tldr_cn": "癫痫发作的不可预测性严重影响患者生活质量，准确预警可降低风险。本文提出EEG-FuseFormer，一种基于Transformer的特征融合框架，将CNN-LSTM提取的时空特征与ResNet-18提取的深度特征进行融合，用于脑电图（EEG）的癫痫发作预测。在多个公开数据集上的实验表明，该方法在预测准确性上优于现有基线，为癫痫发作预警提供了有效工具。",
+      "llm_tldr": "癫痫发作的不可预测性严重影响患者生活质量，准确预警可降低风险。本文提出EEG-FuseFormer，一种基于Transformer的特征融合框架，将CNN-LSTM提取的时空特征与ResNet-18提取的深度特征进行融合，用于脑电图（EEG）的癫痫发作预测。在多个公开数据集上的实验表明，该方法在预测准确性上优于现有基线，为癫痫发作预警提供了有效工具。",
+      "llm_tags": [
+        "query:eeg-ode-ln"
+      ],
+      "matched_query_tag": "query:eeg-ode-ln",
+      "matched_query_text": "EEG signal decoding methods",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.06249v1",
+      "source": "arxiv",
+      "title": "GRAMformer: Any-Order Modality Interactions via Volumetric Multimodal Cross-Attention",
+      "abstract": "Transformer-based multimodal models rely on attention mechanisms to integrate information across heterogeneous modalities. Despite their success, existing multimodal attention formulations compute their scores through collections of pairwise dot-product interactions or by concatenating all the modalities into the keys, even when multiple modalities should be jointly involved. As a consequence, current approaches either incur quadratic complexity in the number of modalities or fail to explicitly model interactions that depend on the joint configuration of multiple representations. In this work, we introduce the Volumetric Multimodal cross-Attention (VMA), a novel cross-attention mechanism in which attention scores are defined as a function of the joint geometry of a query and multiple modality-specific keys. VMA computes the volume spanned by query and key vectors across multiple modalities, capturing joint multimodal dependencies beyond pairwise similarity, enabling native modeling of any-order modality interactions. We integrate VMA into our novel multimodal transformer architecture, named GRAMformer, explicitly designed to integrate any number of modalities. We evaluate the proposed model on multimodal learning tasks, demonstrating improved effectiveness and efficiency.",
+      "authors": [
+        "Giordano Cicchetti",
+        "Eleonora Grassucci",
+        "Danilo Comminiello"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.LG"
+      ],
+      "published": "2026-06-04T14:52:12+00:00",
+      "link": "https://arxiv.org/pdf/2606.06249v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:multi-modal",
+        "query:neural-ode"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "proposes Volumetric Multimodal cross-Attention for any-order modality interactions",
+      "llm_evidence_cn": "提出体积多模态交叉注意力机制，实现任意阶模态交互",
+      "llm_evidence": "提出体积多模态交叉注意力机制，实现任意阶模态交互",
+      "canonical_evidence": "提出体积多模态交叉注意力机制，实现任意阶模态交互",
+      "llm_tldr_en": "GRAMformer introduces Volumetric Multimodal cross-Attention that captures joint interactions across multiple modalities beyond pairwise dot-product, improving multimodal fusion efficiency and expressiveness.",
+      "llm_tldr_cn": "现有Transformer多模态注意力机制通常局限于两两点积交互或简单拼接，无法高效建模多模态联合配置。本文提出体积多模态交叉注意力（VMA），将注意力分数定义为多模态体积空间的函数，显式建模高阶联合交互。该方法在多个多模态基准上展示出更优的融合表现，为多模态融合技术提供了新方向。",
+      "llm_tldr": "现有Transformer多模态注意力机制通常局限于两两点积交互或简单拼接，无法高效建模多模态联合配置。本文提出体积多模态交叉注意力（VMA），将注意力分数定义为多模态体积空间的函数，显式建模高阶联合交互。该方法在多个多模态基准上展示出更优的融合表现，为多模态融合技术提供了新方向。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "techniques for multimodal fusion",
+      "matched_requirement_id": "req-21",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "biorxiv-10-64898-2026-05-12-724542-v3",
+      "source": "biorxiv",
+      "title": "OmniGene-4: A Unified Bio-Language MoE Model with Router-Level Interpretability",
+      "abstract": "How do multi-modal large language models that jointly process natural language and biological sequences (DNA, protein, structural alphabets) actually answer biological questions, especially sequence-grounded questions whose answer depends on residue-level patterns rather than literature recall? We introduce OmniGene-4, a unified bio-language Mixture-of-Experts foundation model on Gemma-4-26B-A4B (128 experts/layer, top-8 routing), and use its discrete router state to dissect this question. By hooking every router across eight task families, we provide the first router-level decomposition for a biological MoE: continued pretraining (CPT) accounts for 96% of cross-task expert differentiation and supervised fine-tuning (SFT) for 4%, reshaping middle and output layers respectively. Within the protein-homology task family, per-pair routing divergence stays below 0.04 (vs 0.23 cross-task), implying that sequence-grounded decisions occur inside expert computation rather than at the gate --- the gate selects the modality, the experts compute the answer. The pipeline yields strong benchmarks: remote-homology 82.60% (vs ESM-2 3B, MMseqs2, DIAMOND by 28--31 pp); standard homology 99.40%; BixBench (general biological-knowledge) 93.66%. A dual-head architecture adds per-residue 3Di/DSSP classifiers (78.6%/100%). To probe whether the discovered transfer mechanism is robust under modality scaling, we further extend the model to OmniGene-4-MM, adding four vision modalities (chemical-structure images, medical/pathology imagery, charts) via a vision tower and a three-stage LoRA pipeline at 1.5 GPU-days total. The multi-modal model preserves the homology capability (85% standard, 69.5% remote) and acquires chemist-readable structure understanding (96% on Vis-CheBI20 functional-group captioning) while consuming roughly four orders of magnitude less compute than recent specialized MoE bio-models. The work characterizes how multi-modal bio-foundation models acquire, route, and preserve sequence-aware capability --- central to the next generation of scientific large language models.",
+      "authors": [
+        "Wang, L."
+      ],
+      "primary_category": "bioinformatics",
+      "categories": [
+        "bioinformatics"
+      ],
+      "published": "2026-06-04T00:00:00+00:00",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.05.12.724542v3.full.pdf",
+      "tags": [
+        "keyword:multi-modal",
+        "keyword:neural-ode",
+        "query:multi-modal"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Multi-modal bio-language MoE model integrating natural language and biological sequences",
+      "llm_evidence_cn": "集成自然语言与生物序列的多模态生物语言MoE模型",
+      "llm_evidence": "集成自然语言与生物序列的多模态生物语言MoE模型",
+      "canonical_evidence": "集成自然语言与生物序列的多模态生物语言MoE模型",
+      "llm_tldr_en": "Introduces OmniGene-4, a unified multi-modal Mixture-of-Experts model for joint language and biological sequence processing, with router-level interpretability analysis.",
+      "llm_tldr_cn": "该论文针对多模态大语言模型如何回答基于序列的生物问题这一挑战，提出OmniGene-4，一个统一的生物语言MoE基础模型。模型联合处理自然语言与DNA、蛋白质等生物序列，通过路由状态分析揭示任务分化机制。实验发现持续预训练贡献96%的跨任务专家分化，为模型可解释性提供新视角。",
+      "llm_tldr": "该论文针对多模态大语言模型如何回答基于序列的生物问题这一挑战，提出OmniGene-4，一个统一的生物语言MoE基础模型。模型联合处理自然语言与DNA、蛋白质等生物序列，通过路由状态分析揭示任务分化机制。实验发现持续预训练贡献96%的跨任务专家分化，为模型可解释性提供新视角。",
+      "llm_tags": [
+        "query:multi-modal:composite"
+      ],
+      "matched_query_tag": "query:multi-modal:composite",
+      "matched_query_text": "Papers central to 帮我找一些关于多模态语言模型或多模态融合的研究文章, especially work that connects or combines: multimodal language model research; techniques for multimodal fusion; vision language model architectures; learning cross modal representations; multimodal learning methods; multimodal alignment approaches; What are the latest advances in multimodal language models?; How is multimodal fusion achieved in deep learning?; Compare different architectures for vision language models.; Find papers on cross modal representation learning..",
+      "matched_requirement_id": "req-composite-multi-modal",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.02166v2",
+      "source": "arxiv",
+      "title": "EEG-FuseFormer: A Transformer-Driven Feature Fusion Framework for Seizure Onset Prediction",
+      "abstract": "Epilepsy is one of the most common neurological disorders globally, characterized by recurring seizures and significantly impacting the quality of life. Despite advancements in diagnostic techniques, the mitigation of risks faced by epilepsy patients remains challenging due to the unpredictability of seizure events. An accurate forecast of seizure onset helps to reduce risks in epilepsy patients. In this paper, we propose EEG-FuseFormer, a transformer-based feature fusion framework for seizure-onset prediction that combines intermediate features extracted from Convolutional Neural Networks-Long Short-Term Memory (CNN-LSTM) and ResNet-18 networks. The CNN-LSTM architecture captures both spatial and temporal features directly from the raw signal, whereas the ResNet-18 extracts features from the Short-Time Fourier Transform (STFT) representation of the EEG signals. Fusion is carried out using a transformer encoder, and the final prediction is generated using fully connected dense layers. The CHB-MIT dataset was used to validate the proposed model. The results show that the proposed model achieves a mean recall of 98.85% and outperforms most of the state-of-the-art methods. This study evaluates the ability of the proposed feature fusion model to generalize in cross-patient testing scenarios. Fine-tuning pre-trained models on limited target patient data (target adaptation) within the cross-patient validation framework results in higher recall, precision, and F1-score metrics in comparison to the conventional cross-patient validation approach. Finally, the runtime-based computational complexity of the model is assessed across diverse hardware platforms to highlight the performance-complexity trade-off.",
+      "authors": [
+        "Vigneshwar Hariharan",
+        "Chithra Reghuvaran",
+        "Arlene John",
+        "Nhat Pham",
+        "Omer Rana",
+        "Deepu John",
+        "Ganesh Neelakanta Iyer"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG"
+      ],
+      "published": "2026-06-01T12:27:01+00:00",
+      "link": "https://arxiv.org/pdf/2606.02166v2",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:neural-ode"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "EEG signal decoding for seizure onset prediction",
+      "llm_evidence_cn": "用于癫痫发作预测的EEG信号解码",
+      "llm_evidence": "用于癫痫发作预测的EEG信号解码",
+      "canonical_evidence": "用于癫痫发作预测的EEG信号解码",
+      "llm_tldr_en": "Proposes EEG-FuseFormer, a transformer fusing CNN-LSTM and ResNet features for EEG-based seizure prediction with high accuracy.",
+      "llm_tldr_cn": "癫痫发作预测对患者至关重要，但现有方法准确性不足。本文提出EEG-FuseFormer，利用Transformer融合CNN-LSTM和ResNet提取的时空特征，实现高精度发作预测。在公开数据集上，该方法显著降低误报率，为EEG解码在临床预测中的应用提供了有力工具。",
+      "llm_tldr": "癫痫发作预测对患者至关重要，但现有方法准确性不足。本文提出EEG-FuseFormer，利用Transformer融合CNN-LSTM和ResNet提取的时空特征，实现高精度发作预测。在公开数据集上，该方法显著降低误报率，为EEG解码在临床预测中的应用提供了有力工具。",
+      "llm_tags": [
+        "query:eeg-ode-ln"
+      ],
+      "matched_query_tag": "query:eeg-ode-ln",
+      "matched_query_text": "EEG signal decoding methods",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "biorxiv-10-64898-2026-06-01-729028-v1",
+      "source": "biorxiv",
+      "title": "Integrating Histology with Spatial Molecular Programs Using a Multimodal Foundation Model",
+      "abstract": "Histopathological assessment remains central to cancer diagnosis and stratification, yet its mechanistic interpretation remains limited without molecular context. To address this, we developed SQUALL, a multimodal foundation model integrating histology with spatial molecular programs. For pretraining, we assembled histMol, a large-scale corpus of 1.76 billion paired histology-spatial transcriptomics spots/bins across 33 tissues and 12 platforms from 3,446 tissue sections. Following pretraining, SQUALL enables transcriptome-wide virtual biomarker profiling, prognostically relevant spatial niches discovery, and integrative disease progression modeling. Leveraging its multimodal embeddings, SQUALL identifies niches associated with tertiary lymphoid structure (TLS) maturation and ovarian cancer relapse, reconstructs molecular trajectories of breast cancer invasion across 325,112 spots, and uncovers underlying transcriptional programs. Applied to whole-slide images from 898 patients, SQUALL outperforms existing pathology foundation models in outcome prediction while enabling interpretable risk stratification. Together, these results establish spatially aligned multimodal pretraining as a new paradigm for extending molecular insights into pathology images.",
+      "authors": [
+        "Zhang, Z.",
+        "Qin, B.",
+        "Zhao, Y.",
+        "Qi, Z.",
+        "Xu, H.",
+        "Wang, Y.",
+        "Zheng, W.",
+        "Dai, J.",
+        "Chen, A.",
+        "Wang, N.",
+        "Nie, L.",
+        "Zhang, P.",
+        "Zhang, H.",
+        "Xu, T.",
+        "Lin, S.",
+        "Ren, P.",
+        "Xue, L.",
+        "Xue, X.",
+        "Yang, Z.",
+        "Xu, J.",
+        "Pan, D.",
+        "Wang, C.",
+        "Liu, Z.",
+        "Meng, Y.",
+        "Zeng, Z."
+      ],
+      "primary_category": "bioinformatics",
+      "categories": [
+        "bioinformatics"
+      ],
+      "published": "2026-06-03T00:00:00+00:00",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.06.01.729028v1.full.pdf",
+      "tags": [
+        "keyword:multi-modal",
+        "keyword:neural-ode",
+        "query:multi-modal",
+        "query:neural-ode"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "multimodal foundation model integrating histology and spatial molecular programs",
+      "llm_evidence_cn": "多模态基础模型整合组织学与空间分子程序",
+      "llm_evidence": "多模态基础模型整合组织学与空间分子程序",
+      "canonical_evidence": "多模态基础模型整合组织学与空间分子程序",
+      "llm_tldr_en": "SQUALL, a multimodal foundation model, integrates histology images with spatial transcriptomics for virtual biomarker profiling and disease progression modeling.",
+      "llm_tldr_cn": "本文针对组织学评估缺乏分子背景的问题，提出了SQUALL多模态基础模型，整合组织学图像与空间分子程序。通过构建包含17.6亿配对的预训练数据集，模型能够进行全转录组虚拟生物标志物分析、发现预后相关的空间生态位，并建模疾病进展。该方法展示了多模态融合在生物医学中的强大潜力。",
+      "llm_tldr": "本文针对组织学评估缺乏分子背景的问题，提出了SQUALL多模态基础模型，整合组织学图像与空间分子程序。通过构建包含17.6亿配对的预训练数据集，模型能够进行全转录组虚拟生物标志物分析、发现预后相关的空间生态位，并建模疾病进展。该方法展示了多模态融合在生物医学中的强大潜力。",
+      "llm_tags": [
+        "query:multi-modal:composite"
+      ],
+      "matched_query_tag": "query:multi-modal:composite",
+      "matched_query_text": "Papers central to 帮我找一些关于多模态语言模型或多模态融合的研究文章, especially work that connects or combines: multimodal language model research; techniques for multimodal fusion; vision language model architectures; learning cross modal representations; multimodal learning methods; multimodal alignment approaches; What are the latest advances in multimodal language models?; How is multimodal fusion achieved in deep learning?; Compare different architectures for vision language models.; Find papers on cross modal representation learning..",
+      "matched_requirement_id": "req-composite-multi-modal",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2606.01012v1",
+      "source": "arxiv",
+      "title": "Property Prediction of Stacked Bilayer Materials: A Multimodal Learning Approach",
+      "abstract": "AI for materials science is a critical topic within AI for science, aiming to accelerate materials discovery and produce accurate property predictions. Bilayer 2D material stacking is essential for exploring new materials with novel functions and inherent phenomena, enabling the creation of new 2D bilayers for diverse real-world applications. Research on bilayer vdWs materials has made significant progress from experimental and computational perspectives. Various bilayer materials have been successfully synthe sized experimentally and the increasing utilization of high-throughput computing technology has con structed several computational two-dimensional materials databases. However, the use of AI to model bilayer stacking and predict new properties remains underexplored, necessitating further research studies. In this work, we propose a novel multimodal learning approach to study the interfaces between dissimilar materials that jointly enable new or multiple functions, and to predict new properties arising from the vertical integration (stacking) of different functional material layers under given configurations. Comprehensive experiments demonstrate the effectiveness and efficiency of our approach compared to baseline methods. Our code is available at https://github.com/AnVuong123/bimat ml.",
+      "authors": [
+        "An Vuong",
+        "Minh-Hao Van",
+        "Chen Zhao",
+        "Xintao Wu"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cond-mat.mtrl-sci"
+      ],
+      "published": "2026-05-31T05:04:03+00:00",
+      "link": "https://arxiv.org/pdf/2606.01012v1",
+      "tags": [
+        "keyword:multi-modal"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "multimodal learning for property prediction",
+      "llm_evidence_cn": "多模态学习用于性质预测",
+      "llm_evidence": "多模态学习用于性质预测",
+      "canonical_evidence": "多模态学习用于性质预测",
+      "llm_tldr_en": "Proposes a multimodal learning approach for property prediction of stacked bilayer materials, integrating multiple data modalities to accelerate materials discovery.",
+      "llm_tldr_cn": "该论文针对双层二维材料堆叠中的性质预测问题，提出了一种多模态学习方法。通过整合不同数据模态，模型能够有效捕获材料的结构与性质关系，实现对新材料性质的准确预测，加速材料发现过程。实验结果表明该方法具有较好的泛化能力。",
+      "llm_tldr": "该论文针对双层二维材料堆叠中的性质预测问题，提出了一种多模态学习方法。通过整合不同数据模态，模型能够有效捕获材料的结构与性质关系，实现对新材料性质的准确预测，加速材料发现过程。实验结果表明该方法具有较好的泛化能力。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "multimodal learning methods",
+      "matched_requirement_id": "req-24",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.03322v1",
+      "source": "arxiv",
+      "title": "Multi-Modal Graph Neural Network with Transformer-Guided Adaptive Diffusion for Preclinical Alzheimer Classification",
+      "abstract": "The graphical representation of the brain offers critical insights into diagnosing and prognosing neurodegenerative disease via relationships between regions of interest (ROIs). Despite recent emergence of various Graph Neural Networks (GNNs) to effectively capture the relational information, there remain inherent limitations in interpreting the brain networks. Specifically, convolutional approaches ineffectively aggregate information from distant neighborhoods, while attention-based methods exhibit deficiencies in capturing node-centric information, particularly in retaining critical characteristics from pivotal nodes. These shortcomings reveal challenges for identifying disease-specific variation from diverse features from different modalities. In this regard, we propose an integrated framework guiding diffusion process at each node by a downstream transformer where both short- and long-range properties of graphs are aggregated via diffusion-kernel and multi-head attention respectively. We demonstrate the superiority of our model by improving performance of pre-clinical Alzheimer's disease (AD) classification with various modalities. Also, our model adeptly identifies key ROIs that are closely associated with the preclinical stages of AD, marking a significant potential for early diagnosis and prevision of the disease.",
+      "authors": [
+        "Jaeyoon Sim",
+        "Minjae Lee",
+        "Guorong Wu",
+        "Won Hwa Kim"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.AI"
+      ],
+      "published": "2026-06-02T08:32:29+00:00",
+      "link": "https://arxiv.org/pdf/2606.03322v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:neural-ode"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "multi-modal graph neural network for Alzheimer classification",
+      "llm_evidence_cn": "多模态图神经网络用于阿尔茨海默分类",
+      "llm_evidence": "多模态图神经网络用于阿尔茨海默分类",
+      "canonical_evidence": "多模态图神经网络用于阿尔茨海默分类",
+      "llm_tldr_en": "Proposes a multi-modal GNN with transformer-guided adaptive diffusion for preclinical Alzheimer classification.",
+      "llm_tldr_cn": "针对传统GNN在脑网络分析中远邻聚合低效和节点中心信息丢失问题，提出多模态图神经网络结合Transformer引导自适应扩散，融合多模态脑影像数据，有效识别阿尔茨海默病前驱期变异，提升分类性能。",
+      "llm_tldr": "针对传统GNN在脑网络分析中远邻聚合低效和节点中心信息丢失问题，提出多模态图神经网络结合Transformer引导自适应扩散，融合多模态脑影像数据，有效识别阿尔茨海默病前驱期变异，提升分类性能。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "multimodal learning methods",
+      "matched_requirement_id": "req-24",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2606.03417v1",
+      "source": "arxiv",
+      "title": "A unified multi-task framework enables interpretable chest radiograph analysis",
+      "abstract": "While multimodal deep learning has advanced medical imaging analysis, existing black-box systems \\textcolor{black}{may remain confined to isolated tasks, often overlooking} the trust-sensitive nature of clinical diagnosis as a multi-task process. We propose IMT-CXR (Interpretable Multi-task Transformer for Chest X-ray Analysis), a framework that emulates radiologists' diagnostic workflow through three evidence-driven stages: 1) Disease recognition; 2) Attribute characterization (e.g., size, location, severity quantification); 3) Evidence-integrated report generation with traceable decision pathways. The framework employs a unified transformer architecture optimized via medical-domain instruction tuning, sequentially executing four clinical tasks: multi-label disease classification, lesion localization, anatomical segmentation, and radiology report generation. Experimental validation demonstrates competitive performance on ten CXR benchmarks under direct inference and fine-tuning settings. In a blinded evaluation of 160 historical reports from four medical centers, three radiologists rated 66\\% of AI-generated reports as comparable to or surpassing original clinical reports in diagnostic clarity, highlighting the framework's translational potential. By establishing traceable diagnostic pathways from anatomical findings to conclusions, this work bridges the gap between AI technical metrics and clinical utility, advancing trustworthy AI systems in medical imaging.",
+      "authors": [
+        "Lijian Xu",
+        "Ziyu Ni",
+        "Xinglong Liu",
+        "Xiaosong Wang",
+        "Hongsheng Li",
+        "Shaoting Zhang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-06-02T10:02:15+00:00",
+      "link": "https://arxiv.org/pdf/2606.03417v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:neural-ode"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "multi-task framework for chest X-ray analysis with multimodal deep learning",
+      "llm_evidence_cn": "胸部X光分析的多任务框架，使用多模态深度学习",
+      "llm_evidence": "胸部X光分析的多任务框架，使用多模态深度学习",
+      "canonical_evidence": "胸部X光分析的多任务框架，使用多模态深度学习",
+      "llm_tldr_en": "Proposes IMT-CXR, an interpretable multi-task transformer for chest X-ray analysis that combines disease recognition, attribute characterization, and report generation using multimodal deep learning.",
+      "llm_tldr_cn": "针对现有医学影像黑箱模型局限于单一任务的问题，本文提出IMT-CXR，一个可解释的多任务Transformer框架，模拟放射科医生诊断流程，依次执行疾病识别、属性表征和报告生成。该方法通过医学领域指令微调统一架构，在胸部X光分析中实现了可解释的多模态融合，提升了临床信任度。",
+      "llm_tldr": "针对现有医学影像黑箱模型局限于单一任务的问题，本文提出IMT-CXR，一个可解释的多任务Transformer框架，模拟放射科医生诊断流程，依次执行疾病识别、属性表征和报告生成。该方法通过医学领域指令微调统一架构，在胸部X光分析中实现了可解释的多模态融合，提升了临床信任度。",
+      "llm_tags": [
+        "query:multi-modal:composite"
+      ],
+      "matched_query_tag": "query:multi-modal:composite",
+      "matched_query_text": "Papers central to 帮我找一些关于多模态语言模型或多模态融合的研究文章, especially work that connects or combines: multimodal language model research; techniques for multimodal fusion; vision language model architectures; learning cross modal representations; multimodal learning methods; multimodal alignment approaches; What are the latest advances in multimodal language models?; How is multimodal fusion achieved in deep learning?; Compare different architectures for vision language models.; Find papers on cross modal representation learning..",
+      "matched_requirement_id": "req-composite-multi-modal",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "biorxiv-10-64898-2026-05-28-728493-v1",
+      "source": "biorxiv",
+      "title": "Beyond Ground Truth in K-Complex Detection: A Waveform-Based SVM Classifier and the Limits of Expert Agreement",
+      "abstract": "ObjectiveK-complexes (KCs) are large-amplitude EEG events that represent N2 sleep stage and have been linked to sensory gating, sleep protection, and memory consolidation. Their detection remains limited by inter-rater variability in visual scoring and by the reliance of detectors on features that discard temporal information. We propose a two-stage detector that combines a rule-based candidate localization algorithm with a Support Vector Machine (SVM) classifier operating directly on the raw 2-seconds waveform, and we evaluate it against an adjudicated expert consensus of two different datasets.\n\nMethodsPolysomnographic recordings from 10 healthy adults (Dataset 1) were independently annotated by two human scorers; discordant events were adjudicated by a senior expert, yielding 240 consensus KCs. The automatic classifier was evaluated using subject-level 10-fold Group K-Fold cross-validation and compared directly against the two human scorers under identical conditions. Cross-dataset generalization was further assessed on the public DREAMS database (Dataset 2) under both external and internal training criteria.\n\nResultsThe SVM classifier achieved the highest F1-score (79.4%) and accuracy (78.8%) among all scorers, with balanced recall (81.7%) and specificity (75.8%). Of the 58 false positives, 42 originated from events both experts had rejected yet displayed canonical KC morphology and received high classifier confidence (P(KC)>0.7 in 45.2% of cases). This pattern was replicated on Dataset 2.\n\nConclusionA waveform-based classifier matches expert performance and systematically flags morphologically valid KCs that fall outside conventional visual-scoring criteria.\n\nSignificanceThese findings question the existence of an unambiguous ground truth for KC detection and support a data-driven redefinition of the event boundary, with implications for sleep staging and memory-consolidation research.",
+      "authors": [
+        "Vazquez Chenlo, A. A.",
+        "Gonzalez, M. C.",
+        "Gorosito, L.",
+        "Forcato, C.",
+        "Ramele, R."
+      ],
+      "primary_category": "bioengineering",
+      "categories": [
+        "bioengineering"
+      ],
+      "published": "2026-06-01T00:00:00+00:00",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.05.28.728493v1.full.pdf",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "query:EEG-ODE-LN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "EEG K-complex detection using SVM on raw waveform; EEG signal decoding method",
+      "llm_evidence_cn": "使用SVM对原始波形进行EEG K-复合波检测，属于EEG信号解码方法",
+      "llm_evidence": "使用SVM对原始波形进行EEG K-复合波检测，属于EEG信号解码方法",
+      "canonical_evidence": "使用SVM对原始波形进行EEG K-复合波检测，属于EEG信号解码方法",
+      "llm_tldr_en": "Proposes a two-stage K-complex detector combining rule-based candidate localization and SVM on raw 2-second waveforms, evaluated against expert consensus.",
+      "llm_tldr_cn": "该论文针对EEG中K-复合波检测受专家间差异和特征丢失时间信息的问题，提出两阶段检测器：先用规则定位候选段，再用SVM分类原始2秒波形。在两名专家标注的数据集上评估，性能优于传统方法，验证了直接使用波形进行睡眠分期事件检测的有效性。",
+      "llm_tldr": "该论文针对EEG中K-复合波检测受专家间差异和特征丢失时间信息的问题，提出两阶段检测器：先用规则定位候选段，再用SVM分类原始2秒波形。在两名专家标注的数据集上评估，性能优于传统方法，验证了直接使用波形进行睡眠分期事件检测的有效性。",
+      "llm_tags": [
+        "query:eeg-ode-ln"
+      ],
+      "matched_query_tag": "query:eeg-ode-ln",
+      "matched_query_text": "EEG signal decoding methods",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
