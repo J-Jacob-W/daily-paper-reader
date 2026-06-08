@@ -1,0 +1,424 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-08T21:32:15.229600+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 3,
+    "deep_divecandidates": 4,
+    "deep_cap": 8,
+    "deep_selected": 4,
+    "quick_candidates": 6,
+    "quick_skim_target": 13,
+    "quick_selected": 6
+  },
+  "deep_dive": [
+    {
+      "id": "2606.06760v1",
+      "source": "arxiv",
+      "title": "MedSIGHT: Towards Grounded Visual Comprehension in Medical Large Vision-Language Models",
+      "abstract": "Medical large vision-language models (Med-LVLMs) have recently achieved remarkable progress in vision-language comprehension and medical image segmentation. However, existing models still struggle to unify these two capabilities, which is essential for achieving clinically reasoning that connects visual findings with semantic interpretation. We present MedSIGHT, a unified framework that equips Med-LVLMs with structured, pixel-level understanding for grounded visual comprehension. MedSIGHT introduces a novel Region Perceiver module that produces region-centric tokens, encoding spatial information directly into representation space of the language model. We further propose a medical region codebook into the LLM vocabulary, allowing the model to generate discrete region codes as symbolic representations of anatomical and pathological regions. These codes are decoded through the Region Perceiver to reconstruct segmentation mask, achieving end-to-end spatial grounding. Lastly, MedSIGHT combines Region Perceiver, Codebook and LLM using our proposed progressive training strategy to gradually aligns these modules stably. Trained on only 72K multimodal instruction pairs, MedSIGHT achieves state-of-the-art performance across diverse imaging modalities on both medical comprehension and segmentation tasks.",
+      "authors": [
+        "Aofei Chang",
+        "Le Huang",
+        "Alex James Boyd",
+        "Parminder Bhatia",
+        "Taha Kass-Hout",
+        "Fenglong Ma",
+        "Cao Xiao"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-06-04T22:54:59+00:00",
+      "link": "https://arxiv.org/pdf/2606.06760v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:multi-modal",
+        "query:neural-ode"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "medical large vision-language model with grounded understanding",
+      "llm_evidence_cn": "医学大视觉语言模型实现接地视觉理解",
+      "llm_evidence": "医学大视觉语言模型实现接地视觉理解",
+      "canonical_evidence": "医学大视觉语言模型实现接地视觉理解",
+      "llm_tldr_en": "MedSIGHT unifies vision-language comprehension and medical image segmentation in Med-LVLMs via a Region Perceiver module and a medical region codebook, enabling structured pixel-level understanding.",
+      "llm_tldr_cn": "现有医学大视觉语言模型（Med-LVLM）难以统一视觉理解和图像分割能力，限制了临床推理。本文提出MedSIGHT框架，通过新颖的区域感知器模块将空间信息编码为语言模型表示，并引入医学区域码本，使模型能够同时进行结构化像素级理解和语义解释。该方法在多个医学分割和问答基准上取得了优异性能，推动了Med-LVLM向接地视觉理解发展。",
+      "llm_tldr": "现有医学大视觉语言模型（Med-LVLM）难以统一视觉理解和图像分割能力，限制了临床推理。本文提出MedSIGHT框架，通过新颖的区域感知器模块将空间信息编码为语言模型表示，并引入医学区域码本，使模型能够同时进行结构化像素级理解和语义解释。该方法在多个医学分割和问答基准上取得了优异性能，推动了Med-LVLM向接地视觉理解发展。",
+      "llm_tags": [
+        "query:multi-modal:composite"
+      ],
+      "matched_query_tag": "query:multi-modal:composite",
+      "matched_query_text": "Papers central to 帮我找一些关于多模态语言模型或多模态融合的研究文章, especially work that connects or combines: multimodal language model research; techniques for multimodal fusion; vision language model architectures; learning cross modal representations; multimodal learning methods; multimodal alignment approaches; What are the latest advances in multimodal language models?; How is multimodal fusion achieved in deep learning?; Compare different architectures for vision language models.; Find papers on cross modal representation learning..",
+      "matched_requirement_id": "req-composite-multi-modal",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.07196v1",
+      "source": "arxiv",
+      "title": "Structure-Preserving Correction Learning for Sparse Bayesian Inference in Brain Source Imaging",
+      "abstract": "Classical sparse Type-II Bayesian methods for M/EEG brain imaging support joint estimation of source and noise hyperparameters, but rely on fixed iterative update rules. Although these updates are principled and interpretable, their dynamics cannot be adapted from data. We propose to learn the update mechanism itself while preserving the underlying Bayesian structure by unfolding a classical joint hyperparameter-learning solver into a trainable neural architecture whose layers mirror the original iterations. The resulting framework is initialized to recover the classical solver exactly before training and is enriched through progressively more expressive correction-learning mechanisms, ranging from learnable biases to adaptive MLP and attention-based contextual refinements. In this way, training does not replace Bayesian inference with a black-box predictor, but instead learns structured correction terms while retaining the interpretability and model-based character of the original update dynamics. Structured correction learning therefore aims to improve empirical reconstruction performance without replacing the original model-based inference mechanism. Experimental results show that the learned correction variants improve reconstruction performance and convergence behavior over the baseline unfolded solver while preserving its algorithmic transparency.",
+      "authors": [
+        "Marco Morik",
+        "Xiao Ruiting",
+        "Shinichi Nakajima",
+        "Stefan Haufe",
+        "Ismail Huseynov"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG"
+      ],
+      "published": "2026-06-05T12:04:08+00:00",
+      "link": "https://arxiv.org/pdf/2606.07196v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:multi-modal",
+        "query:neural-ode"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "EEG/MEG source imaging with learned updates",
+      "llm_evidence_cn": "基于学习更新的脑电图/脑磁图源成像方法",
+      "llm_evidence": "基于学习更新的脑电图/脑磁图源成像方法",
+      "canonical_evidence": "基于学习更新的脑电图/脑磁图源成像方法",
+      "llm_tldr_en": "Proposes a structure-preserving correction learning framework that unfolds a classical Bayesian solver into a trainable neural architecture for M/EEG brain source imaging, enabling data-adaptive hyperparameter learning.",
+      "llm_tldr_cn": "针对M/EEG脑源成像中传统贝叶斯方法更新规则固定、无法从数据中适应的问题，提出结构保持的校正学习方法，将经典求解器展开为可训练神经网络，在保留贝叶斯结构的同时实现自适应超参数学习，实验表明该方法在源成像精度上优于固定规则方法。",
+      "llm_tldr": "针对M/EEG脑源成像中传统贝叶斯方法更新规则固定、无法从数据中适应的问题，提出结构保持的校正学习方法，将经典求解器展开为可训练神经网络，在保留贝叶斯结构的同时实现自适应超参数学习，实验表明该方法在源成像精度上优于固定规则方法。",
+      "llm_tags": [
+        "query:eeg-ode-ln"
+      ],
+      "matched_query_tag": "query:eeg-ode-ln",
+      "matched_query_text": "EEG signal decoding methods",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.06534v1",
+      "source": "arxiv",
+      "title": "Attention Consistent Longitudinal Medical Visual Question Answering Guided by Vision Foundation Models",
+      "abstract": "Longitudinal medical visual question answering (VQA) requires reasoning about anatomical differences between an image of a current time point and an image of a referred time point. We propose an attention-guided encoder-decoder for this task with chest X-rays. Instead of conventional direct contrast, we propose to include a lightweight affine registration module to reduce nuisance motion by co-registering the current image to the reference image with a small registration regularizer. The registered image pair is fed into the image encoder, followed by a frozen DINO-based mask generator and a trainable adaptive mask generator to produce masks applied to the original image pairs. The masked image pairs are again fed into the image encoder and concatenated with text features as the input to a multimodal transformer-based decoder to generate final answers. To facilitate learning stabilization and clarify the change signal, inspired by DINO-v3, we include additional auxiliary objectives, including a mask rebuilding loss, a pairwise Gram-style consistency loss, and a KoLeo uniformity loss, which enhances the geometry of the representation. On the Medical-Diff-VQA benchmark, the model delivers strong BLEU, ROUGE-L, CIDEr, and METEOR scores while offering intrinsic interpretability through the shared saliency mask. These results support saliency-conditioned generation with mild pre-alignment as a principled framework for longitudinal reasoning in medical VQA. Our training strategy also illustrates the potential of a paradigm in utilizing image foundation models in biomedicine: optimizing both supervised and unsupervised learning objectives simultaneously.",
+      "authors": [
+        "Jialin Wu",
+        "Qianru Zhang",
+        "Georges El Fakhri",
+        "Xiaofeng Liu"
+      ],
+      "primary_category": "eess.IV",
+      "categories": [
+        "eess.IV",
+        "cs.AI"
+      ],
+      "published": "2026-06-03T18:12:19+00:00",
+      "link": "https://arxiv.org/pdf/2606.06534v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:multi-modal",
+        "query:neural-ode"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Medical visual question answering combining vision and language with foundation models",
+      "llm_evidence_cn": "医学视觉问答结合视觉与语言，采用视觉基础模型",
+      "llm_evidence": "医学视觉问答结合视觉与语言，采用视觉基础模型",
+      "canonical_evidence": "医学视觉问答结合视觉与语言，采用视觉基础模型",
+      "llm_tldr_en": "Proposes an attention-guided encoder-decoder for longitudinal medical VQA using chest X-rays, incorporating affine registration and DINO-based mask generation.",
+      "llm_tldr_cn": "针对纵向医学视觉问答任务，提出注意力引导的编码器-解码器架构：使用仿射配准减少运动伪影，并利用冻结的DINO和可训练自适应掩码生成器提取关键区域。在胸部X光数据集上验证了该方法能有效推理不同时间点的解剖差异，推动了医学多模态分析的发展。",
+      "llm_tldr": "针对纵向医学视觉问答任务，提出注意力引导的编码器-解码器架构：使用仿射配准减少运动伪影，并利用冻结的DINO和可训练自适应掩码生成器提取关键区域。在胸部X光数据集上验证了该方法能有效推理不同时间点的解剖差异，推动了医学多模态分析的发展。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "multimodal language model research",
+      "matched_requirement_id": "req-20",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.06890v1",
+      "source": "arxiv",
+      "title": "Diagnosing Visual Ignorance in Vision-Language Models",
+      "abstract": "Vision-Language Models (VLMs) frequently rely on language priors, producing confident answers that are weakly grounded in visual evidence. While this behavior is widely observed, its internal mechanisms and its impact on benchmark evaluation remain insufficiently understood. In this work, we study language-prior reliance from both mechanistic and behavioral perspectives. Internally, we combine counterfactual layer replacement with supervised layer-wise MLP probing to trace how ground-truth visual semantics and language-prior semantics compete across the language decoder. Our analysis reveals a multi-stage bottleneck: intermediate layers often fail to effectively retrieve visual information, while later layers can further suppress surviving visual signals in favor of text-space biases. Externally, we introduce a progressive visual decay metric based on multi-step Gaussian blurring, which identifies instances whose answers remain invariant even as visual content is increasingly destroyed. Across twelve visual question-answering benchmarks and three representative VLMs, we find that a substantial fraction of examples remain answerable under severe or total visual obfuscation, indicating that current benchmarks can inadvertently reward visual ignorance. These findings demonstrate that language-prior reliance is a systematic routing failure affecting both model internals and benchmark validity. Finally, we outline critical pathways for future research, highlighting the necessity of designing training distributions and evaluation protocols built on structurally isolated or counterfactual data to enforce genuine cross-modal grounding.",
+      "authors": [
+        "Runyu Zhou",
+        "Qi Zhang",
+        "Qixun Wang",
+        "Yisen Wang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.LG"
+      ],
+      "published": "2026-06-05T04:16:01+00:00",
+      "link": "https://arxiv.org/pdf/2606.06890v1",
+      "tags": [
+        "keyword:multi-modal",
+        "query:multi-modal"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Diagnosing visual ignorance in Vision-Language Models, mechanistic analysis",
+      "llm_evidence_cn": "诊断视觉语言模型中的视觉忽略，机制分析",
+      "llm_evidence": "诊断视觉语言模型中的视觉忽略，机制分析",
+      "canonical_evidence": "诊断视觉语言模型中的视觉忽略，机制分析",
+      "llm_tldr_en": "Analyzes language-prior reliance in VLMs via counterfactual layer replacement and probing, revealing multi-stage bottleneck suppressing visual signals.",
+      "llm_tldr_cn": "针对视觉语言模型依赖语言先验而忽略视觉证据的问题，本文从机制和行为角度进行分析。通过反事实层替换和监督式逐层MLP探测，发现中间层未能有效检索视觉信息，而后期层进一步抑制视觉信号。该发现对理解VLM内部机制和改进模型有重要意义。",
+      "llm_tldr": "针对视觉语言模型依赖语言先验而忽略视觉证据的问题，本文从机制和行为角度进行分析。通过反事实层替换和监督式逐层MLP探测，发现中间层未能有效检索视觉信息，而后期层进一步抑制视觉信号。该发现对理解VLM内部机制和改进模型有重要意义。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "vision language model architectures",
+      "matched_requirement_id": "req-22",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2606.06647v1",
+      "source": "arxiv",
+      "title": "The Identity Trap in EEG Foundation Models: A Diagnostic Audit",
+      "abstract": "Objective. EEG foundation models (FMs) report strong accuracy on clinical resting-state EEG. However, high accuracy under subject-disjoint cross-validation remains ambiguous: it can reflect a genuine clinical biomarker, or subject-identity features that correlate with the label. We name this the Identity Trap and ask whether it can be diagnosed at the representation level before fine-tuning.   Approach. We propose FMScope, a frozen-representation protocol packaging five diagnostics: variance decomposition, subject-axis erasure, aperiodic 1/f ablation, layer-wise label probing, and within-subject direction consistency. We apply it to three pretrained FMs (LaBraM, CBraMod, REVE) across four datasets in a 2x2 layout: subject relation of label x presence of a consensus cross-subject EEG marker.   Main results. (i) The Identity Trap is universal: frozen subject-variance is 13-89x a random null in 12/12 pairs, rising in all 12 under fine-tuning (+10 to +63 pp). This dominance is a removable linear axis: erasing it improves label decoding where the label varies within subject (+6 to +12 pp in primary cells; +4 to +27 pp across external cohorts). (ii) Aperiodic 1/f is one subject carrier: removing it drops the subject probe by 9-19 pp on LaBraM and CBraMod. REVE saturates subject identity without measurable aperiodic dependence. (iii) Fine-tuning amplifies label-variance only in cells with a literature-established cross-subject marker.   Significance. The Identity Trap is a physically-grounded instance of shortcut learning: the preferred cue has a measurable physiological component, and subject-disjoint splitting alone cannot rule it out. FMScope separates gains reflecting a biological marker from those reflecting subject identity.",
+      "authors": [
+        "Jun-You Lin",
+        "Ying Choon Wu",
+        "Tzyy-Ping Jung"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "q-bio.NC"
+      ],
+      "published": "2026-06-04T18:54:34+00:00",
+      "link": "https://arxiv.org/pdf/2606.06647v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "EEG foundation model diagnostic audit",
+      "llm_evidence_cn": "EEG基础模型诊断性审计",
+      "llm_evidence": "EEG基础模型诊断性审计",
+      "canonical_evidence": "EEG基础模型诊断性审计",
+      "llm_tldr_en": "Proposes FMScope, a diagnostic protocol to detect subject-identity leakage in EEG foundation models before fine-tuning; applied to three models and four datasets, revealing identity trap.",
+      "llm_tldr_cn": "EEG基础模型在临床数据上报告高准确率，但可能混淆主体身份特征。本文提出FMScope诊断协议，通过五种诊断工具在表征层面检查身份陷阱。在多个模型和数据集上实验表明，该方法能有效检测身份泄漏，为EEG基础模型的可靠评估提供了重要工具。",
+      "llm_tldr": "EEG基础模型在临床数据上报告高准确率，但可能混淆主体身份特征。本文提出FMScope诊断协议，通过五种诊断工具在表征层面检查身份陷阱。在多个模型和数据集上实验表明，该方法能有效检测身份泄漏，为EEG基础模型的可靠评估提供了重要工具。",
+      "llm_tags": [
+        "query:eeg-ode-ln"
+      ],
+      "matched_query_tag": "query:eeg-ode-ln",
+      "matched_query_text": "EEG signal decoding methods",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.01237v1",
+      "source": "arxiv",
+      "title": "Brain-Atlas-Guided Generative Counterfactual Attention for Explainable Cognitive Decline Diagnosis Using Multimodal Connectomes",
+      "abstract": "Mild cognitive impairment (MCI) and subjective cognitive decline (SCD) are closely associated with the early Alzheimer's disease continuum, where accurate and explainable diagnosis is important for early risk assessment and intervention. Existing connectome-based deep learning models can improve classification performance but often provide limited insight into disease-related functional and structural connectivity changes. This paper proposes an atlas-knowledge-guided Generative Counterfactual Attention-guided Network (GCAN) for explainable cognitive decline diagnosis using multimodal brain connectomes. GCAN formulates diagnosis as a source-to-target counterfactual generation problem, where target-label connectomes are generated from source-label inputs and their differences are used to construct counterfactual attention maps. To preserve connectome topology, an Atlas-aware Bidirectional Transformer (AABT) performs network-level token encoding and decoding under brain-atlas constraints. The framework is further extended from functional connectivity (FC) to joint functional and structural connectivity (SC) modeling, enabling counterfactual analysis of complementary functional reorganization and structural topology changes. Experiments on hospital-collected and ADNI datasets show that GCAN achieves competitive performance across HC vs. SCD, HC vs. MCI, and SCD vs. MCI classification tasks. Visualization, circular connectome analysis, CAM-based comparison, ablation studies, and confidence interval analysis further support the interpretability and reliability of the proposed framework. Modality-specific FC and SC pre-trained classifiers are used to provide target-state priors for counterfactual generation while being separated from the downstream diagnostic classifier to prevent data leakage.",
+      "authors": [
+        "Xiongri Shen",
+        "Jiaqi Wang",
+        "Zhenxi Song",
+        "Yi Zhong",
+        "Leilei Zhao",
+        "Xin He",
+        "Baiying Lei",
+        "Zhiguo Zhang"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-05-31T13:39:11+00:00",
+      "link": "https://arxiv.org/pdf/2606.01237v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:neural-ode"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "multimodal brain connectome fusion for diagnosis",
+      "llm_evidence_cn": "多模态脑连接组融合用于诊断",
+      "llm_evidence": "多模态脑连接组融合用于诊断",
+      "canonical_evidence": "多模态脑连接组融合用于诊断",
+      "llm_tldr_en": "Proposes GCAN, a generative counterfactual attention network guided by brain atlas knowledge, for explainable cognitive decline diagnosis using multimodal (functional+structural) connectomes.",
+      "llm_tldr_cn": "针对现有基于连接组的深度学习模型可解释性不足的问题，提出基于脑图谱知识的生成式反事实注意力网络（GCAN），将诊断问题建模为源到目标的反事实生成，通过注意力机制突出与疾病相关的功能/结构连接变化，在多模态连接组数据集上实现了高精度可解释诊断。",
+      "llm_tldr": "针对现有基于连接组的深度学习模型可解释性不足的问题，提出基于脑图谱知识的生成式反事实注意力网络（GCAN），将诊断问题建模为源到目标的反事实生成，通过注意力机制突出与疾病相关的功能/结构连接变化，在多模态连接组数据集上实现了高精度可解释诊断。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "multimodal learning methods",
+      "matched_requirement_id": "req-24",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "biorxiv-10-64898-2026-05-12-724542-v3",
+      "source": "biorxiv",
+      "title": "OmniGene-4: A Unified Bio-Language MoE Model with Router-Level Interpretability",
+      "abstract": "How do multi-modal large language models that jointly process natural language and biological sequences (DNA, protein, structural alphabets) actually answer biological questions, especially sequence-grounded questions whose answer depends on residue-level patterns rather than literature recall? We introduce OmniGene-4, a unified bio-language Mixture-of-Experts foundation model on Gemma-4-26B-A4B (128 experts/layer, top-8 routing), and use its discrete router state to dissect this question. By hooking every router across eight task families, we provide the first router-level decomposition for a biological MoE: continued pretraining (CPT) accounts for 96% of cross-task expert differentiation and supervised fine-tuning (SFT) for 4%, reshaping middle and output layers respectively. Within the protein-homology task family, per-pair routing divergence stays below 0.04 (vs 0.23 cross-task), implying that sequence-grounded decisions occur inside expert computation rather than at the gate -- the gate selects the modality, the experts compute the answer. The pipeline yields strong benchmarks: remote-homology 82.60% (vs ESM-2 3B, MMseqs2, DIAMOND by 28-31 pp); standard homology 99.40%; BixBench (general biological-knowledge) 93.66%. A dual-head architecture adds per-residue 3Di/DSSP classifiers (78.6%/100%). To probe whether the discovered transfer mechanism is robust under modality scaling, we further extend the model to OmniGene-4-MM, adding four vision modalities (chemical-structure images, medical/pathology imagery, charts) via a vision tower and a three-stage LoRA pipeline at 1.5 GPU-days total. The multi-modal model preserves the homology capability (85% standard, 69.5% remote) and acquires chemist-readable structure understanding (96% on Vis-CheBI20 functional-group captioning) while consuming roughly four orders of magnitude less compute than recent specialized MoE bio-models. The work characterizes how multi-modal bio-foundation models acquire, route, and preserve sequence-aware capability -- central to the next generation of scientific large language models.\n\nO_TEXTBOXThe bigger picture.\n\nModern AI models that read both human language and biological sequences (DNA, proteins) often behave like black boxes: we see their answers but not the inner mechanism that produced them. This matters for biology, where a wrong but confidently worded answer can mislead an experiment that costs months and tens of thousands of dollars. We use Mixture-of-Experts architecture -- a transformer where each token is routed to a small subset of 128 specialized sub-networks at every layer -- to make this internal mechanism legible. By logging which experts are activated for each input, we show that adding biology-specific pre-training to a general-purpose language model causes the routing to spontaneously partition the network into modality-specific sub-networks, and that the same partitioning re-emerges when we further extend the model to also process molecular images, medical images, and chart images. The same model achieves protein-homology accuracy that surpasses classical sequence-alignment tools (MMseqs2, DIAMOND) and recent protein language models (ESM-2 3B), at roughly four orders of magnitude less compute than recent specialized MoE bio-models. The work is a step toward foundation models for biology that are simultaneously broad in modality coverage, mechanistically transparent, and economically reproducible by groups outside the largest industrial labs.\n\nC_TEXTBOX",
+      "authors": [
+        "Wang, L."
+      ],
+      "primary_category": "bioinformatics",
+      "categories": [
+        "bioinformatics"
+      ],
+      "published": "2026-06-04T00:00:00+00:00",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.05.12.724542v3.full.pdf",
+      "tags": [
+        "keyword:multi-modal",
+        "query:multi-modal"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Unified bio-language MoE model for multimodal language and biological sequences",
+      "llm_evidence_cn": "统一生物语言MoE模型，多模态处理语言与生物序列",
+      "llm_evidence": "统一生物语言MoE模型，多模态处理语言与生物序列",
+      "canonical_evidence": "统一生物语言MoE模型，多模态处理语言与生物序列",
+      "llm_tldr_en": "Introduces OmniGene-4, a bio-language MoE model on Gemma-4 with router-level interpretability, jointly processing language and biological sequences.",
+      "llm_tldr_cn": "针对多模态大语言模型如何处理生物序列依赖型问题，提出OmniGene-4统一生物语言MoE模型，基于Gemma-4架构，在下游任务中实现路由器级可解释性分析。关键发现：继续预训练贡献了96%的跨任务专家分化，微调仅占4%，为生物多模态模型训练提供新见解。",
+      "llm_tldr": "针对多模态大语言模型如何处理生物序列依赖型问题，提出OmniGene-4统一生物语言MoE模型，基于Gemma-4架构，在下游任务中实现路由器级可解释性分析。关键发现：继续预训练贡献了96%的跨任务专家分化，微调仅占4%，为生物多模态模型训练提供新见解。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "multimodal language model research",
+      "matched_requirement_id": "req-20",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.07247v1",
+      "source": "arxiv",
+      "title": "Theory of learning of high-dimensional controlled non-linear dynamical systems (I): models and methods",
+      "abstract": "Neural ordinary differential equations (neural ODEs) have rapidly gained prominence as a powerful and unifying framework for conceptualizing artificial neural networks, elegantly connecting the continuous-time modeling of dynamical systems with the discrete, data-driven paradigm of modern deep learning. Beyond their practical advantages they offer fresh theoretical insights into the training and generalization properties of neural networks. The distinctive feature of this framework is its dual dynamical nature: inference dynamics, which govern the ODE evolution during forward computation, and training dynamics, which control the optimization of model parameters. This makes neural ODEs a particularly well-suited theoretical framework for studying a large variety of settings such as multi-layer neural networks (ResNets for example), autoregressive models (with next-token generation dynamics), generative models, and recurrent neural networks in theoretical neuroscience. In this work, we introduce a theoretically grounded class of models for studying neural ODEs trained via online stochastic gradient descent. We solve the training dynamics of these models via dynamical mean field theory and derive learning curves in the high-dimensional limit.",
+      "authors": [
+        "Pierfrancesco Urbani"
+      ],
+      "primary_category": "cond-mat.dis-nn",
+      "categories": [
+        "cond-mat.dis-nn",
+        "cond-mat.stat-mech",
+        "stat.ML"
+      ],
+      "published": "2026-06-05T13:17:18+00:00",
+      "link": "https://arxiv.org/pdf/2606.07247v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:neural-ode"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Theoretical framework for neural ODEs in high-dimensional controlled systems",
+      "llm_evidence_cn": "神经ODE在高维受控动力系统中的理论框架",
+      "llm_evidence": "神经ODE在高维受控动力系统中的理论框架",
+      "canonical_evidence": "神经ODE在高维受控动力系统中的理论框架",
+      "llm_tldr_en": "Develops a theoretical framework for learning neural ODEs in high-dimensional controlled nonlinear dynamical systems, unifying inference and training dynamics.",
+      "llm_tldr_cn": "该论文为高维受控非线性动力系统中的神经ODE学习提供理论框架，将推理动力学和训练动力学统一建模。尽管不直接涉及医学图像，但其理论成果可迁移至基于神经ODE的医学影像分析，例如连续深度网络用于分割。",
+      "llm_tldr": "该论文为高维受控非线性动力系统中的神经ODE学习提供理论框架，将推理动力学和训练动力学统一建模。尽管不直接涉及医学图像，但其理论成果可迁移至基于神经ODE的医学影像分析，例如连续深度网络用于分割。",
+      "llm_tags": [
+        "query:neural-ode:composite"
+      ],
+      "matched_query_tag": "query:neural-ode:composite",
+      "matched_query_text": "Papers central to 帮我查找基于神经ODE/PDE或液态神经网络的2D/3D医学影像分析的文章, especially work that connects or combines: neural ordinary differential equation medical image analysis; neural partial differential equation medical imaging; liquid neural network medical imaging; medical image analysis using neural differential equations; 2D medical image segmentation neural ODE; 3D medical image segmentation liquid neural network; medical image analysis using neural ordinary differential equations and neural partial differential equations; 2D and 3D medical image segmentation with liquid neural networks; continuous depth neural network for medical image processing.",
+      "matched_requirement_id": "req-composite-neural-ode",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "biorxiv-10-64898-2026-06-03-729800-v1",
+      "source": "biorxiv",
+      "title": "Scene Structure Predicts Perceptual Decisions in Naturalistic Detection Tasks",
+      "abstract": "The human visual system can identify objects in complex natural scenes, yet the mechanisms supporting robust perception under such variable conditions remain incompletely understood. Here, we investigate how the statistical structure of natural scenes shapes perceptual evidence formation and determines whether near-threshold stimuli are perceived correctly or incorrectly. We combine controlled psychophysics, outdoor augmented reality (AR), deep neural networks (DNNs), image-feature analysis, and EEG to examine how background context modulates perceptual decisions. Across multiple detection tasks, human performance was systematically influenced by probe-free background structure. DNNs trained on background images alone predicted correct and incorrect behavioral outcomes, with stronger effects in postcue conditions, suggesting that global scene context contributes to local perceptual decisions when spatial uncertainty is higher. AR experiments further showed that these context-driven effects persist in naturalistic viewing environments. To identify the visual information underlying these effects, we analyzed low-level image statistics. Texture entropy and edge density emerged as informative features, and conventional machine-learning models trained on these measures achieved meaningful correct/incorrect classification. Finally, EEG analyses revealed neural signatures of image-driven perceptual variability: activity during the probe-free preimage window distinguished later correct from incorrect trials, and combining EEG with image-derived features improved decoding performance. Together, these findings show that perception in natural scenes is not determined solely by the target, but is shaped by the statistical structure of the surrounding context. By linking psychophysics, AR, DNN modeling, image statistics, and EEG, this work provides a unified framework for understanding how environmental structure and neural dynamics jointly support perceptual decision-making.",
+      "authors": [
+        "Yang, J.",
+        "Vercillo, T.",
+        "Cutrona, T. E.",
+        "Azeglio, S.",
+        "Iannetti, G.",
+        "Neri, P."
+      ],
+      "primary_category": "neuroscience",
+      "categories": [
+        "neuroscience"
+      ],
+      "published": "2026-06-08T00:00:00+00:00",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.06.03.729800v1.full.pdf",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:multi-modal",
+        "query:neural-ode"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "EEG used with deep neural networks to study perceptual decision making in natural scenes",
+      "llm_evidence_cn": "结合EEG和深度神经网络研究自然场景中的感知决策",
+      "llm_evidence": "结合EEG和深度神经网络研究自然场景中的感知决策",
+      "canonical_evidence": "结合EEG和深度神经网络研究自然场景中的感知决策",
+      "llm_tldr_en": "Combines psychophysics, AR, DNNs, and EEG to show background structure influences perceptual decisions in detection tasks.",
+      "llm_tldr_cn": "通过心理物理学、增强现实、深度神经网络和脑电图（EEG）相结合，发现自然场景的背景统计结构系统性地影响近阈值目标的感知决策。利用EEG揭示了大脑如何基于背景信息形成知觉证据，为理解自然视觉中的决策机制提供了多模态证据。",
+      "llm_tldr": "通过心理物理学、增强现实、深度神经网络和脑电图（EEG）相结合，发现自然场景的背景统计结构系统性地影响近阈值目标的感知决策。利用EEG揭示了大脑如何基于背景信息形成知觉证据，为理解自然视觉中的决策机制提供了多模态证据。",
+      "llm_tags": [
+        "query:eeg-ode-ln"
+      ],
+      "matched_query_tag": "query:eeg-ode-ln",
+      "matched_query_text": "EEG signal decoding methods",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "biorxiv-10-64898-2026-06-02-729595-v1",
+      "source": "biorxiv",
+      "title": "Global nonequilibrium cortical dynamics tie mid-level pupil-linked arousal to optimal task performance in humans",
+      "abstract": "Ongoing fluctuations in brain state, largely driven by neuromodulators of arousal, shape how sensory inputs are processed and decisions are made. Here, we combined pharmacological manipulations and pupillary proxies of arousal to examine how global cortical state dynamics relate to perceptual sensitivity. We applied the thermodynamics-inspired INSIDEOUT framework to electroencephalography (EEG) recordings from two visual discrimination tasks performed under placebo, atomoxetine (noradrenergic enhancer), and donepezil (cholinergic enhancer) challenges. INSIDEOUT quantifies the strength of functional hierarchies within the brain via the computation of temporal irreversibility in neural activity. Trial-wise global irreversibility increased linearly with pupil-indexed arousal and exhibited a nonlinear inverted-U relationship with perceptual sensitivity, while showing no differences across drug conditions. A nonlinear mediation analysis revealed that temporal irreversibility can account for a significant portion of the association between pupil-linked arousal and perceptual sensitivity. At lower arousal, increases in prestimulus irreversibility improved perceptual accuracy, whereas at higher arousal, pre- and poststimulus irreversibility had different effects. These results bridge intrinsic whole-brain dynamics with perceptual decision-making, demonstrating that neuromodulator-linked arousal tunes cortical states and, in turn, perceptual performance. More broadly, the results shed new light on how arousal may reconfigure neural global dynamics.",
+      "authors": [
+        "del Agua, E.",
+        "Nuiten, S. A.",
+        "Zantvoord, J. B.",
+        "Deco, G.",
+        "van Gaal, S."
+      ],
+      "primary_category": "neuroscience",
+      "categories": [
+        "neuroscience"
+      ],
+      "published": "2026-06-05T00:00:00+00:00",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.06.02.729595v1.full.pdf",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "query:EEG-ODE-LN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "EEG recordings analyzed for cortical dynamics",
+      "llm_evidence_cn": "利用EEG记录分析皮层动态",
+      "llm_evidence": "利用EEG记录分析皮层动态",
+      "canonical_evidence": "利用EEG记录分析皮层动态",
+      "llm_tldr_en": "Applies INSIDEOUT framework to EEG to quantify temporal irreversibility; links global nonequilibrium cortical dynamics to optimal performance under mid-level arousal, demonstrating EEG-based state decoding.",
+      "llm_tldr_cn": "大脑状态的波动影响感知处理，但其皮层动态机制不明。本文结合药物操控和瞳孔测量，将INSIDEOUT框架应用于EEG数据，通过时间不可逆性量化功能层级。结果表明全局非平衡动态与中等唤醒水平相关，并对应最优任务表现，揭示了EEG解码皮层状态的新方法。",
+      "llm_tldr": "大脑状态的波动影响感知处理，但其皮层动态机制不明。本文结合药物操控和瞳孔测量，将INSIDEOUT框架应用于EEG数据，通过时间不可逆性量化功能层级。结果表明全局非平衡动态与中等唤醒水平相关，并对应最优任务表现，揭示了EEG解码皮层状态的新方法。",
+      "llm_tags": [
+        "query:eeg-ode-ln"
+      ],
+      "matched_query_tag": "query:eeg-ode-ln",
+      "matched_query_text": "EEG signal decoding methods",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
