@@ -1,0 +1,209 @@
+Title: End-to-End Machine Learning for Depressive State Classification via EEG and fNIRS
+
+URL Source: https://arxiv.org/pdf/2606.11555v1
+
+Published Time: Thu, 11 Jun 2026 00:24:06 GMT
+
+Number of Pages: 4
+
+Markdown Content:
+# End-to-End Machine Learning for Depressive State Classification via EEG and fNIRS 
+
+Riki Sakurai ⊛
+
+Graduate School of Engineering and Science Shibaura Institute of Technology, Tokyo, Japan 
+
+FINDEX Inc., Tokyo, Japan 
+
+RIKEN AIP, Tokyo, Japan ORCID:0009-0006-3576-845X 
+
+Simon Kojima 
+
+Inria Centre at the University of Bordeaux 
+
+Talence, France ORCID: 0000-0002-6509-7363 
+
+Mihoko Otake-Matsuura 
+
+RIKEN AIP, Tokyo, Japan ORCID: 0000-0003-3644-276X 
+
+Shin’ichiro Kanoh ⋇
+
+College of Engineering Shibaura Institute of Technology 
+
+Tokyo, Japan 
+
+RIKEN AIP, Tokyo, Japan ORCID: 0000-0002-6554-5648 
+
+Tomasz M. Rutkowski ⋇,⊛
+
+The University of Tokyo, Tokyo, Japan 
+
+Nicolaus Copernicus University , Torun, Poland 
+
+RIKEN AIP, Tokyo, Japan 
+
+Araya Inc. , Tokyo, Japan ORCID: 0000-0002-4259-4121 
+
+> © 2026 IEEE. Personal use of this material is permitted. Permission from IEEE must be obtained for all other uses, in any current or future media, including reprinting/republishing this material for advertising or promotional purposes, creating new collective works, for resale or redistribution to servers or lists, or reuse of any copyrighted component of this work in other works. Accepted for publication in the Proc. 48th Annu. Int. Conf. IEEE EMBS (EMBC 2026), Toronto, Canada, July 20-24, 2026.
+
+Abstract —The escalating demand for mental healthcare, driven by rising societal stress, highlights the limitations of traditional psychiatric diagnostics. Conventional methods—relying primarily on clinical interviews and patient self-reports—are inherently vul-nerable to subjective bias and the varying empirical judgment of practitioners. To address the need for quantitative evaluation, bio-logical signal-based detection, including electroencephalography (EEG) and functional near-infrared spectroscopy (fNIRS), has emerged as a promising objective alternative. Such technology is particularly vital for identifying latent depressive states that may be unrecognized by the subjects themselves. Furthermore, in aging populations, the high comorbidity between depression and dementia necessitates early differentiation to prevent mutual symptom exacerbation and maintain Quality of Life (QoL). This pilot study of eleven healthy students establishes a framework for biological signal-based depression detection, serving as a foundational step toward automated, objective diagnostic tools for clinical use. 
+
+Index Terms —EEG, fNIRS, machine learning (ML), depres-sion, biomarker 
+
+I. I NTRODUCTION 
+
+In recent years, the global demand for mental healthcare has escalated significantly, driven by rising societal stressors. Traditional diagnostic frameworks for psychiatric disorders and psychological states rely heavily on clinical interviews and patient self-reports [1]. However, these conventional methods lack quantitative precision, as they are inherently influenced by the patient’s subjective perception and the clinician’s empir-ical judgment. To address these limitations, the detection of psychological states through biological signals—specifically electroencephalography (EEG) and functional near-infrared 
+
+> ⋇
+
+Coresponding author. 
+
+> ⊛
+
+At the time of the data collection, the author was affiliated with RIKEN AIP, Tokyo, Japan. 
+
+spectroscopy (fNIRS)—has emerged as a robust, objective alternative [2]–[4]. EEG offers high temporal resolution, cap-turing rapid neural oscillations, while fNIRS provide superior spatial insights into cortical hemodynamic responses. The integration of these two modalities allows for a synergistic and comprehensive evaluation of mental states that is less susceptible to conscious bias than traditional assessments [5]. Early intervention in depression is critical to preventing dis-ease progression. Biological signal-based screening has the potential to identify latent depressive markers of which the subjects may remain unaware. In particular, deficits in emo-tional working memory—the cognitive ability to maintain and process affective information—are recognized as significant neurophysiological indicators of depressive tendencies. In this preliminary study, we propose a framework for the early detection of depressive states by analyzing neural responses during an emotional short-term memory task. We conducted a simultaneous EEG-fNIRS experiment where participants performed tasks requiring the retention of emotional stimuli. These multimodal signals were labeled using the Beck Depres-sion Inventory (BDI) scores. Finally, as a preliminary proof-of-concept, we utilize SincShallowNet [6]–[8] to evaluate the feasibility of estimating depression levels from the neural dynamics of a still predominantly healthy cohort. II. M ETHODS 
+
+Eleven healthy university students (5 female, 6 male) par-ticipated in this study, with a mean age of 22 .27 ± 1.21 
+
+years. The experiment was conducted at the RIKEN Center for Advanced Intelligence Project (AIP) in Tokyo, Japan. All procedures were approved by the RIKEN Ethical Commit-tee for Experiments with Human Subjects (Permission No. Wako3 30-28(4)) and were performed in accordance with        
+
+> arXiv:2606.11555v1 [q-bio.NC] 10 Jun 2026 Fig. 1. Experimental hardware and response interface. The g.NAUTILUS fNIRS system (g.tec medical engineering GmbH, Austria) shown alongside the behavioral response buttons. The orange panel is utilized for target stimulus selection, while the large blue button facilitates self-paced progression to the next trial within the affective stimulus paradigm.
+
+the Declaration of Helsinki. Electroencephalography (EEG) and functional near-infrared spectroscopy (fNIRS) data were recorded simultaneously for all participants. Prior to the measurements, participants completed the Beck Depression Inventory-II (BDI-II) [1]. While the original in-ventory consists of 21 items, a 20 −item version was utilized; the item concerning sexual interest was omitted to minimize participant discomfort and address potential privacy concerns. 
+
+A. Experimental Protocol 
+
+To elicit neural responses associated with potential de-pression biomarkers, we designed a novel working memory paradigm. This task requires subjects to memorize emotional expressions presented as short facial videos or spoken auditory utterances, sourced from the “Mind Reading” database [9]. The experiment consisted of six sessions in total: three dif-ficulty levels for each of the two stimulus modalities (video and audio). Each session comprised ten trials. To ensure high-quality EEG data, subjects were instructed to provide their responses only after the full presentation of the affective stimuli, thereby minimizing muscle activity interference with the recording. 
+
+1) Stimulus Selection and Difficulty Levels: Stimuli were selected based on the NRC VAD Lexicon [10], which pro-vides valence, arousal, and dominance scores for over 50 , 000 
+
+English words on a scale from −1 to 1. We established three difficulty levels by adjusting the required valence and arousal ranges for stimulus selection (see Table I). We hypothesized that larger absolute values in these ranges (high intensity)                                   
+
+> TABLE I RANGES OF VALENCE AND AROUSAL SCORES FOR EACH DIFFICULTY
+> Difficulty Valence Range Arousal Range Easy [−1.0,−0.5] or [0 .5,1.0] [−1.0,−0.5] or [0 .5,1.0]
+> Middle [−0.5,−0.3] or [0 .3,0.5] [−0.5,−0.3] or [0 .3,0.5]
+> Hard [−0.3,0.3] [−0.3,0.3] time
+> Target Stimulus
+> Comparison Stimulus
+> Respons e
+> Standby Instruction
+> 3~5s
+> Until
+> Response Until
+> Response 3~5s
+> Press any key to continue
+> Choose left [ <-] or right [ ->]
+> Fig. 2. Experimental procedure for the emotional video modality. In the auditory modelity (empitional speech atterances, instead of video clips, the spoken stimuli were delivered via headphones).
+
+would facilitate easier emotion discrimination, while values closer to zero (subtle intensity) would increase task difficulty. The selection process followed a specific hierarchy:  
+
+> •
+
+Target Selection: An emotional word was randomly selected from a pool meeting the specific valence/arousal range for that difficulty level.  
+
+> •
+
+Distractor Selection: A “non-target” word was chosen from a pool with a valence sign opposite to that of the target word.  
+
+> •
+
+Media Allocation: Three media files were extracted from the database: two representing the target emotion (one for the initial “target” phase and one for the “comparison” phase) and one representing the non-target emotion. 
+
+2) Experimental Procedure: Each trial followed a struc-tured sequence:  
+
+> •
+
+Target Phase: Subjects were presented with a “target stimulus”—either a five-second video clip of a profes-sional actor or an audio recording of affective speech.  
+
+> •
+
+Maintenance Phase (Working Memory): Subjects held the emotional state in memory.  
+
+> •
+
+Test Phase: Two new affective stimuli were presented simultaneously. One stimulus matched the emotion of the target, while the other was a non-matching (distractor) expression. 
+
+– Video Condition: Two videos were displayed side-by-side with synchronized start times. 
+
+– Audio Condition: Stimuli were presented dichoti-cally. To prevent immediate recognition via speech onset, the onset of one channel (randomly assigned left or right) was delayed by one second.  
+
+> •
+
+Subject Response: Participants utilized a specialized interface to perform a forced-choice task, indicating their selection by pressing the left or right arrow keys located within the orange response box (see Figure 1).  
+
+> •
+
+Self-Paced Protocol: To minimize fatigue and ensure attentional readiness, a self-pacing mechanism was em-ployed; subjects initiated subsequent trials at their dis-：Electrode s   
+
+> ：Transmitters
+> ：Receivers
+> AF8
+> F6
+> AFF4
+> h
+> AFF3
+> hF5
+> AF7 AFp3 AFp4
+> AF6 AF5 Fig. 3. Hybrid EEG-fNIRS sensor topography. Schematic representation of the optode and electrode montage for the g.NAUTILUS fNIRS wireless system (g.tec medical engineering GmbH, Austria). EEG electrode sites are denoted by red markers, while fNIRS light sources (transmitters) and detectors (receivers) are represented by green and blue markers, respectively, illustrating the integrated spatial distribution across the scalp.
+
+cretion by engaging a prominent blue trigger button (Figure 1). The experimental flow for a single trial within the video condition is illustrated in Figure 2. To ensure precise temporal alignment with the EEG recordings, all experimental triggers and event markers were captured using the Lab Streaming Layer (LSL) protocol [11]. 
+
+B. EEG and fNRIS Recording and Preprocessing 
+
+Simultaneous EEG and fNIRS recordings were conducted using a multimodal g.NAUTILUS fNIRS system (g.tec med-ical engineering GmbH, Austria). The spatial distribution of the hybrid sensor montage is illustrated in Figure 3. 
+
+1) EEG Configuration: Sixteen active EEG electrodes were positioned at AF3, AF4, F7, F8, F3, F4, FC3, FC4, C5, FT7, Cz, FT8, C6, C3, C4, and Pz, following the International 10 −
+
+10 system. The reference was placed on the right earlobe, with the ground at AFz. During acquisition, data were hardware-filtered with a 1 Hz high-pass filter and a 50 Hz notch filter to mitigate power-line interference. 
+
+2) fNIRS Configuration: Cortical hemodynamic activity within the frontal lobe was monitored via an eight-channel optical subsystem integrated into the g.NAUTILUS fNIRS platform. The optode arrangement consisted of eight sources (transmitters at AF p 4, AF 8, F 6, AF F 4h, AF 7, AF p 3,
+
+AF F 3h, F 5, positions) and two detectors (receivers at AF 6,
+
+AF 5, positions), as illustrated in Figure 3. To ensure sufficient cortical penetration while maintaining signal integrity, a fixed source-detector separation of 32 mm was utilized for all channels. 
+
+3) Preprocessing Pipeline: Multimodal signals were syn-chronously digitized at a sampling frequency of 250 Hz. For each experimental trial, a three-second epoch was extracted, precisely time-locked to the stimulus onset to unify the tem-poral alignment of stimuli with varying durations ( 3 ∼ 5′ s). The data were processed as follows:  
+
+> •
+
+EEG Preprocessing: To isolate neurophysiological os-cillations and attenuate low-frequency drifts and high-frequency interference, a fourth-order Butterworth band-pass filter ( 3–45 Hz) was applied.  
+
+> •
+
+fNIRS Preprocessing: Raw optical intensity fluctuations were acquired at 760 nm and 850 nm. These signals were converted to optical density changes and subjected to a 0.5 Hz low-pass filter to eliminate high-frequency noise and pulsatile cardiac artifacts. The resulting cleaned signals served as the primary features for the downstream classification architecture. 
+
+C. Subject Group Definition and Labeling 
+
+To simulate a binary screening scenario, participants were categorized into two groups based on their depressive tenden-cies as measured by the Beck Depression Inventory (BDI-II) [1]. A cutoff score of 7 was adopted to achieve a balanced data distribution for the classification task. Accordingly, sub-jects scoring ≤ 6 were assigned to the Low-Score (LS) group, while those scoring ≥ 7 were assigned to the High-Score (HS) group. We acknowledge that the HS group in this study largely falls within the ”minimal depression” range according to standard clinical thresholds [1]. However, this specific criterion was selected to investigate subtle neurophysiological variations in psychological tendencies within a predominantly healthy cohort, reflecting a “sub-clinical” screening objective. For the deep learning classification task, the LS and HS groups were assigned binary labels of 0 and 1, respectively. 
+
+D. End-to-end Machine Learning 
+
+To classify depressive states from the multimodal dataset—comprising 16 EEG channels and 8 fNIRS optical density signals—we employed SincShallowNet [6], imple-mented via the Braindecode framework [7], [8]. This architec-ture is a hybrid variant of the ShallowConvNet [7], specifically optimized for raw signal decoding by integrating parameter-ized Sinc-filters originally proposed for acoustic waveform processing [6]. The model’s pipeline consists of three primary functional stages: 1) Parameterized Temporal Filtering: Unlike standard Convolutional Neural Networks (CNNs) that learn ar-bitrary kernel weights, the initial layer utilizes Sinc-functions to perform band-pass filtering. Each filter is defined solely by learnable low (f1) and high (f2)cutoff frequencies. This constraint ensures the extraction of physically meaningful frequency features (e.g., α/θ
+
+oscillations in EEG or hemodynamic trends in fNIRS) while significantly reducing parameter complexity and the risk of overfitting. 2) Multimodal Spatial Integration: Following temporal feature extraction, a spatial depthwise convolution is applied across the combined 24 −channel input ( 16 EEG 
+
++ 8 fNIRS). This layer performs a weighted integration of the electrical and hemodynamic features, effectively Fig. 4. Leave-one-subject-out cross-validation results. Comparison of classifi-cation accuracy for depressive versus normal mental states across three signal modalities (EEG, fNIRS, and combined) and two affective stimuli (audio vs. video). Horizontal lines represent medians, while dots indicate means. 
+
+learning the cross-modal spatial correlations necessary for identifying latent depressive indicators across differ-ent cortical regions. 3) Feature Transformation and Classification: To cap-ture signal power distributions, the architecture applies a square activation function followed by mean pooling and a logarithmic transformation. This sequence approx-imates the log-variance of the signals, which serves as a robust feature for identifying state-dependent changes in neural activity. The resulting feature vector is mapped to the final classification output through a fully connected layer. We implemented the SincShallowNet architecture using the Braindecode framework [7], [8]. This model integrates the hierarchical spatial-temporal features of ShallowConvNet [1] with the parameterized sinc-filters originally proposed for raw waveform processing [6]. III. R ESULTS 
+
+We evaluated the performance of SincShallowNet [6] on multimodal EEG-fNIRS data using the Braindecode frame-work [7]. Figure 4 summarizes these results, highlighting superior predictive power in the auditory affective speech condition. In this modality, the integration of EEG and fNIRS for depressive trait prediction achieved peak performance, with central tendencies (mean and median) consistently surpassing the 0.80 accuracy threshold. IV. C ONCLUSIONS 
+
+This study demonstrates the efficacy of an end-to-end deep learning approach for the objective identification of depressive traits using multimodal biological signals. By leveraging the SincShallowNet architecture within the Braindecode frame-work, we successfully integrated EEG and fNIRS data to overcome the inherent subjectivity of traditional psychiatric assessments. Our preliminary results indicate that:  
+
+> •
+
+Multimodal Integration: The combination of EEG and fNIRS provides a robust physiological profile, achieving peak predictive performance particularly during auditory affective speech tasks.  
+
+> •
+
+Performance Benchmarks: The model achieved high classification reliability, with mean and median accuracies consistently exceeding the 0.80 threshold, significantly outperforming the chance level of 0.50 . 
+
+> •
+
+Clinical Implications: These findings validate the poten-tial of automated, biological-signal-based tools as early screening mechanisms for latent depression. Such objec-tive metrics are crucial for differentiating depression from comorbid conditions like dementia in aging populations and for identifying sub-clinical states in younger cohorts. While these preliminary results are limited by a small, healthy student cohort, they establish a foundation for future work, which will focus on validating the framework within larger clinical populations to refine its diagnostic accuracy and lon-gitudinal stability. REFERENCES [1] A. T. Beck, R. A. Steer, and G. Brown, “Beck depression inventory–II,” 
+
+Psychological assessment , 1996. [2] T. M. Rutkowski, M. S. Abe, T. Komendzinski, H. Sugimoto, S. Nareb-ski, and M. Otake-Matsuura, “Machine learning approach for early onset dementia neurobiomarker using EEG network topology features,” 
+
+Frontiers in Human Neuroscience , vol. 17, p. 1155194, 2023. [3] T. M. Rutkowski, T. Komendzinski, and M. Otake-Matsuura, “Mild cognitive impairment prediction and cognitive score regression in the elderly using EEG topological data analysis and machine learning with awareness assessed in affective reminiscent paradigm,” Frontiers in Aging Neuroscience , vol. 15, p. 1294139, 2024. [4] S. Kojima, R. Shiba, Y. Morimoto, K. Furukawa, S. Kanoh, T. Komendzi´ nski, M. Otake-Matsuura, and T. M. Rutkowski, “Spatial auditory soundscapes for developing digital neurobiomarkers or cog-nitive interventions in early-onset dementia based on EEG and fNIRS machine-learning analysis,” in 46th Annual International Conference of the IEEE Engineering in Medicine & Biology Society (EMBC) , (Orlando, USA), pp. 1, poster ID 8331, IEEE Press, 2024. [5] K. Elnaggar, M. M. El-Gayar and M. Elmogy, “Depression Detection and Diagnosis Based on Electroencephalogram (EEG) Analysis: ASystematic Review,” Diagnostics (Basel) , vol. 15, no. 2, p. 210, 2025. [6] M. Ravanelli and Y. Bengio, “Speaker recognition from raw waveform with SincNet,” in 2018 IEEE Spoken Language Technology Workshop (SLT) , pp. 1021–1028, IEEE, 2018. [7] R. T. Schirrmeister, J. T. Springenberg, L. D. J. Fiederer, M. Glasstetter, K. Eggensperger, M. Tangermann, F. Hutter, W. Burgard, and T. Ball, “Deep learning with convolutional neural networks for EEG decoding and visualization,” Human Brain Mapping , vol. 38, no. 11, pp. 5391– 5420, 2017. [8] B. Aristimunha, P. Guetschel, M. Wimpff, L. Gemein, C. Rommel, H. Banville, M. Sliwowski, D. Wilson, S. Brandt, T. Gnassounou, J. Paillard, B. Junqueira Lopes, S. Sedlar, T. Moreau, S. Chevallier, A. Gramfort, and R. T. Schirrmeister, “Braindecode: toolbox for decod-ing raw electrophysiological brain data with deep learning models.” [9] S. Baron-Cohen, Mind Reading: The Interactive Guide to Emotions .London, UK: Jessica Kingsley Publishers, 2004. [10] S. M. Mohammad, “NRC VAD Lexicon v2: norms for valence, arousal, and dominance for over 55k English terms,” arXiv preprint arXiv:2503.23547 , 2025. [11] T. Stenner, C. Boulay, et al. , “sccn/liblsl: v1. 16.2,” Zenodo , 2022.
