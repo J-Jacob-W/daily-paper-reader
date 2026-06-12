@@ -6,100 +6,85 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-06-11
-- 运行时间：2026-06-11 22:47:38 UTC
+- 最新运行日期：2026-06-12
+- 运行时间：2026-06-12 22:21:03 UTC
 - 运行状态：成功
-- 本次总论文数：26
-- 精读区：13
+- 本次总论文数：21
+- 精读区：8
 - 速读区：13
 
 ### 今日简报（AI）
-今日推荐26篇论文，精读13篇，重点聚焦EEG情感识别与视觉表征编辑。  
-最值得关注的是Transformer模型在脑电情绪识别中的时空特征学习（10分），以及基于稀疏自编码器的视觉-语言对齐编辑方法（9分）。  
-建议普通读者优先精读这两篇高分论文，深入理解情感计算与多模态融合的前沿进展。
-- 详情：[/202606/11/README](/202606/11/README)
+1) 今日精选21篇论文，聚焦多模态模型内部机制与情感分析对齐，两篇高分精读深度解析模型决策压力与显式表示对齐。  
+2) 最值关注：多模态语言模型的“内部压力探测”方法，揭示正确决策下的隐藏不一致性；多模态情感分析中的显式对齐策略，提升跨模态理解精度。  
+3) 建议读者优先精读两篇9分论文，速读中《Look Less, Reason More》为高效推理提供新思路，EEG言语想象研究可拓展脑机接口应用认知。
+- 详情：[/202606/12/README](/202606/12/README)
 
 ### 精读区论文标签
-1. [Transformer Based Model for Spatiotemporal Feature Learning in EEG Emotion Recognition](/202606/11/2606.10718v1-transformer-based-model-for-spatiotemporal-feature-learning-in-eeg-emotion-recognition)  
-   标签：评分：10.0/10、query:eeg-ode-ln
-   evidence：使用Transformer时空注意力进行EEG情绪识别
-2. [TEVI: Text-Conditioned Editing of Visual Representations via Sparse Autoencoders for Improved Vision-Language Alignment](/202606/11/2606.07451v1-tevi-text-conditioned-editing-of-visual-representations-via-sparse-autoencoders-for-improved-vision-language-alignment)  
+1. [When Correct Decisions Hide Internal Stress: Decision-State Probing in Multimodal Language Models](/202606/12/2606.08394v1-when-correct-decisions-hide-internal-stress-decision-state-probing-in-multimodal-language-models)  
    标签：评分：9.0/10、query:multi-modal
-   evidence：通过稀疏自编码器改进视觉-语言对齐
-3. [CG-MambaNet: A spatiotemporal framework for cross-patient epileptic seizure prediction using CNN-GCN-Mamba-BiLSTM with event-level clinical evaluation](/202606/11/2606.08226v1-cg-mambanet-a-spatiotemporal-framework-for-cross-patient-epileptic-seizure-prediction-using-cnn-gcn-mamba-bilstm-with-event-level-clinical-evaluation)  
-   标签：评分：9.0/10、query:eeg-ode-ln
-   evidence：使用深度时空模型进行头皮EEG解码以预测癫痫发作
-4. [CheXanatomy: Anatomy-Aware Vision-Language Modeling for Chest Radiographs](/202606/11/2606.08420v1-chexanatomy-anatomy-aware-vision-language-modeling-for-chest-radiographs)  
+   evidence：探测多模态语言模型的决策状态稳定性
+2. [Explicit Representation Alignment for Multimodal Sentiment Analysis](/202606/12/2606.09148v1-explicit-representation-alignment-for-multimodal-sentiment-analysis)  
    标签：评分：9.0/10、query:multi-modal
-   evidence：面向胸部X光片的解剖感知视觉语言建模
-5. [How Much Capacity Does EEG Denoising Need? Ultra-Compact Networks reveal Benchmark Saturation and Metric-Utility Gap](/202606/11/2606.08594v1-how-much-capacity-does-eeg-denoising-need-ultra-compact-networks-reveal-benchmark-saturation-and-metric-utility-gap)  
-   标签：评分：9.0/10、query:eeg-ode-ln
-   evidence：使用深度学习进行脑电去噪及下游分类
-6. [Late-Layer Fusion is Enough: Dual-Path Vision Token Routing for Multimodal Large Language Models under Visual Saturation](/202606/11/2606.09131v1-late-layer-fusion-is-enough-dual-path-vision-token-routing-for-multimodal-large-language-models-under-visual-saturation)  
+   evidence：提出一种多模态融合框架，在融合前对齐表示用于情感分析，直接涉及多模态融合技术
+3. [RespiraMFM: A Multimodal Foundation Model with Contrastive Audio-Language Alignment for Respiratory Disease Identification](/202606/12/2606.09966v1-respiramfm-a-multimodal-foundation-model-with-contrastive-audio-language-alignment-for-respiratory-disease-identification)  
    标签：评分：9.0/10、query:multi-modal
-   evidence：针对视觉语言模型提出后期融合方法
-7. [Explicit Representation Alignment for Multimodal Sentiment Analysis](/202606/11/2606.09148v1-explicit-representation-alignment-for-multimodal-sentiment-analysis)  
+   evidence：具有音频-语言对比对齐的多模态基础模型
+4. [ARM: An AutoRegressive Large Multimodal Model with Unified Discrete Representations](/202606/12/2606.11188v1-arm-an-autoregressive-large-multimodal-model-with-unified-discrete-representations)  
    标签：评分：9.0/10、query:multi-modal
-   evidence：使用视觉语言模型对齐的多模态情感分析
-8. [miniReranker: Efficient Multimodal Reranking through Visual Cache Reuse and Interaction Sparsity](/202606/11/2606.10759v1-minireranker-efficient-multimodal-reranking-through-visual-cache-reuse-and-interaction-sparsity)  
-   标签：评分：9.0/10、query:multi-modal
-   evidence：面向多模态语言模型的高效重排序方法
-9. [End-to-End Machine Learning for Depressive State Classification via EEG and fNIRS](/202606/11/2606.11555v1-end-to-end-machine-learning-for-depressive-state-classification-via-eeg-and-fnirs)  
+   evidence：具有统一离散表示的自动回归大型多模态模型
+5. [Selective Auditory Attention Decoding with a Two-Node Wireless EEG Sensor Network](/202606/12/biorxiv-10-64898-2026-02-17-706305-v2-selective-auditory-attention-decoding-with-a-two-node-wireless-eeg-sensor-network)  
    标签：评分：9.0/10、query:eeg-ode-ln
-   evidence：利用多模态EEG和fNIRS进行抑郁状态分类
-10. [Parameter-Efficient Adapter Tuning for Tabular-Image Multimodal Learning](/202606/11/2606.11682v1-parameter-efficient-adapter-tuning-for-tabular-image-multimodal-learning)  
-   标签：评分：9.0/10、query:multi-modal
-   evidence：基于适配器的表格-图像多模态融合方法
-11. [Low-Density EEG for Seizure Detection: Evaluating CNN-RNN Architectures on a Behind-the-Ear Montage Setup](/202606/11/2606.11970v1-low-density-eeg-for-seizure-detection-evaluating-cnn-rnn-architectures-on-a-behind-the-ear-montage-setup)  
+   evidence：用于听觉注意解码的EEG信号
+6. [The electro-MICA toolbox for integrating electrophysiology within multimodal imaging and connectomics workflows](/202606/12/biorxiv-10-64898-2026-06-08-730888-v1-the-electro-mica-toolbox-for-integrating-electrophysiology-within-multimodal-imaging-and-connectomics-workflows)  
    标签：评分：9.0/10、query:eeg-ode-ln
-   evidence：使用CNN-RNN进行脑电信号解码用于癫痫检测
-12. [Emotion Representation and Neural Synchrony: Decoding Valence and Arousal with Wearable EEG](/202606/11/biorxiv-10-64898-2026-06-03-730031-v1-emotion-representation-and-neural-synchrony-decoding-valence-and-arousal-with-wearable-eeg)  
-   标签：评分：9.0/10、query:eeg-ode-ln
-   evidence：使用可穿戴EEG解码情感维度
-13. [Motor Resonance of Musical Emotion: A Machine Learning Approach to EEG Decoding During Expressive Music Performance](/202606/11/biorxiv-10-64898-2026-06-04-730044-v1-motor-resonance-of-musical-emotion-a-machine-learning-approach-to-eeg-decoding-during-expressive-music-performance)  
-   标签：评分：9.0/10、query:eeg-ode-ln
-   evidence：钢琴演奏中音乐情绪的EEG解码
+   evidence：提供一个开源工具箱，将EEG与多模态神经影像整合，直接支持多模态脑活动解码与融合
+7. [Spatially Masked Regression Reveals Local and Distributed Predictability in Electrophysiological Recordings](/202606/12/2606.11415v1-spatially-masked-regression-reveals-local-and-distributed-predictability-in-electrophysiological-recordings)  
+   标签：评分：8.0/10、query:eeg-ode-ln
+   evidence：提出一种空间掩码回归方法，用于分析电生理记录（如EEG）以解码信号中的局部与分布式成分
+8. [Latent World Recovery for Multimodal Learning with Missing Modalities](/202606/12/2606.12362v1-latent-world-recovery-for-multimodal-learning-with-missing-modalities)  
+   标签：评分：8.0/10、query:multi-modal
+   evidence：提出潜在世界恢复框架，通过对齐潜空间和可用性感知融合实现缺失模态下的多模态学习
 
 ### 速读区论文标签
-1. [ChronoPhyBench: Do MLLMs Truly Understand the World or Merely Exploit Language Priors?](/202606/11/2606.07962v1-chronophybench-do-mllms-truly-understand-the-world-or-merely-exploit-language-priors)  
+1. [Look Less, Reason More: Block-wise Attention Skipping for Efficient Multimodal LLMs](/202606/12/2606.08511v1-look-less-reason-more-block-wise-attention-skipping-for-efficient-multimodal-llms)  
    标签：评分：8.0/10、query:multi-modal
-   evidence：基准测试评估多模态大语言模型的跨模态推理能力
-2. [A spectral audit framework reveals task-dependent aperiodic reliance across EEG and ECG deep learning](/202606/11/2606.08583v1-a-spectral-audit-framework-reveals-task-dependent-aperiodic-reliance-across-eeg-and-ecg-deep-learning)  
+   evidence：多模态融合与高效多模态大语言模型推理
+2. [LongMoE: Longitudinal Multimodal Learning via Trajectory-Aware Mixture-of-Experts](/202606/12/2606.09907v1-longmoe-longitudinal-multimodal-learning-via-trajectory-aware-mixture-of-experts)  
+   标签：评分：8.0/10、query:multi-modal
+   evidence：处理缺失模态和纵向数据的多模态学习
+3. [Characterization of Speech Imagery in Scalp EEG and Comparison with Motor Imagery](/202606/12/2606.12223v1-characterization-of-speech-imagery-in-scalp-eeg-and-comparison-with-motor-imagery)  
    标签：评分：8.0/10、query:eeg-ode-ln
-   evidence：提出频谱审计框架分析EEG深度学习中的非周期性成分对分类的影响
-3. [Learnable Token Sparsification for Efficient Gigapixel Whole Slide Image Reasoning](/202606/11/2606.08641v1-learnable-token-sparsification-for-efficient-gigapixel-whole-slide-image-reasoning)  
+   evidence：EEG语言想象解码;用于交流的BCI
+4. [From 2D Grids to 1D Tokens: Reforming Shared Representations for Multimodal Image Fusion](/202606/12/2606.12303v1-from-2d-grids-to-1d-tokens-reforming-shared-representations-for-multimodal-image-fusion)  
    标签：评分：8.0/10、query:multi-modal
-   evidence：提出可学习的令牌稀疏化用于病理图像视觉语言模型的推理
-4. [Information-Theoretic Decomposition for Multimodal Interaction Learning](/202606/11/2606.11614v1-information-theoretic-decomposition-for-multimodal-interaction-learning)  
-   标签：评分：8.0/10、query:multi-modal
-   evidence：多模态交互学习的信息论分析
-5. [IAPO: Input Attribution-Aware Policy Optimization for Tool Use in Small Multimodal Agents](/202606/11/2606.11652v1-iapo-input-attribution-aware-policy-optimization-for-tool-use-in-small-multimodal-agents)  
-   标签：评分：8.0/10、query:multi-modal
-   evidence：针对多模态小语言模型智能体的强化学习方法
-6. [Neural Field Tokenizations with Hierarchy and Spatial Locality Priors](/202606/11/2606.08204v1-neural-field-tokenizations-with-hierarchy-and-spatial-locality-priors)  
+   evidence：多模态图像融合采用1D令牌
+5. [Single-trial Endpoint-summary Measures do not Capture P300 Coupling in the Visual Oddball Paradigm: a Pseudotrial-controlled, Cross-validated Study](/202606/12/biorxiv-10-64898-2025-12-17-694588-v4-single-trial-endpoint-summary-measures-do-not-capture-p300-coupling-in-the-visual-oddball-paradigm-a-pseudotrial-controlled-cross-validated-study)  
+   标签：评分：8.0/10、query:eeg-ode-ln
+   evidence：单试次EEG解码P300方法
+6. [DifferSeg: Towards Diverse Multimodal Binary Segmentation via Differential Perception and Frequency Guidance](/202606/12/2606.08906v1-differseg-towards-diverse-multimodal-binary-segmentation-via-differential-perception-and-frequency-guidance)  
    标签：评分：7.0/10、query:multi-modal
-   evidence：用于跨模态表示学习的神经字段令牌化
-7. [Next-Token Prediction Learns Generalisable Representations of Sleep Physiology](/202606/11/2606.09605v1-next-token-prediction-learns-generalisable-representations-of-sleep-physiology)  
-   标签：评分：7.0/10、query:multi-modal
-   evidence：使用下一标记预测学习多模态生理信号的可泛化表示
-8. [Multimodal Brain Tumour Classification Using Feature Fusion](/202606/11/2606.11107v1-multimodal-brain-tumour-classification-using-feature-fusion)  
-   标签：评分：7.0/10、query:multi-modal
-   evidence：脑肿瘤分类中的多模态特征融合
-9. [Multimodal Brain Tumour Classification Using Feature Fusion](/202606/11/2606.11107v2-multimodal-brain-tumour-classification-using-feature-fusion)  
-   标签：评分：7.0/10、query:multi-modal
-   evidence：两分支多模态网络融合MRI和放射组学特征进行脑肿瘤分类
-10. [RGB-S: Image-Aligned Tactile Saliency for Robust Dexterous Manipulation](/202606/11/2606.08765v1-rgb-s-image-aligned-tactile-saliency-for-robust-dexterous-manipulation)  
+   evidence：提出用于多模态二值分割的差分感知融合模块，贡献于多模态融合技术
+7. [Pretrained, Frozen, Still Leaking: Auditing Cross-Encoder Attribute Transfer in EEG Foundation Models](/202606/12/2606.09189v1-pretrained-frozen-still-leaking-auditing-cross-encoder-attribute-transfer-in-eeg-foundation-models)  
+   标签：评分：7.0/10、query:eeg-ode-ln
+   evidence：审计EEG基础模型（BIOT、LaBraM、EEGPT），揭示属性泄露风险
+8. [Successful single-session neural self-regulation through neurofeedback varies between features](/202606/12/biorxiv-10-64898-2026-01-07-698228-v2-successful-single-session-neural-self-regulation-through-neurofeedback-varies-between-features)  
+   标签：评分：7.0/10、query:eeg-ode-ln
+   evidence：脑机接口神经反馈学习动态分析
+9. [Source-space EEG functional connectivity and prediction of cognition in Parkinsons disease: No added benefit of individualized head models over standard templates](/202606/12/biorxiv-10-64898-2026-05-07-723671-v2-source-space-eeg-functional-connectivity-and-prediction-of-cognition-in-parkinsons-disease-no-added-benefit-of-individualized-head-models-over-standard-templates)  
+   标签：评分：7.0/10、query:eeg-ode-ln
+   evidence：基于源空间功能连接的EEG信号解码
+10. [FMRFusion: Frequency-Aware Multi-View Representation Learning for Heterogeneous Image Fusion](/202606/12/2606.07985v1-fmrfusion-frequency-aware-multi-view-representation-learning-for-heterogeneous-image-fusion)  
    标签：评分：6.0/10、query:multi-modal
-   evidence：视觉-触觉融合用于灵巧操作
-11. [Multi-Rate Mixture of Experts for Accelerating Liquid Neural Network Training](/202606/11/2606.12240v1-multi-rate-mixture-of-experts-for-accelerating-liquid-neural-network-training)  
-   标签：评分：6.0/10、query:neural-ode
-   evidence：使用混合专家加速液态神经网络训练
-12. [Adjoint Method versus Physics-Informed Neural Networks in PDE-Constrained Inverse Problems](/202606/11/2606.12337v1-adjoint-method-versus-physics-informed-neural-networks-in-pde-constrained-inverse-problems)  
-   标签：评分：6.0/10、query:neural-ode
-   evidence：伴随方法与PINNs在PDE逆问题中的比较
-13. [Cross-modal applications of a neuromorphic olfactory learning algorithm](/202606/11/biorxiv-10-64898-2026-06-02-727939-v2-cross-modal-applications-of-a-neuromorphic-olfactory-learning-algorithm)  
+   evidence：多模态图像融合技术
+11. [Iterative Spatial Resolution Enhancement in Imaging Mass Spectrometry via Hydrogel Tissue Expansion and Multimodal Image Fusion](/202606/12/biorxiv-10-64898-2026-06-03-729902-v1-iterative-spatial-resolution-enhancement-in-imaging-mass-spectrometry-via-hydrogel-tissue-expansion-and-multimodal-image-fusion)  
    标签：评分：6.0/10、query:multi-modal
-   evidence：神经形态学习算法跨模态应用于图像和声音
+   evidence：多模态图像融合用于分辨率增强
+12. [Beyond the Forest and the Trees: Overlooking the Overlooked Terrain of Neural State Dynamics](/202606/12/biorxiv-10-64898-2026-06-04-729738-v1-beyond-the-forest-and-the-trees-overlooking-the-overlooked-terrain-of-neural-state-dynamics)  
+   标签：评分：6.0/10、query:eeg-ode-ln
+   evidence：EEG微状态分析方法
+13. [Critical dynamics in spontaneous EEG predict perturbational complexity in disorders of consciousness with measurable evoked responses](/202606/12/biorxiv-10-64898-2026-06-04-730221-v1-critical-dynamics-in-spontaneous-eeg-predict-perturbational-complexity-in-disorders-of-consciousness-with-measurable-evoked-responses)  
+   标签：评分：6.0/10、query:eeg-ode-ln
+   evidence：EEG临界动力学预测意识水平
 
 
 <div class="dpr-home-promo-card">

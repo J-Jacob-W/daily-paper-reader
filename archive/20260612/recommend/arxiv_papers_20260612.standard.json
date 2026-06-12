@@ -1,0 +1,911 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-12T22:14:31.077790+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 3,
+    "deep_divecandidates": 13,
+    "deep_cap": 8,
+    "deep_selected": 8,
+    "quick_candidates": 18,
+    "quick_skim_target": 13,
+    "quick_selected": 13
+  },
+  "deep_dive": [
+    {
+      "id": "2606.08394v1",
+      "source": "arxiv",
+      "title": "When Correct Decisions Hide Internal Stress: Decision-State Probing in Multimodal Language Models",
+      "abstract": "Multimodal language models are typically evaluated through external behavior: selecting the correct image--text match, rejecting unsupported captions, or answering visual queries correctly. However, correct behavior alone does not show that the model's internal decision state remains stable under controlled semantic stress. We study this gap through S$^3$E (Structured Semantic Stress Evaluation), a framework for analyzing behavior-internal decoupling in multimodal language models. S$^3$E uses a positive-anchored A/B forced-choice setup in which an image-supported caption is contrasted against semantic stress candidates under both original and swapped option orders, while hidden states are extracted at the pre-answer decision state. We focus on strict-correct trials, where the model consistently selects the correct caption across both orders. Rather than treating arbitrary hidden-state variation as evidence of instability, we measure whether semantic-conflict candidates induce excess decision-state displacement relative to meaning-preserving controls. Across Qwen3VL, Gemma3, and InternVL3, semantic stress consistently produces positive selected-layer excess displacement over lexical controls despite correct forced-choice behavior, while comparisons against random negatives are model-dependent. We interpret this as a scoped decision-state stress-sensitivity signal rather than evidence of downstream failure or hallucination. Our results suggest that forced-choice correctness alone is not a sufficient certificate of invariant internal decision geometry.",
+      "authors": [
+        "Haoran Zhao",
+        "Soyeon Caren Han",
+        "Eduard Hovy"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL"
+      ],
+      "published": "2026-06-07T01:11:36+00:00",
+      "link": "https://arxiv.org/pdf/2606.08394v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "query:EEG-ODE-LN",
+        "query:multi-modal"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "probes decision-state stability in multimodal language models",
+      "llm_evidence_cn": "探测多模态语言模型的决策状态稳定性",
+      "llm_evidence": "探测多模态语言模型的决策状态稳定性",
+      "canonical_evidence": "探测多模态语言模型的决策状态稳定性",
+      "llm_tldr_en": "Introduces Structured Semantic Stress Evaluation (S3E) to probe internal decision-state stability in multimodal language models revealing decoupling between correct behavior and robust internal representations.",
+      "llm_tldr_cn": "多模态语言模型的评估通常只看外部行为正确性，但正确行为不代表内部决策状态稳定。该论文提出结构化语义压力评估（S3E）框架，通过正锚定的A/B强制选择设置，在原始和交换选项顺序下对比图像支持的描述与语义压力候选，提取前决策隐藏状态，揭示了行为正确性与内部表示鲁棒性之间的脱节。",
+      "llm_tldr": "多模态语言模型的评估通常只看外部行为正确性，但正确行为不代表内部决策状态稳定。该论文提出结构化语义压力评估（S3E）框架，通过正锚定的A/B强制选择设置，在原始和交换选项顺序下对比图像支持的描述与语义压力候选，提取前决策隐藏状态，揭示了行为正确性与内部表示鲁棒性之间的脱节。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "multimodal language model research",
+      "matched_requirement_id": "req-20",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.09148v1",
+      "source": "arxiv",
+      "title": "Explicit Representation Alignment for Multimodal Sentiment Analysis",
+      "abstract": "Multimodal affective analysis aims to understand human sentiment and emotion by jointly modeling heterogeneous modalities such as text and images. However, multimodal models often fail to consistently outperform strong text-only baselines, with performance varying significantly across fusion strategies. In this work, we identify representation misalignment between independently pretrained modality encoders as a key bottleneck for effective multimodal learning, and show through controlled experiments that alignment prior to fusion is often more important than fusion complexity. To address this issue, we propose a unified multimodal affective analysis framework that leverages vision-language models (VLMs) to convert visual content into structured textual descriptions, projecting heterogeneous modalities into a shared linguistic space and enabling interpretable text-centric reasoning. To further improve robustness, we introduce a hybrid learning strategy that combines semantic token selection with a batch-level uniformity regularization objective, encouraging a more dispersed and stable global feature space while mitigating noise introduced by VLM-generated descriptions. Experiments on multiple multimodal sentiment and emotion benchmarks show that our method consistently outperforms strong unimodal and multimodal baselines, achieving state-of-the-art performance. Our analysis further highlights the critical role of representation alignment in multimodal affective learning.",
+      "authors": [
+        "Baode Wang",
+        "Ziming Wang",
+        "Huacan Wang",
+        "Ronghao Chen",
+        "Biao Wu"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL"
+      ],
+      "published": "2026-06-08T07:43:52+00:00",
+      "link": "https://arxiv.org/pdf/2606.09148v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "query:EEG-ODE-LN",
+        "query:multi-modal"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "proposes a multimodal fusion framework that aligns representations before fusion for sentiment analysis, directly addressing multimodal fusion techniques",
+      "llm_evidence_cn": "提出一种多模态融合框架，在融合前对齐表示用于情感分析，直接涉及多模态融合技术",
+      "llm_evidence": "提出一种多模态融合框架，在融合前对齐表示用于情感分析，直接涉及多模态融合技术",
+      "canonical_evidence": "提出一种多模态融合框架，在融合前对齐表示用于情感分析，直接涉及多模态融合技术",
+      "llm_tldr_en": "Identifies representation misalignment as key bottleneck in multimodal sentiment analysis. Proposes alignment prior to fusion using vision-language models. Demonstrates that alignment is more important than fusion complexity.",
+      "llm_tldr_cn": "多模态情感分析中，独立预训练的编码器之间表示不对齐是瓶颈。本文通过实验证明融合前的对齐比融合复杂度更重要，并提出利用视觉-语言模型将视觉内容转化为结构化文本表示以进行显式对齐。该方法统一了多模态情感分析框架，并显著提升性能。",
+      "llm_tldr": "多模态情感分析中，独立预训练的编码器之间表示不对齐是瓶颈。本文通过实验证明融合前的对齐比融合复杂度更重要，并提出利用视觉-语言模型将视觉内容转化为结构化文本表示以进行显式对齐。该方法统一了多模态情感分析框架，并显著提升性能。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "techniques for multimodal fusion",
+      "matched_requirement_id": "req-21",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.09966v1",
+      "source": "arxiv",
+      "title": "RespiraMFM: A Multimodal Foundation Model with Contrastive Audio-Language Alignment for Respiratory Disease Identification",
+      "abstract": "Respiratory diseases remain a leading cause of global mortality, where timely and accurate diagnosis is critical to improving patient outcomes and reducing healthcare burdens. While prior work has explored audio-based models for respiratory disease detection, such unimodal approaches often suffer from limited generalizability and diagnostic precision. In this paper, we propose RespiraMFM, a Multimodal Foundation Model that integrates respiratory sounds with patient medical history and symptoms to enhance diagnostic accuracy and disease detection capabilities. We introduce an effective contrastive alignment strategy for audio-text multimodal integration, allowing the model to learn better cross-modal representations between respiratory sounds and corresponding textual clinical information. We evaluate RespiraMFM across five major respiratory diseases using seven real-world datasets in both supervised fine-tuning and zero-shot settings, achieving a 9.15% improvement in AUROC on supervised tasks and a 20.98% gain on zero-shot tasks over existing baselines. These findings underscore the potential of our framework to advance early diagnosis and improve clinical decision-making in respiratory disease management.",
+      "authors": [
+        "Shakhrul Iman Siam",
+        "Tiantian Feng",
+        "Jiankun Zhang",
+        "Shrikanth Narayanan",
+        "Mi Zhang"
+      ],
+      "primary_category": "cs.SD",
+      "categories": [
+        "cs.SD"
+      ],
+      "published": "2026-06-08T16:29:59+00:00",
+      "link": "https://arxiv.org/pdf/2606.09966v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:multi-modal",
+        "query:neural-ode"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "multimodal foundation model with audio-language contrastive alignment",
+      "llm_evidence_cn": "具有音频-语言对比对齐的多模态基础模型",
+      "llm_evidence": "具有音频-语言对比对齐的多模态基础模型",
+      "canonical_evidence": "具有音频-语言对比对齐的多模态基础模型",
+      "llm_tldr_en": "Proposes RespiraMFM, a multimodal foundation model integrating respiratory sounds with patient history via contrastive audio-language alignment, improving diagnostic accuracy.",
+      "llm_tldr_cn": "针对单模态呼吸声模型泛化性差的问题，本文提出RespiraMFM多模态基础模型，融合呼吸声音与患者病史/症状。通过对比音频-文本对齐策略学习跨模态表征。实验表明，多模态融合显著提升了呼吸疾病的诊断准确率，证明了跨模态对齐在医学领域的有效性。",
+      "llm_tldr": "针对单模态呼吸声模型泛化性差的问题，本文提出RespiraMFM多模态基础模型，融合呼吸声音与患者病史/症状。通过对比音频-文本对齐策略学习跨模态表征。实验表明，多模态融合显著提升了呼吸疾病的诊断准确率，证明了跨模态对齐在医学领域的有效性。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "multimodal language model research",
+      "matched_requirement_id": "req-20",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.11188v1",
+      "source": "arxiv",
+      "title": "ARM: An AutoRegressive Large Multimodal Model with Unified Discrete Representations",
+      "abstract": "This paper introduces ARM, a discrete representation-based AutoRegressive Model that unifies image understanding, generation, and editing within a next-token prediction framework. ARM is built on three efforts: first, we train a discrete semantic visual tokenizer that maps images into compact token sequences. Our tokenizer is supervised with multiple objectives that jointly promote semantic discriminability, language alignment and faithful reconstruction, thereby supporting diverse tasks in a shared latent space. With this, we train a 7B autoregressive model over large-scale text and image token sequences, seamlessly developing vision-language perception and generation capabilities. Finally, to further improve preference-aligned behavior for text-to-image generation and instruction-guided editing, ARM applies reinforcement learning (RL) to optimize task-level objectives such as visual quality, instruction adherence, and edit consistency. Surprisingly, the results show that RL not only substantially improves performance on the target tasks (e.g., raising WISE overall from 0.50 to 0.56, GEdit-Bench-EN G_O from 5.75 to 6.68), but also induces cross-task synergy between text-to-image generation and editing. Collectively, these findings highlight autoregressive modeling, when paired with strong representations and preference optimization, as a scalable foundation for multimodal intelligence. Code: https://github.com/wdrink/ARM.",
+      "authors": [
+        "Junke Wang",
+        "Xiao Wang",
+        "Jiacheng Pan",
+        "Xuefeng Hu",
+        "Feng Li",
+        "Jingxiang Sun",
+        "Chaorui Deng",
+        "Zilong Chen",
+        "Yunpeng Chen",
+        "Kaibin Tian",
+        "Matthew Gwilliam",
+        "Hao Chen",
+        "Danhui Guan",
+        "Kun Xu",
+        "Weilin Huang",
+        "Zuxuan Wu",
+        "Haoqi Fan",
+        "Yu-Gang Jiang",
+        "Zhenheng Yang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-06-09T17:59:28+00:00",
+      "link": "https://arxiv.org/pdf/2606.11188v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "keyword:neural-ode",
+        "query:multi-modal",
+        "query:neural-ode"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "autoregressive large multimodal model with unified discrete representations",
+      "llm_evidence_cn": "具有统一离散表示的自动回归大型多模态模型",
+      "llm_evidence": "具有统一离散表示的自动回归大型多模态模型",
+      "canonical_evidence": "具有统一离散表示的自动回归大型多模态模型",
+      "llm_tldr_en": "Introduces ARM, an autoregressive multimodal model unifying image understanding, generation, and editing via discrete semantic visual tokenizer and 7B language model.",
+      "llm_tldr_cn": "本文提出ARM，一种基于离散表示的自回归多模态模型，统一了图像理解、生成和编辑。通过训练离散语义视觉分词器，将图像映射为紧凑令牌序列，并与7B语言模型联合训练，实现视觉语言感知与生成。实验表明，ARM在多个多模态基准上达到领先性能，展示了离散表示在多模态统一框架中的潜力。",
+      "llm_tldr": "本文提出ARM，一种基于离散表示的自回归多模态模型，统一了图像理解、生成和编辑。通过训练离散语义视觉分词器，将图像映射为紧凑令牌序列，并与7B语言模型联合训练，实现视觉语言感知与生成。实验表明，ARM在多个多模态基准上达到领先性能，展示了离散表示在多模态统一框架中的潜力。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "multimodal language model research",
+      "matched_requirement_id": "req-20",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "biorxiv-10-64898-2026-02-17-706305-v2",
+      "source": "biorxiv",
+      "title": "Selective Auditory Attention Decoding with a Two-Node Wireless EEG Sensor Network",
+      "abstract": "Selective auditory attention decoding (sAAD) enables neuro-steered hearing devices by identifying the attended speaker in a multi-speaker environment from neural activity recorded with electroencephalography (EEG). Despite algorithmic progress, practical deployment remains constrained by a lack of wearable, unobtrusive, and fully wireless EEG acquisition solutions. Therefore, this work aims to evaluate whether reliable sAAD can be achieved under realistic hardware constraints imposed by using a wireless EEG sensor network (WESN) consisting of miniaturized, galvanically isolated EEG sensor nodes. Here, we use such a WESN consisting of two synchronized, compact around-ear EEG sensor nodes worn bilaterally. Each node provides four local EEG channels derived from five pre-gelled electrodes, including a local reference. Sample-wise wireless synchronization of data from both nodes enables joint processing as an eight-channel EEG. On a newly recorded dataset acquired with this setup, correlation-based stimulus decoding achieves an average sAAD accuracy of 69.24% on 60s decision windows, comparable to wired around-ear EEG systems that measure long-distance scalp potentials. Hidden Markov model-based post-processing further improves to a steady-state accuracy of 77.17% with an average simulated attention switch detection time of 32.79s. Combining sensor nodes at both ears outperforms single-ear configurations, primarily by providing redundancy that increases robustness rather than by exploiting complementary spatial information. Finally, we show that a fixed bipolar configuration using four electrodes per ear, yielding three channels, suffices to maintain performance. These results demonstrate the practical feasibility of sAAD using a fully wireless, galvanically isolated around-ear WESN and establish a realistic performance benchmark under practical hardware constraints.",
+      "authors": [
+        "Geirnaert, S.",
+        "Ding, R.",
+        "Bertrand, A."
+      ],
+      "primary_category": "neuroscience",
+      "categories": [
+        "neuroscience"
+      ],
+      "published": "2026-06-12T00:00:00+00:00",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.02.17.706305v2.full.pdf",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:neural-ode"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "EEG signal decoding for auditory attention",
+      "llm_evidence_cn": "用于听觉注意解码的EEG信号",
+      "llm_evidence": "用于听觉注意解码的EEG信号",
+      "canonical_evidence": "用于听觉注意解码的EEG信号",
+      "llm_tldr_en": "Evaluates selective auditory attention decoding using a wireless two-node EEG sensor network, demonstrating feasibility under realistic hardware constraints.",
+      "llm_tldr_cn": "选择性听觉注意解码（sAAD）依赖EEG识别注意说话人，但现有系统缺乏可穿戴无线方案。本文使用两个迷你无线EEG传感器节点，每个提供4通道，验证其在真实硬件限制下的解码可靠性。实验表明，该无线EEG传感器网络能实现稳定注意解码，推动了神经导向助听设备的实用化。",
+      "llm_tldr": "选择性听觉注意解码（sAAD）依赖EEG识别注意说话人，但现有系统缺乏可穿戴无线方案。本文使用两个迷你无线EEG传感器节点，每个提供4通道，验证其在真实硬件限制下的解码可靠性。实验表明，该无线EEG传感器网络能实现稳定注意解码，推动了神经导向助听设备的实用化。",
+      "llm_tags": [
+        "query:eeg-ode-ln"
+      ],
+      "matched_query_tag": "query:eeg-ode-ln",
+      "matched_query_text": "EEG signal decoding methods",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "biorxiv-10-64898-2026-06-08-730888-v1",
+      "source": "biorxiv",
+      "title": "The electro-MICA toolbox for integrating electrophysiology within multimodal imaging and connectomics workflows",
+      "abstract": "The integration of electrophysiological recordings with multimodal neuroimaging data holds great promise for advancing our understanding of brain function and neurological disorders. To facilitate this endeavour, we present electro-MICA, an open-access Python toolbox designed to project electrophysiological features from scalp and intracranial electroencephalography (EEG) onto cortical and hippocampal surfaces generated by validated multimodal imaging ecosystems. The toolbox comprises two pipelines: one for intracranial EEG (iEEG) recorded with stereo-EEG depth electrodes, and one for scalp EEG source localization. Both pipelines are grounded in numerical solutions to the electromagnetic equations governing electric activity in the brain, solved using the Boundary Element Method. A key methodological contribution is the use of a current density double layer model for neural generators, which avoids the mathematical singularities introduced by conventional dipole-based models when electrodes are near the cortical surface, a situation that can arise in iEEG. Electrode contacts are additionally modeled with non-zero length, improving physical realism. Scalp EEG source localization is performed using eLORETA on a subject-specific three-layer head model derived from the anatomical input. Validation against empirical gamma-band iEEG data from 32 subjects demonstrates that the distributed generator model outperforms both distance-based and dipole-based alternatives. An illustrative clinical example demonstrates the toolbox's capacity to reveal associations between intracranial spike rates, cortical thickness, and anatomical connectivity in an epilepsy patient. Electro-MICA requires no parameter selection from the user, facilitating straightforward multimodal analyses in both research and clinical settings. The toolbox is available at github.com/MICA-MNI/electromica with extensive online documentation at electromica.readthedocs.io.",
+      "authors": [
+        "von Ellenrieder, N.",
+        "Cai, Z.",
+        "Arafat, T.",
+        "Vavassori, L.",
+        "Abdallah, C.",
+        "de Kraker, J.",
+        "Rodriguez-Cruces, R.",
+        "Royer, J.",
+        "Sahlas, E.",
+        "Bautin, P.",
+        "Pana, R.",
+        "Aron, O.",
+        "Frauscher, B.",
+        "Bernhardt, B. C."
+      ],
+      "primary_category": "neuroscience",
+      "categories": [
+        "neuroscience"
+      ],
+      "published": "2026-06-11T00:00:00+00:00",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.06.08.730888v1.full.pdf",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:multi-modal",
+        "query:neural-ode"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "provides an open-source toolbox integrating EEG with multimodal neuroimaging, directly supporting multimodal brain activity decoding and fusion",
+      "llm_evidence_cn": "提供一个开源工具箱，将EEG与多模态神经影像整合，直接支持多模态脑活动解码与融合",
+      "llm_evidence": "提供一个开源工具箱，将EEG与多模态神经影像整合，直接支持多模态脑活动解码与融合",
+      "canonical_evidence": "提供一个开源工具箱，将EEG与多模态神经影像整合，直接支持多模态脑活动解码与融合",
+      "llm_tldr_en": "The electro-MICA toolbox projects EEG features (scalp/iEEG) onto cortical surfaces using multimodal imaging ecosystems. Enables integration of electrophysiology with connectomics, relevant to multimodal EEG-fNIRS fusion workflows.",
+      "llm_tldr_cn": "脑电与多模态影像整合对理解脑功能至关重要。本文提出electro-MICA工具箱，通过数值解法将头皮和颅内脑电特征投影到皮层表面，并兼容已验证的多模态成像生态系统。该工具箱包含两个流程（iEEG和头皮EEG源定位），为多模态神经成像和连接组学提供标准化工具，有力支撑EEG解码与多模态融合研究。",
+      "llm_tldr": "脑电与多模态影像整合对理解脑功能至关重要。本文提出electro-MICA工具箱，通过数值解法将头皮和颅内脑电特征投影到皮层表面，并兼容已验证的多模态成像生态系统。该工具箱包含两个流程（iEEG和头皮EEG源定位），为多模态神经成像和连接组学提供标准化工具，有力支撑EEG解码与多模态融合研究。",
+      "llm_tags": [
+        "query:eeg-ode-ln:composite"
+      ],
+      "matched_query_tag": "query:eeg-ode-ln:composite",
+      "matched_query_text": "Papers central to 查找EEG解码（最好情绪识别）以及EEG+fNIRs多模态的文章, especially work that connects or combines: EEG signal decoding methods; multimodal EEG and fNIRS for brain activity decoding; affective computing using EEG; brain-computer interface for emotion; multimodal fusion of EEG and fNIRS; deep learning for EEG classification; Find papers on EEG decoding for emotion recognition; Search for multimodal EEG and fNIRS studies; EEG decoding for emotion recognition; multimodal EEG fNIRS studies.",
+      "matched_requirement_id": "req-composite-eeg-ode-ln",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.11415v1",
+      "source": "arxiv",
+      "title": "Spatially Masked Regression Reveals Local and Distributed Predictability in Electrophysiological Recordings",
+      "abstract": "Neural recordings are often interpreted as local measurements, yet the signal at any one sensor can also reflect structured activity distributed across the broader network. This raises a basic question: to what extent does an electrode's signal reflect local versus distributed information in the underlying system? More specifically, how much of an electrode's activity is carried by its immediate neighborhood, and how much is embedded more broadly across the array? We address this with a Spatially Masked Regression (SMR) framework that reconstructs each electrode's timeseries from the remaining electrodes while excluding a configurable neighborhood around the target. By progressively increasing this mask, spatial locality becomes an experimental control for quantifying how much predictive information survives after nearby channels are withheld. We apply SMR to intracranial EEG with heterogeneous electrode coverage and to scalp EEG with standardized montages over sensorimotor cortex. Using distance correlation between original and reconstructed signals, we find strong within-subject reconstruction in both modalities, substantial residual predictability even when local neighbors are excluded, and markedly stronger cross-subject transfer in EEG than in iEEG. Masking shows that nearby electrodes contribute strongly to reconstruction but do not account for all of it, indicating that individual channels reflect both local redundancy and broader distributed structure. Surrogates that preserve selected marginal or spectral properties while disrupting phase structure or temporal ordering substantially reduce performance, supporting the conclusion that SMR depends on structured temporal and cross-channel organization rather than on marginal statistics alone. These results position SMR as an interpretable framework for quantifying the balance between local and distributed information in recordings.",
+      "authors": [
+        "Maryam Ostadsharif Memar",
+        "Nima Dehghani"
+      ],
+      "primary_category": "q-bio.NC",
+      "categories": [
+        "q-bio.NC",
+        "cs.LG",
+        "physics.data-an",
+        "q-bio.QM"
+      ],
+      "published": "2026-06-09T20:05:44+00:00",
+      "link": "https://arxiv.org/pdf/2606.11415v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:neural-ode"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "introduces a regression method for analyzing electrophysiological recordings (e.g., EEG) to decode local vs. distributed signal components",
+      "llm_evidence_cn": "提出一种空间掩码回归方法，用于分析电生理记录（如EEG）以解码信号中的局部与分布式成分",
+      "llm_evidence": "提出一种空间掩码回归方法，用于分析电生理记录（如EEG）以解码信号中的局部与分布式成分",
+      "canonical_evidence": "提出一种空间掩码回归方法，用于分析电生理记录（如EEG）以解码信号中的局部与分布式成分",
+      "llm_tldr_en": "Spatially Masked Regression (SMR) reconstructs each electrode's timeseries from others while masking a neighborhood, revealing how much signal is local vs. distributed. Useful for EEG decoding analysis.",
+      "llm_tldr_cn": "神经网络记录通常被视为局部测量，但信号也可能反映分布式活动。本文提出空间掩码回归（SMR）框架，通过从其他电极重建每个电极的时间序列并逐渐增大掩码，量化信号中局部与分布式成分的比例。该方法有助于理解EEG信号的来源，为EEG解码提供新的分析工具。",
+      "llm_tldr": "神经网络记录通常被视为局部测量，但信号也可能反映分布式活动。本文提出空间掩码回归（SMR）框架，通过从其他电极重建每个电极的时间序列并逐渐增大掩码，量化信号中局部与分布式成分的比例。该方法有助于理解EEG信号的来源，为EEG解码提供新的分析工具。",
+      "llm_tags": [
+        "query:eeg-ode-ln"
+      ],
+      "matched_query_tag": "query:eeg-ode-ln",
+      "matched_query_text": "EEG signal decoding methods",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.12362v1",
+      "source": "arxiv",
+      "title": "Latent World Recovery for Multimodal Learning with Missing Modalities",
+      "abstract": "We study multimodal learning under missing modalities, with particular motivation from bioscience applications in which heterogeneous modalities are often only partially available when decisions need to be made. We propose Latent World Recovery (LWR), a framework built on two key ideas: (i) modality-specific embeddings from different modalities are aligned in a shared latent space, and (ii) a unified representation is constructed by fusing only the embeddings of the modalities that are actually available at both training and inference time. Rather than imputing missing modalities or requiring a fixed modality set, LWR treats each modality as a partial perception of an underlying latent state and performs availability-aware representation learning directly from the observed modalities. This combination of neighbor-based latent alignment and availability-aware modality fusion enables robust multimodal prediction under partial observation, while avoiding error propagation from explicit reconstruction of missing modalities. We evaluate the proposed framework on real-world incomplete multi-omics benchmarks and demonstrate that it provides an effective approach to downstream tasks such as cancer phenotype classification and survival prediction.",
+      "authors": [
+        "Hui Wang",
+        "Tianyu Ren",
+        "Joseph Butler",
+        "Christopher Baker",
+        "Karen Rafferty",
+        "Simon McDade"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.AI"
+      ],
+      "published": "2026-06-10T17:31:34+00:00",
+      "link": "https://arxiv.org/pdf/2606.12362v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "query:EEG-ODE-LN",
+        "query:multi-modal",
+        "query:neural-ode"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Proposes Latent World Recovery for multimodal learning with missing modalities via latent alignment and availability-aware fusion",
+      "llm_evidence_cn": "提出潜在世界恢复框架，通过对齐潜空间和可用性感知融合实现缺失模态下的多模态学习",
+      "llm_evidence": "提出潜在世界恢复框架，通过对齐潜空间和可用性感知融合实现缺失模态下的多模态学习",
+      "canonical_evidence": "提出潜在世界恢复框架，通过对齐潜空间和可用性感知融合实现缺失模态下的多模态学习",
+      "llm_tldr_en": "Latent World Recovery aligns modality-specific embeddings in a shared space and fuses only available modalities, enabling multimodal learning with missing modalities at train and test time.",
+      "llm_tldr_cn": "多模态学习常在决策时部分模态缺失。本文提出潜在世界恢复框架，将模态特定嵌入对齐到共享潜在空间，并在训练和推理时仅融合实际存在的模态，无需插补或固定模态集合。该方法在多个生物科学数据集上表现鲁棒，优于现有插补方法。",
+      "llm_tldr": "多模态学习常在决策时部分模态缺失。本文提出潜在世界恢复框架，将模态特定嵌入对齐到共享潜在空间，并在训练和推理时仅融合实际存在的模态，无需插补或固定模态集合。该方法在多个生物科学数据集上表现鲁棒，优于现有插补方法。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "multimodal learning methods",
+      "matched_requirement_id": "req-24",
+      "selection_source": "carryover_cache",
+      "paper_id": "2606.12362v1"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2606.08511v1",
+      "source": "arxiv",
+      "title": "Look Less, Reason More: Block-wise Attention Skipping for Efficient Multimodal LLMs",
+      "abstract": "Multimodal Large Language Models (MLLMs) face a significant inference bottleneck due to the quadratic computational cost of self-attention over long visual token sequences. However, we identify a critical inefficiency in current architectures: Visual Attention Saturation. Our analysis reveals that visual tokens rapidly establish their spatial structure and intra-modal relationships in early layers, rendering visual-to-visual self-attention in deeper layers computationally redundant. Conversely, Feed-Forward Networks (FFNs) in these layers remain essential for projecting visual features into the evolving textual semantic space. Leveraging this insight, we present Visual-Skip (V-Skip), a training-free inference paradigm that decouples spatial interaction from semantic evolution. Rather than discarding tokens, V-Skip imposes block-wise structured sparsity by selectively bypassing saturated visual self-attention modules. Furthermore, recognizing that varying downstream tasks demand distinct reasoning depths, V-Skip employs a lightweight, few-shot calibration to dynamically route the task-optimal sparsity path. Extensive experiments demonstrate that V-Skip effectively bypasses redundant vision attention to achieve block-wise sparsity, maintaining a 94.16% to 100.31% performance retention across diverse MLLMs. Ultimately, we prove that to reason more effectively, models do not need to discard what they see -- they simply need to \"look less\" at the right depth.",
+      "authors": [
+        "Jie Ma",
+        "Zhike Qiu",
+        "Jiayi Ji",
+        "Xiaoshuai Sun",
+        "Rongrong Ji"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-06-07T08:32:13+00:00",
+      "link": "https://arxiv.org/pdf/2606.08511v1",
+      "tags": [
+        "keyword:multi-modal",
+        "query:multi-modal"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "multimodal fusion and efficient MLLM inference",
+      "llm_evidence_cn": "多模态融合与高效多模态大语言模型推理",
+      "llm_evidence": "多模态融合与高效多模态大语言模型推理",
+      "canonical_evidence": "多模态融合与高效多模态大语言模型推理",
+      "llm_tldr_en": "This paper identifies visual attention saturation in MLLMs and proposes Visual-Skip, a training-free method that skips redundant visual self-attention in deep layers, reducing inference cost without sacrificing performance.",
+      "llm_tldr_cn": "该研究指出多模态大语言模型中视觉注意力存在饱和现象：视觉令牌在早期层已建立空间结构，深层视觉自注意力冗余。提出Visual-Skip训练自由推理范式，跳过深层视觉自注意力，保留前馈网络，在保持性能的同时显著降低推理成本，为高效多模态模型提供了新思路。",
+      "llm_tldr": "该研究指出多模态大语言模型中视觉注意力存在饱和现象：视觉令牌在早期层已建立空间结构，深层视觉自注意力冗余。提出Visual-Skip训练自由推理范式，跳过深层视觉自注意力，保留前馈网络，在保持性能的同时显著降低推理成本，为高效多模态模型提供了新思路。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "techniques for multimodal fusion",
+      "matched_requirement_id": "req-21",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "2606.08906v1",
+      "source": "arxiv",
+      "title": "DifferSeg: Towards Diverse Multimodal Binary Segmentation via Differential Perception and Frequency Guidance",
+      "abstract": "In many binary segmentation tasks, most multimodal methods rely on fixed feature concatenation for cross-modal interaction and straightforward decoder designs dominated by low-frequency semantics. %ToDO: % However, they ignore two key challenges: one is the lack of an adaptive mechanism to handle modality discrepancies and complementarity, and the other is the absence of an efficient decoding strategy to balance both high- and low-frequency representations. % In this work, we propose a simple yet general multimodal binary segmentation framework, termed DifferSeg, to address both problems simultaneously. With the help of the differential perception fusion (DPF) module, DifferSeg employs learnable differential operators to adaptively align multimodal features and enhance their complementarity through residual fusion, effectively mitigating modality mismatch and fusion redundancy. % In addition, we design a frequency-guided decoder (FGD) that builds cross-frequency interactions and multi-path upsampling to maintain consistency between detailed high-frequency structures and semantic low-frequency representations, ensuring fine-grained boundary recovery and noise suppression. % Benefiting from these designs, DifferSeg can be easily generalized to diverse binary segmentation tasks, including both natural and medical modalities. Without bells and whistles, it consistently surpasses 67 state-of-the-art methods across 29 public datasets involving 18 downstream tasks, demonstrating superior generalization and segmentation accuracy.Code and pretrained models will be available at the Link.",
+      "authors": [
+        "Qiangqiang Zhou",
+        "Jiawei Xu",
+        "Yong Chen",
+        "Dandan Zhu",
+        "Yugen Yi",
+        "Xiaoqi Zhao"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-06-08T01:10:36+00:00",
+      "link": "https://arxiv.org/pdf/2606.08906v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:multi-modal",
+        "query:neural-ode"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "introduces a differential perception fusion module for multimodal binary segmentation, contributing to multimodal fusion techniques",
+      "llm_evidence_cn": "提出用于多模态二值分割的差分感知融合模块，贡献于多模态融合技术",
+      "llm_evidence": "提出用于多模态二值分割的差分感知融合模块，贡献于多模态融合技术",
+      "canonical_evidence": "提出用于多模态二值分割的差分感知融合模块，贡献于多模态融合技术",
+      "llm_tldr_en": "DifferSeg uses learnable differential operators for adaptive cross-modal interaction in multimodal binary segmentation. Addresses modality discrepancy and frequency balance. General framework effective across tasks.",
+      "llm_tldr_cn": "多模态二值分割中，固定特征拼接和低频主导的解码器存在局限。本文提出DifferSeg框架，通过差分感知融合模块自适应处理模态差异，并利用频率引导的平衡策略。该框架通用且有效，在多个分割任务上取得优异性能。",
+      "llm_tldr": "多模态二值分割中，固定特征拼接和低频主导的解码器存在局限。本文提出DifferSeg框架，通过差分感知融合模块自适应处理模态差异，并利用频率引导的平衡策略。该框架通用且有效，在多个分割任务上取得优异性能。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "techniques for multimodal fusion",
+      "matched_requirement_id": "req-21",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.07985v1",
+      "source": "arxiv",
+      "title": "FMRFusion: Frequency-Aware Multi-View Representation Learning for Heterogeneous Image Fusion",
+      "abstract": "Infrared and visible image fusion aims to generate a composite image that retains significant target information and preserves detailed textures, integrating two heterogeneous modalities. Previous image fusion methods typically adopt a single-module stacking approach to extract features from the two modalities. However, these approaches may result in incomplete learning of their distinct characteristics, thereby limiting the fusion effectiveness and constrain ing robustness in real-world heterogeneous data scenarios. To address these challenges, we propose FMRFusion, a frequency-aware multi-view representation learning network for Heterogeneous Image Fusion. A Multi-Scale Struc tural Perception Module is introduced to effectively capture discriminative structures, extracting fine-grained local structures and essential contextual information. A bilinear frequency decomposition mechanism is employed to sepa rate features into high-frequency and low-frequency components, enabling joint modeling of local details and global representations across different frequency domains. Moreover, a Cross-View Complementary Interaction is incorpo rated to explicitly model and fuse the complementary characteristics between reflected light information and radiative intensity responses, facilitating effective cross-view interaction. We further improve the Performance of the fused results by flow matching, which progressively refines the fused features by learning the transformation from coarse data to high-quality representations. Extensive experiments conducted on multiple benchmark datasets demonstrate that FMRFusion achieves superior and consistent performance across a range of fusion tasks, especially in nighttime scenarios",
+      "authors": [
+        "Tao Zhoua",
+        "Yunlong Liu",
+        "Qinghui Chen",
+        "Zekai Zhang",
+        "Minlong Sun",
+        "Changlin Biana",
+        "Dagang Li",
+        "Wenmin Wang",
+        "Jinglin Zhang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.CL"
+      ],
+      "published": "2026-06-06T05:23:06+00:00",
+      "link": "https://arxiv.org/pdf/2606.07985v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:multi-modal",
+        "query:neural-ode"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "multimodal image fusion technique",
+      "llm_evidence_cn": "多模态图像融合技术",
+      "llm_evidence": "多模态图像融合技术",
+      "canonical_evidence": "多模态图像融合技术",
+      "llm_tldr_en": "Proposes FMRFusion, a frequency-aware multi-view representation learning network for fusing infrared and visible images, improving fusion quality and robustness.",
+      "llm_tldr_cn": "现有红外与可见光图像融合方法未能充分学习不同模态的独特特征，导致融合效果受限。本文提出FMRFusion，一种频率感知多视图表示学习网络，通过多尺度结构感知模块增强特征提取。在公共数据集上，该方法在融合质量和鲁棒性上优于现有技术，为异质图像融合提供了新思路。",
+      "llm_tldr": "现有红外与可见光图像融合方法未能充分学习不同模态的独特特征，导致融合效果受限。本文提出FMRFusion，一种频率感知多视图表示学习网络，通过多尺度结构感知模块增强特征提取。在公共数据集上，该方法在融合质量和鲁棒性上优于现有技术，为异质图像融合提供了新思路。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "techniques for multimodal fusion",
+      "matched_requirement_id": "req-21",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2606.09907v1",
+      "source": "arxiv",
+      "title": "LongMoE: Longitudinal Multimodal Learning via Trajectory-Aware Mixture-of-Experts",
+      "abstract": "Multimodal clinical learning is increasingly important for integrating diverse patient data, including imaging, text, and personalised health records. However, it faces two fundamental challenges: i) modality missingness, where arbitrary subsets of modalities are unavailable at a given patient visit, ii) longitudinal dynamics, where the diagnostic significance of an observation depends on the patient's evolving disease trajectory over time. Existing methods address these challenges in isolation: missing-modality frameworks treat each visit as an independent static snapshot and discard temporal context, while longitudinal models often assume complete modality availability and degrade under systematic modality incompleteness. We propose LongMoE (Longitudinal Mixture-of-Experts), the unified framework to jointly address both challenges. LongMoE combines a context-aware imputation module with an attentional tokenization module that captures frequency-domain temporal patterns across irregular visit sequences, a trajectory-aware encoder for modeling disease progression, and context-conditioned Sparse MoE routing for patient-specific expert selection. Experiments on ADNI, OASIS-3, and MIMIC-IV show that LongMoE improves robustness under missing or weak contemporaneous modalities and remains competitive in full-modality settings, establishing a strong foundation for longitudinally-aware multimodal clinical learning.",
+      "authors": [
+        "Maxx Richard Rahman",
+        "Prakhar Kumar",
+        "Wolfgang Maass"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.AI"
+      ],
+      "published": "2026-06-06T07:50:41+00:00",
+      "link": "https://arxiv.org/pdf/2606.09907v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:multi-modal",
+        "query:neural-ode"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Multimodal learning with missing modalities and longitudinal data",
+      "llm_evidence_cn": "处理缺失模态和纵向数据的多模态学习",
+      "llm_evidence": "处理缺失模态和纵向数据的多模态学习",
+      "canonical_evidence": "处理缺失模态和纵向数据的多模态学习",
+      "llm_tldr_en": "This paper introduces LongMoE, a trajectory-aware mixture-of-experts model for longitudinal multimodal clinical learning that handles both modality missingness and temporal dynamics.",
+      "llm_tldr_cn": "该文提出LongMoE，一种轨迹感知的混合专家模型，用于纵向多模态临床学习。它同时处理模态缺失和疾病随时间演变的问题，通过专家网络建模不同时间点的模态交互。实验证明在真实临床数据集上优于现有方法。为多模态时序融合提供了新思路。",
+      "llm_tldr": "该文提出LongMoE，一种轨迹感知的混合专家模型，用于纵向多模态临床学习。它同时处理模态缺失和疾病随时间演变的问题，通过专家网络建模不同时间点的模态交互。实验证明在真实临床数据集上优于现有方法。为多模态时序融合提供了新思路。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "multimodal learning methods",
+      "matched_requirement_id": "req-24",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "2606.09189v1",
+      "source": "arxiv",
+      "title": "Pretrained, Frozen, Still Leaking: Auditing Cross-Encoder Attribute Transfer in EEG Foundation Models",
+      "abstract": "EEG foundation-model releases are usually audited one endpoint at a time: raw-reconstruction, membership inference, identity linkage, or DP-SGD on the downstream head. We audit the same released embeddings under all four endpoints jointly, on BIOT, LaBraM, and EEGPT, and show that each single-endpoint audit clears releases that still leak spectral attributes. The decisive evidence is a cross-encoder transfer audit: a single ridge attribute decoder learned from one frozen encoder transfers, via a fitted linear bridge, to held-out-subject test splits of every other encoder, with subject-disjoint matched-control 95% CI lower bound at least 0.081 across all six BIOT/LaBraM/EEGPT directions. We prove a sufficient condition: two encoders sharing a nontrivial attribute-coordinate projector overlap beta admit a chained ridge bridge attacker with centered-gain lower bound sqrt(beta/(1+tau^2)) - eps_br - rho_0, and back-solve beta in [0.008, 0.198]. To turn the joint audit into a deployment-readable decision rule we introduce an audit-endpoint disagreement score (AEDS), prove sufficient conditions for its positivity, and bootstrap-calibrate it per cell; AEDS is positive in all eight matched-CI cells (BIOT/LaBraM/EEGPT on EEGMMI; LaBraM on Sleep-EDF, 54-channel LIMO, CHB-MIT pediatric scalp EEG) with p<0.001, while a head-level Carlini LiRA membership audit reaches AUC only 0.50-0.70. Standard defenses fail under audit: a Wiener-style noise-aware adaptive attacker, the LiRA audit, and DP-SGD at every utility-preserving epsilon in {4,8} leave the attribute channel essentially unchanged. The contribution is an audit framework that turns scattered single-endpoint defenses into a joint release decision, supported by a cross-encoder bridge theorem and adaptive-attacker, LiRA, and DP-SGD baselines; the audit licenses release-blocking, not raw-waveform exfiltration or held-out-subject identity recovery.",
+      "authors": [
+        "Jianwei Tai"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-06-08T08:24:03+00:00",
+      "link": "https://arxiv.org/pdf/2606.09189v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:neural-ode"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Audits EEG foundation models (BIOT,LaBraM,EEGPT) revealing attribute leakage",
+      "llm_evidence_cn": "审计EEG基础模型（BIOT、LaBraM、EEGPT），揭示属性泄露风险",
+      "llm_evidence": "审计EEG基础模型（BIOT、LaBraM、EEGPT），揭示属性泄露风险",
+      "canonical_evidence": "审计EEG基础模型（BIOT、LaBraM、EEGPT），揭示属性泄露风险",
+      "llm_tldr_en": "This paper audits EEG foundation models under multiple endpoints, showing single-endpoint audits miss spectral attribute leakage via cross-encoder transfer.",
+      "llm_tldr_cn": "本文联合审计了BIOT、LaBraM和EEGPT等多个EEG基础模型的多个端点，发现单一端点审计会遗漏频谱属性的泄露。通过跨编码器迁移审计，证明一个编码器训练的属性解码器可线性桥接到其他编码器，揭示了现有审计方法的不足。",
+      "llm_tldr": "本文联合审计了BIOT、LaBraM和EEGPT等多个EEG基础模型的多个端点，发现单一端点审计会遗漏频谱属性的泄露。通过跨编码器迁移审计，证明一个编码器训练的属性解码器可线性桥接到其他编码器，揭示了现有审计方法的不足。",
+      "llm_tags": [
+        "query:eeg-ode-ln"
+      ],
+      "matched_query_tag": "query:eeg-ode-ln",
+      "matched_query_text": "EEG signal decoding methods",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "biorxiv-10-64898-2026-06-03-729902-v1",
+      "source": "biorxiv",
+      "title": "Iterative Spatial Resolution Enhancement in Imaging Mass Spectrometry via Hydrogel Tissue Expansion and Multimodal Image Fusion",
+      "abstract": "The pixel size of imaging mass spectrometry (IMS) is fundamentally limited by several factors, including the diameter of the incident probe and the raster step size of the sample stage. We have previously demonstrated that hydrogel-based tissue expansion, originally developed for microscopy (ExM), can also be adapted for imaging mass spectrometry to physically magnify the size of the tissue. Expansion imaging mass spectrometry (ExIMS) uses a superabsorbent hydrogel to isotropically expand thin tissue sections, which can then be sampled via imaging mass spectrometry, resulting in improved effective spatial resolution. Separately, multimodal image fusion has been used to computationally upsample the effective spatial resolution in imaging mass spectrometry by predictively mapping mass spectrometric intensity values to the smaller diameter pixel sizes of a microscopy image of the same tissue section. Here, we present ExFusion, a unified workflow that combines these two approaches by computationally fusing structurally detailed fluorescent ExM and chemically detailed lipid ExIMS data obtained from the same 9.4-fold expanded mouse brain tissue. Following a 10-fold upsampling from image fusion, multimodal expansion image fusion enabled prediction of MS images at a [~]106 nm pixel size on a commercial mass spectrometer using a 10 m raster step size. At this resolution, lipids in the Purkinje cells of the cerebellum are clearly defined with intracellular distributions.",
+      "authors": [
+        "Mayo, E.",
+        "Samuel, J. M.",
+        "Guo, Y.",
+        "Ciccone, A. B.",
+        "Liang, Z.",
+        "Prentice, B. M."
+      ],
+      "primary_category": "biochemistry",
+      "categories": [
+        "biochemistry"
+      ],
+      "published": "2026-06-08T00:00:00+00:00",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.06.03.729902v1.full.pdf",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "keyword:neural-ode",
+        "query:neural-ode"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "multimodal image fusion for resolution enhancement",
+      "llm_evidence_cn": "多模态图像融合用于分辨率增强",
+      "llm_evidence": "多模态图像融合用于分辨率增强",
+      "canonical_evidence": "多模态图像融合用于分辨率增强",
+      "llm_tldr_en": "Combines hydrogel tissue expansion with multimodal image fusion to iteratively enhance spatial resolution in imaging mass spectrometry overcoming physical pixel size limits.",
+      "llm_tldr_cn": "成像质谱的像素大小受限于探针直径和步长。该论文结合水凝胶组织膨胀（ExIMS）和多模态图像融合技术，先通过水凝胶物理放大组织切片，再利用多模态融合计算上采样，迭代提高有效空间分辨率。该方法将物理膨胀与计算融合相结合，克服了传统仪器分辨率瓶颈。",
+      "llm_tldr": "成像质谱的像素大小受限于探针直径和步长。该论文结合水凝胶组织膨胀（ExIMS）和多模态图像融合技术，先通过水凝胶物理放大组织切片，再利用多模态融合计算上采样，迭代提高有效空间分辨率。该方法将物理膨胀与计算融合相结合，克服了传统仪器分辨率瓶颈。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "techniques for multimodal fusion",
+      "matched_requirement_id": "req-21",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2606.12223v1",
+      "source": "arxiv",
+      "title": "Characterization of Speech Imagery in Scalp EEG and Comparison with Motor Imagery",
+      "abstract": "SSpeech imagery is attractive as a brain-computer interface paradigm for communication because it is endogenous and intrinsically linguistic. Yet despite growing interest, its dominant scalp-EEG spatiotemporal characteristics remain poorly characterized. Here, we asked how speech imagery appears in scalp EEG and compared it against finger motor imagery. Using a within-subject dataset containing speech imagery, finger motor imagery, and no-task trials recorded under the same trial structure, we analyzed band-power dynamics across channels and time. Finger motor imagery showed the expected contralateral mu/alpha and low-beta desynchronization over sensorimotor areas, whereas speech imagery showed a weaker, more distributed alpha-dominant increase. After normalization to each condition's own post-trial interval, the speech-related alpha increase changed only modestly after cue onset, indicating that much of the speech-versus-no-task difference was already present during the instruction period. A classifier discriminating imagery from no-task reached mean balanced accuracies of 0.563 $\\pm$ 0.072 for speech imagery and 0.718 $\\pm$ 0.127 for motor imagery, with a stronger alpha/beta dependence for motor imagery than for speech imagery. Together, these results provide a clearer group-level characterization of speech imagery in scalp EEG and indicate that its dominant spatiotemporal pattern differs from that of finger motor imagery and is more consistent with substantial non-articulatory task-related contributions than with a clear articulatory-motor analogue.",
+      "authors": [
+        "Bob Van Dyck",
+        "Liuyin Yang",
+        "Qiang Sun",
+        "Ang Li",
+        "Marc M. Van Hulle"
+      ],
+      "primary_category": "eess.SP",
+      "categories": [
+        "eess.SP"
+      ],
+      "published": "2026-06-10T15:34:33+00:00",
+      "link": "https://arxiv.org/pdf/2606.12223v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "query:EEG-ODE-LN"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "EEG speech imagery decoding; BCI for communication",
+      "llm_evidence_cn": "EEG语言想象解码;用于交流的BCI",
+      "llm_evidence": "EEG语言想象解码;用于交流的BCI",
+      "canonical_evidence": "EEG语言想象解码;用于交流的BCI",
+      "llm_tldr_en": "Characterizes scalp-EEG patterns of speech imagery vs motor imagery, revealing weaker distributed alpha-dominant responses, aiding BCI communication.",
+      "llm_tldr_cn": "该论文研究了头皮EEG中语言想象的特征，并与手指运动想象进行了对比。结果显示语言想象表现出较弱的、分布更广的alpha主导增强模式，而运动想象则呈现典型的对侧mu/alpha和低beta去同步。这些发现为基于语言想象的脑机接口（BCI）系统设计提供了重要的神经生理学基础，有助于开发更自然的交流范式。",
+      "llm_tldr": "该论文研究了头皮EEG中语言想象的特征，并与手指运动想象进行了对比。结果显示语言想象表现出较弱的、分布更广的alpha主导增强模式，而运动想象则呈现典型的对侧mu/alpha和低beta去同步。这些发现为基于语言想象的脑机接口（BCI）系统设计提供了重要的神经生理学基础，有助于开发更自然的交流范式。",
+      "llm_tags": [
+        "query:eeg-ode-ln:composite"
+      ],
+      "matched_query_tag": "query:eeg-ode-ln:composite",
+      "matched_query_text": "Papers central to 查找EEG解码（最好情绪识别）以及EEG+fNIRs多模态的文章, especially work that connects or combines: EEG signal decoding methods; multimodal EEG and fNIRS for brain activity decoding; affective computing using EEG; brain-computer interface for emotion; multimodal fusion of EEG and fNIRS; deep learning for EEG classification; Find papers on EEG decoding for emotion recognition; Search for multimodal EEG and fNIRS studies; EEG decoding for emotion recognition; multimodal EEG fNIRS studies.",
+      "matched_requirement_id": "req-composite-eeg-ode-ln",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "biorxiv-10-64898-2026-01-07-698228-v2",
+      "source": "biorxiv",
+      "title": "Successful single-session neural self-regulation through neurofeedback varies between features",
+      "abstract": "Neurofeedback (NFB) and Brain-Computer Interface (BCI) research seldom present within-session individual learning dynamics. This is even though a large proportion of NFB and BCI users cannot learn the neural self-regulation required to control the feedback. Understanding the time course and learning dynamics between subjects will enable us to design more effective NFB and BCI protocols that promote the learning of neural self-regulation. In this study, we aimed to analyze individual learning trajectories of self-regulation of four different cortical rhythms, in terms of both frequency and spatial selectivity. Twenty healthy subjects performed four sessions of NFB training, each session with feedback reflecting a different cortical rhythm as measured with an electroencephalogram. We specifically tested frontal midline (fm) Theta, occipital Alpha, unilateral centrotemporal sensorimotor rhythms (SMR), and central Beta. We show that all subjects were able to self-regulate at least two of these features, however, with varied specificity in the spatial and frequency domains. Unexpectedly, we show that none of the subjects succeeded in regulating fm Theta. Using a clustering approach, we identified two different learning dynamics among the learners across features: a linear increase/decrease and a non-linear plateau-like trajectory. This is the first NFB study employing an intra-subject cross-over experimental design, enabling the direct comparison of neural self-regulation between multiple features. Our results provide important insights into the \"non-learner\" problem, showing that it is not a feature-universal personal trait. We further show feature-specific spatial and frequency selectivity of neural self-regulation, providing important considerations for future NFB protocols.",
+      "authors": [
+        "Syrjänen, E.",
+        "Silva, J.",
+        "Astrand, E."
+      ],
+      "primary_category": "neuroscience",
+      "categories": [
+        "neuroscience"
+      ],
+      "published": "2026-06-10T00:00:00+00:00",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.01.07.698228v2.full.pdf",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "query:EEG-ODE-LN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "BCI neurofeedback learning dynamics analysis",
+      "llm_evidence_cn": "脑机接口神经反馈学习动态分析",
+      "llm_evidence": "脑机接口神经反馈学习动态分析",
+      "canonical_evidence": "脑机接口神经反馈学习动态分析",
+      "llm_tldr_en": "This paper analyzes individual learning trajectories of neural self-regulation across four cortical rhythms in a neurofeedback BCI setup, highlighting within-session variability.",
+      "llm_tldr_cn": "本研究分析健康受试者在神经反馈（BCI）训练中自我调节四种不同皮层节律的个体学习轨迹，揭示了个体间和节律间的学习动态差异，为设计更有效的BCI协议提供洞见。",
+      "llm_tldr": "本研究分析健康受试者在神经反馈（BCI）训练中自我调节四种不同皮层节律的个体学习轨迹，揭示了个体间和节律间的学习动态差异，为设计更有效的BCI协议提供洞见。",
+      "llm_tags": [
+        "query:eeg-ode-ln"
+      ],
+      "matched_query_tag": "query:eeg-ode-ln",
+      "matched_query_text": "brain-computer interface for emotion",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "biorxiv-10-64898-2026-06-04-729738-v1",
+      "source": "biorxiv",
+      "title": "Beyond the Forest and the Trees: Overlooking the Overlooked Terrain of Neural State Dynamics",
+      "abstract": "State-transition approaches, including EEG microstate analysis and related fMRI methods such as hidden Markov models (HMMs) and co-activation pattern (CAP) analysis, provide widely used tools for coarse-graining neural dynamics into a small set of quasi-stable states. Its utility has been demonstrated across resting-state and task paradigms, with broad applications ranging from cognitive neuroscience to candidate biomarkers for psychiatric and neurological disorders. A fundamental limitation remains, however: nearly all downstream temporal measures are conditional on the template maps defined at the outset. In the conventional pipeline, templates are derived from polarity-invariant clustering of voltage maps at global field power (GFP) peaks, making the resulting state definitions sensitive to preprocessing, sampling, initialization, clustering algorithms, and the choice of cluster number. Consequently, the method captures coarse regularities in EEG dynamics, while only weakly constraining the larger geometric organization from which those states emerge. This template dependence poses a major challenge for reproducibility and for comparisons across studies and EEG caps. Here, we revisit this problem from a topological-geometric perspective. We treat templates not as cluster centroids extracted from GFP-peak maps, but as landmarks embedded in the global structure of a state space constructed from mutual similarities among scalp voltage maps. In this formulation, microstate templates are rediscovered as discrete representatives of dominant axes that organize continuous neural-state topography. This reformulation preserves polarity as a meaningful geometric relation instead of eliminating it at the outset as analytical redundancy. It also shifts attention from isolated state labels to the terrain of the state space itself: the broader relational structure within which local states become interpretable. Using this approach, we show that landmark-based state definitions outperform conventional templates in capturing state structure and improving analytical performance. These findings suggest that the central problem in EEG microstate analysis is broader than clustering optimization: it concerns how to define valid nodes for coarse-graining continuous dynamics without discarding the topology that organizes them. By shifting the conceptual basis of microstate analysis from templates to landmarks, the present approach provides a more principled and potentially more stable foundation for state definition, including in fMRI. This topolo-geometric reappraisal extends conventional microstate analysis and opens a path toward more unified comparisons across datasets, paradigms, and recording systems.",
+      "authors": [
+        "Asai, T.",
+        "Kashihara, S.",
+        "Chiyohara, S."
+      ],
+      "primary_category": "neuroscience",
+      "categories": [
+        "neuroscience"
+      ],
+      "published": "2026-06-09T00:00:00+00:00",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.06.04.729738v1.full.pdf",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:multi-modal",
+        "query:neural-ode"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "EEG microstate analysis method",
+      "llm_evidence_cn": "EEG微状态分析方法",
+      "llm_evidence": "EEG微状态分析方法",
+      "canonical_evidence": "EEG微状态分析方法",
+      "llm_tldr_en": "This paper reviews EEG microstate analysis and related state-transition methods, highlighting a fundamental limitation of template dependence.",
+      "llm_tldr_cn": "本文综述了EEG微状态分析及基于状态转换的神经动力学方法，指出其核心局限在于所有下游时间测量依赖于初始模板定义。该工作为改进EEG信号解码中的状态动力学分析提供了重要方向。",
+      "llm_tldr": "本文综述了EEG微状态分析及基于状态转换的神经动力学方法，指出其核心局限在于所有下游时间测量依赖于初始模板定义。该工作为改进EEG信号解码中的状态动力学分析提供了重要方向。",
+      "llm_tags": [
+        "query:eeg-ode-ln"
+      ],
+      "matched_query_tag": "query:eeg-ode-ln",
+      "matched_query_text": "EEG signal decoding methods",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2606.12303v1",
+      "source": "arxiv",
+      "title": "From 2D Grids to 1D Tokens: Reforming Shared Representations for Multimodal Image Fusion",
+      "abstract": "Multimodal image fusion aims to integrate complementary information from different modalities into a fused image that preserves rich local details while maintaining globally consistent appearance. Existing approaches build shared representations on 2D feature grids, which excel at modeling local structures but offer limited leverage over image-level global appearance factors. To balance these objectives, we introduce a compact 1D token interface based on a frozen pretrained image tokenizer for modeling non-local appearance/base factors. Rather than using the tokenizer as a reconstruction backbone, our design uses the 1D token space as a global carrier while retaining the 2D spatial pathway for local structure restoration. Specifically, we introduce Selective Token Editing (STE), which sparsely updates/replaces a small set of critical tokens, providing a lightweight mechanism to steer global appearance coherence while keeping the fusion backbone unchanged and avoiding extra losses. Experiments on four commonly used benchmarks show that our method achieves the best overall performance, with consistent, multi-metric improvements in both global coherence and local fidelity. Project page: https://zju-xyc.github.io/1D-Fusion-Project-Page/",
+      "authors": [
+        "Yuchen Xian",
+        "Yunqiu Xu",
+        "Yang He",
+        "Yi Yang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-06-10T16:40:18+00:00",
+      "link": "https://arxiv.org/pdf/2606.12303v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "keyword:neural-ode",
+        "query:multi-modal",
+        "query:neural-ode"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "multimodal image fusion with 1D tokens",
+      "llm_evidence_cn": "多模态图像融合采用1D令牌",
+      "llm_evidence": "多模态图像融合采用1D令牌",
+      "canonical_evidence": "多模态图像融合采用1D令牌",
+      "llm_tldr_en": "This paper proposes a multimodal image fusion method that uses a 1D token interface from a frozen pretrained image tokenizer to model global appearance, combined with a 2D spatial pathway for local details.",
+      "llm_tldr_cn": "本文提出一种多模态图像融合方法：利用冻结的预训练图像分词器生成紧凑的1D令牌接口建模全局外观因子，同时保留2D空间通路恢复局部结构，在多个融合任务上取得优势。",
+      "llm_tldr": "本文提出一种多模态图像融合方法：利用冻结的预训练图像分词器生成紧凑的1D令牌接口建模全局外观因子，同时保留2D空间通路恢复局部结构，在多个融合任务上取得优势。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "techniques for multimodal fusion",
+      "matched_requirement_id": "req-21",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "biorxiv-10-64898-2026-05-07-723671-v2",
+      "source": "biorxiv",
+      "title": "Source-space EEG functional connectivity and prediction of cognition in Parkinsons disease: No added benefit of individualized head models over standard templates",
+      "abstract": "Introduction: Cognitive decline is a major non-motor feature of Parkinson s disease (PD), but reliable and accessible biomarkers remain limited. Resting-state electroencephalography (EEG) is a promising candidate because it is low-cost, portable, and well suited to repeated assessment. Recent work has increasingly focused on source-space functional connectivity (FC) for the prediction of cognition. However, the influence of source modelling based on an individualized MRI-based head model relative to that based on standard template model is unknown. Methods: To compare these two source-space EEG FC methods, we analysed EEG data from the New Zealand Parkinson s Progression Programme, including 136 people with PD and 51 age-similar controls. Source space resting-state EEG, parcellated with the HCP-MMP1 atlas, was used to derive amplitude envelope correlation (AEC) and debiased weighted phase lag index (dwPLI) across six canonical frequency bands. The resulting twenty-four FC modalities were evaluated using six machine-learning regression algorithms within a nested cross-validation framework. Results: Theta-, alpha-, and beta-band FC showed the most consistent prediction of global cognition. The strongest performance was observed for theta- and alpha-band AEC and dwPLI features (max R2 = 0.170, 95% CI = 0.067-0.262; max r = 0.439, 95% CI = 0.328-0.537). Standard and individualized head models showed comparable predictive performance across nearly all modalities. The feature-importance neuroanatomical patterns for Cole-Anticevic networks were also similar between the two head-model options. Conclusions: We found that source-space resting-state EEG FC can predict cognitive performance in PD. The comparability of the two head models suggests that the more user-friendly and less resource-intensive standard template head model is sufficient for this purpose. This supports feasible, scalable, and clinically accessible EEG-based FC biomarkers of cognition in PD.",
+      "authors": [
+        "Tetereva, A.",
+        "Hall-McMaster, G.",
+        "Slater, N.",
+        "Harris, A.",
+        "Shoorangiz, R.",
+        "Le Heron, C.",
+        "Keenan, R.",
+        "Myall, D.",
+        "Pitcher, T.",
+        "Kirk, I.",
+        "Meissner, W.",
+        "Anderson, T.",
+        "Melzer, T.",
+        "Pat, N.",
+        "Dalrymple-Alford, J."
+      ],
+      "primary_category": "neuroscience",
+      "categories": [
+        "neuroscience"
+      ],
+      "published": "2026-06-11T00:00:00+00:00",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.05.07.723671v2.full.pdf",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:neural-ode"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "EEG signal decoding via source-space functional connectivity",
+      "llm_evidence_cn": "基于源空间功能连接的EEG信号解码",
+      "llm_evidence": "基于源空间功能连接的EEG信号解码",
+      "canonical_evidence": "基于源空间功能连接的EEG信号解码",
+      "llm_tldr_en": "This paper uses source-space EEG functional connectivity to predict cognition in Parkinson's disease, comparing individualized head models to standard templates and finding no added benefit.",
+      "llm_tldr_cn": "该研究利用源空间EEG功能连接预测帕金森病患者的认知功能，比较了个体化MRI头模型与标准模板对预测性能的影响。结果显示个体化头模型并未带来额外的预测优势，表明标准模板在临床EEG分析中足够有效。此工作为EEG信号解码在神经疾病中的应用提供了方法学参考。",
+      "llm_tldr": "该研究利用源空间EEG功能连接预测帕金森病患者的认知功能，比较了个体化MRI头模型与标准模板对预测性能的影响。结果显示个体化头模型并未带来额外的预测优势，表明标准模板在临床EEG分析中足够有效。此工作为EEG信号解码在神经疾病中的应用提供了方法学参考。",
+      "llm_tags": [
+        "query:eeg-ode-ln"
+      ],
+      "matched_query_tag": "query:eeg-ode-ln",
+      "matched_query_text": "EEG signal decoding methods",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "biorxiv-10-64898-2026-06-04-730221-v1",
+      "source": "biorxiv",
+      "title": "Critical dynamics in spontaneous EEG predict perturbational complexity in disorders of consciousness with measurable evoked responses",
+      "abstract": "Identifying which severely brain-injured patients retain the capacity for consciousness remains a major challenge in neurocritical care. The perturbational complexity index (PCI) provides a reliable assessment of consciousness capacity, but its reliance on transcranial magnetic stimulation and EEG (TMS-EEG) limits bedside scalability. PCI and brain criticality capture complementary dimensions of brain dynamics: PCI quantifies the complexity of the brains evoked response to perturbation, whereas criticality characterizes the intrinsic organization of spontaneous activity. Here, we tested whether resting-state EEG signatures of criticality predict PCImax in disorders of consciousness, extending prior findings from anesthesia to severe brain injury. In 26 patients with vascular, traumatic, or anoxic brain injury, multivariate criticality related features did not generalize PCImax prediction across the full heterogeneous cohort. However, criticality features predicted PCImax when analyses were restricted to non-anoxic patients and when restricting analyses to patients with non-zero PCImax values. These findings suggest that spontaneous criticality measures index the brains intrinsic dynamical regime that supports complex perturbational responses, while their correspondence with PCImax depends on whether the injured brain retains sufficient capacity to sustain large-scale evoked responses. Together, our results extend the relationship between resting-state criticality and evoked perturbational complexity to disorders of consciousness and support the development of stratified EEG measures in severe brain injury.",
+      "authors": [
+        "Newman, D.",
+        "Maschke, C.",
+        "O'Byrne, J.",
+        "Colombo, M. A.",
+        "Comanducci, A.",
+        "Casarotto, S.",
+        "Citerio, G.",
+        "Rosanova, M.",
+        "Massimini, M.",
+        "Jerbi, K.",
+        "Blain-Moraes, S."
+      ],
+      "primary_category": "neuroscience",
+      "categories": [
+        "neuroscience"
+      ],
+      "published": "2026-06-09T00:00:00+00:00",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.06.04.730221v1.full.pdf",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:neural-ode"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "EEG critical dynamics predict consciousness level",
+      "llm_evidence_cn": "EEG临界动力学预测意识水平",
+      "llm_evidence": "EEG临界动力学预测意识水平",
+      "canonical_evidence": "EEG临界动力学预测意识水平",
+      "llm_tldr_en": "Resting-state EEG criticality signatures predict perturbational complexity index in disorders of consciousness, offering bedside-scalable consciousness assessment.",
+      "llm_tldr_cn": "该论文探讨了静息态EEG的临界动力学特征能否预测意识障碍患者的扰动复杂度指数（PCI）。通过分析自发EEG的临界性指标，发现它们与PCI显著相关，从而提供了一种无需TMS的床边可扩展意识评估方法。这对于意识障碍的临床诊断具有重要意义。",
+      "llm_tldr": "该论文探讨了静息态EEG的临界动力学特征能否预测意识障碍患者的扰动复杂度指数（PCI）。通过分析自发EEG的临界性指标，发现它们与PCI显著相关，从而提供了一种无需TMS的床边可扩展意识评估方法。这对于意识障碍的临床诊断具有重要意义。",
+      "llm_tags": [
+        "query:eeg-ode-ln"
+      ],
+      "matched_query_tag": "query:eeg-ode-ln",
+      "matched_query_text": "EEG signal decoding methods",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "biorxiv-10-64898-2025-12-17-694588-v4",
+      "source": "biorxiv",
+      "title": "Single-trial Endpoint-summary Measures do not Capture P300 Coupling in the Visual Oddball Paradigm: a Pseudotrial-controlled, Cross-validated Study",
+      "abstract": "Single-trial analysis of event-related potentials promises access to the trial-to-trial variability that averaging discards, and many studies report early-window summary measures that covary with later component amplitudes. Such couplings can, however, arise from the temporal autocorrelation of continuous EEG rather than from stimulus-locked processing. We asked whether the conventional family of endpoint-summary measures those that collapse a time window to a single value, including mean amplitude, root-mean-square, variance, signal-complexity measures (permutation entropy, sample entropy, Lempel-Ziv complexity), and Hjorth parameters, captures genuine stimulus-locked information about P300 amplitude in the active visual oddball once autocorrelation is controlled. Analyzing the ERP CORE visual P3 dataset (N = 27; 1,084 trials, 213 target and 871 standard, with experimental condition as a covariate), we related each early-window (0-150 ms) measure to P300 amplitude at Pz and re-estimated every model on pseudotrials placed at random latencies in the same recording; the direction of change under this substitution, not the raw effect size, is the diagnostic. Cross-channel amplitude and energy couplings strengthened under pseudotrial substitution, indicating dependence on background structure. Large same-channel coupling (R2 {approx} 0.31) was unchanged under substitution and present at every electrode, including the eye channels, identifying it as general within-trial temporal continuity rather than a P300-specific process. Complexity measures carried near-zero population-level coupling but large, directionally split per-subject slopes. An independent dataset (different laboratory and hardware; same paradigm) reproduced the same-channel continuity result (N = 90 participants; 83 for pseudotrial fits) and the directionally split per-subject pattern across complexity measures. Endpoint-summary measures therefore do not capture consistent population-level P300 coupling once autocorrelation is controlled; the complexity family carries person-specific coupling that cancels at the population level, motivating analytic designs sensitive to individual differences.",
+      "authors": [
+        "Biber, E."
+      ],
+      "primary_category": "neuroscience",
+      "categories": [
+        "neuroscience"
+      ],
+      "published": "2026-06-11T00:00:00+00:00",
+      "link": "https://www.biorxiv.org/content/10.64898/2025.12.17.694588v4.full.pdf",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "query:EEG-ODE-LN"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "single-trial EEG decoding method for P300",
+      "llm_evidence_cn": "单试次EEG解码P300方法",
+      "llm_evidence": "单试次EEG解码P300方法",
+      "canonical_evidence": "单试次EEG解码P300方法",
+      "llm_tldr_en": "This paper evaluates whether single-trial endpoint-summary measures capture genuine stimulus-locked information in visual oddball EEG, concluding that temporal autocorrelation can produce false couplings.",
+      "llm_tldr_cn": "本研究探讨单试次事件相关电位分析中的端点汇总度量是否能真正捕捉刺激锁定的P300耦合。通过模拟试验控制和交叉验证，发现时间自相关可能导致虚假耦合，说明传统度量不可靠。",
+      "llm_tldr": "本研究探讨单试次事件相关电位分析中的端点汇总度量是否能真正捕捉刺激锁定的P300耦合。通过模拟试验控制和交叉验证，发现时间自相关可能导致虚假耦合，说明传统度量不可靠。",
+      "llm_tags": [
+        "query:eeg-ode-ln"
+      ],
+      "matched_query_tag": "query:eeg-ode-ln",
+      "matched_query_text": "EEG signal decoding methods",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "8plus"
+    }
+  ]
+}

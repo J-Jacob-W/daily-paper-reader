@@ -1,110 +1,22 @@
 {
-  "generated_at": "2026-06-11T22:36:48.560972+00:00",
-  "updated_date": "20260611",
+  "generated_at": "2026-06-12T22:14:31.079389+00:00",
+  "updated_date": "20260612",
   "carryover_days": 9,
   "tag_states": {
     "EEG-ODE-LN": {
-      "updated_date": "20260611",
+      "updated_date": "20260612",
       "carryover_days": 9,
       "items": []
     },
     "neural-ode": {
-      "updated_date": "20260611",
+      "updated_date": "20260612",
       "carryover_days": 9,
       "items": []
     },
     "multi-modal": {
-      "updated_date": "20260611",
+      "updated_date": "20260612",
       "carryover_days": 9,
-      "items": [
-        {
-          "id": "2606.12362v1",
-          "source": "arxiv",
-          "title": "Latent World Recovery for Multimodal Learning with Missing Modalities",
-          "abstract": "We study multimodal learning under missing modalities, with particular motivation from bioscience applications in which heterogeneous modalities are often only partially available when decisions need to be made. We propose Latent World Recovery (LWR), a framework built on two key ideas: (i) modality-specific embeddings from different modalities are aligned in a shared latent space, and (ii) a unified representation is constructed by fusing only the embeddings of the modalities that are actually available at both training and inference time. Rather than imputing missing modalities or requiring a fixed modality set, LWR treats each modality as a partial perception of an underlying latent state and performs availability-aware representation learning directly from the observed modalities. This combination of neighbor-based latent alignment and availability-aware modality fusion enables robust multimodal prediction under partial observation, while avoiding error propagation from explicit reconstruction of missing modalities. We evaluate the proposed framework on real-world incomplete multi-omics benchmarks and demonstrate that it provides an effective approach to downstream tasks such as cancer phenotype classification and survival prediction.",
-          "authors": [
-            "Hui Wang",
-            "Tianyu Ren",
-            "Joseph Butler",
-            "Christopher Baker",
-            "Karen Rafferty",
-            "Simon McDade"
-          ],
-          "primary_category": "cs.LG",
-          "categories": [
-            "cs.LG",
-            "cs.AI"
-          ],
-          "published": "2026-06-10T17:31:34+00:00",
-          "link": "https://arxiv.org/pdf/2606.12362v1",
-          "tags": [
-            "keyword:EEG-ODE-LN",
-            "keyword:multi-modal",
-            "query:EEG-ODE-LN",
-            "query:multi-modal",
-            "query:neural-ode"
-          ],
-          "llm_score": 8.0,
-          "llm_evidence_en": "Proposes Latent World Recovery for multimodal learning with missing modalities via latent alignment and availability-aware fusion",
-          "llm_evidence_cn": "提出潜在世界恢复框架，通过对齐潜空间和可用性感知融合实现缺失模态下的多模态学习",
-          "llm_evidence": "提出潜在世界恢复框架，通过对齐潜空间和可用性感知融合实现缺失模态下的多模态学习",
-          "canonical_evidence": "提出潜在世界恢复框架，通过对齐潜空间和可用性感知融合实现缺失模态下的多模态学习",
-          "llm_tldr_en": "Latent World Recovery aligns modality-specific embeddings in a shared space and fuses only available modalities, enabling multimodal learning with missing modalities at train and test time.",
-          "llm_tldr_cn": "多模态学习常在决策时部分模态缺失。本文提出潜在世界恢复框架，将模态特定嵌入对齐到共享潜在空间，并在训练和推理时仅融合实际存在的模态，无需插补或固定模态集合。该方法在多个生物科学数据集上表现鲁棒，优于现有插补方法。",
-          "llm_tldr": "多模态学习常在决策时部分模态缺失。本文提出潜在世界恢复框架，将模态特定嵌入对齐到共享潜在空间，并在训练和推理时仅融合实际存在的模态，无需插补或固定模态集合。该方法在多个生物科学数据集上表现鲁棒，优于现有插补方法。",
-          "llm_tags": [
-            "query:multi-modal"
-          ],
-          "matched_query_tag": "query:multi-modal",
-          "matched_query_text": "multimodal learning methods",
-          "matched_requirement_id": "req-24",
-          "selection_source": "carryover_cache",
-          "paper_id": "2606.12362v1",
-          "carry_days": 1
-        },
-        {
-          "id": "2606.12303v1",
-          "source": "arxiv",
-          "title": "From 2D Grids to 1D Tokens: Reforming Shared Representations for Multimodal Image Fusion",
-          "abstract": "Multimodal image fusion aims to integrate complementary information from different modalities into a fused image that preserves rich local details while maintaining globally consistent appearance. Existing approaches build shared representations on 2D feature grids, which excel at modeling local structures but offer limited leverage over image-level global appearance factors. To balance these objectives, we introduce a compact 1D token interface based on a frozen pretrained image tokenizer for modeling non-local appearance/base factors. Rather than using the tokenizer as a reconstruction backbone, our design uses the 1D token space as a global carrier while retaining the 2D spatial pathway for local structure restoration. Specifically, we introduce Selective Token Editing (STE), which sparsely updates/replaces a small set of critical tokens, providing a lightweight mechanism to steer global appearance coherence while keeping the fusion backbone unchanged and avoiding extra losses. Experiments on four commonly used benchmarks show that our method achieves the best overall performance, with consistent, multi-metric improvements in both global coherence and local fidelity. Project page: https://zju-xyc.github.io/1D-Fusion-Project-Page/",
-          "authors": [
-            "Yuchen Xian",
-            "Yunqiu Xu",
-            "Yang He",
-            "Yi Yang"
-          ],
-          "primary_category": "cs.CV",
-          "categories": [
-            "cs.CV"
-          ],
-          "published": "2026-06-10T16:40:18+00:00",
-          "link": "https://arxiv.org/pdf/2606.12303v1",
-          "tags": [
-            "keyword:EEG-ODE-LN",
-            "keyword:multi-modal",
-            "keyword:neural-ode",
-            "query:multi-modal",
-            "query:neural-ode"
-          ],
-          "llm_score": 8.0,
-          "llm_evidence_en": "multimodal image fusion using 1D token interface",
-          "llm_evidence_cn": "使用1D令牌接口的多模态图像融合",
-          "llm_evidence": "使用1D令牌接口的多模态图像融合",
-          "canonical_evidence": "使用1D令牌接口的多模态图像融合",
-          "llm_tldr_en": "Proposes a 1D token interface for multimodal image fusion that balances local detail and global appearance, using a frozen pretrained image tokenizer for global factors and a 2D pathway for local structure.",
-          "llm_tldr_cn": "现有多模态图像融合方法在2D特征网格上构建共享表示，难以平衡局部细节和全局外观。本文引入基于冻结预训练图像分词器的紧凑1D令牌接口作为全局载体，同时保留2D空间路径恢复局部结构。该方法在保持局部细节的同时有效建模非局部外观因素，实现了融合质量的提升。",
-          "llm_tldr": "现有多模态图像融合方法在2D特征网格上构建共享表示，难以平衡局部细节和全局外观。本文引入基于冻结预训练图像分词器的紧凑1D令牌接口作为全局载体，同时保留2D空间路径恢复局部结构。该方法在保持局部细节的同时有效建模非局部外观因素，实现了融合质量的提升。",
-          "llm_tags": [
-            "query:multi-modal"
-          ],
-          "matched_query_tag": "query:multi-modal",
-          "matched_query_text": "techniques for multimodal fusion",
-          "matched_requirement_id": "req-21",
-          "selection_source": "carryover_cache",
-          "paper_id": "2606.12303v1",
-          "carry_days": 1
-        }
-      ]
+      "items": []
     }
   }
 }
