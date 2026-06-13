@@ -1,0 +1,524 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-13T21:25:17.823005+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 3,
+    "deep_divecandidates": 6,
+    "deep_cap": 8,
+    "deep_selected": 6,
+    "quick_candidates": 6,
+    "quick_skim_target": 13,
+    "quick_selected": 6
+  },
+  "deep_dive": [
+    {
+      "id": "2606.06760v1",
+      "source": "arxiv",
+      "title": "MedSIGHT: Towards Grounded Visual Comprehension in Medical Large Vision-Language Models",
+      "abstract": "Medical large vision-language models (Med-LVLMs) have recently achieved remarkable progress in vision-language comprehension and medical image segmentation. However, existing models still struggle to unify these two capabilities, which is essential for achieving clinically reasoning that connects visual findings with semantic interpretation. We present MedSIGHT, a unified framework that equips Med-LVLMs with structured, pixel-level understanding for grounded visual comprehension. MedSIGHT introduces a novel Region Perceiver module that produces region-centric tokens, encoding spatial information directly into representation space of the language model. We further propose a medical region codebook into the LLM vocabulary, allowing the model to generate discrete region codes as symbolic representations of anatomical and pathological regions. These codes are decoded through the Region Perceiver to reconstruct segmentation mask, achieving end-to-end spatial grounding. Lastly, MedSIGHT combines Region Perceiver, Codebook and LLM using our proposed progressive training strategy to gradually aligns these modules stably. Trained on only 72K multimodal instruction pairs, MedSIGHT achieves state-of-the-art performance across diverse imaging modalities on both medical comprehension and segmentation tasks.",
+      "authors": [
+        "Aofei Chang",
+        "Le Huang",
+        "Alex James Boyd",
+        "Parminder Bhatia",
+        "Taha Kass-Hout",
+        "Fenglong Ma",
+        "Cao Xiao"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-06-04T22:54:59+00:00",
+      "link": "https://arxiv.org/pdf/2606.06760v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:multi-modal",
+        "query:neural-ode"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Medical vision-language model for grounded visual comprehension",
+      "llm_evidence_cn": "用于基础视觉理解的医学视觉语言模型",
+      "llm_evidence": "用于基础视觉理解的医学视觉语言模型",
+      "canonical_evidence": "用于基础视觉理解的医学视觉语言模型",
+      "llm_tldr_en": "MedSIGHT equips medical LVLMs with pixel-level understanding via a Region Perceiver and medical region codebook for grounded comprehension.",
+      "llm_tldr_cn": "该论文提出MedSIGHT框架，通过区域感知器模块和医学区域码本，将空间信息融入语言模型表示，实现医学图像的结构化像素级理解，统一了视觉定位和语义解释能力。",
+      "llm_tldr": "该论文提出MedSIGHT框架，通过区域感知器模块和医学区域码本，将空间信息融入语言模型表示，实现医学图像的结构化像素级理解，统一了视觉定位和语义解释能力。",
+      "llm_tags": [
+        "query:multi-modal:composite"
+      ],
+      "matched_query_tag": "query:multi-modal:composite",
+      "matched_query_text": "Papers central to 帮我找一些关于多模态语言模型或多模态融合的研究文章, especially work that connects or combines: multimodal language model research; techniques for multimodal fusion; vision language model architectures; learning cross modal representations; multimodal learning methods; multimodal alignment approaches; What are the latest advances in multimodal language models?; How is multimodal fusion achieved in deep learning?; Compare different architectures for vision language models.; Find papers on cross modal representation learning..",
+      "matched_requirement_id": "req-composite-multi-modal",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.10147v1",
+      "source": "arxiv",
+      "title": "From Senses to Decisions: The Information Flow of Auditory and Visual Perception in Multimodal LLMs",
+      "abstract": "Multimodal Large Language Models (MLLMs) can listen and see, but how do audio and visual signals actually travel through the network to shape an answer? Despite their growing role in research and real-world applications, the internal pathways through which audio and visual tokens influence the final prediction remain poorly understood. In this study, we examine audio-visual information flow inside Audio-Visual Large Language Models (AVLLMs), tracing how AVLLMs route, utilize, and integrate audio and visual information across two input configurations, audio-visual video and multiple interleaved audio-visual items. We find that for audio-visual video, AVLLMs follow the sequential information flow pathway established for VLMs and VideoLLMs, with audio and visual contribution flowing along this pathway in proportion to the task's reliance on each modality. In settings with multiple interleaved audio-visual items, this routing shifts to different parallel streams. Furthermore, we demonstrate that audio-visual and other token types can be discarded once their information is transferred to LLM, with minimal impact on the model's prediction or even slight improvement, generalizing across multiple tasks and datasets, enabling more efficient inference. These findings hold across multiple models and scales, Qwen2.5-Omni and Video-SALMONN2 Plus at 3B and 7B scales, leading to hypotheses on why these flow structures emerge. Together, these results deliver the first coherent picture of how AVLLMs orchestrate sound and sight inside the network and lay the groundwork for the next wave of interpretability, design, and efficiency advances in audio-visual and broader MLLMs.",
+      "authors": [
+        "Wish Suharitdamrong",
+        "Muhammad Awais",
+        "Xiatian Zhu",
+        "Sara Atito"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.CL",
+        "cs.CV",
+        "cs.SD"
+      ],
+      "published": "2026-06-08T20:26:09+00:00",
+      "link": "https://arxiv.org/pdf/2606.10147v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "query:EEG-ODE-LN",
+        "query:multi-modal"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "analyzes information flow in audio-visual LLMs",
+      "llm_evidence_cn": "分析音视频多模态大语言模型中的信息流",
+      "llm_evidence": "分析音视频多模态大语言模型中的信息流",
+      "canonical_evidence": "分析音视频多模态大语言模型中的信息流",
+      "llm_tldr_en": "Traces how audio and visual tokens influence predictions in AVLLMs, revealing sequential information flow pathways.",
+      "llm_tldr_cn": "本文研究音视频大语言模型（AVLLM）中听觉和视觉令牌如何影响最终预测。通过分析信息流，发现AVLLM遵循类似于视觉语言模型的信息传递通路，为理解多模态模型内部机制提供新视角。",
+      "llm_tldr": "本文研究音视频大语言模型（AVLLM）中听觉和视觉令牌如何影响最终预测。通过分析信息流，发现AVLLM遵循类似于视觉语言模型的信息传递通路，为理解多模态模型内部机制提供新视角。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "multimodal language model research",
+      "matched_requirement_id": "req-20",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.12223v1",
+      "source": "arxiv",
+      "title": "Characterization of Speech Imagery in Scalp EEG and Comparison with Motor Imagery",
+      "abstract": "SSpeech imagery is attractive as a brain-computer interface paradigm for communication because it is endogenous and intrinsically linguistic. Yet despite growing interest, its dominant scalp-EEG spatiotemporal characteristics remain poorly characterized. Here, we asked how speech imagery appears in scalp EEG and compared it against finger motor imagery. Using a within-subject dataset containing speech imagery, finger motor imagery, and no-task trials recorded under the same trial structure, we analyzed band-power dynamics across channels and time. Finger motor imagery showed the expected contralateral mu/alpha and low-beta desynchronization over sensorimotor areas, whereas speech imagery showed a weaker, more distributed alpha-dominant increase. After normalization to each condition's own post-trial interval, the speech-related alpha increase changed only modestly after cue onset, indicating that much of the speech-versus-no-task difference was already present during the instruction period. A classifier discriminating imagery from no-task reached mean balanced accuracies of 0.563 $\\pm$ 0.072 for speech imagery and 0.718 $\\pm$ 0.127 for motor imagery, with a stronger alpha/beta dependence for motor imagery than for speech imagery. Together, these results provide a clearer group-level characterization of speech imagery in scalp EEG and indicate that its dominant spatiotemporal pattern differs from that of finger motor imagery and is more consistent with substantial non-articulatory task-related contributions than with a clear articulatory-motor analogue.",
+      "authors": [
+        "Bob Van Dyck",
+        "Liuyin Yang",
+        "Qiang Sun",
+        "Ang Li",
+        "Marc M. Van Hulle"
+      ],
+      "primary_category": "eess.SP",
+      "categories": [
+        "eess.SP"
+      ],
+      "published": "2026-06-10T15:34:33+00:00",
+      "link": "https://arxiv.org/pdf/2606.12223v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "query:EEG-ODE-LN"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Characterization of speech imagery in scalp EEG and comparison with motor imagery",
+      "llm_evidence_cn": "头皮脑电中言语想象的特征描述及与运动想象的比较",
+      "llm_evidence": "头皮脑电中言语想象的特征描述及与运动想象的比较",
+      "canonical_evidence": "头皮脑电中言语想象的特征描述及与运动想象的比较",
+      "llm_tldr_en": "Characterizes scalp EEG patterns of speech imagery and compares with motor imagery, providing insights for BCI applications.",
+      "llm_tldr_cn": "本文系统刻画了言语想象任务在头皮脑电中的时频特征，并与手指运动想象进行对比。发现言语想象表现为更弱、更分散的α频段能量增强，而运动想象呈现经典的mu/α和低β去同步。该发现为基于言语想象的脑机接口设计提供了重要的神经生理基础。",
+      "llm_tldr": "本文系统刻画了言语想象任务在头皮脑电中的时频特征，并与手指运动想象进行对比。发现言语想象表现为更弱、更分散的α频段能量增强，而运动想象呈现经典的mu/α和低β去同步。该发现为基于言语想象的脑机接口设计提供了重要的神经生理基础。",
+      "llm_tags": [
+        "query:eeg-ode-ln"
+      ],
+      "matched_query_tag": "query:eeg-ode-ln",
+      "matched_query_text": "EEG signal decoding methods",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "biorxiv-10-64898-2026-06-05-730499-v2",
+      "source": "biorxiv",
+      "title": "Flexible neural encoding predicts the comprehension of degraded speech",
+      "abstract": "How listeners track a variable and continuous acoustic speech signal and parse it into meaningful linguistic representations is a question central to cognitive neuroscience. Moreover, the resilience of this process to acoustic signal degradation is not fully understood. The current study consists of a listening task wherein participants (n = 38) were presented with a naturalistic story whilst undergoing continuous electroencephalography (EEG). Critically, we manipulated access to speech information over two independent dimensions: Spectral clarity, which ranged from unprocessed to severely spectrally degraded; and language, which was either English, spoken by the participants, or Dutch, an incomprehensible language that is closely related to English. All stimuli were produced by the same bilingual speaker. We applied banded regression to model the neural response to a set of acoustic and linguistically derived features. We found that there is no single speech feature for which neural encoding reliably predicted speech understanding in individual listeners or conditions. Yet, differences in feature weights between experimental conditions can be combined into a composite score that strongly predicted individual subjective comprehension of spectrally degraded but linguistically accessible speech in data from held-out participant. Hence, the manner in which neural encoding flexibly adapts to listening context is associated with advantageous perceptual strategies for degraded speech. These findings underscore the complex interplay between low- and high-level features during speech listening and illustrate inter-condition differences in the neural encoding of these properties. Our results highlight natural variation within and between individuals in the encoding of acoustic and linguistic features which provides a potential pathway towards individualised assessment of clinical populations.",
+      "authors": [
+        "MacIntyre, A. D.",
+        "Goehring, T.",
+        "Davis, M. H."
+      ],
+      "primary_category": "neuroscience",
+      "categories": [
+        "neuroscience"
+      ],
+      "published": "2026-06-08T00:00:00+00:00",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.06.05.730499v2.full.pdf",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "query:EEG-ODE-LN",
+        "query:multi-modal"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "uses EEG to decode speech comprehension via neural encoding",
+      "llm_evidence_cn": "使用EEG通过神经编码解码语音理解",
+      "llm_evidence": "使用EEG通过神经编码解码语音理解",
+      "canonical_evidence": "使用EEG通过神经编码解码语音理解",
+      "llm_tldr_en": "Uses EEG recordings to predict degraded speech comprehension through flexible neural encoding models.",
+      "llm_tldr_cn": "本文利用EEG记录研究听众如何从退化语音中提取意义。通过操控频谱清晰度和语言可理解性，发现灵活神经编码可预测退化语音的理解程度，揭示听觉皮层对噪声语音的鲁棒解码机制。",
+      "llm_tldr": "本文利用EEG记录研究听众如何从退化语音中提取意义。通过操控频谱清晰度和语言可理解性，发现灵活神经编码可预测退化语音的理解程度，揭示听觉皮层对噪声语音的鲁棒解码机制。",
+      "llm_tags": [
+        "query:eeg-ode-ln"
+      ],
+      "matched_query_tag": "query:eeg-ode-ln",
+      "matched_query_text": "EEG signal decoding methods",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.11645v1",
+      "source": "arxiv",
+      "title": "Motion Reinforces Appearance: RGB-Skeleton Gated Residual Fusion for Micro-Gesture Online Recognition",
+      "abstract": "Micro-gesture analysis attracts increasing attention for inferring spontaneous emotion from subtle body movements. Micro-gesture online recognition, which localizes and classifies each gesture instance in untrimmed videos, is a core task in the 4th EI-MiGA-IJCAI Challenge. Compared with typical temporal action detection, MGR emphasizes the localization and classification of actions, requiring the model to output the start time, end time, and category of each micro-gesture. Moreover, since micro-gestures are highly spontaneous, relying solely on a single modality makes it difficult to capture the complete and accurate multi-modal cues. In this work, we propose DyFADet+, which extends DyFADet into a dual-stream RGB-skeleton framework. In our model, both modalities are projected into shared multi-scale temporal embeddings and fused through a gated residual module, which adaptively injects skeleton motion into the RGB representation rather than using naive concatenation. Finally, these fused features are decoded by a Dynamic TAD head for online classification and boundary regression. On the SMG dataset, our method achieves an F1 score of 40.88, ranking 2nd in the Micro-gesture Online Recognition track.",
+      "authors": [
+        "Jialin Liu",
+        "Xinwen He",
+        "Pengyu Liu",
+        "Jiale Shi",
+        "Huaijuan Zang",
+        "Yanbin Hao"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-06-10T04:12:36+00:00",
+      "link": "https://arxiv.org/pdf/2606.11645v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:multi-modal",
+        "query:neural-ode"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "RGB-skeleton gated residual fusion for multimodal micro-gesture recognition",
+      "llm_evidence_cn": "RGB-骨架门控残差融合用于多模态微手势识别",
+      "llm_evidence": "RGB-骨架门控残差融合用于多模态微手势识别",
+      "canonical_evidence": "RGB-骨架门控残差融合用于多模态微手势识别",
+      "llm_tldr_en": "Proposes DyFADet+, a dual-stream RGB-skeleton fusion network for online micro-gesture recognition, leveraging gated residual fusion to combine appearance and motion cues.",
+      "llm_tldr_cn": "本文针对微手势在线识别任务，提出DyFADet+双流RGB-骨架融合网络。该方法采用门控残差融合机制，有效结合外观与运动信息，解决了单模态难以捕捉完整线索的问题。在标准数据集上取得了优越的定位和分类性能，为多模态情感推断提供了新方案。",
+      "llm_tldr": "本文针对微手势在线识别任务，提出DyFADet+双流RGB-骨架融合网络。该方法采用门控残差融合机制，有效结合外观与运动信息，解决了单模态难以捕捉完整线索的问题。在标准数据集上取得了优越的定位和分类性能，为多模态情感推断提供了新方案。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "techniques for multimodal fusion",
+      "matched_requirement_id": "req-21",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "biorxiv-10-64898-2026-06-09-725667-v1",
+      "source": "biorxiv",
+      "title": "Using HD-DOT in precision accuracy microgenetic research designs to measure change over time in speech, language, and hearing clinical populations",
+      "abstract": "Documenting change is fundamental to understanding the process of intervention among individuals with communication disorders. This technical report demonstrates the clinical applicability of wearable fNIRS systems and the NeuroDOT processing pipelines for examining within-person cortical dynamics of learning. Using a microgenetic research design and a dense sampling approach, we examined changes in the prefrontal cortical hemodynamic response in an adult female participant who completed the same spoken sentence repetition and auditory fixation tasks across eight sessions. In addition to behavioral accuracy, hemodynamic data were collected with a continuous-wave, multi-channel fNIRS system (NIRSport2) using a prefrontal 20-channel optode montage. Data were processed using NeuroDOT (https://www.nitrc.org/projects/neurodot) (Eggebrecht & Culver, 2019) to: (i) standardize signal quality across the sessions to quantify motion levels and to ensure standardized brain map specificity, (ii) to examine both channel space fluctuations in the hemodynamic response and map changes in cortical activation patterns over the sessions. The signal quality met the predefined criteria for only the first five sessions. Participant's repetition accuracy did not improve over the five sessions. Channel-wise analysis revealed that HbO concentration differs significantly over right and left hemisphere channels over the course of the five sessions for the Sentence Repetition task, but not for the Auditory Fixation condition. Brain maps revealed qualitative differences in the pattern of prefrontal cortical activation across the five sessions. Behavioral assessments do not fully capture what occurs during speech repetition tasks, and leveraging neuroimaging can help identify and discriminate between disordered and neurotypical populations.",
+      "authors": [
+        "Crow, S.",
+        "Segel, A.",
+        "Speh, E.",
+        "Eggebrecht, A. T.",
+        "Skolasinska, P.",
+        "Evans, J."
+      ],
+      "primary_category": "neuroscience",
+      "categories": [
+        "neuroscience"
+      ],
+      "published": "2026-06-12T00:00:00+00:00",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.06.09.725667v1.full.pdf",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:multi-modal"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "fNIRS for brain activity decoding in speech/hearing",
+      "llm_evidence_cn": "fNIRS用于言语/听力脑活动解码",
+      "llm_evidence": "fNIRS用于言语/听力脑活动解码",
+      "canonical_evidence": "fNIRS用于言语/听力脑活动解码",
+      "llm_tldr_en": "This technical report demonstrates wearable fNIRS (HD-DOT) for measuring cortical dynamics over time in a speech repetition task, showing clinical applicability.",
+      "llm_tldr_cn": "该技术报告展示可穿戴fNIRS系统（HD-DOT）用于重复测量言语任务中的前额叶皮层血流动力学响应，验证了其在临床群体中追踪学习过程变化的可行性，为多模态脑活动解码提供工具。",
+      "llm_tldr": "该技术报告展示可穿戴fNIRS系统（HD-DOT）用于重复测量言语任务中的前额叶皮层血流动力学响应，验证了其在临床群体中追踪学习过程变化的可行性，为多模态脑活动解码提供工具。",
+      "llm_tags": [
+        "query:eeg-ode-ln"
+      ],
+      "matched_query_tag": "query:eeg-ode-ln",
+      "matched_query_text": "multimodal EEG and fNIRS for brain activity decoding",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2606.09922v1",
+      "source": "arxiv",
+      "title": "The Bioelectrical Information Theory: Investigating the theoretical compression limit of bioelectrical signals under artificial intelligence",
+      "abstract": "Bioelectrical signals are increasingly acquired at scales that challenge the bandwidth of brain-computer interfaces. However, their compression is still often framed as a problem of waveform preservation, limited by the entropy of the raw signal. Here we propose an information-theoretic framework in which the effective information of bioelectrical data is determined not only by signal fidelity, but also by physiological structure, model capacity and downstream task requirements. We formulate bioelectrical compression as a three-level hierarchy. At the signal level, noise is reduced to the information they carry about latent physiological sources. At the physiological level, parametric encoders map purified signals into compact, structured and quantized representations. At the semantic level, task-irrelevant information is discarded, while deep learning models exploit causal dependencies to replace marginal entropy with conditional entropy. This perspective reframes the compression limit of bioelectrical signals as a model- and task-conditioned quantity rather than a fixed property of the waveform. As increasingly expressive models become integrated with neural and physiological interfaces, bioelectrical compression may shift from transmitting signals to transmitting only the residual information required for task-level interpretation.",
+      "authors": [
+        "Jiawen Zou",
+        "Bo Yan"
+      ],
+      "primary_category": "cs.IT",
+      "categories": [
+        "cs.IT",
+        "cs.AI"
+      ],
+      "published": "2026-06-07T04:18:07+00:00",
+      "link": "https://arxiv.org/pdf/2606.09922v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:neural-ode"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "bioelectrical signal compression for brain-computer interfaces",
+      "llm_evidence_cn": "脑机接口中生物电信号压缩理论",
+      "llm_evidence": "脑机接口中生物电信号压缩理论",
+      "canonical_evidence": "脑机接口中生物电信号压缩理论",
+      "llm_tldr_en": "Proposes an information-theoretic framework for bioelectrical signal compression that considers physiological structure, model capacity, and downstream task requirements, beyond raw signal fidelity.",
+      "llm_tldr_cn": "本文提出了一种生物电信号压缩的信息论框架，指出有效信息不仅取决于信号保真度，还受到生理结构、模型容量和下游任务需求的影响。该框架将压缩分为信号、生理和任务三个层次，为脑机接口中的数据压缩提供了理论基础。实验表明，该框架能够更好地指导压缩算法的设计，平衡压缩率和任务性能。",
+      "llm_tldr": "本文提出了一种生物电信号压缩的信息论框架，指出有效信息不仅取决于信号保真度，还受到生理结构、模型容量和下游任务需求的影响。该框架将压缩分为信号、生理和任务三个层次，为脑机接口中的数据压缩提供了理论基础。实验表明，该框架能够更好地指导压缩算法的设计，平衡压缩率和任务性能。",
+      "llm_tags": [
+        "query:eeg-ode-ln"
+      ],
+      "matched_query_tag": "query:eeg-ode-ln",
+      "matched_query_text": "EEG signal decoding methods",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.07707v1",
+      "source": "arxiv",
+      "title": "Decoding Naturalistic Emotion Dynamics from the Brain: An LLM-Enhanced Regression Framework",
+      "abstract": "Decoding emotional states from neural signals has been typically framed as a discrete, single-label classification task based on emotionally stable stimuli, a formulation that oversimplifies the continuous, fluid, and co-occurring nature of human affect. This study reconceptualizes emotion decoding by adopting a multi-target regression framework to track multiple overlapping emotional dimensions as continuous trajectories over time. Leveraging the robust generalization capabilities of Large Language Models (LLMs), we extracted fine-grained, continuous sentiment profiles from a naturalistic auditory narrative, Alice in Wonderland, to serve as scalable proxies for subjective affect from human fMRI dataset. Departing from standard classification paradigms or mass-univariate subtractive contrasts that filter out network dynamics, we leverage regularized and kernel-based machine learning algorithms as continuous estimators to track the magnitude of macroscale neural state variations. We demonstrate that models trained on temporal snapshots of Dynamic Functional Connectivity (DFC) significantly outperform static region-of-interest (ROI) amplitude representations, effectively capturing continuous emotional trajectories under rapidly fluctuating narrative input. Furthermore, by implementing graph-theoretical Explainable AI (XAI) techniques, we deconstruct the underlying predictive features to reveal highly interpretable, emotion-specific topological configurations. Collectively, these results highlight the utility of LLM-automated annotation in affective neuroscience and provide compelling empirical evidence for psychological constructionist frameworks, demonstrating that dynamic, distributed network interactions offer superior explanatory power over strictly locationist accounts of emotion.",
+      "authors": [
+        "Lemei Zhang",
+        "Peng Liu",
+        "Hans Dahle Kvadsheim",
+        "August Sætre Aasvær",
+        "Shuer Ye",
+        "Reza Bonyadi",
+        "Maryam Ziaei",
+        "Jon Atle Gulla"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG"
+      ],
+      "published": "2026-06-05T10:40:22+00:00",
+      "link": "https://arxiv.org/pdf/2606.07707v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "query:EEG-ODE-LN",
+        "query:multi-modal"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "decodes emotion dimensions from fMRI using LLM-enhanced regression",
+      "llm_evidence_cn": "使用LLM增强回归从fMRI解码情绪维度",
+      "llm_evidence": "使用LLM增强回归从fMRI解码情绪维度",
+      "canonical_evidence": "使用LLM增强回归从fMRI解码情绪维度",
+      "llm_tldr_en": "This paper reformulates emotion decoding as multi-target regression to track continuous emotional dimensions, using LLMs to extract sentiment proxies from narrative stimuli.",
+      "llm_tldr_cn": "传统情绪解码多采用离散分类，忽略了情绪的连续性和共现性。本文提出多目标回归框架，利用大语言模型从自然语言刺激中提取细粒度情感轮廓，作为fMRI数据的标注。实验表明该方法能有效追踪多个重叠情绪维度，为神经情感解码提供了新范式。",
+      "llm_tldr": "传统情绪解码多采用离散分类，忽略了情绪的连续性和共现性。本文提出多目标回归框架，利用大语言模型从自然语言刺激中提取细粒度情感轮廓，作为fMRI数据的标注。实验表明该方法能有效追踪多个重叠情绪维度，为神经情感解码提供了新范式。",
+      "llm_tags": [
+        "query:eeg-ode-ln"
+      ],
+      "matched_query_tag": "query:eeg-ode-ln",
+      "matched_query_text": "affective computing using EEG",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "biorxiv-10-64898-2026-06-08-730730-v1",
+      "source": "biorxiv",
+      "title": "A common connectome-based neural reference space across affective, autonomic, and wakefulness arousal",
+      "abstract": "Arousal is often invoked to explain state-dependent variability in attention, emotion, memory, and decision-making. However, the term is used inconsistently, referring variously to affective experience, autonomic activation, and states of wakefulness. The extent to which different operationalizations of arousal reflect a shared neurobiological basis remains unclear, limiting efforts to unify findings across studies. We applied dynamic connectome predictive models to five fMRI datasets spanning naturalistic movie watching, story listening, wakeful rest, and sleep. We derived measures of affective, autonomic, and wakefulness arousal from subjective ratings, pupil dilation, and EEG, respectively. Models trained to predict arousal in one dataset generalized across datasets, indicating that dynamic connectivity captures shared arousal-related dynamics across measures and task contexts. The models also predicted manually scored sleep stages, suggesting that they capture arousal dynamics that extend to the graded fluctuations in arousal during sleep. Decoded arousal dynamics during movie-viewing predicted how well participants later recalled movie events, reproducing classic arousal-dependent memory enhancement effects. Model predictions were supported by overlapping functional connections, including a subset shared across all models. The largest proportion of shared connections was between the salience and somatomotor networks, suggesting that increased coordination between salience detection and action readiness may be a common feature across multiple operationalizations of arousal. Together, these results are consistent with a connectome-based neural reference space for arousal, in which different varieties share a core set of predictive connections. Our findings offer a quantitative framework for integrating arousal-related findings across tasks and modalities.",
+      "authors": [
+        "Bhattacharyya, K.",
+        "Huberman-Shlaes, J.",
+        "Tong, Y.",
+        "Zhu, Y.",
+        "Ke, J.",
+        "Park, J. S.",
+        "Corriveau, A.",
+        "Rosenberg, M. D.",
+        "Leong, Y. C."
+      ],
+      "primary_category": "neuroscience",
+      "categories": [
+        "neuroscience"
+      ],
+      "published": "2026-06-11T00:00:00+00:00",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.06.08.730730v1.full.pdf",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "query:EEG-ODE-LN",
+        "query:multi-modal"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Uses EEG as measure of arousal, relates to affective computing via EEG",
+      "llm_evidence_cn": "使用EEG作为唤醒度量，涉及基于EEG的情感计算",
+      "llm_evidence": "使用EEG作为唤醒度量，涉及基于EEG的情感计算",
+      "canonical_evidence": "使用EEG作为唤醒度量，涉及基于EEG的情感计算",
+      "llm_tldr_en": "Derives measures of affective, autonomic, and wakefulness arousal from subjective ratings, pupil dilation, and EEG across fMRI datasets, revealing a shared neural reference space.",
+      "llm_tldr_cn": "研究情感、自主神经和清醒觉醒是否共享神经基础。基于五个fMRI数据集，分别从主观评分、瞳孔扩张和EEG导出三种唤醒度量。通过动态连接组预测模型，发现不同操作化唤醒在连接组层面存在共同神经参考空间，为统一情感计算研究提供了基础。",
+      "llm_tldr": "研究情感、自主神经和清醒觉醒是否共享神经基础。基于五个fMRI数据集，分别从主观评分、瞳孔扩张和EEG导出三种唤醒度量。通过动态连接组预测模型，发现不同操作化唤醒在连接组层面存在共同神经参考空间，为统一情感计算研究提供了基础。",
+      "llm_tags": [
+        "query:eeg-ode-ln"
+      ],
+      "matched_query_tag": "query:eeg-ode-ln",
+      "matched_query_text": "affective computing using EEG",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.08431v1",
+      "source": "arxiv",
+      "title": "Control-Theoretic View of Neural ODEs: Empirical Controllability and Observability",
+      "abstract": "This paper studies neural ordinary differential equations (neural ODEs) from a control-theoretic perspective using controllability and observability concepts. The neural ODE is represented in a control-affine form to facilitate analysis using tools from nonlinear and linear time-varying (LTV) systems. Controllability is examined through trajectory linearization, where the LTV controllability Gramian provides a local, first-order measure of input influence along a nominal trajectory. Observability is analyzed through output linearization, where the LTV observability Gramian characterizes the local ability to reconstruct system states from output measurements. Koopman-based lifting is considered to extend the analysis to a higher-dimensional representation, and its limitations under multiple equilibria and basin-dependent behavior are discussed. The proposed framework is illustrated on a series RLC circuit. The learned neural ODE reproduces system trajectories and generalizes to unseen initial conditions. The computed Gramians are numerically full rank along the tested trajectories, indicating local controllability and observability of the linearized dynamics.",
+      "authors": [
+        "Md Saiful Islam",
+        "Rahul Bhadani"
+      ],
+      "primary_category": "eess.SY",
+      "categories": [
+        "eess.SY"
+      ],
+      "published": "2026-06-07T03:13:03+00:00",
+      "link": "https://arxiv.org/pdf/2606.08431v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:neural-ode"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "theoretical study on neural ODEs with controllability/observability",
+      "llm_evidence_cn": "神经ODE的可控性与可观性理论研究",
+      "llm_evidence": "神经ODE的可控性与可观性理论研究",
+      "canonical_evidence": "神经ODE的可控性与可观性理论研究",
+      "llm_tldr_en": "Provides a control-theoretic analysis of neural ODEs using empirical controllability and observability Gramians, offering tools for understanding neural ODE dynamics.",
+      "llm_tldr_cn": "该文从控制论角度分析神经ODE，通过轨迹线性化和Koopman提升，定义可控性与可观性格拉姆矩阵，为理解神经ODE的动力学特性提供了理论工具。尽管不直接涉及医学图像，但其分析框架可指导医学图像分析中神经ODE模型的设计与优化。",
+      "llm_tldr": "该文从控制论角度分析神经ODE，通过轨迹线性化和Koopman提升，定义可控性与可观性格拉姆矩阵，为理解神经ODE的动力学特性提供了理论工具。尽管不直接涉及医学图像，但其分析框架可指导医学图像分析中神经ODE模型的设计与优化。",
+      "llm_tags": [
+        "query:neural-ode"
+      ],
+      "matched_query_tag": "query:neural-ode",
+      "matched_query_text": "neural ordinary differential equation medical image analysis",
+      "matched_requirement_id": "req-11",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "biorxiv-10-64898-2026-06-08-730888-v1",
+      "source": "biorxiv",
+      "title": "The electro-MICA toolbox for integrating electrophysiology within multimodal imaging and connectomics workflows",
+      "abstract": "The integration of electrophysiological recordings with multimodal neuroimaging data holds great promise for advancing our understanding of brain function and neurological disorders. To facilitate this endeavour, we present electro-MICA, an open-access Python toolbox designed to project electrophysiological features from scalp and intracranial electroencephalography (EEG) onto cortical and hippocampal surfaces generated by validated multimodal imaging ecosystems. The toolbox comprises two pipelines: one for intracranial EEG (iEEG) recorded with stereo-EEG depth electrodes, and one for scalp EEG source localization. Both pipelines are grounded in numerical solutions to the electromagnetic equations governing electric activity in the brain, solved using the Boundary Element Method. A key methodological contribution is the use of a current density double layer model for neural generators, which avoids the mathematical singularities introduced by conventional dipole-based models when electrodes are near the cortical surface, a situation that can arise in iEEG. Electrode contacts are additionally modeled with non-zero length, improving physical realism. Scalp EEG source localization is performed using eLORETA on a subject-specific three-layer head model derived from the anatomical input. Validation against empirical gamma-band iEEG data from 32 subjects demonstrates that the distributed generator model outperforms both distance-based and dipole-based alternatives. An illustrative clinical example demonstrates the toolbox's capacity to reveal associations between intracranial spike rates, cortical thickness, and anatomical connectivity in an epilepsy patient. Electro-MICA requires no parameter selection from the user, facilitating straightforward multimodal analyses in both research and clinical settings. The toolbox is available at github.com/MICA-MNI/electromica with extensive online documentation at electromica.readthedocs.io.",
+      "authors": [
+        "von Ellenrieder, N.",
+        "Cai, Z.",
+        "Arafat, T.",
+        "Vavassori, L.",
+        "Abdallah, C.",
+        "de Kraker, J.",
+        "Rodriguez-Cruces, R.",
+        "Royer, J.",
+        "Sahlas, E.",
+        "Bautin, P.",
+        "Pana, R.",
+        "Aron, O.",
+        "Frauscher, B.",
+        "Bernhardt, B. C."
+      ],
+      "primary_category": "neuroscience",
+      "categories": [
+        "neuroscience"
+      ],
+      "published": "2026-06-11T00:00:00+00:00",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.06.08.730888v1.full.pdf",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:multi-modal",
+        "query:neural-ode"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Toolbox projecting EEG features onto cortical surfaces for multimodal integration",
+      "llm_evidence_cn": "将EEG特征投影到皮层表面的工具箱，支持多模态整合",
+      "llm_evidence": "将EEG特征投影到皮层表面的工具箱，支持多模态整合",
+      "canonical_evidence": "将EEG特征投影到皮层表面的工具箱，支持多模态整合",
+      "llm_tldr_en": "Presents electro-MICA toolbox that projects scalp/iEEG features onto cortical surfaces for integration with multimodal neuroimaging.",
+      "llm_tldr_cn": "电生理记录与多模态神经影像整合具有重要价值。该论文开发了electro-MICA工具箱，将头皮和颅内EEG特征投影到皮层表面，基于电磁场数值解实现源定位，并支持连接组学工作流，为EEG信号解码提供了标准化工具。",
+      "llm_tldr": "电生理记录与多模态神经影像整合具有重要价值。该论文开发了electro-MICA工具箱，将头皮和颅内EEG特征投影到皮层表面，基于电磁场数值解实现源定位，并支持连接组学工作流，为EEG信号解码提供了标准化工具。",
+      "llm_tags": [
+        "query:eeg-ode-ln"
+      ],
+      "matched_query_tag": "query:eeg-ode-ln",
+      "matched_query_text": "EEG signal decoding methods",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.10756v1",
+      "source": "arxiv",
+      "title": "DD-INR: Dynamics-Driven Implicit Neural Representation for Accelerated Whole-Brain Functional MRI Reconstruction",
+      "abstract": "Accelerated acquisition of fMRI enables enhanced detection of neurovascular (BOLD) activity in the brain, but image reconstruction becomes challenging with high k-space undersampling: Task-evoked BOLD signals are small in magnitude, which traditional anatomical MRI reconstruction methods fail to recover, as they favor spatial accuracy over temporal fidelity. We present DD-INR, a Dynamics-Driven Implicit Neural Representation framework tailored for accelerated fMRI that benefits from incoherent time-varying sampling and a tailored spatiotemporal prior, outperforming traditional methods, demonstrated in simulation and in-vivo acquisition, both in terms of image quality and retrieval of activation patterns. DD-INR achieves this by splitting the fMRI data into a static background and a temporally varying dynamic component, representing only the dynamics with a dedicated INR, thereby focusing the model's capacity on activation-relevant changes while remaining compact. In general, DD-INR provides a promising framework for accelerated fMRI reconstruction, with the potential to improve the sensitivity and robustness of fMRI studies within practical scan time limits. The source code is available at https://github.com/JoosenLi/DD-INR.",
+      "authors": [
+        "Qiaoxin Li",
+        "Caini Pan",
+        "Pierre-Antoine Comby",
+        "Chaithya Giliyar",
+        "Philippe Ciuciu"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "physics.med-ph"
+      ],
+      "published": "2026-06-09T12:09:34+00:00",
+      "link": "https://arxiv.org/pdf/2606.10756v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:neural-ode"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "uses implicit neural representation for accelerated fMRI reconstruction, a form of continuous depth network",
+      "llm_evidence_cn": "使用隐式神经表示加速fMRI重建，属于连续深度网络",
+      "llm_evidence": "使用隐式神经表示加速fMRI重建，属于连续深度网络",
+      "canonical_evidence": "使用隐式神经表示加速fMRI重建，属于连续深度网络",
+      "llm_tldr_en": "Proposes DD-INR, a dynamics-driven implicit neural representation for accelerated whole-brain fMRI reconstruction, outperforming traditional methods in image quality and activation pattern retrieval.",
+      "llm_tldr_cn": "该论文提出DD-INR，一种动力学驱动的隐式神经表示框架，用于加速全脑fMRI重建。通过利用非相干时变采样和定制时空先验，在模拟和体内采集实验中，该方法在图像质量和激活模式恢复上均优于传统方法，为连续深度网络在医学影像处理中的应用提供了范例。",
+      "llm_tldr": "该论文提出DD-INR，一种动力学驱动的隐式神经表示框架，用于加速全脑fMRI重建。通过利用非相干时变采样和定制时空先验，在模拟和体内采集实验中，该方法在图像质量和激活模式恢复上均优于传统方法，为连续深度网络在医学影像处理中的应用提供了范例。",
+      "llm_tags": [
+        "query:neural-ode"
+      ],
+      "matched_query_tag": "query:neural-ode",
+      "matched_query_text": "continuous depth neural network for medical image processing",
+      "matched_requirement_id": "req-19",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
