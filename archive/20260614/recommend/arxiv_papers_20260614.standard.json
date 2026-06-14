@@ -1,0 +1,433 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-14T21:39:18.282580+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 3,
+    "deep_divecandidates": 4,
+    "deep_cap": 8,
+    "deep_selected": 4,
+    "quick_candidates": 6,
+    "quick_skim_target": 13,
+    "quick_selected": 6
+  },
+  "deep_dive": [
+    {
+      "id": "2606.13288v1",
+      "source": "arxiv",
+      "title": "Cross-Modal Masked Compositional Concept Modeling for Enhancing Visio-Linguistic Compositionality",
+      "abstract": "Contrastively trained vision-language models like CLIP, have made remarkable progress in learning joint image-text representations, but still face challenges in compositional understanding. They often exhibit a \"bag-of-words\" behavior--struggling to capture the object relations, attribute-object bindings, and word order dependencies. This limitation arises not only from the reliance on global, single-vector representations for optimization, but also from the insufficient exploitation and modeling of the rich compositional information inherently present in paired image text data. In this work, we propose MACCO (MAsked Compositional Concept MOdeling), a framework that masks compositional concepts in one modality and reconstructs them conditioned on the full contextual information from the other, enabling the model to capture and align cross-modal compositional structures more effectively. To facilitate this process, we introduce two auxiliary objectives that jointly align and regularize masked features both inter-modally and intra-modally. Extensive experiments on five compositional benchmarks, along with in-depth analyses, demonstrate that our approach not only significantly enhances compositionality in VLMs but also improves their ability to capture syntactic structure and linguistic information. Additionally, the improved compositionality also benefits text-to-image generation and multimodal large language model. Code is available at https://github.com/hiker-lw/MACCO.",
+      "authors": [
+        "Wei Li",
+        "Zhen Huang",
+        "Xinmei Tian"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.AI",
+        "cs.CL"
+      ],
+      "published": "2026-06-11T12:45:25+00:00",
+      "link": "https://arxiv.org/pdf/2606.13288v1",
+      "tags": [
+        "keyword:multi-modal",
+        "query:multi-modal"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Cross-modal masked compositional concept modeling for vision-language models",
+      "llm_evidence_cn": "视觉-语言模型的跨模态掩码组合概念建模",
+      "llm_evidence": "视觉-语言模型的跨模态掩码组合概念建模",
+      "canonical_evidence": "视觉-语言模型的跨模态掩码组合概念建模",
+      "llm_tldr_en": "MACCO proposes masked compositional concept modeling in one modality and reconstruction from another to enhance vision-language compositionality, addressing bag-of-words limitations.",
+      "llm_tldr_cn": "针对对比训练的视觉语言模型（如CLIP）在组合理解上的词袋缺陷（难以捕捉对象关系、属性绑定等），该研究提出了MACCO框架。该方法在一种模态中掩码组合概念，并利用另一模态的信息进行重构，从而强制模型学习更精细的跨模态组合表征。在多个视觉推理基准上，MACCO显著提升了组合性理解能力。",
+      "llm_tldr": "针对对比训练的视觉语言模型（如CLIP）在组合理解上的词袋缺陷（难以捕捉对象关系、属性绑定等），该研究提出了MACCO框架。该方法在一种模态中掩码组合概念，并利用另一模态的信息进行重构，从而强制模型学习更精细的跨模态组合表征。在多个视觉推理基准上，MACCO显著提升了组合性理解能力。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "multimodal language model research",
+      "matched_requirement_id": "req-20",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.13381v1",
+      "source": "arxiv",
+      "title": "Hölder++: Improving the Quality-Coherence Trade-off in Multimodal VAEs",
+      "abstract": "Existing approaches for multimodal variational autoencoders (VAEs) face a trade-off between generative quality and coherence-i.e., they struggle to generate realistic and diverse samples that, at the same time, are semantically consistent across modalities. A recent work shows that using a simple approximation to Hölder pooling as an aggregation method improves coherence over the SOTA MMVAE+, despite assuming a single shared representation across all modalities. Yet, it slightly compromises sample diversity. Inspired by this insight, we propose Hölder++, a novel multimodal VAE that improves the generative quality-coherence trade-off through: (i) the first implementation of Hölder pooling without any approximation for multimodal VAEs; (ii) an extended architecture that models distinct shared and private (i.e., modality-specific) representations (Hölder+); and (iii) hierarchical inference that further enhances the disentanglement between the shared and private representations (Hölder++). Our experiments corroborate that Hölder++ consistently improves the generative quality-coherence trade-off, yields more structured latent spaces, and learns shared representations that are informative for downstream tasks.",
+      "authors": [
+        "Huyen Vo",
+        "María Martínez-García",
+        "Isabel Valera"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG"
+      ],
+      "published": "2026-06-11T14:08:32+00:00",
+      "link": "https://arxiv.org/pdf/2606.13381v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "query:EEG-ODE-LN",
+        "query:multi-modal",
+        "query:neural-ode"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Hölder++ improves multimodal VAE quality-coherence trade-off",
+      "llm_evidence_cn": "Hölder++改善多模态VAE的质量-一致性权衡",
+      "llm_evidence": "Hölder++改善多模态VAE的质量-一致性权衡",
+      "canonical_evidence": "Hölder++改善多模态VAE的质量-一致性权衡",
+      "llm_tldr_en": "Proposes Hölder++, a multimodal VAE that improves the generative quality-coherence trade-off using exact Hölder pooling and extended aggregation, outperforming prior approaches.",
+      "llm_tldr_cn": "针对多模态变分自编码器在生成质量和模态间一致性之间的权衡问题，本文提出Hölder++。首次实现精确的Hölder池化用于多模态VAE，并扩展聚合机制，在不牺牲多样性的前提下提升连贯性。实验表明，该方法在多个多模态数据集上优于现有MMVAE+等方法，为多模态生成模型提供了新的聚合方案。",
+      "llm_tldr": "针对多模态变分自编码器在生成质量和模态间一致性之间的权衡问题，本文提出Hölder++。首次实现精确的Hölder池化用于多模态VAE，并扩展聚合机制，在不牺牲多样性的前提下提升连贯性。实验表明，该方法在多个多模态数据集上优于现有MMVAE+等方法，为多模态生成模型提供了新的聚合方案。",
+      "llm_tags": [
+        "query:multi-modal:composite"
+      ],
+      "matched_query_tag": "query:multi-modal:composite",
+      "matched_query_text": "Papers central to 帮我找一些关于多模态语言模型或多模态融合的研究文章, especially work that connects or combines: multimodal language model research; techniques for multimodal fusion; vision language model architectures; learning cross modal representations; multimodal learning methods; multimodal alignment approaches; What are the latest advances in multimodal language models?; How is multimodal fusion achieved in deep learning?; Compare different architectures for vision language models.; Find papers on cross modal representation learning..",
+      "matched_requirement_id": "req-composite-multi-modal",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.12633v1",
+      "source": "arxiv",
+      "title": "ECA: Efficient Continual Alignment for Open-Ended Image-to-Text Generation",
+      "abstract": "Incremental Learning (IL) for Open-ended Image-to-Text Generation (OpenITG) enables models to continuously generate accurate, contextually relevant text for new images while preserving previously acquired knowledge. Unlike prior studies, this paper addresses a more practical scenario in which the predominant category of visual data shifts over time as environments evolve. In this context, we introduce a new notion of continual alignment, which incrementally adapts the alignment module within pre-trained VLMs to preserve high-quality cross-modal representations. Based on this idea, we propose Efficient Continual Alignment (ECA), a novel exemplar-free IL approach for OpenITG. The key challenge is enabling the model to acquire new, task-specific features while minimizing interference with the established alignment without accessing raw data from previous tasks. To address this, ECA employs three core mechanisms: a Mixture of Query (MoQ) module that adapts task-specific query tokens, a Fisher Dynamic Expansion (FeDEx) that dynamically expands model structure based on a Fisher Information Matrix (FIM)-based metric, and an embedding dictionary with Dictionary Replay (DR) to retain past knowledge. To evaluate ECA's performance, we construct four new IL OpenITG benchmarks that better reflect real-world scenarios. Experimental results demonstrate that ECA significantly mitigates catastrophic forgetting and improves IL performance compared to baseline methods. Code and benchmarks are available at https://github.com/Snowball0823/ECA.",
+      "authors": [
+        "Jiangtao Kong",
+        "Peijun Zhao",
+        "Chun-Fu Chen",
+        "Youngwook Do",
+        "Shaohan Hu",
+        "Tianyi Zhou",
+        "Huajie Shao"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.LG"
+      ],
+      "published": "2026-06-10T19:42:03+00:00",
+      "link": "https://arxiv.org/pdf/2606.12633v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:multi-modal",
+        "query:neural-ode"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "continual alignment for vision-language models",
+      "llm_evidence_cn": "视觉语言模型的持续对齐",
+      "llm_evidence": "视觉语言模型的持续对齐",
+      "canonical_evidence": "视觉语言模型的持续对齐",
+      "llm_tldr_en": "ECA proposes efficient continual alignment for open-ended image-to-text generation, allowing VLMs to adapt to new visual categories while retaining old knowledge.",
+      "llm_tldr_cn": "针对开放图像到文本生成中视觉数据类别随时间变化的环境，本文提出高效持续对齐（ECA）方法，无需样本即可增量调整预训练视觉语言模型的跨模态对齐模块。ECA通过任务特定特征学习和遗忘抑制，使模型在获取新知识的同时保持已有性能。在多个数据集上的实验表明，ECA在类增量设置下优于现有增量学习方法，为VLMs在动态环境中的应用提供了新思路。",
+      "llm_tldr": "针对开放图像到文本生成中视觉数据类别随时间变化的环境，本文提出高效持续对齐（ECA）方法，无需样本即可增量调整预训练视觉语言模型的跨模态对齐模块。ECA通过任务特定特征学习和遗忘抑制，使模型在获取新知识的同时保持已有性能。在多个数据集上的实验表明，ECA在类增量设置下优于现有增量学习方法，为VLMs在动态环境中的应用提供了新思路。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "vision language model architectures",
+      "matched_requirement_id": "req-22",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.13030v1",
+      "source": "arxiv",
+      "title": "A Multi-Modal Framework with Cross-Subject Pseudo-Labeling and Semantic Alignment for Micro-Gesture Recognition",
+      "abstract": "Micro-gestures (MGs) are spontaneous and subtle body movements that frequently convey hidden human emotions. Recognizing MGs in untrimmed videos remains highly challenging due to their extremely low signal-to-noise ratio, severe long-tailed class distribution, and the inherent domain shift encountered in cross-subject evaluation scenarios. In this paper, we propose a comprehensive multi-modal framework for Track 1 of the 4th MiGA-IJCAI Challenge. To capture fine-grained representations, we design a saliency-guided multi-modal extraction pipeline integrating 68-keypoint skeleton joint coordinates, 3D heatmap volumes, and high-resolution RGB visual features. We introduce a gentle square-root smoothed weighting mechanism paired with an Orthogonal Semantic Embedding Loss to protect tail classes without compromising overall recognition capabilities. More importantly, to bridge the cross-subject generalization gap, we propose a Cross-Modal Pseudo-Labeling (CMPL) strategy for unsupervised domain adaptation, which significantly boosts single-modal robustness. A temperature-scaled soft-voting mechanism is finally utilized to alleviate overconfidence during late fusion. Extensive experiments demonstrate that our framework achieves a competitive F1-score of 68.13\\%, securing the 4th place.",
+      "authors": [
+        "Haoran Zhang",
+        "Haokun Zhang",
+        "Pengyu Liu",
+        "Yujia Zhang",
+        "Weibao Xue",
+        "Yanbin Hao"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-06-11T08:04:42+00:00",
+      "link": "https://arxiv.org/pdf/2606.13030v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:multi-modal",
+        "query:neural-ode"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "multimodal framework for micro-gesture recognition with pseudo-labeling and semantic alignment",
+      "llm_evidence_cn": "用于微手势识别的多模态框架，包含伪标签和语义对齐",
+      "llm_evidence": "用于微手势识别的多模态框架，包含伪标签和语义对齐",
+      "canonical_evidence": "用于微手势识别的多模态框架，包含伪标签和语义对齐",
+      "llm_tldr_en": "Presents a multi-modal framework for micro-gesture recognition using saliency-guided extraction of skeleton, heatmap, and RGB features, with cross-subject pseudo-labeling and semantic alignment to handle low signal-to-noise and domain shift.",
+      "llm_tldr_cn": "针对微手势识别中信号噪声低、类别分布长尾和跨主体域偏移等挑战，本文提出了一种多模态框架。通过显著性引导的多模态提取流水线融合骨架、3D热图和RGB特征，并引入跨主体伪标签与语义对齐机制。实验表明该框架在挑战赛任务中有效提升了识别精度，为多模态学习在情感相关的细微动作识别中提供了新方案。",
+      "llm_tldr": "针对微手势识别中信号噪声低、类别分布长尾和跨主体域偏移等挑战，本文提出了一种多模态框架。通过显著性引导的多模态提取流水线融合骨架、3D热图和RGB特征，并引入跨主体伪标签与语义对齐机制。实验表明该框架在挑战赛任务中有效提升了识别精度，为多模态学习在情感相关的细微动作识别中提供了新方案。",
+      "llm_tags": [
+        "query:multi-modal:composite"
+      ],
+      "matched_query_tag": "query:multi-modal:composite",
+      "matched_query_text": "Papers central to 帮我找一些关于多模态语言模型或多模态融合的研究文章, especially work that connects or combines: multimodal language model research; techniques for multimodal fusion; vision language model architectures; learning cross modal representations; multimodal learning methods; multimodal alignment approaches; What are the latest advances in multimodal language models?; How is multimodal fusion achieved in deep learning?; Compare different architectures for vision language models.; Find papers on cross modal representation learning..",
+      "matched_requirement_id": "req-composite-multi-modal",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2606.12742v1",
+      "source": "arxiv",
+      "title": "Reducing the Complexity of Deep Learning Models for EEG Analysis on Wearable Devices",
+      "abstract": "Wearable healthcare devices are the fastest-growing Internet of Things (IoT) sector. Many automated healthcare services rely on two crucial biological signals, namely ECG and EEG, which reflect the activity of the heart and brain, respectively. Although deep neural networks are considered the primary way to process and analyze these signals, the very tight energy and computational power constraints in wearable devices are far below the computational, energy, and memory bandwidth demands of DNN models, thereby impeding the deployment of deep learning in many practical wearable services. This paper investigates the feasibility of deploying state-of-the-art DNN models in resource-constrained wearable devices. Notably, we explore the trade-off between accuracy and computational complexity of DNNs when parameter quantization and electrode reduction methods are used. Our investigation centers on several state-of-the-art DNN models designed for EEG signal analysis, specifically for detecting epileptic seizures. Our findings demonstrate that, when applied judiciously, these techniques can significantly reduce the complexity of the DNNs under consideration with minimal adverse effects on accuracy. These results reveal the explicit trade-offs between accuracy and complexity reduction encountered when adapting DNN-based online EEG analysis for wearable devices.",
+      "authors": [
+        "Farough Shayeste Roodi",
+        "Parham Zilouchian Moghaddam",
+        "Mahdi Mohammadi-nasab",
+        "Mehdi Modarressi",
+        "Mostafa Ersali Salehi Nasab",
+        "Masoud Daneshtalab"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.AR"
+      ],
+      "published": "2026-06-10T23:08:12+00:00",
+      "link": "https://arxiv.org/pdf/2606.12742v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:neural-ode"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "deep learning model complexity for EEG analysis",
+      "llm_evidence_cn": "深度学习模型复杂度用于EEG分析",
+      "llm_evidence": "深度学习模型复杂度用于EEG分析",
+      "canonical_evidence": "深度学习模型复杂度用于EEG分析",
+      "llm_tldr_en": "Investigates trade-offs of deploying DNNs for EEG analysis on wearable devices, proposing complexity reduction analysis.",
+      "llm_tldr_cn": "针对可穿戴设备上部署深度学习进行EEG分析的能源和计算限制，本文系统研究了当前最优CNN、RNN等模型在资源受限环境下的性能-复杂度权衡。通过分析不同压缩策略对准确率和能耗的影响，为在低功耗设备上实现高效EEG智能监测提供了设计指南。",
+      "llm_tldr": "针对可穿戴设备上部署深度学习进行EEG分析的能源和计算限制，本文系统研究了当前最优CNN、RNN等模型在资源受限环境下的性能-复杂度权衡。通过分析不同压缩策略对准确率和能耗的影响，为在低功耗设备上实现高效EEG智能监测提供了设计指南。",
+      "llm_tags": [
+        "query:eeg-ode-ln"
+      ],
+      "matched_query_tag": "query:eeg-ode-ln",
+      "matched_query_text": "deep learning for EEG classification",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.08553v1",
+      "source": "arxiv",
+      "title": "FusionVul: A Multimodal Feature Fusion Framework for Source Code Vulnerability Detection",
+      "abstract": "Source code vulnerability detection remains a long-standing challenge due to the increasing scale, structural complexity, and semantic diversity of modern codebases. Conventional static-analysis or rule-based approaches often fail to capture subtle execution dependencies, while single-modality learning models tend to overlook critical structural information embedded beyond the lexical surface of source code. To improve robustness across heterogeneous code patterns, we propose FusionVul, a joint representation learning framework that integrates sequential syntactic representations extracted by a pretrained Transformer encoder with structural semantics propagated through a graph neural network. The framework further incorporates a cross-attention-based feature fusion network to enable fine-grained cross-modal interaction and employs a sample-aware weighting mechanism to integrate multiple predictive branches. Experimental results on four datasets demonstrate that FusionVul achieves superior F1 scores on datasets with highly dispersed function size distributions and broader vulnerability-type coverage, such as SVulD and DiverseVul, reflecting its capability to capture complex and diverse vulnerability patterns.",
+      "authors": [
+        "Hongyu Yang",
+        "Yaping Zhu",
+        "Jingchuan Luo",
+        "Hiroshi Nomaguchi",
+        "Chunhua Su",
+        "Willy Susilo"
+      ],
+      "primary_category": "cs.SE",
+      "categories": [
+        "cs.SE"
+      ],
+      "published": "2026-06-07T10:14:00+00:00",
+      "link": "https://arxiv.org/pdf/2606.08553v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "multimodal feature fusion framework for code vulnerability detection using transformer and GNN",
+      "llm_evidence_cn": "使用Transformer和GNN的源码漏洞检测多模态特征融合框架",
+      "llm_evidence": "使用Transformer和GNN的源码漏洞检测多模态特征融合框架",
+      "canonical_evidence": "使用Transformer和GNN的源码漏洞检测多模态特征融合框架",
+      "llm_tldr_en": "FusionVul integrates sequential and structural code features via a multimodal fusion framework, improving vulnerability detection. Relevant to multimodal fusion techniques.",
+      "llm_tldr_cn": "该论文提出FusionVul，一个联合表示学习框架，集成了预训练Transformer提取的序列语法特征和图神经网络传播的结构语义。通过跨模态注意力机制融合两种表示，在漏洞检测基准上取得了优于单模态方法的结果。该工作为多模态融合在非传统领域（源代码）的应用提供了新思路。",
+      "llm_tldr": "该论文提出FusionVul，一个联合表示学习框架，集成了预训练Transformer提取的序列语法特征和图神经网络传播的结构语义。通过跨模态注意力机制融合两种表示，在漏洞检测基准上取得了优于单模态方法的结果。该工作为多模态融合在非传统领域（源代码）的应用提供了新思路。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "techniques for multimodal fusion",
+      "matched_requirement_id": "req-21",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2606.13017v1",
+      "source": "arxiv",
+      "title": "Deep Sleep Classification via EEG Signal Criticality: A Passive BCI Approach for Sleep-Improvement Neurofeedback",
+      "abstract": "Automated sleep staging is a fundamental application of passive Brain-Computer Interfaces (pBCI), decoding spontaneous neural states to enable closed-loop interventions independent of user intent. This study evaluates criticality features derived from Detrended Fluctuation Analysis (DFA) for the specific identification of deep sleep (N3).   We analyzed $347,232$ EEG epochs from $290$ older women using UMAP manifold learning to visualize state transitions. Subsequently, six classifiers were benchmarked via 10-fold cross-validation, using balanced accuracy to determine the optimal \"state-sensing\" engine for neurofeedback.Naive Bayes achieved the highest mean balanced accuracy ($87.17\\% \\pm 0.24\\%$), significantly outperforming a fully connected deep neural network (FNN: $81.58\\%$) and Random Forest ($80.97\\%$). Linear models (LDA: $57.21\\%$; SVM: $51.01\\%$) performed poorly, indicating that DFA-derived criticality features reside on a distinct, non-linear manifold.   Probabilistic decoding of EEG criticality provides a high-accuracy sensing mechanism for pBCIs. This robust classification pipeline supports the development of state-dependent neurofeedback, such as targeted auditory stimulation, to enhance cognitive recovery.",
+      "authors": [
+        "Stanisław Narębski",
+        "Tomasz Komendziński",
+        "Tomasz M. Rutkowski"
+      ],
+      "primary_category": "q-bio.NC",
+      "categories": [
+        "q-bio.NC",
+        "cs.LG"
+      ],
+      "published": "2026-06-11T07:53:29+00:00",
+      "link": "https://arxiv.org/pdf/2606.13017v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "query:EEG-ODE-LN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "EEG signal decoding for sleep classification using criticality features",
+      "llm_evidence_cn": "使用临界性特征进行睡眠分类的EEG信号解码",
+      "llm_evidence": "使用临界性特征进行睡眠分类的EEG信号解码",
+      "canonical_evidence": "使用临界性特征进行睡眠分类的EEG信号解码",
+      "llm_tldr_en": "This study uses EEG criticality features (DFA) with classifiers for deep sleep (N3) classification, achieving 87.17% balanced accuracy with Naive Bayes, demonstrating a passive BCI approach.",
+      "llm_tldr_cn": "该研究针对睡眠分期的被动脑机接口应用，基于EEG信号的临界性特征（来自去趋势波动分析），使用UMAP进行状态可视化，并比较六种分类器。在347232个EEG时段上，朴素贝叶斯取得了87.17%的平均平衡准确率，为神经反馈的状态感知引擎提供了优化选择。",
+      "llm_tldr": "该研究针对睡眠分期的被动脑机接口应用，基于EEG信号的临界性特征（来自去趋势波动分析），使用UMAP进行状态可视化，并比较六种分类器。在347232个EEG时段上，朴素贝叶斯取得了87.17%的平均平衡准确率，为神经反馈的状态感知引擎提供了优化选择。",
+      "llm_tags": [
+        "query:eeg-ode-ln"
+      ],
+      "matched_query_tag": "query:eeg-ode-ln",
+      "matched_query_text": "EEG signal decoding methods",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.09923v1",
+      "source": "arxiv",
+      "title": "Conformal Prediction for Neural Operators: Distribution-Free Uncertainty Quantification in Physics Simulation",
+      "abstract": "Neural operators such as the Fourier Neural Operator (FNO) have emerged as powerful surrogates for solving partial differential equations (PDEs), achieving speedups of several orders of magnitude over traditional numerical solvers. However, deploying these models in safety-critical engineering applications -- such as thermal management of electronic components and battery systems -- requires not only accurate point predictions but also rigorous uncertainty guarantees. Existing uncertainty quantification (UQ) methods for neural operators, including Monte Carlo Dropout and Deep Ensembles, provide only relative uncertainty estimates without formal coverage guarantees. In this work, we propose the first application of split conformal prediction to neural operator-based physics simulation, providing distribution-free prediction intervals with finite-sample coverage guarantees. We further introduce a normalized conformal prediction scheme that leverages MC Dropout uncertainty to produce adaptive-width intervals, yielding tighter intervals in regions of low uncertainty and wider intervals where the model is less certain. Full-scale experiments (33.7M parameters, 800 training samples, 5 ensemble members, NVIDIA V100) on steady-state heat conduction benchmarks demonstrate that our method achieves 89.1% empirical coverage at the target level of alpha=0.1, while producing spatially adaptive prediction intervals that reflect the underlying physical uncertainty structure. We also provide an uncertainty decomposition framework that separates epistemic uncertainty (68% of total) from aleatoric uncertainty (32% of total), offering actionable guidance for data collection and model improvement. Our method is implemented in an open-source platform with REST API endpoints and interactive 3D visualization.",
+      "authors": [
+        "Michael Chin"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.AI"
+      ],
+      "published": "2026-06-07T08:52:38+00:00",
+      "link": "https://arxiv.org/pdf/2606.09923v1",
+      "tags": [
+        "keyword:neural-ode"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "neural operator for solving PDEs with uncertainty quantification",
+      "llm_evidence_cn": "用于求解PDE的神经算子不确定性量化",
+      "llm_evidence": "用于求解PDE的神经算子不确定性量化",
+      "canonical_evidence": "用于求解PDE的神经算子不确定性量化",
+      "llm_tldr_en": "This paper proposes the first conformal prediction method for neural operators (e.g., FNO) to provide distribution-free uncertainty quantification in PDE surrogates for engineering applications.",
+      "llm_tldr_cn": "该论文首次将共形预测应用于神经算子（如傅里叶神经算子），为偏微分方程代理模型提供无分布假设的不确定性量化。在电子元件热管理等工程案例中验证了有效性，弥补了现有方法缺乏形式化覆盖保证的缺陷。",
+      "llm_tldr": "该论文首次将共形预测应用于神经算子（如傅里叶神经算子），为偏微分方程代理模型提供无分布假设的不确定性量化。在电子元件热管理等工程案例中验证了有效性，弥补了现有方法缺乏形式化覆盖保证的缺陷。",
+      "llm_tags": [
+        "query:neural-ode"
+      ],
+      "matched_query_tag": "query:neural-ode",
+      "matched_query_text": "neural partial differential equation medical imaging",
+      "matched_requirement_id": "req-12",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "biorxiv-10-1101-2025-10-13-680902-v3",
+      "source": "biorxiv",
+      "title": "PEPE: Scalable extraction of multi-modal protein language model representations",
+      "abstract": "MotivationProtein language models (PLMs) capture intricate amino-acid dependencies, producing embeddings that encode rich structural, functional, and evolutionary information. Despite their potential, current extraction workflows rely on arbitrary choices, with respect to embedding layer, pooling, and padding, that frequently yield suboptimal representations for feature extraction and downstream analyses. Large-scale embedding generation is further limited by inefficiencies in computation and memory: (i) accumulating all model outputs in memory before writing to disk causes severe bottlenecks, and (ii) repeatedly embedding identical sequences to extract different modes introduces redundant computation and drastically reduces throughput and scalability.\n\nResultsWe introduce PEPE (Parallel Extraction for Protein Embeddings), a command-line tool and Python library that enables efficient, high-throughput, and multimodal extraction from protein language models. PEPEs parallelized and streaming-based architecture achieves runtimes several orders of magnitude faster than sequential approaches. Unlike conventional methods--whose peak memory usage scales linearly with output size and fails when memory capacity is exceeded--PEPE maintains stable, low memory consumption, enabling multimodal embedding extraction even beyond available RAM. PEPE supports a wide range of state-of-the-art and custom PLMs through a simple, flexible interface. By combining scalability, robustness, and ease of use, PEPE allows researchers to generate massive, information-rich embedding datasets efficiently, and facilitate the discovery of optimal representations for structural, functional, and evolutionary downstream tasks. By streamlining the generation of diverse embedding configurations, PEPE provides researchers with the necessary data to identify high-performing latent states for specific biological contexts without requiring additional computational resources.\n\nAvailability and ImplementationPEPE is a command-line tool written in Python and published under MIT license. The source code and documentation are available at https://github.com/csi-greifflab/pepe-cli. PEPE is also available for installation from PyPI under https://pypi.org/project/pepe-cli and deposited on Zenodo at https://zenodo.org/records/15912054.",
+      "authors": [
+        "Zhong, J.",
+        "Cardente, N.",
+        "Bashour, H.",
+        "Sandve, G. K.",
+        "Abbate, M. F.",
+        "Greiff, V."
+      ],
+      "primary_category": "bioinformatics",
+      "categories": [
+        "bioinformatics"
+      ],
+      "published": "2026-06-08T00:00:00+00:00",
+      "link": "https://www.biorxiv.org/content/10.1101/2025.10.13.680902v3.full.pdf",
+      "tags": [
+        "keyword:multi-modal",
+        "query:multi-modal"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "scalable extraction of multi-modal protein language model representations",
+      "llm_evidence_cn": "可扩展的多模态蛋白质语言模型表示提取",
+      "llm_evidence": "可扩展的多模态蛋白质语言模型表示提取",
+      "canonical_evidence": "可扩展的多模态蛋白质语言模型表示提取",
+      "llm_tldr_en": "Presents PEPE, a framework for efficient and scalable extraction of multi-modal embeddings from protein language models, avoiding memory bottlenecks and redundant computation.",
+      "llm_tldr_cn": "蛋白质语言模型包含丰富的多模态信息，但现有提取方式存在内存瓶颈和计算冗余。本文提出PEPE框架，通过流式写入和共享嵌入避免重复计算，支持大规模多模态表示提取。实验表明，PEPE在保持或提升下游任务性能的同时大幅提高了吞吐量，为蛋白质组学分析提供了高效工具。",
+      "llm_tldr": "蛋白质语言模型包含丰富的多模态信息，但现有提取方式存在内存瓶颈和计算冗余。本文提出PEPE框架，通过流式写入和共享嵌入避免重复计算，支持大规模多模态表示提取。实验表明，PEPE在保持或提升下游任务性能的同时大幅提高了吞吐量，为蛋白质组学分析提供了高效工具。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "multimodal language model research",
+      "matched_requirement_id": "req-20",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "biorxiv-10-64898-2026-06-06-728412-v1",
+      "source": "biorxiv",
+      "title": "All signals considered: Data quality partially explains inter-individual task differences in a large, open fNIRS dataset",
+      "abstract": "SignificanceHigh inter-subject variability and limited reproducibility in functional near-infrared spectroscopy (fNIRS) research may partly reflect global systemic physiology and signal quality differences, possibly distorting task-evoked hemodynamic responses.\n\nAimWe investigate how signal quality relates to inter-subject variability in motor-task fNIRS responses and introduce a large, open, multi-task, near whole-head fNIRS dataset with extensive peripheral physiology and short-channel recordings.\n\nApproachFifty-seven participants completed resting-state, motor action, motor imagery, emotion recognition, visual, and auditory tasks during fNIRS recording. Peripheral measures included pulse oximetry, heart rate, blood oxygen saturation, respiration, room temperature, galvanic skin response, electrocardiogram, and electromyography. Signal quality was assessed using the scalp coupling index (SCI), coefficient of variation (CV), signal-to-noise ratio (SNR) and a spectral measure here coined the coupling SNR (cSNR).\n\nResultsQuality metrics were weakly to moderately correlated, except SNR and CV, which showed the expected inverse relationship. All quality metrics were significantly related to channel length and associated with task-related activation estimates. Group-level analyses validated activation in expected task-related regions.\n\nConclusionsThe assessed metrics capture complementary features of fNIRS signal quality and may help explain individual activation differences. The dataset provides a comprehensive, open resource enabling future evaluation of physiological correction methods and confound mitigation.",
+      "authors": [
+        "Raible, S.",
+        "Pereira, J.",
+        "Kotsogiannis, F.",
+        "Direito, B.",
+        "Sousa, T.",
+        "da Cunha Seiffert, M.",
+        "Lavicka, R.",
+        "Skeltona, V.",
+        "Evenblij, D.",
+        "Ciarlo, A.",
+        "Heinecke, A.",
+        "Gädtke, J.",
+        "Tipado, Z.",
+        "Mehler, D. M. A.",
+        "Kohl, S. H.",
+        "Castelo-Branco, M.",
+        "Goebel, R.",
+        "Lührs, M.",
+        "Sorger, B."
+      ],
+      "primary_category": "neuroscience",
+      "categories": [
+        "neuroscience"
+      ],
+      "published": "2026-06-10T00:00:00+00:00",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.06.06.728412v1.full.pdf",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "fNIRS dataset with emotion recognition task",
+      "llm_evidence_cn": "包含情绪识别任务的fNIRS数据集",
+      "llm_evidence": "包含情绪识别任务的fNIRS数据集",
+      "canonical_evidence": "包含情绪识别任务的fNIRS数据集",
+      "llm_tldr_en": "Introduces a large open fNIRS dataset with multiple tasks including emotion recognition, analyzing how signal quality affects inter-individual variability.",
+      "llm_tldr_cn": "针对fNIRS研究中高个体差异和低可重复性的问题，本文构建了一个大型公开的多任务fNIRS数据集，包含静息态、运动、情绪识别等任务，并记录了外周生理信号。通过分析信号质量与任务诱发反应之间的关系，发现信号质量差异是造成个体间变异的重要原因。该数据集为fNIRS研究提供了标准化资源，并强调控制信号质量的必要性。",
+      "llm_tldr": "针对fNIRS研究中高个体差异和低可重复性的问题，本文构建了一个大型公开的多任务fNIRS数据集，包含静息态、运动、情绪识别等任务，并记录了外周生理信号。通过分析信号质量与任务诱发反应之间的关系，发现信号质量差异是造成个体间变异的重要原因。该数据集为fNIRS研究提供了标准化资源，并强调控制信号质量的必要性。",
+      "llm_tags": [
+        "query:eeg-ode-ln:composite"
+      ],
+      "matched_query_tag": "query:eeg-ode-ln:composite",
+      "matched_query_text": "Papers central to 查找EEG解码（最好情绪识别）以及EEG+fNIRs多模态的文章, especially work that connects or combines: EEG signal decoding methods; multimodal EEG and fNIRS for brain activity decoding; affective computing using EEG; brain-computer interface for emotion; multimodal fusion of EEG and fNIRS; deep learning for EEG classification; Find papers on EEG decoding for emotion recognition; Search for multimodal EEG and fNIRS studies; EEG decoding for emotion recognition; multimodal EEG fNIRS studies.",
+      "matched_requirement_id": "req-composite-eeg-ode-ln",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
