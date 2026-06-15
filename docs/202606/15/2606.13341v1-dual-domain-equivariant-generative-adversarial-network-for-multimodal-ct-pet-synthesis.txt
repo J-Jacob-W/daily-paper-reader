@@ -1,0 +1,142 @@
+Title: Dual-Domain Equivariant Generative Adversarial Network for Multimodal CT-PET Synthesis
+
+URL Source: https://arxiv.org/pdf/2606.13341v1
+
+Published Time: Fri, 12 Jun 2026 00:58:09 GMT
+
+Number of Pages: 4
+
+Markdown Content:
+## DUAL-DOMAIN EQUIVARIANT GENERATIVE ADVERSARIAL NETWORK FOR MULTIMODAL CT-PET SYNTHESIS 
+
+## Gabriel Steele ⋆ Alzahra Altalib ⋆† Alessandro Perelli ‡ 
+
+> ⋆
+
+## School of Science and Engineering, University of Dundee, DD1 4HN, UK  
+
+> †
+
+## Faculty of Applied Medical Sciences, Jordan University of Science and Technology, 21410, Jordan  
+
+> ‡
+
+## School of Cardiovascular and Metabolic Health, University of Glasgow, G12 8TA, UK 
+
+ABSTRACT 
+
+We present a Dual-Domain Equivariant Generative Adver-sarial Network (DDE-GAN) for multimodal CT-PET image synthesis. Traditional GAN-based approaches often operate solely in the spatial domain and ignore geometric consis-tency, resulting in limited structural fidelity. DDE-GAN addresses these challenges by jointly learning from both spatial and frequency (Fourier) domains, capturing com-plementary anatomical and spectral information. Further-more, rotational equivariance embedded in the physics of the CT and PET measurements are integrated into the loss of both the generator and discriminator to ensure consistent responses under rotations, improving anatomical accuracy. A hierarchical dual-domain training strategy enforces intra-and inter-domain consistency through multi-stage loss func-tions. Evaluated on the HECKTOR 2022 CT-PET dataset, DDE-GAN achieves superior synthesis quality over baseline models for CT-PET image synthesis. The results demonstrate that combining dual-domain learning with geometric equiv-ariance substantially enhances multimodal image synthesis accuracy and robustness, enabling practical applications in PET completion and data augmentation. 
+
+Index Terms — CT-PET image Synthesis, Generative Ad-versarial Network, Dual-domain, Equivariance 
+
+1. INTRODUCTION 
+
+Multimodal imaging, particularly Computed Tomography-Positron Emission Tomography (CT-PET), has become in-dispensable in modern clinical workflows, providing com-plementary metabolic and anatomical information essential for diagnosis, staging, and treatment planning in oncology, neurology, and cardiology [1]. Despite its diagnostic power, dual-modality acquisition is associated with increased cost, scan time, and patient radiation exposure. Moreover, in many real-world scenarios, including low-resource settings, retrospective studies, or emergency situations as one of the modalities may be missing, corrupted, or misaligned. This motivates the growing interest in cross-modality image syn-thesis, where one modality like CT is used to generate the other like PET [2], [3]. However, it is of outmost importance to ensure consistency across different measurements’ modali-ties and furthermore consistent outputs under transformations like rotation or translation undermines their generalizability and clinical reliability [4], [5]. Early methods for modal-ity synthesis relied on registration-based or patch-based ap-proaches, which were limited by their reliance on handcrafted features and spatial alignment. Recent advances in deep generative models, especially Generative Adversarial Networks (GANs), have enabled promising results in medical image-to-image translation tasks [6]. In the medical domain, GANs have been widely adopted for MRI-to-CT [7], CT-to-PET [2], and other synthe-sis tasks. In [3] one of the earliest deep learning-based frame-works for cross-modality image synthesis was introduced, leveraging contextual information with a conditional GAN. A modality-invariant latent representations was proposed in [8] to improve the generalizability of synthetic images. More recent work, such as [9], utilized 3D convolutional GANs to synthesize PET from CT, improving realism and metabolic plausibility. Nevertheless, existing approaches face key chal-lenges. First, most models operate solely in the image or latent space, failing to fully leverage the complementary spectral characteristics of PET and CT data. Second, these models often lack mechanisms to preserve geometric consis-tency under spatial transformations, leading to anatomically implausible hallucinations. However, most existing GAN-based models operate solely in the spatial domain, limiting their ability to capture global or frequency-sensitive features relevant to multimodal synthesis. Dual-domain learning has gained traction as a means to leverage complementary infor-mation from different representations. In medical imaging, some studies have explored frequency-aware architectures for denoising or reconstruction, but dual-domain learning for modality synthesis remains under-explored. Our method builds on this idea by learning from both image and fre-quency domains, allowing the network to capture detailed anatomical structures and broader contextual patterns. Most deep networks are not inherently equivariant to transforma-tions such as rotation, translation, or reflection, which can 
+
+> arXiv:2606.13341v1 [cs.CV] 11 Jun 2026
+
+be problematic in medical applications where orientation and geometry are clinically relevant. Group-equivariant convo-lutional neural networks (G-CNNs) enforce symmetry con-straints, improving generalization and geometric consistency which have been applied for 3D imaging [5], demonstrating benefits in segmentation and classification. An alternative way to enforce equivariance consistency is to exploits the group invariance present in PET-CT distributions directly from measurement data [10]. Yet, equivariance has not been widely incorporated into generative models for modality syn-thesis, despite its potential to improve anatomical plausibility. Our work addresses this gap by integrating equivariant loss constraints into both the generator and discriminator archi-tectures of a GAN framework. 
+
+1.1. Main Contribution 
+
+To address these limitations, we propose a novel framework: the Dual-Domain Equivariant Generative Adversarial Net-work (DDE-GAN) for multimodal PET-CT synthesis. Our method introduces two major innovations a) Dual-domain learning: We jointly process image data in both the spatial (image) domain and the frequency (Fourier) domain, allowing the model to learn high-frequency anatomical detail as well as low-frequency contextual information. This is inspired by the growing use of frequency-aware models in medical image reconstruction and denoising tasks; b) Equivariant design: We incorporate robust equivariant imaging to enforce this property in the dual domain loss function into both the gen-erator and discriminator to preserve geometric consistency. By ensuring that transformations (e.g., rotation, reflection) in the input are reflected in the output, our model maintains anatomical plausibility and improves robustness to variations in patient orientation. To our knowledge, equivariant archi-tectures have not yet been applied to generative modelling for modality synthesis. We propose the first Dual-Domain Equivariant GAN (DDE-GAN) for CT-PET synthesis, jointly learning from both spatial and frequency representations to enhance cross-modality translation quality and the geometric equivariance constraints are embedded into the generative training loss, improving structural fidelity and generalization under spatial transformations. We demonstrate significant improvements over state-of-the-art baselines on two public datasets, showing enhanced anatomical accuracy, synthesis realism, and modality consistency. Our findings suggest that DDE-GAN has practical appli-cations in PET generation from low-dose CT, and data aug-mentation for multimodal training pipelines. 
+
+2. DUAL-DOMAIN EQUIVARIANT GAN 
+
+Generalised Dual-Domain Generative Framework [11] for reconstruction makes use of information in both the imaging and raw data domains to generate additional cost functions that introduce different consistency constraints allowing for incremental stages of model training. We define xs ∈ Rn the source image and xs ∈ Rn the target image that can be either considered as PET or CT and we indicate F ∈ Rm×n as the linear operator representing the ray-tracing discretization physical attenuation model, such that ys,t = Fs,t xs,t . This procedure employs hierarchical bi-directional consistency constraints to train the networks in three stages. The first of these consistency constraints is intra-domain consistency S1.Different networks GIt , G Is operating in the image domain and GAt , G As in the measurement domain, are trained to con-struct target images and inversely construct the source images from target data for both domains. Initially the networks are trained individually and the L1 norm cost functions in Eqs. (1) are computed in the training in stage S1
+
+LIt = Exs,xt GIt (xs) − xt 1 (1) 
+
+LIs = Exs,xt GIs (xt) − xs 1
+
+LAt = Exs,xt GAt (Fs(xs)) − Ft(xt) 1
+
+LAs = Exs,xt GAs (Ft(xt)) − Fs(xs) 1
+
+With the trained networks from the first stage, the second stage S2 measures consistency constraint by introducing inter-domain elements. Networks are paired to compare gen-erated images, through the forward operators Fs,t between domains. Inter-domain stage S2 cost functions 
+
+LIt = Exs,xt GIs (xs) − xt 1 (2) 
+
++ λ1Exs GIt (xs) − F−1 
+
+> t
+
+(GAt (Fs(xs))) 1
+
+LAt = Exs,xt GAt (Fs(xs)) − Ft(xt) 1
+
++ λ2Exs GAt (Fs(xs)) − Ft(GIt (xs)) 1
+
+LIs = Exs,xt GIs (xt) − xs 1
+
++λ3Exs GIt (xt) − F−1 
+
+> s
+
+(GAs (Ft(xt))) 1
+
+LAs = Exs,xt GAs (Ft(xt)) − Fs(xs) 1
+
++λ4Exs GAs (Ft(xt)) − Ft(GIs (xt)) 1
+
+build on the intra-domain consistency to compare the results of network reconstructions within different domains. λ is a scalar value that changes the weighting of the terms to the loss value and F−1 
+
+> s,t
+
+is the back-projection operator. By design both PET and CT inherited rotational equivari-ance by the physics of the acquisition, therefore the key idea is to enforce this constraint into the training loss. Defining 
+
+Tg : Rn → Rn as a rotational operator, the equivariance constraint can be enforced by imposing 
+
+Tg
+
+ GIs (Fs(xs))  = GIs
+
+ Fs (Tg (xs))  (3) and this can be visually depicted as in Fig. 1. Based on Eq. (3), we design he equivariant loss function for Fig. 1 : Rotational equivariance for multimodal PET/CT im-age synthesis. Stage S3,eq as 
+
+LIt = Exs,xt GIt (xs) − xs 1 (4) 
+
++ ξ1Exs GIs (GIt (xs)) − xs 1 ++ ξ2Exs F−1(GAs (F(GIt (Tg (xs))))) − Tg (xs) 1
+
+LIs = Exs,xt GIt (xt) − xs 1 (5) 
+
++ ξ3Ext GIt (GIs (xt)) − xt 1 ++ ξ4Ext F−1  GAt (F(GIs (Tg (xt))))  − Tg (xt) 1
+
+where the last term in Eq. (4) compares the error between the rotated source image Tg (xs) with the equivariant trans-formed F−1 domain source image GAs (Ft(GIt (Tg (xs)))) .The input source image is rotated Tg (xs) is reconstructed to represent the target image GIt (Tg (xs)) , which is transformed from the image domain F (GIt (Tg (xs))) and reconstructed into the F domain target image GAs (Ft(GIt (xs))) . ξ4 is a constant that scales the impact of the term to the loss value. 
+
+3. VALIDATION AND RESULTS 
+
+The selected dataset for the study is sourced from the HEad and neCK TumOR segmentation in PET/CT images (HECK-TOR) 2022 [12]. The datasets were composed of data from 10 different centres, each using different imaging procedures and machines. The training and testing datasets were used, result-ing in the selection of CHUS, HMR and CHUV for training, and MDA for both training and testing. This selection resulted in a dataset of 341 PET and CT acquisitions, yielding an aver-age total of 125 , 852 images for training pre-processing and a set of 200 acquisitions, which corresponded to approximately 
+
+74 , 400 images for testing pre-processing. These centres were selected to be included in the datasets because the images could be processed more effectively. The refined dataset var-ied across several key features, notably in terms of resolution and the quantity of images per acquisition. Before processing, the PET image dataset was aligned and padded to 256 × 256 
+
+pixels resolution. On the other hand, the CT image dataset had a mean resolution of 510 × 510 pixels. The alignment be-tween CT and PET images was performed by comparing the number of images yielded in each acquisition. The networks 
+
+GA,I s,t have been implemented using the U-Net architecture de-picted in Fig. 2. 
+
+Fig. 2 : Residual U-Net network architecture in DDE-GAN. The qualitative results for the problem of synthesis of PET images from CT are shown in Fig. 3 where the synthesis images using CycleGAN [11] and the proposed DD-GAN at different stages S1 - S3 are compared. It is possible to note how adding the equivariant loss at stage S3, the details of the PET image are noticeably improved compared with previous stages and also with CycleGAN which is not fully converged given the same amount of training epochs. These observa-tions are confirmed also by the quantitative results in terms of SSIM and PSNR summarised in Table 1 where the pro-posed DDE-GAN is consistently increased the PSNR of ≈ 6
+
+dB with reduced variability on the test set.      
+
+> (a) CT ground (b) DD-GAN (c) DD-GAN (d) DDE-GAN truth [11] S2
+
+Fig. 3 : Synthesised PET images from CT using: b) DD-GAN [11], c) DD-GAN S2 and d) proposed DDE-GAN. Table 1 : Quantitative comparison of models on the test set for CT-PET image synthesis. Best scores are in bold. 
+
+Method SSIM PSNR (dB) 
+
+DD-GAN [11] 0.75 ± 0.18 25 .42 ± 2.35 
+
+DD-GAN S2 0.80 ± 0.11 21 .51 ± 2.95 
+
+DDE-GAN (Ours) 0.92 ± 0.04 28 .12 ± 1.92 
+
+4. CONCLUSIONS 
+
+In this work we proposed a new methods for synthesis of PET images from CT based on dual domain Generative Adver-sarial Network. We extend the framework using the prop-erty of rotational equivariance which is inherited from the acquisition geometry of both PET and CT imaging. By en-forcing this property in the training loss, the proposed DDE-GAN algorithm is able to improve substantially the quality of the PET synthetic images from CT. The results on clinical dataset show an increase of ≈ 2.7 dB in PSNR and 0.12 of SSIM compared to the DD-GAN without equivariance. These preliminary observations confirm that DDE-GAN is a poten-tial promising method for image synthesis in clinical applica-tions. 
+
+5. ACKNOWLEDGMENT 
+
+This work involved human subjects or animals in its re-search. Approval of all ethical and experimental procedures and protocols was granted by the Research Ethics Commit-tee of McGill University Health Center (Protocol Number: MM-JGH-CR15-50) for the clinical study entitled ”HEad and neCK TumOR segmentation and outcome prediction: HECK-TOR 2022”. A. Altalib is supported by the Jordan University of Science and Technology PhD scholarship. All authors declare that they have no known conflicts of interest in terms of competing financial interests or personal relationships that could have an influence or are relevant to the work reported in this paper. 
+
+6. REFERENCES 
+
+[1] D. W. Townsend, “Multimodality imaging of structure and function,” Physics in Medicine and Biology , vol. 53, no. 4, pp. R1–R39, 2008. [2] L. Xiang, Z. Xu, D. Guo, and et al., “Deep embedding convolutional neural network for synthesizing PET im-ages from CT scans,” IEEE Transactions on Medical Imaging , vol. 37, no. 3, pp. 982–993, 2018. [3] D. Nie, R. Trullo, J. Lian, and et al., “Medical image synthesis with context-aware generative adversarial net-works,” in International Conference on Medical Image Computing and Computer-Assisted Intervention (MIC-CAI) . Springer, 2017, pp. 417–425. [4] T. S. Cohen and M. Welling, “Group equivariant convo-lutional networks,” in International Conference on Ma-chine Learning (ICML) , 2016, pp. 2990–2999. [5] M. Weiler, F. A. Hamprecht, and M. Storath, “3D steer-able CNNs: Learning rotationally equivariant features in volumetric data,” in Advances in Neural Informa-tion Processing Systems (NeurIPS) , 2018, pp. 10 381– 10 392. [6] P. Isola, J.-Y. Zhu, T. Zhou, and A. A. Efros, “Image-to-image translation with conditional adversarial net-works,” in Proceedings of the IEEE Conference on Com-puter Vision and Pattern Recognition (CVPR) , 2017, pp. 5967–5976. [7] J. M. Wolterink, T. Leiner, M. A. Viergever, and I. Iˇ sgum, “Deep MR to CT synthesis using unpaired data,” in Simulation and Synthesis in Medical Imaging (SASHIMI) , ser. Lecture Notes in Computer Science, vol. 10557. Springer, 2017, pp. 14–23. [8] A. Chartsias, T. Joyce, and S. A. Tsaftaris, “Multimodal MR synthesis via modality-invariant latent representa-tion,” in International Conference on Medical Image Computing and Computer-Assisted Intervention (MIC-CAI) . Springer, 2018, pp. 371–379. [9] Y. Huang, L. Bi, K. Zhang, and et al., “PETNet: Cross-modality PET image synthesis from CT using 3D GAN,” in International Conference on Medical Image Computing and Computer-Assisted Intervention (MIC-CAI) . Springer, 2021, pp. 202–212. [10] D. Chen, J. Tachella, and M. E. Davies, “Robust equiv-ariant imaging: a fully unsupervised framework for learning to image from noisy and partial measurements,” in Proceedings of the IEEE/CVF Conference on Com-puter Vision and Pattern Recognition , 2022, pp. 5647– 5656. [11] J. Zhang, K. Sun, J. Yang, Y. Hu, Y. Gu, Z. Cui, X. Zong, F. Gao, and D. Shen, “A generalized dual-domain gener-ative framework with hierarchical consistency for med-ical image reconstruction and synthesis,” Communica-tions Engineering , vol. 2, no. 1, p. 72, 2023. [12] V. Andrearczyk, V. Oreiller, M. Abobakr, A. Akhavanal-laf, P. Balermpas, S. Boughdad, L. Capriotti, J. Castelli, C. Cheze Le Rest, P. Decazes et al. , “Overview of the HECKTOR challenge at MICCAI 2022: automatic head and neck tumor segmentation and outcome prediction in PET/CT,” in 3D Head and Neck Tumor Segmentation in PET/CT Challenge . Springer, 2022, pp. 1–30.
