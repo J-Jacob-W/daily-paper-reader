@@ -1,0 +1,209 @@
+Title: Fusion-E2Pulse: A Multimodal Event-RGB Fusion Network for Non-contact Pulse Wave Reconstruction
+
+URL Source: https://arxiv.org/pdf/2606.15597v1
+
+Published Time: Tue, 16 Jun 2026 01:17:05 GMT
+
+Number of Pages: 10
+
+Markdown Content:
+# Fusion-E2Pulse: A Multimodal Event-RGB Fusion Network for Non-contact Pulse Wave Reconstruction 
+
+Qian Feng 1, Hao Guo 1, Yan Niu 1, Zhenhuan Xu 2B, and Yidi Li 1B 
+
+> 1
+
+College of Computer Science and Technology, Taiyuan University of Technology, China  
+
+> 2
+
+College of Artificial Intelligence, Taiyuan University of Technology, China 
+
+{xuzhenhuan, liyidi}@tyut.edu.cn 
+
+Abstract. Non-contact pulse wave reconstruction hinges on the precise recovery of waveform morphology, including the dicrotic notch. Conven-tional Red-Green-Blue (RGB)-based methods, which extract physiolog-ical signals from recorded facial videos, are constrained by the integral imaging mechanism of standard cameras, where the exposure process in-duces a smoothing effect that attenuates subtle vascular pulsation details. Conversely, neuromorphic event cameras, while offering exceptional sen-sitivity to intensity fluctuations, are inherently susceptible to noise and artifacts induced by minor motion. To exploit the synergy between frame-based integration and event-based differential sensing, we propose a novel multimodal network named Fusion-E2Pulse. This framework utilizes fil-tered RGB signals as structural priors to suppress motion artifacts, while leveraging the high sensitivity of event streams to recover fine-grained morphological details. Experimental results demonstrate that Fusion-E2Pulse achieves state-of-the-art performance, effectively balancing noise suppression and morphological fidelity, achieving a mean absolute error of 0.78 bpm for heart rate estimation, a waveform correlation of 0.89, and a systolic phase duration error of 16.74 ms, validating its efficacy in reconstructing fine-grained pathological features. 
+
+Keywords: Pulse Wave Reconstruction · Event Camera · Non-Contact Physiological Measurement. 
+
+## 1 Introduction 
+
+Cardiovascular disease remains a leading cause of global mortality, requiring ef-fective screening and long-term monitoring to mitigate its impact [20,23]. As a vital physiological window, pulse wave morphology reflects the dynamic inter-play between the heart and the peripheral vascular system. Through pulse wave analysis, clinicians can obtain fundamental indicators such as Heart Rate (HR) and Heart Rate Variability (HRV). More importantly, the precise extraction of morphological features—notably the dicrotic notch—provides critical patholog-ical information regarding vascular resistance and arterial stiffness, which are  
+
+> arXiv:2606.15597v1 [cs.CV] 14 Jun 2026 2Q. Feng et al.
+
+key predictors of early-stage cardiovascular deterioration [2,23]. While tradi-tional contact-based sensors offer high precision, they are often impractical for sensitive scenarios such as neonatal care or burn patient monitoring [18,7,26]. Consequently, remote photoplethysmography (rPPG) has emerged as a promis-ing non-contact alternative due to its low hardware cost and accessibility [15,22]. This field has evolved significantly, ranging from classical signal processing meth-ods such as CHROM [5], ICA [19], and POS [24] to state-of-the-art (SOTA) deep learning architectures like PhysNet [25] and RhythmFormer [27]. Despite these advancements, standard Red-Green-Blue (RGB)-based meth-ods face an inherent physical bottleneck. These methods rely on capturing Pho-toplethysmography (PPG) signals—a measure of blood volume changes via skin color variations—from time-series pixel values in facial video sequences. The integral imaging mechanism of standard cameras acts as a physical low-pass filter by accumulating photons over fixed exposure windows, which inevitably smooths out the subtle, rapid pulsations essential for capturing subtle morpho-logical structures [5]. The intrinsic advantages of neuromorphic event cameras precisely compensate for these deficiencies. Characterized by acute sensitivity to intensity fluctuations and high dynamic range, event cameras asynchronously en-code pixel-level intensity changes to acutely capture the subtle variations caused by skin micro-vibrations [8]. Recent studies have confirmed the feasibility of non-contact HR monitoring using event cameras [17,11], highlighting their po-tential to record subtle physiological dynamics. However, the differential sensing of event cameras [14] is a double-edged sword; while providing high sensitivity, it is highly susceptible to non-physiological clutter triggered by minute motions, compromising HR estimation robustness. In this study, we propose an innovative multimodal network named Fusion-E2Pulse to achieve robust noise suppression and high-fidelity waveform recon-struction. By establishing a complete framework that synergizes RGB structural stability with event dynamic sensitivity, we bridge the gap between global stabil-ity and local precision. The principal contributions are summarized as follows: (1) we propose a novel fusion paradigm that integrates RGB structural pri-ors with event streams to effectively suppress motion-induced artifacts; (2) we establish a time-frequency adversarial supervision framework with synergistic optimization objectives, integrating spectral and morphological constraints to ensure high-fidelity physiological recovery; and (3) we perform extensive valida-tion on the Event-based Multimodal Physiological Dataset (EMPD) [6], where Fusion-E2Pulse establishes new SOTA performance in HR estimation and en-ables precise reconstruction of subtle physiological landmarks. 
+
+## 2 Method 
+
+To implement the aforementioned synergy between RGB structural stability and event dynamic sensitivity, the Fusion-E2Pulse framework is organized into a two-stage pipeline consisting of multimodal data preparation and adversarial pulse reconstruction, as illustrated in Fig. 1. We formulate pulse wave reconstruction Fusion-E2Pulse 3Ψ                      
+
+> S
+> Fev
+> 1Fev
+> 2Fev
+> 3Fev
+> 4
+> Frgb
+> 4
+> Frgb
+> 1Frgb
+> 2Frgb
+> 3
+> Concat (,)FFrgb ev 11
+> Concat (,)FFrgb ev 22
+> Concat (,)FFrgb ev 33
+> Concat (,)FFrgb ev 44
+> 
+> Filtering & Upsampling Traditional Methods (CHROM | ICA | POS)
+> Soft-DTW STFT FFT
+
+Stage 1: Multimodal Data Preparation Stage 2: Adversarial Pulse Reconstruction     
+
+> Discriminator Ground Truth RGB Encoder Decoder Event Encoder
+> SE Blocks Self-Attention Fusion Conv
+> Attentional Fusion Bottleneck
+> ROI Localization Event Aggregation Dtrending
+> Event Preprocessing RGB Preprocessing RGB Camera Event Camera Real/Fake
+> morph
+> spec
+> adv
+> Sgt
+> Xev
+> Xrgb
+> Φev
+> Φrgb
+
+Fig. 1. The architecture of the proposed Fusion-E2Pulse framework. 
+
+as a multimodal sequence-to-sequence generation task, where the objective is to recover the underlying PPG signal ( Sgt )—serving as the ground truth recorded via a fingertip pulse oximeter—from heterogeneous sensor data. By bridging the gap between global stability and local precision, the framework transforms raw sensor captures into high-fidelity physiological waveforms. 
+
+2.1 Multimodal Data Preparation 
+
+The raw input modalities comprise asynchronous event streams captured from the radial artery of the wrist by an event camera and recorded RGB video se-quences. To handle modal heterogeneity and prepare the data for the generative network, we apply distinct preprocessing pipelines to derive the final processed signals Xev ∈ R1×T and rPPG signals Xrgb ∈ R1×T , where T denotes the time window length. Unlike traditional contact-based sensors, our framework extracts physiological information from the spatio-temporal pixel variations within video sequences and sparse event spikes, leveraging their unique sensing mechanisms to ensure robust reconstruction. For the event stream, we first apply Region of Interest (ROI) localization followed by temporal aggregation to convert asynchronous events into a syn-chronous continuous signal matching the sampling frequency of the ground-truth PPG ( 60 Hz), with detrending applied to remove motion-induced drifts. Simul-taneously, for the RGB stream, rPPG waveforms are extracted from video via traditional rPPG algorithms (CHROM [5], ICA [19], and POS [24]), which lever-age the specific absorption characteristics of oxygenated hemoglobin in the visi-ble spectrum. These signals are band-pass filtered and linearly interpolated for temporal alignment. As visualized in Fig. 2, the resulting processed signals Xev 
+
+and Xrgb exhibit significant morphological complementarity: Xev displays rich fine-grained dynamics that acutely capture subtle vascular pulsations, whereas 
+
+Xrgb maintains a robust low-frequency periodic structure but is overly smoothed due to the integral imaging effect. Finally, both signals are Z-score standardized [13,1] to facilitate stable fusion. 4 Q. Feng et al. (a)  
+
+> (c)
+> (b)
+> (d)
+> Fig. 2. Visualization of synchronized multimodal inputs. Inputs are overlaid with the ground-truth PPG signal (green dashed). (a) Event signal. (b)–(d) RGB signals ex-tracted via CHROM, ICA, and POS.
+
+2.2 Adversarial Pulse Reconstruction Dual-Stream Encoder. To extract complementary features, the encoder em-ploys a dual-stream architecture. The event branch ( Φev ) extracts fine-grained local features F iev via cascaded 1D convolutions, where i is the layer index. Com-plementarily, the RGB branch ( Φrgb ) extracts low-frequency periodic structural features F irgb . Both branches output semantic features F Lev and F Lrgb at the deep bottleneck ( L being the total layers) to avoid early fusion interference. 
+
+Attentional Fusion Bottleneck. To address modal heterogeneity, we intro-duce Squeeze-and-Excitation (SE) [10] and Self-Attention (SA) [16] mechanisms. Features are first concatenated as Fcat = Concat (F Lev , F Lrgb ). An SE module then dynamically calibrates channel weights to produce Fse , allowing adaptive weighting of event and RGB features based on signal quality. Subsequently, SA captures global temporal dependencies to yield Fsa . Finally, a fusion convolu-tion (1 ×1 Conv) reduces the channel dimensionality to produce the final fused feature Ff used for the decoder. 
+
+Decoder. The decoder ( Ψ ) upsamples the fused feature Ff used via transposed convolutions to restore temporal resolution. Crucially, skip connections link the shallow features ( F iev , F irgb ) from the encoders to the corresponding decoder lay-ers. This fuses texture details with semantic information, finally generating the reconstructed pulse waveform S = Ψ (Ff used ).
+
+Discriminator. Unlike standard GANs that operate directly on time-domain signals, our discriminator D transforms the waveform into the frequency domain via Fast Fourier Transform (FFT). It analyzes the magnitude spectrum of the signal, which allows the network to explicitly distinguish the fundamental HR frequency and harmonic structures from noise. This spectral discrimination strat-egy guides the generator to synthesize realistic physiological periodicity without over-constraining the temporal phase. 
+
+Optimization Objectives. To ensure consistency in both time-domain topol-ogy and frequency-domain distribution, we train our network with a composite loss: Ltotal = Ladv + λmorph Lmorph + λspec Lspec . We employ an adversarial loss (Ladv ) based on Wasserstein GAN [9] with gradient penalty to constrain the distribution of the generated pulse waves. To ensure morphological fidelity and Fusion-E2Pulse 5
+
+robustness against phase shifts, we utilize the Soft-DTW loss ( Lmorph ) [4], which provides a measure of temporal alignment. Finally, a time-frequency spectral loss (Lspec ) based on Short-Time Fourier Transform (STFT) [3] is applied to suppress noise and enforce consistency in the spectrogram domain. 
+
+## 3 Experiment and Results 
+
+3.1 Datasets and Implementation Details 
+
+To comprehensively evaluate Fusion-E2Pulse, we utilize the EMPD [6] dataset, comprising 193 multimodal recordings (68s each) from 83 subjects, including synchronized facial RGB, wrist-pulse events, and ground-truth PPG. We adopt two evaluation protocols: (1) time split, partitioning each 68s record into training (48s), validation (8s), and testing (12s) segments to assess temporal continuity; and (2) record split, randomly partitioning the 193 records into training (70%), validation (12%), and testing (18%) sets to evaluate generalization across sam-ples. Experiments are implemented in PyTorch on an NVIDIA RTX 4060 GPU using the Adam optimizer ( β1 = 0 .5, β 2 = 0 .999 ) with an initial learning rate of 2 × 10 −4. Loss weights are set to λmorph = 1 .0 and λspec = 10 .0 to balance constraints. Evaluation metrics for heart rate estimation accuracy include Mean Absolute Error (MAE, in bpm ), Root Mean Square Error (RMSE, in bpm ), (a)                                                                                                                                  
+
+> (b)
+> Fig. 3. (a) Bland-Altman plots showing the agreement between the estimated and ground-truth HR. The plots display the difference (y-axis) against the mean (x-axis), with dashed lines indicating the 95% Limits of Agreement (LoA); (b) Waveform mor-phology analysis. 6Q. Feng et al.
+> Table 1. Quantitative comparison of the proposed Fusion-E2Pulse against its single-modal counterparts.
+> Method HR Morphology MAE RMSE MAPE rhSPD DPD PWD SNR rw
+> Time Split
+> Event 0.87 2.68 1.18 0.977 22.50 29.22 17.93 11.46 0.883 CHROM 5.10 9.50 6.16 0.713 28.49 60.04 64.50 6.41 0.543 ICA 6.63 11.36 8.31 0.543 22.67 69.47 73.41 6.15 0.498 POS 5.74 10.27 6.98 0.656 26.26 58.84 65.64 6.40 0.498 w/ CHROM 0.82 2.51 1.14 0.980 16.07 19.24 15.98 11.93 0.894 w/ ICA 0.89 2.65 1.26 0.978 18.52 21.85 18.82 11.81 0.895 w/ POS 0.78 2.51 1.05 0.980 16.74 21.85 17.93 11.89 0.891
+> Record Split
+> Event 1.00 3.84 1.27 0.940 16.71 20.08 15.43 12.64 0.904 CHROM 4.50 8.43 6.00 0.692 21.88 55.26 56.41 6.93 0.558 ICA 5.76 10.59 7.42 0.517 21.61 63.38 65.22 6.77 0.538 POS 5.11 9.51 6.96 0.612 20.51 58.47 59.51 6.86 0.550 w/ CHROM 0.94 3.65 1.22 0.945 16.64 19.46 14.97 12.93 0.909 w/ ICA 1.00 3.80 1.25 0.941 17.48 20.77 17.19 12.79 0.907
+> w/ POS 0.83 2.88 1.10 0.966 16.59 18.05 14.32 12.79 0.915
+
+Mean Absolute Percentage Error (MAPE, in %), and the Pearson coefficient (rh). For morphological fidelity, we evaluate the waveform Pearson coefficient (rw), Signal-to-Noise Ratio (SNR, in dB ), and the Systolic/Diastolic Phase Du-ration (SPD/DPD) and Pulse Width (PWD) measured in ms [21,12]. 
+
+3.2 Comparative Analysis with Single-Modal Counterparts 
+
+We benchmark Fusion-E2Pulse against various configurations to validate the ef-ficacy of multimodal integration. These counterparts include: (1) event-only, a single-modal network variant (denoted as Event in our experimental tables) uti-lizing only wrist-pulse event streams as input without RGB guidance; and (2) RGB-only: pulse signals extracted solely from facial video sequences via classic rPPG algorithms, including CHROM [5], ICA [19], and POS [24]. The proposed fusion variants, denoted as w/ CHROM, w/ ICA, and w/ POS, represent the full Fusion-E2Pulse architecture integrating event micro-dynamics with the cor-responding structural priors derived from these RGB-based methods. This setup allows for a direct assessment of how different structural references influence the reconstruction of morphological details. 
+
+Performance on Time Split. To evaluate the fundamental reconstruction ca-pability, we benchmark the models using the time split (Table 1). Fusion-E2Pulse (w/ POS) achieves the lowest MAE (0.78 bpm) while maintaining high wave-form correlation ( rw ≈ 0.89 ), significantly outperforming single-modal counter-Fusion-E2Pulse 7
+
+parts. Qualitatively, our method reconstructs sharp dicrotic notches (Fig. 3(b), 
+
+rw ≈ 0.97 ) and demonstrates the tightest Limits of Agreement (LoA) in Bland-
+
+Table 2. Ablation study of Fusion-E2Pulse loss functions and architecture compo-nents. (Top) Impact of different optimization objectives under the time split. (Bottom) Robustness of fusion strategies and component contributions under the record split. 
+
+Setting Method HR Morphology MAE RMSE MAPE rh SPD DPD PWD SNR rw
+
+Time Split 
+
+Ladv 
+
+Event 21.35 37.26 24.91 0.294 – – – – –w/ CHROM 29.27 43.97 35.95 0.154 – – – – –w/ ICA 26.14 40.37 32.37 0.072 – – – – –w/ POS 17.71 23.34 20.95 0.071 – – – – –
+
+Lspec 
+
++Ladv 
+
+Event 1.02 4.02 1.32 0.949 16.50 20.32 16.70 11.18 0.881 w/ CHROM 0.97 2.70 1.31 0.979 18.90 25.52 21.36 11.56 0.883 w/ ICA 1.09 3.61 1.50 0.958 19.31 23.51 17.90 11.31 0.884 w/ POS 0.97 2.84 1.29 0.974 17.99 21.54 20.41 11.31 0.880 
+
+Lmorph 
+
++Ladv 
+
+Event 1.11 3.10 1.49 0.970 20.92 28.97 19.99 11.41 0.880 w/ CHROM 1.04 2.84 1.37 0.974 18.63 25.48 19.55 11.24 0.875 w/ ICA 1.22 3.63 1.59 0.958 18.53 24.03 19.52 11.28 0.876 w/ POS 1.07 3.02 1.41 0.970 18.50 24.13 20.36 11.77 0.882 
+
+Full 
+
+Event 0.87 2.68 1.18 0.977 22.50 29.22 17.93 11.46 0.883 w/ CHROM 0.82 2.51 1.14 0.980 16.07 19.24 15.98 11.93 0.894 w/ ICA 0.89 2.65 1.26 0.978 18.52 21.85 18.82 11.81 0.895 w/ POS 0.78 2.51 1.05 0.980 16.74 21.85 17.93 11.89 0.891 
+
+Record Split 
+
+Ladv 
+
+Event 20.87 31.86 25.85 0.158 – – – – –w/ CHROM 28.33 42.61 36.62 0.078 – – – – –w/ ICA 18.57 28.92 24.07 -0.049 – – – – –w/ POS 28.23 42.58 36.66 0.066 – – – – –
+
+Lspec 
+
++Ladv 
+
+Event 0.98 3.69 1.31 0.944 28.01 32.19 14.92 10.02 0.722 w/ CHROM 0.91 3.57 1.17 0.948 19.09 24.41 13.85 8.31 0.820 w/ ICA 0.97 3.66 1.25 0.945 45.72 51.18 20.17 7.56 0.645 w/ POS 1.08 4.43 1.47 0.919 18.42 23.44 14.68 7.78 0.836 
+
+Lmorph 
+
++Ladv 
+
+Event 1.11 3.10 1.49 0.970 20.92 28.97 19.99 11.41 0.880 w/ CHROM 1.04 2.84 1.37 0.974 18.63 25.48 19.55 11.24 0.875 w/ ICA 1.22 3.63 1.59 0.958 18.53 24.03 19.52 11.28 0.876 w/ POS 1.07 3.02 1.41 0.970 18.50 24.13 20.36 11.77 0.882 
+
+Full 
+
+Event 1.00 3.84 1.27 0.940 16.71 20.08 15.43 12.64 0.904 w/ CHROM 0.94 3.65 1.22 0.945 16.64 19.46 14.97 12.93 0.909 w/ ICA 1.00 3.80 1.25 0.941 17.48 20.77 17.19 12.79 0.907 
+
+w/ POS 0.83 2.88 1.10 0.966 16.59 18.05 14.32 12.79 0.915 8 Q. Feng et al. 
+
+Altman analysis (Fig. 3(a)). Critically, the errors remain consistently low across the varying heart rate range shown on the x-axis, indicating robustness against physiological variations. 
+
+Generalization on Record Split. To assess robustness against unseen sub-jects, we evaluate the models using the record split (Table 1). All single-modal counterparts experience performance degradation; notably, the event-only MAE deteriorates from 0.87 bpm to 1.00 bpm, indicating sensitivity to individual-specific motion patterns and skin textures. However, Fusion-E2Pulse maintains superior stability. The fusion variant (w/ POS) achieves an MAE of 0.83 bpm and an SPD error of 16.59 ms. This suggests that the RGB structural prior acts as a universal structural constraint, guiding the event branch to adapt to di-verse physiological characteristics and ensuring high-fidelity reconstruction even for unseen individuals. 
+
+3.3 Ablation Study Impact of Optimization Objectives. We analyze the contribution of each loss component under the time split (Table 2). The configuration trained solely with Ladv fails to converge (MAE = 17.71 bpm), highlighting the difficulty of sta-bilizing GANs on unconstrained physiological signals. The introduction of Lspec 
+
+proves critical, drastically reducing MAE to 1.00 bpm by anchoring the funda-mental frequency. The final addition of Lmorph via Soft-DTW further refines the waveform topology, optimizing SNR and morphological metrics (SPD/DPD) to their best values. 
+
+Robustness of Fusion Strategy. We further investigate the fusion effective-ness under the record split (Table 2). Consistent with time-split results, the inclusion of structural priors (CHROM, ICA, POS) consistently improves per-formance over the event-only configuration. Specifically, the fusion variant (w/ POS) improves the SNR from 12.64 dB (event-only) to 12.79 dB. Notably, even without the full loss constraints, the structural prior provides essential regulariza-tion, preventing the event branch from overfitting to subject-specific noise. This confirms that the attentional fusion bottleneck successfully extracts complemen-tary features—RGB for global stability and event for local dynamic precision. 
+
+## 4 Conclusion 
+
+In this work, we propose Fusion-E2Pulse, a novel multimodal framework syn-ergizing neuromorphic event cameras and RGB video for high-fidelity pulse re-construction. By integrating RGB structural priors with event micro-dynamics under a time-frequency adversarial supervision framework, our approach over-comes single-modal limitations such as exposure smoothing and noise. Compre-hensive evaluations on the EMPD dataset demonstrate superior performance in HR estimation and the recovery of fine-grained morphological biomarkers. Fu-ture research will address Pulse Transit Time (PTT) [22] alignment challenges inherent in cross-site sensing and optimize the framework for real-time edge de-ployment through unsupervised domain adaptation and model compression. Fusion-E2Pulse 9
+
+## References 
+
+1. Abdi, H.: Z-scores. Encyclopedia of measurement and statistics 3, 1055–1058 (2007) 2. Adami, B., Karimian, N.: rppg-sysdiagan: Systolic-diastolic feature localization in rppg using generative adversarial network with multi-domain discriminator. In: European Conference on Computer Vision. pp. 193–210. Springer (2024) 3. Allen, J.: Short term spectral analysis, synthesis, and modification by discrete fourier transform. In: IEEE Trans. on Acoust., Speech, and Sig. Proc. vol. 4, pp. 21–24 (1997) 4. Cuturi, M., Blondel, M.: Soft-dtw: a differentiable loss function for time-series. In: International conference on machine learning. pp. 894–903. PMLR (2017) 5. De Haan, G., Jeanne, V.: Robust pulse rate from chrominance-based rppg. IEEE transactions on biomedical engineering 60 (10), 2878–2886 (2013) 6. Feng, Q., Li, P., Gao, R., Jiale, X., Gong, R., Li, Y.: Empd: An event-based mul-timodal physiological dataset for remote pulse wave detection (part 1 of 9) (Feb 2026). https://doi.org/10.5281/zenodo.18765701 7. Figl, M., Rueckert, D., Hawkes, D., Casula, R., Hu, M., Pedro, O., Zhang, D.P., Penney, G., Bello, F., Edwards, P.: Registration of a 4d cardiac motion model to endoscopic video for augmented reality image guidance of robotic coronary artery bypass. In: Proceedings of AMI-ARCS workshop in International Conference on Medical Image Computing and Computer-Assisted Intervention (MICCAI’08). pp. 122–129 (2008) 8. Gallego, G., Delbrück, T., Orchard, G., Bartolozzi, C., Taba, B., Censi, A., Leutenegger, S., Davison, A.J., Conradt, J., Daniilidis, K., et al.: Event-based vision: A survey. IEEE transactions on pattern analysis and machine intelligence 
+
+44 (1), 154–180 (2020) 9. Gulrajani, I., Ahmed, F., Arjovsky, M., Dumoulin, V., Courville, A.C.: Improved training of wasserstein gans. Advances in neural information processing systems 
+
+30 (2017) 10. Hu, J., Shen, L., Sun, G.: Squeeze-and-excitation networks. In: Proceedings of the IEEE conference on computer vision and pattern recognition. pp. 7132–7141 (2018) 11. Jagtap, A., Saripalli, R.V., Lemley, J., Shariff, W., Smeaton, A.F.: Heart rate detection using an event camera. In: 2023 IEEE International Symposium on Mul-timedia (ISM). pp. 243–246. IEEE (2023) 12. Korpas, D., Halek, J., Doležal, L.: Parameters describing the pulse wave. Physio-logical research 58 (4) (2009) 13. Liu, X., Narayanswamy, G., Paruchuri, A., Zhang, X., Tang, J., Zhang, Y., Sen-gupta, R., Patel, S., Wang, Y., McDuff, D.: rppg-toolbox: Deep remote ppg toolbox. Advances in Neural Information Processing Systems 36 , 68485–68510 (2023) 14. Lv, Y., Zhou, L., Liu, Z., Zhang, H.: Structural vibration frequency monitoring based on event camera. Measurement Science and Technology 35 (8), 085007 (2024) 15. McDuff, D.: Camera measurement of physiological vital signs. ACM Computing Surveys 55 (9), 1–40 (2023) 16. Münchmeyer, J., Bindi, D., Leser, U., Tilmann, F.: The transformer earthquake alerting model: A new versatile approach to earthquake early warning. Geophysical Journal International 225 (1), 646–656 (2021) 17. Nakamura, H., Lin, G., Mitsukura, Y.: A novel approach for pulse signals extraction and heart rate estimation with hilbert space orthogonalization using event-based camera. IEEE Access (2025) 10 Q. Feng et al. 18. Oronti 1, I.B., Haleem, M.S., Pecchia, L.: Optimizing classification of congestive heart failure using feature weight importance. In: Medical Information Comput-ing: First MICCAI Meets Africa Workshop, MImA 2024, and First MICCAI Stu-dent Board Workshop on Empowering Medical Information Computing and Re-search through Early-Career Expertise, EMERGE 2024, Held in Conjunction with MICCAI 2024, Marrakesh, Morocco, October 6, 2024, Revised Selected Papers. vol. 2240, p. 24. Springer Nature (2025) 19. Poh, M.Z., McDuff, D.J., Picard, R.W.: Non-contact, automated cardiac pulse measurements using video imaging and blind source separation. Optics express 
+
+18 (10), 10762–10774 (2010) 20. Song, R., Chen, H., Cheng, J., Li, C., Liu, Y., Chen, X.: Pulsegan: Learning to generate realistic pulse waveforms in remote photoplethysmography. IEEE Journal of Biomedical and Health Informatics 25 (5), 1373–1384 (2021) 21. Tong, Y., Huang, Z., Zhang, Z., Yin, M., Shan, G., Wu, J., Qin, F.: Detail-preserving arterial pulse wave measurement based biorthogonal wavelet decom-position from remote rgb observations. Measurement 222 , 113605 (2023) 22. Wang, J., Shan, C., Liu, L., Hou, Z.: Camera-based physiological measurement: Recent advances and future prospects. Neurocomputing 575 , 127282 (2024) 23. Wang, P., Yang, M., Zhang, X., Wang, J., Wang, C., Jia, H.: Non-contact blood pressure monitoring using radar signals: A dual-stage deep learning network. Bio-engineering 12 (3), 252 (2025) 24. Wang, W., Stuijk, S., De Haan, G.: A novel algorithm for remote photoplethys-mography: Spatial subspace rotation. IEEE transactions on biomedical engineering 
+
+63 (9), 1974–1984 (2015) 25. Yu, Z., Li, X., Zhao, G.: Remote photoplethysmograph signal measurement from fa-cial videos using spatio-temporal networks. arXiv preprint arXiv:1905.02419 (2019) 26. Zhao, Z.h., Zhou, Y., Zhang, S., Chen, S., Wen, C.b., Xu, Q., Li, W.h.: Pulsenet: Multi-task learning-based non-contact pulse condition diagnosis using multi-scale fusion and transformer. Knowledge-Based Systems 302 , 112333 (2024) 27. Zou, B., Guo, Z., Chen, J., Zhuo, J., Huang, W., Ma, H.: RhythmFormer: Extract-ing patterned rPPG signals based on periodic sparse attention. Pattern Recognit. 
+
+164 , 111511 (Aug 2025)

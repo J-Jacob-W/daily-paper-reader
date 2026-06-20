@@ -6,104 +6,85 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-06-18
-- 运行时间：2026-06-18 22:55:11 UTC
+- 最新运行日期：2026-06-20
+- 运行时间：2026-06-20 21:53:08 UTC
 - 运行状态：成功
-- 本次总论文数：28
-- 精读区：15
+- 本次总论文数：21
+- 精读区：8
 - 速读区：13
 
 ### 今日简报（AI）
-今日共处理28篇论文，精读15篇，重点聚焦EEG分析与可穿戴设备优化。最值得关注：刺激身份比情绪更能驱动EEG分类，且深度学习模型简化方案已适配可穿戴设备。建议优先阅读《Stimulus identity rather than emotion drives EEG classification》与开源平台EEGDash，深入理解刺激身份的影响并尝试复现实验。
-- 详情：[/202606/18/README](/202606/18/README)
+今日推荐21篇论文，精读聚焦多模态神经影像与EEG视觉解码的两项高分研究。  
+最值得关注的是稀疏潜在预测模型在神经影像中的高效表征，以及基于对比学习的EEG视觉解码方法。  
+建议深入精读这两篇论文，并尝试将EEGDash平台用于复现实验。
+- 详情：[/202606/20/README](/202606/20/README)
 
 ### 精读区论文标签
-1. [Stimulus identity rather than emotion drives EEG classification on the FACED dataset](/202606/18/biorxiv-10-64898-2026-06-12-731889-v1-stimulus-identity-rather-than-emotion-drives-eeg-classification-on-the-faced-dataset)  
-   标签：评分：10.0/10、query:eeg-ode-ln
-   evidence：基于EEG的情绪识别数据集分析揭示刺激身份混淆
-2. [Reducing the Complexity of Deep Learning Models for EEG Analysis on Wearable Devices](/202606/18/2606.12742v2-reducing-the-complexity-of-deep-learning-models-for-eeg-analysis-on-wearable-devices)  
-   标签：评分：9.0/10、query:eeg-ode-ln
-   evidence：用于EEG分析的深度学习模型压缩
-3. [Beyond Scalar Distances: Semantic Attribute Gradients from Frozen MLLMs for Visual Embeddings](/202606/18/2606.15134v1-beyond-scalar-distances-semantic-attribute-gradients-from-frozen-mllms-for-visual-embeddings)  
+1. [Learning Sparse Latent Predictive Foundation Model for Multimodal Neuroimaging](/202606/20/2606.14957v2-learning-sparse-latent-predictive-foundation-model-for-multimodal-neuroimaging)  
    标签：评分：9.0/10、query:multi-modal
-   evidence：利用冻结多模态大语言模型和GRPO增强视觉嵌入
-4. [RECTOR: Masked Region-Channel-Temporal Modeling for Affective and Cognitive Representation Learning](/202606/18/2606.15278v1-rector-masked-region-channel-temporal-modeling-for-affective-and-cognitive-representation-learning)  
+   evidence：多模态神经影像基础模型结合潜在预测学习
+2. [SUP-MCRL: Subject-aware Unified Pseudo-feature Coded Multimodal Contrastive Representation Learning for EEG Visual Decoding](/202606/20/2606.16615v2-sup-mcrl-subject-aware-unified-pseudo-feature-coded-multimodal-contrastive-representation-learning-for-eeg-visual-decoding)  
    标签：评分：9.0/10、query:eeg-ode-ln
-   evidence：基于EEG/sEEG的自监督情感表征学习框架
-5. [Cascaded Sparse Autoencoders Learn Multi-Level Visual Concepts in Multimodal LLMs](/202606/18/2606.16193v1-cascaded-sparse-autoencoders-learn-multi-level-visual-concepts-in-multimodal-llms)  
+   evidence：基于多模态对比学习的EEG视觉解码
+3. [SMART: A Flexible, Interpretable, and Scalable Spatio-temporal Brain Atlas from High-Resolution Imaging Data](/202606/20/2606.18753v1-smart-a-flexible-interpretable-and-scalable-spatio-temporal-brain-atlas-from-high-resolution-imaging-data)  
+   标签：评分：9.0/10、query:neural-ode
+   evidence：使用区域特异性微分方程构建连续疾病时间脑图谱的医学影像分析
+4. [Exploring Multi-Modal Large Language Models and Two-Stage Fine-Tuning for Fashion Image Retrieval](/202606/20/2606.19684v1-exploring-multi-modal-large-language-models-and-two-stage-fine-tuning-for-fashion-image-retrieval)  
    标签：评分：9.0/10、query:multi-modal
-   evidence：提出级联稀疏自编码器学习多模态大语言模型中的层次化视觉概念
-6. [Learning aligned EEG representations with subject-specific encoders](/202606/18/2606.16462v1-learning-aligned-eeg-representations-with-subject-specific-encoders)  
+   evidence：使用多模态大语言模型（LLaVA）进行时尚图像检索
+5. [Timage: A Generative Text-in-Image Paradigm for Fine-Tuning Vision-Language Models](/202606/20/2606.19944v1-timage-a-generative-text-in-image-paradigm-for-fine-tuning-vision-language-models)  
+   标签：评分：9.0/10、query:multi-modal
+   evidence：用于空间推理的视觉语言模型微调范式
+6. [Adaptive Neural Reorganization Enables Real-Time Finger-Level Robotic Control in BCI-Naïve Stroke Survivors](/202606/20/biorxiv-10-64898-2026-06-15-732267-v1-adaptive-neural-reorganization-enables-real-time-finger-level-robotic-control-in-bci-naive-stroke-survivors)  
    标签：评分：9.0/10、query:eeg-ode-ln
-   evidence：使用特定主体编码器的EEG跨被试解码
-7. [SUP-MCRL: Subject-aware Unified Pseudo-feature Coded Multimodal Contrastive Representation Learning for EEG Visual Decoding](/202606/18/2606.16615v1-sup-mcrl-subject-aware-unified-pseudo-feature-coded-multimodal-contrastive-representation-learning-for-eeg-visual-decoding)  
-   标签：评分：9.0/10、query:eeg-ode-ln
-   evidence：利用多模态对比表示学习进行EEG解码，并考虑主题感知
-8. [MMDiff: Extending Diffusion Transformers for Multi-Modal Generation](/202606/18/2606.16673v1-mmdiff-extending-diffusion-transformers-for-multi-modal-generation)  
-   标签：评分：9.0/10、query:multi-modal
-   evidence：基于扩散Transformer的多模态生成框架，采用感知特征融合
-9. [Pareto LoRA: Mitigating Modality Imbalance in Unified Multimodal Models via Pareto-Optimal Gradient Integration](/202606/18/2606.17296v1-pareto-lora-mitigating-modality-imbalance-in-unified-multimodal-models-via-pareto-optimal-gradient-integration)  
-   标签：评分：9.0/10、query:multi-modal
-   evidence：多模态融合技术解决模态不平衡
-10. [SAMA: Semantic Anchor-aligned Augmentation for Unified Low-Resource Multimodal Information Extraction](/202606/18/2606.18780v1-sama-semantic-anchor-aligned-augmentation-for-unified-low-resource-multimodal-information-extraction)  
-   标签：评分：9.0/10、query:multi-modal
-   evidence：基于语义锚点对齐的多模态信息抽取
-11. [SwitchBraidNet: Quantisation-Aware Lightweight Architecture for Hybrid Brain-Computer Interface](/202606/18/2606.18816v1-switchbraidnet-quantisation-aware-lightweight-architecture-for-hybrid-brain-computer-interface)  
-   标签：评分：9.0/10、query:eeg-ode-ln
-   evidence：用于混合脑机接口的深度学习EEG分类架构
-12. [Benchmarking Large Vision-Language Models on Fine-Grained Image Tasks: From Evaluation to Diagnosis](/202606/18/2606.19053v1-benchmarking-large-vision-language-models-on-fine-grained-image-tasks-from-evaluation-to-diagnosis)  
-   标签：评分：9.0/10、query:multi-modal
-   evidence：大视觉语言模型在细粒度任务上的基准测试
-13. [DREAM: Extending Vision-Language Models with Dual-Objective Encoding for Cross-Modal Retrieval](/202606/18/2606.19062v1-dream-extending-vision-language-models-with-dual-objective-encoding-for-cross-modal-retrieval)  
-   标签：评分：9.0/10、query:multi-modal
-   evidence：双目标编码视觉语言模型用于跨模态检索
-14. [EPICURUS: E-field-based spatial filtering procedure for an accurate estimation of local EEG activity evoked by Transcranial Magnetic Stimulation](/202606/18/biorxiv-10-1101-2025-02-16-638512-v2-epicurus-e-field-based-spatial-filtering-procedure-for-an-accurate-estimation-of-local-eeg-activity-evoked-by-transcranial-magnetic-stimulation)  
-   标签：评分：9.0/10、query:eeg-ode-ln
-   evidence：提出一种用于TMS-EEG的空间滤波方法以准确估计局部EEG活动
-15. [EEG-based classification models reveal differential neural processing of words and images](/202606/18/biorxiv-10-64898-2026-03-16-712233-v3-eeg-based-classification-models-reveal-differential-neural-processing-of-words-and-images)  
-   标签：评分：9.0/10、query:eeg-ode-ln
-   evidence：基于脑电图的分类模型，使用机器学习解码词汇和图像的神经处理
+   evidence：基于EEG的运动想象解码实现实时BCI控制
+7. [A comparative and critical study of EEGNet for fNIRS-driven cognitive load classification](/202606/20/2606.16160v1-a-comparative-and-critical-study-of-eegnet-for-fnirs-driven-cognitive-load-classification)  
+   标签：评分：8.0/10、query:eeg-ode-ln
+   evidence：EEGNet用于fNIRS认知负荷分类
+8. [Domain Generalizable Adaptation of 3D Vision-Language Models via Regularized Fine-Tuning](/202606/20/2606.18472v1-domain-generalizable-adaptation-of-3d-vision-language-models-via-regularized-fine-tuning)  
+   标签：评分：8.0/10、query:multi-modal
+   evidence：3D视觉语言模型的正则化微调
 
 ### 速读区论文标签
-1. [Fusion is not one-size-fits-all: Cross-Modal Representation Alignment for Time-to-Event Modeling](/202606/18/2606.15038v1-fusion-is-not-one-size-fits-all-cross-modal-representation-alignment-for-time-to-event-modeling)  
+1. [Diffusion-Refined Segmentation and Vision-Language Interpretation for Pediatric Brain Tumor MRI](/202606/20/2606.14072v1-diffusion-refined-segmentation-and-vision-language-interpretation-for-pediatric-brain-tumor-mri)  
    标签：评分：8.0/10、query:multi-modal
-   evidence：提出跨模态表示对齐框架用于CT与电子健康记录数据的多模态融合
-2. [Text-Driven Fusion for Infrared and Visible Images: Achieving Image Scene Adaptation on Hyperbolic Space](/202606/18/2606.15104v1-text-driven-fusion-for-infrared-and-visible-images-achieving-image-scene-adaptation-on-hyperbolic-space)  
+   evidence：医学分割的视觉-语言解释
+2. [Text-Driven Fusion for Infrared and Visible Images: Achieving Image Scene Adaptation on Hyperbolic Space](/202606/20/2606.15104v1-text-driven-fusion-for-infrared-and-visible-images-achieving-image-scene-adaptation-on-hyperbolic-space)  
    标签：评分：8.0/10、query:multi-modal
-   evidence：文本驱动的红外与可见光图像融合框架，利用双曲流形学习
-3. [EEGDash: An open-source platform for machine learning on public neurophysiological data](/202606/18/2606.16041v1-eegdash-an-open-source-platform-for-machine-learning-on-public-neurophysiological-data)  
+   evidence：基于双曲空间的文本驱动多模态图像融合
+3. [EEGDash: An open-source platform for machine learning on public neurophysiological data](/202606/20/2606.16041v1-eegdash-an-open-source-platform-for-machine-learning-on-public-neurophysiological-data)  
    标签：评分：8.0/10、query:eeg-ode-ln
-   evidence：提供EEG和fNIRS数据用于机器学习的平台
-4. [A comparative and critical study of EEGNet for fNIRS-driven cognitive load classification](/202606/18/2606.16160v1-a-comparative-and-critical-study-of-eegnet-for-fnirs-driven-cognitive-load-classification)  
-   标签：评分：8.0/10、query:eeg-ode-ln
-   evidence：使用EEGNet进行fNIRS认知负荷分类，与多模态EEG-fNIRS研究相关
-5. [Unified Multimodal Model for Brain MRI Imputation and Understanding](/202606/18/2606.16484v1-unified-multimodal-model-for-brain-mri-imputation-and-understanding)  
+   evidence：面向EEG和fNIRS的机器学习开源平台
+4. [MAJIC: Leveraging Articulatory Motion for Speech-based Emotion Recognition](/202606/20/2606.18228v1-majic-leveraging-articulatory-motion-for-speech-based-emotion-recognition)  
    标签：评分：8.0/10、query:multi-modal
-   evidence：使用多模态大语言模型实现脑MRI的联合插补和理解
-6. [Connecting Speech to Words through Images](/202606/18/2606.16807v1-connecting-speech-to-words-through-images)  
+   evidence：音频与发音运动的多模态融合用于情感识别
+5. [Fair Cognitive Impairment Detection Through Unlearning](/202606/20/2606.18571v1-fair-cognitive-impairment-detection-through-unlearning)  
    标签：评分：8.0/10、query:multi-modal
-   evidence：视觉引导的口语词跨模态学习
-7. [Deep Temporal Modeling and Ensemble Fusion for Multimodal Emotion Recognition from Physiological Signals](/202606/18/2606.15026v1-deep-temporal-modeling-and-ensemble-fusion-for-multimodal-emotion-recognition-from-physiological-signals)  
+   evidence：语音、文本和图像的多模态融合用于认知障碍检测
+6. [Semantic Robustness Certification for Vision-Language Models](/202606/20/2606.18839v1-semantic-robustness-certification-for-vision-language-models)  
+   标签：评分：8.0/10、query:multi-modal
+   evidence：使用文本提示对视觉语言模型进行语义级别的鲁棒性认证
+7. [Learning Sparse Latent Predictive Foundation Model for Multimodal Neuroimaging](/202606/20/2606.14957v1-learning-sparse-latent-predictive-foundation-model-for-multimodal-neuroimaging)  
    标签：评分：7.0/10、query:multi-modal
-   evidence：面向生理信号多模态情绪识别的深度时序建模与集成融合
-8. [Deep Residual Injection for Full-Spectrum Forensic Signal Perception in Multimodal Large Language Models](/202606/18/2606.15880v1-deep-residual-injection-for-full-spectrum-forensic-signal-perception-in-multimodal-large-language-models)  
+   evidence：用于神经影像数据融合的多模态学习方法
+8. [Calibrated Triage, Not Autonomy: Confidence Estimation for Medical Vision-Language Models](/202606/20/2606.15910v1-calibrated-triage-not-autonomy-confidence-estimation-for-medical-vision-language-models)  
    标签：评分：7.0/10、query:multi-modal
-   evidence：提出深度残差注入方法增强多模态大语言模型中的取证信号感知
-9. [MOLAR: Learning Multimodal Molecular Representations from Noisy Labels](/202606/18/2606.18390v1-molar-learning-multimodal-molecular-representations-from-noisy-labels)  
-   标签：评分：7.0/10、query:multi-modal
-   evidence：噪声感知的多模态分子表示学习，结合图-文本融合
-10. [A multi-agent system for spine MRI report generation from multi-sequence imaging](/202606/18/biorxiv-10-64898-2026-06-07-730703-v1-a-multi-agent-system-for-spine-mri-report-generation-from-multi-sequence-imaging)  
-   标签：评分：7.0/10、query:multi-modal
-   evidence：用于医学报告生成的多模态基础模型
-11. [Comparing Human Gaze and Vision-Language Model Attention in Safety-Relevant Environments](/202606/18/2606.15202v1-comparing-human-gaze-and-vision-language-model-attention-in-safety-relevant-environments)  
-   标签：评分：6.0/10、query:multi-modal
-   evidence：研究视觉语言模型注意力与人类注视的比较，与视觉语言模型架构相关
-12. [UrbanWell: Benchmarking Multimodal Large Language Models for Spatio-Temporal Urban Wellbeing Analytics](/202606/18/2606.15890v1-urbanwell-benchmarking-multimodal-large-language-models-for-spatio-temporal-urban-wellbeing-analytics)  
-   标签：评分：6.0/10、query:multi-modal
-   evidence：城市福祉多模态LLM基准
-13. [Distinct neural correlates for focusing on similar memory contents originating from current or previous experience](/202606/18/biorxiv-10-64898-2026-06-05-730490-v1-distinct-neural-correlates-for-focusing-on-similar-memory-contents-originating-from-current-or-previous-experience)  
+   evidence：医学视觉语言模型的置信度估计
+9. [Colourful predictive templates in early visual cortex](/202606/20/biorxiv-10-64898-2026-06-11-731729-v1-colourful-predictive-templates-in-early-visual-cortex)  
+   标签：评分：7.0/10、query:eeg-ode-ln
+   evidence：使用脑磁图和脑电图结合的解码模型解码颜色预测信号
+10. [Sensory Restoration via Brain-Computer Interfaces: A Unified 2 x 2 Framework and Convergence Roadmap](/202606/20/2606.15091v2-sensory-restoration-via-brain-computer-interfaces-a-unified-2-x-2-framework-and-convergence-roadmap)  
    标签：评分：6.0/10、query:eeg-ode-ln
-   evidence：使用EEG解码记忆内容
+   evidence：统一侵入式与非侵入式解码器的BCI框架
+11. [Fusion-E2Pulse: A Multimodal Event-RGB Fusion Network for Non-contact Pulse Wave Reconstruction](/202606/20/2606.15597v1-fusion-e2pulse-a-multimodal-event-rgb-fusion-network-for-non-contact-pulse-wave-reconstruction)  
+   标签：评分：6.0/10、query:multi-modal
+   evidence：事件相机与RGB数据多模态融合技术
+12. [Geometry-Aware Superpixel Graph Transformer with Metadata for Skin Lesion Classification](/202606/20/2606.20390v1-geometry-aware-superpixel-graph-transformer-with-metadata-for-skin-lesion-classification)  
+   标签：评分：6.0/10、query:multi-modal
+   evidence：使用图Transformer融合图像和元数据进行皮肤病变分类的多模态融合方法
+13. [A multimodal human-computer interaction dataset for neurocognitive user state evaluation](/202606/20/biorxiv-10-1101-2025-09-03-673947-v2-a-multimodal-human-computer-interaction-dataset-for-neurocognitive-user-state-evaluation)  
+   标签：评分：6.0/10、query:eeg-ode-ln
+   evidence：包含EEG的多模态数据集，用于神经认知状态评估
 
 
 <div class="dpr-home-promo-card">
