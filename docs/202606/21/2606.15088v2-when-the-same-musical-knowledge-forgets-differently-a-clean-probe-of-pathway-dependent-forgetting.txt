@@ -1,0 +1,807 @@
+Title: When the Same Musical Knowledge Forgets Differently: A Clean Probe of Pathway-Dependent Forgetting
+
+URL Source: https://arxiv.org/pdf/2606.15088v2
+
+Published Time: Thu, 18 Jun 2026 00:43:45 GMT
+
+Number of Pages: 12
+
+Markdown Content:
+#  When the Same Musical Knowledge Forgets Differently: A Clean Probe of Pathway-Dependent Forgetting 
+
+# Yu Liu ∗
+
+Institute of Information Engineering, CAS Beijing, China School of Cyber Security, UCAS Beijing, China liuyu@iie.ac.cn 
+
+# Zhiwei Yang ∗
+
+Institute of Information Engineering, CAS Beijing, China School of Cyber Security, UCAS Beijing, China yangzhiwei@iie.ac.cn 
+
+# Wenxiao Zhang ∗
+
+The University of Western Australia Perth, Australia wenxiao.zhang@research.uwa.edu.au 
+
+# Cong Cao †
+
+Institute of Information Engineering, CAS Beijing, China caocong@iie.ac.cn 
+
+# Fangfang Yuan 
+
+Institute of Information Engineering,CAS Beijing, China yuanfangfang@iie.ac.cn 
+
+# Kun Peng 
+
+Institute of Information Engineering, CAS Beijing, China School of Cyber Security, UCAS Beijing, China pengkun@iie.ac.cn 
+
+# Haimei Qin 
+
+Institute of Information Engineering, CAS Beijing, China qinhaimei@iie.ac.cn 
+
+# Lei Jiang 
+
+Institute of Information Engineering, CAS Beijing, China jianglei@iie.ac.cn 
+
+# Jin B. Hong 
+
+The University of Western Australia Perth, Australia jin.hong@uwa.edu.au 
+
+# Hao Peng 
+
+Beihang University Beijing, China penghao@buaa.edu.cn 
+
+# Yanbing Liu †
+
+Institute of Information Engineering, CAS Beijing, China School of Cyber Security, UCAS Beijing, China liuyanbing@iie.ac.cn 
+
+## Abstract 
+
+A model can learn that the piano piece Für Elise is calm and reflec-tive by listening to the audio or by reading a text description, but does it matter which route that knowledge took when it is later at risk of being forgotten? Forgetting research in multimodal models measures what knowledge is lost under adaptation, yet has not asked whether acquisition route affects how easily that knowledge is forgotten. We call this untested premise the Pathway-Invariant Assumption . Music understanding enables a clean test because a music clip and a canonical text description can be aligned to the same perceptual content, allowing the same knowledge unit to en-ter a model through listening or reading while the target remains fixed. Across multiple architecturally distinct audio-language mod-els, we observe a consistent asymmetry: text-pathway knowledge is forgotten more than matched audio-pathway knowledge un-der identical adaptation pressure. To attribute this effect to route rather than confounds, we introduce the Paired Pathway Controlled 
+
+Protocol ( PPCP ), a three-phase design that establishes matched pathway baselines, activates both pathways under symmetric super-vision on the same knowledge pool, and applies identical forgetting pressure to both pathways. The gap is stable across models and gain-controlled analyses, persists when contradictory overwrite is replaced by correct-label cross-domain learning, remains under single-modality pressure, and is not removed by lightweight replay. Two independent routing-depth controls confirm that the effect is not explained by architectural depth, pointing to input representa-tion as the dominant factor. Under PPCP, our results demonstrate 
+
+> ∗Equal contribution.
+> †Corresponding authors.
+
+that forgetting is highly route-dependent, establishing acquisition route as a new analytical dimension for forgetting research and multimodal system design. 
+
+Code: https://github.com/Ameame1/Audio_Memory_PPCP 
+
+## Keywords 
+
+pathway-dependent forgetting,audio-language models,catastrophic forgetting,music understanding 
+
+## 1 Introduction 
+
+Consider a question asked of an audio-language model: what is the mood of Für Elise? Unlike a speech recognition task, where the answer can only be derived from the acoustic signal itself, this ques-tion admits two distinct routes. The model may arrive at the answer by processing the raw waveform, attending to the gentle dynamics and lyrical phrasing of the piano. Alternatively, it may arrive at the same answer by reading a textual description of the same piece, one that captures its calm, reflective character in language. Both routes lead to the same musical knowledge, yet they engage funda-mentally different computational pathways within the same model. Music understanding makes this dual-pathway structure especially clean: the answer-relevant attributes of a music recording (genre, instrumentation, mood, texture) are categorical and well-defined, and a canonical textual description can be constructed to capture them with sufficient fidelity for the question-answer categories studied. This makes music the first domain where a fundamental question can be posed under proper experimental control: once the same knowledge has entered a model through different pathways, is it equally vulnerable to later forgetting?    
+
+> arXiv:2606.15088v2 [cs.SD] 17 Jun 2026 Liu et al. Listening to Für Elise piano piece
+> Reading description:
+> "Für Elise is a gentle
+> piano piece."
+> Gentle, lyrical
+> melody
+> Audio pathway
+> Text pathway
+> Acquire the same knowledge
+> New learning & time
+> jazz? or fast?
+> still gentle piano!
+> Music Knowledge
+> Text Knowledge
+> Interference & Forgetting
+> keep in memory
+> Forgetting
+> Acquired
+> Knowledge
+
+Figure 1: Schematic of path-dependent forgetting: for the same musical knowledge, audio-based memories are more resistant to interference than text-based memories. 
+
+This question has never been asked, for two reasons. First, exist-ing forgetting research, from continual learning [ 16 , 30 , 34 ] to model editing [ 2 , 19 , 29 , 38 ] to multimodal adaptation [ 37 ], operates at the level of tasks, datasets, or modalities as a whole; acquisition route is never tracked as a variable. We call this the Pathway-Invariant Assumption . Second, even if one tried, continuation data whose modality composition is uncontrolled produces gradient updates that are never pathway-neutral, making any observed asymme-try impossible to attribute to pathway identity alone. We call this the Symmetric Continuation Bias . Together, these two blind spots have rendered pathway-dependent retention invisible to existing frameworks. Across multiple architecturally distinct audio-language mod-els, we find controlled evidence against the Pathway-Invariant As-sumption: text-pathway knowledge is consistently forgotten more than matched audio-pathway knowledge, a phenomenon we term 
+
+pathway-dependent forgetting . To attribute this effect to acquisi-tion route rather than confounds, we introduce the Paired Pathway Controlled Protocol (PPCP), a three-phase framework that isolates pathway as the primary variable under investigation. We then ask 
+
+why the gap exists: it persists when text-side pressure is removed, when the audio projector is perturbed, when contradictory replace-ment is substituted with correct-label cross-domain learning, when routing depth is controlled via two independent probes, when the implicated decoder layers are frozen, and when lightweight replay is applied. Six controls, one consistent answer: the asymmetry is structural, tied to the nature of input representation rather than any single architectural or training factor (Table 1). Across all evaluated models, the same musical fact is consis-tently more resistant to forgetting when acquired by listening than when acquired by reading, and this pathway gap persists across all six controls. Together, these results indicate that acquisition pathway is a first-class variable in forgetting, alongside content and adaptation pressure. Practically, this implies that forgetting interventions should be pathway-aware: continual learning may require pathway-specific resource allocation, and model editing or unlearning should not assume that changes made through one pathway will automatically transfer to the other. Our contributions are as follows: (1) A new problem formulation. We identify two blind spots in existing forgetting research, the Pathway-Invariant As-sumption and the Symmetric Continuation Bias , and formal-ize pathway-dependent forgetting as a testable phenomenon: does the route through which knowledge enters a multi-modal model shape its vulnerability to later forgetting? (2) A clean paired protocol. We propose PPCP, the first exper-imental framework that jointly enforces target equivalence, symmetric supervision, leakage control, and acquisition comparability across aligned pathways. (3) Under PPCP, across four architecturally distinct audio lan-guage models, text-pathway knowledge is consistently for-gotten more than matched audio-pathway knowledge, and six targeted controls rule out all tested alternative explana-tions. 
+
+## 2 Related Work 2.1 Catastrophic Forgetting 
+
+Catastrophic forgetting has been a central concern since the early connectionist literature [ 9 , 18 ], and continual learning has devel-oped a broad family of mitigation strategies including replay [ 1], pa-rameter regularization [ 13 ], and architectural isolation [ 26 ]; see [ 30 ,31 ] for surveys. With the rise of large language models, forgetting has re-emerged in continual fine-tuning and instruction tuning [ 32 ], where adaptation on new data can degrade previously acquired ca-pabilities [ 27 ]. A related line of work in model editing and machine unlearning [ 17 , 19 , 20 ] focuses on removing or rewriting target facts while preserving locality. Across all of these frameworks, the unit of analysis is the task, the dataset, or the individual fact. What none of them track is the route through which a knowledge unit was originally acquired: retention is implicitly treated as depending on content and adaptation pressure alone, with acquisition pathway absent as an experimental variable. 
+
+## 2.2 Multimodal Forgetting and Understanding 
+
+Recent work has shown that integrating non-text encoders into language models can degrade existing capabilities [ 37 , 40 ]. How-ever, these studies treat the modality or task as the unit of analysis, asking whether adding a new modality harms performance on an existing one. Modality-inconsistent continual learning [ 22 , 33 ] is related, but it changes both task content and input modality across training stages, preventing attribution of forgetting to the acquisi-tion route alone. In contrast, we fix both the knowledge unit and the model, and vary the acquisition pathway as the primary factor. In music, audio-language models are beginning to scale toward richer understanding [ 10 , 21 ], but prior work remains centered on speech tasks such as recognition, translation, and dialogue. Retention of musical knowledge under adaptation has not been studied. More broadly, no existing protocol controls the modality composition of continuation data when measuring retention within a single model. We formalize this gap as Symmetric Continuation Bias in Section 3. 
+
+## 3 Blind Spots in Current Forgetting 
+
+We identify two structural blind spots that prevent existing forget-ting frameworks from directly testing whether acquisition route affects retention in multimodal models.  When the Same Musical Knowledge Forgets Differently: A Clean Probe of Pathway-Dependent Forgetting Phase 0: Paired Baselines 
+
+(k=0)   
+
+> Shared
+> Knowledge
+> Pool
+> Audio Clip
+> 𝐀 ,𝐀
+> Text Description
+> 𝐀 ,𝐀
+> Pretrained
+> Model
+> ℳ0
+> Base Score
+> 𝐀 𝐀 ,𝐀
+> 0
+> 𝐀 𝐀 ,𝐀
+> 0
+
+Phase 1: Matched Pathway Activation 
+
+(k=1)   
+
+> Shared
+> Knowledge
+> Pool
+> Audio Clip
+> 𝐀 ,𝐀
+> Text Description
+> 𝐀 ,𝐀
+> Activated
+> Mode
+> ℳ1
+> Frozen
+> Symmetric
+> Supervision
+> 𝐀 𝐀 ,𝐀
+> 1
+> 𝐀 𝐀 ,𝐀
+> 1Active
+> Score
+
+Phase 2: Symmetric Contradictory Pressure 
+
+(k=2)    
+
+> Contradictory
+> Knowledge
+> Pool
+> Audio Clip
+> 𝐀 ,𝐀
+> Text Description
+> 𝐀 ,𝐀
+> Activated
+> Mode
+> ℳ2
+> SFT
+> Symmetric
+> Contradictory
+> Supervision
+> 𝐀 𝐀 ,𝐀
+> 2𝐀 𝐀 ,𝐀
+> 2
+> Adapted Score
+> SFT
+> Category-
+> Consistent
+> Replacement
+
+𝐀 𝐀 ,𝐀 = 𝐀 1 − 𝐀 0 𝐀 𝐀 ,𝐀 = 𝐀 1 − 𝐀 2 𝐀 𝐀 = 𝐀 𝐀 ,𝐀 − 𝐀 𝐀 ,𝐀   
+
+> Acquisition Gain Forgetting Magnitude Pathway Asymmetry Evaluate
+
+PPCP: Paired Pathway Controlled Protocol 
+
+Figure 2: Overview of PPCP. The same musical knowledge unit is presented to both the audio pathway (A2T) and the text pathway (T2T) under matched supervision in Phase 1, and both pathways receive identical contradictory supervision in Phase 2. Per-item scores are recorded at every checkpoint, making acquisition pathway the primary experimental variable. 
+
+The Pathway-Invariant Assumption. Existing frameworks implic-itly assume that retention is independent of how knowledge enters the model. Whether they estimate parameter importance [ 13 ], edit factual associations [ 17 , 19 ], or measure performance across sequen-tial stages [ 30 , 31 ], the unit of analysis is always the task, fact, or dataset—not the acquisition route of a specific knowledge item. This is largely innocuous in unimodal settings, where pathway identity is fixed. In multimodal models, however, the same knowledge can enter through multiple aligned pathways, and music makes this particularly clear: the attributes we study (genre, instrumentation, mood, texture) are categorical and can be described textually with sufficient fidelity for controlled pathway-level comparison. 
+
+The Symmetric Continuation Bias. Under continued training, the modality composition of continuation data determines which pathways receive the strongest updates: audio-heavy data mainly updates the audio encoder and projector, while text-heavy data primarily affects language-side representations. Neither provides a pathway-neutral probe of forgetting. Prior multimodal forget-ting studies [ 12 , 37 , 40 ] and modality-inconsistent continual learn-ing [ 22 , 33 ] vary task and modality together, so they compare modal-ities or tasks as wholes rather than matched acquisition routes for the same knowledge unit. To our knowledge, no existing proto-col equalizes forgetting pressure across pathways. Together, these two blind spots motivate the paired, pathway-controlled protocol introduced next. 
+
+## 4 Methodology 4.1 Problem Statement 
+
+We investigate whether the same musical knowledge, once acquired through different aligned pathways within a single audio-language model, is equally vulnerable to subsequent forgetting, i.e., a within-model comparison of two aligned access routes to one knowledge unit. Because a direct pathway comparison is confounded without controls on differential acquisition strength and overwrite sym-metry, we explicitly account for both. Let M𝜃 denote an audio-language model with parameters 𝜃 , and for each knowledge unit 𝑖 
+
+define 𝑥 𝑖 = (𝑎 𝑖 , 𝑡 𝑖 , 𝑞 𝑖 , 𝑦 𝑖 , 𝑐 𝑖 ), where 𝑎 𝑖 is an audio clip, 𝑡 𝑖 a semanti-cally aligned textual description, 𝑞 𝑖 a natural-language question, 𝑦 𝑖 
+
+the target answer, and 𝑐 𝑖 the set of category-consistent candidates containing 𝑦 𝑖 (e.g. , all genre labels when 𝑞 𝑖 asks about genre). The same unit is probed through two pathways: an audio pathway 
+
+(A2T) with input (𝑎 𝑖 , 𝑞 𝑖 ) and a text pathway (T2T) with input 
+
+(𝑡 𝑖 , 𝑞 𝑖 ), both evaluated against the same target 𝑦 𝑖 ; under identical adaptation pressure, we ask whether retention through A2T and T2T degrades symmetrically or asymmetrically. 
+
+Protocol 1: Paired Pathway Controlled Protocol (PPCP) Input: pretrained model M𝜃 0 , paired knowledge pool K, held-out paired evaluation set E.
+
+Preprocessing (Leakage control). Build canonical text descrip-tions and apply leakage filtering before Phase 1, as detailed in Section 5.1. (satisfies P3) 
+
+Phase 0 (Paired baselines). Evaluate M𝜃 0 on E through both pathways, yielding per-item baseline scores 𝑆 (0) 
+
+> 𝑖,𝐴
+
+and 𝑆 (0) 
+
+> 𝑖,𝑇
+
+.
+
+Phase 1 (Matched pathway activation). Starting from M𝜃 0 ,fine-tune on a balanced mixture of A2T and T2T examples drawn from K \ E , together with a small amount of general instruction data, yielding M𝜃 1 ; record 𝑆 (1) 
+
+> 𝑖,𝐴
+
+and 𝑆 (1) 
+
+> 𝑖,𝑇
+
+on E. (satisfies P1, P4) 
+
+Phase 2 (Symmetric contradictory pressure). Starting from 
+
+M𝜃 1 , for each training item 𝑖 ∈ K \ E , replace the original an-swer 𝑦 𝑖 with a contradictory substitute ˜𝑦 𝑖 drawn uniformly from 
+
+𝑐 𝑖 \ { 𝑦 𝑖 } (i.e., a different answer from the same category set). Fine-tune on both-pathway contradictory data using these substituted labels, yielding M𝜃 2 ; record 𝑆 (2) 
+
+> 𝑖,𝐴
+
+and 𝑆 (2) 
+
+> 𝑖,𝑇
+
+on E. (satisfies P2) 
+
+Output: per-item score triples {𝑆 (𝑘 ) 
+
+> 𝑖,𝑝
+
+}𝑘 =0,1,2 for both pathways. Liu et al. 
+
+## 4.2 Structural Prerequisites for Pathway-Level Comparison 
+
+We identify four conditions that any valid pathway-level forgetting comparison must satisfy. To our knowledge, no existing protocol jointly satisfies all of them. 
+
+• (P1) Target equivalence. Both pathways must correspond to the same knowledge unit, so that any retention difference reflects 
+
+how knowledge was acquired rather than what was acquired. 
+
+• (P2) Shared and symmetric supervision. Both pathways must receive identical overwrite pressure during the forgetting phase; modality-biased continuation data would confound the comparison. 
+
+• (P3) No trivial leakage. The text description 𝑡 𝑖 must not expose the answer 𝑦 𝑖 in a way that makes T2T trivially easier for reasons unrelated to pathway structure. 
+
+• (P4) Acquisition comparability. If one pathway systematically learns more strongly during the acquisition phase, higher forgetting on that pathway may be an artifact of higher acquisition rather than weaker retention. The protocol must record per-item acquisition gain and provide gain-controlled analysis. 
+
+## 4.3 The Paired Pathway Controlled Protocol (PPCP) 
+
+PPCP is a three-phase framework that satisfies all four prerequisites above. Figure 2 illustrates its structure. Let K denote the full paired knowledge pool. Let E ⊂ K denote the held-out paired evaluation set, disjoint from the training split. Phases 1 and 2 train on K \ E ,while pathway-level scores are recorded on E at every checkpoint. 
+
+Notation. 𝑖 indexes paired knowledge units in K; 𝑝 ∈ { 𝐴,𝑇 } de-notes the audio or text pathway; 𝑘 ∈ { 0, 1, 2} denotes the checkpoint after Phase 𝑘 ; 𝑆 (𝑘 ) 
+
+> 𝑖,𝑝
+
+is a scalar score measuring how well the model’s response on item 𝑖 through pathway 𝑝 matches the reference answer 
+
+𝑦 𝑖 at checkpoint 𝑘 (concrete instantiations are given in Section 4.4). 
+
+Phase 0 provides paired pathway baselines before any controlled adaptation. 
+
+Phase 1 does not primarily inject new knowledge, because pre-trained models already contain substantial musical understanding. Instead, it establishes a controlled checkpoint where both path-ways are actively engaged under matched supervision on the same knowledge pool, satisfying target equivalence (P1) and acquisition comparability (P4). 
+
+Phase 2 keeps substitutes semantically plausible via category-consistent replacement while maximizing overwrite pressure. Both pathways receive the same ˜𝑦 𝑖 for each item, enforcing shared and symmetric supervision (P2). A potential concern is that audio-conditioned representations may resist substitution more strongly than text-side representations; we address this through controlled experiments in Section 5.3 and formalize the resulting pathway–depth entangle-ment in Section 6.1. Prerequisite (P3) (no trivial leakage) is enforced during data construction and filtering, detailed in Section 5.1. 
+
+Training. Both phases use supervised fine-tuning (SFT) with mixed precision and gradient accumulation. Checkpoints are saved pe-riodically during Phase 2 for trajectory analysis. Model-specific training configurations are detailed in Section 5.1. 
+
+## 4.4 Evaluation Framework 
+
+Let 𝑆 (𝑘 ) 
+
+> 𝑖,𝑝
+
+denote the score measured through pathway 𝑝 ∈ { 𝐴,𝑇 } at checkpoint 𝑘 ∈ { 0, 1, 2} for item 𝑖 ∈ E . We instantiate 𝑆 (𝑘 ) 
+
+> 𝑖,𝑝
+
+in two complementary views: 
+
+• Generation space : 𝑆 (𝑘 ) 
+
+> 𝑖,𝑝
+
+is the cosine similarity between sen-tence embeddings [ 25 ] of the model’s generated answer and the reference answer 𝑦 𝑖 .
+
+• Logit space : 𝑆 (𝑘 ) 
+
+> 𝑖,𝑝
+
+is the mean log-probability of reference answer tokens under teacher forcing. The two views are complementary: generation-space forgetting can understate the underlying retention shift, while logit-space forget-ting can reveal asymmetries that surface-level outputs attenuate. 
+
+• Item-level quantities. For each item 𝑖 , the acquisition gain 𝐺 𝑖,𝑝 
+
+captures how much each pathway learned during Phase 1: 
+
+𝐺 𝑖,𝑝 = 𝑆 (1) 
+
+> 𝑖,𝑝
+
+− 𝑆 (0) 
+
+> 𝑖,𝑝
+
+. (1) The forgetting magnitude 𝐹 𝑖,𝑝 captures how much of that knowledge is lost after Phase 2: 
+
+𝐹 𝑖,𝑝 = 𝑆 (1) 
+
+> 𝑖,𝑝
+
+− 𝑆 (2) 
+
+> 𝑖,𝑝
+
+. (2) A positive 𝐹 𝑖,𝑝 indicates that pathway 𝑝 has lost knowledge on item 
+
+𝑖 during Phase 2. The per-item asymmetry 𝐴 𝑖 compares forgetting across pathways on the same item: 
+
+𝐴 𝑖 = 𝐹 𝑖,𝑇 − 𝐹 𝑖,𝐴 . (3) A positive 𝐴 𝑖 means that text-pathway knowledge on item 𝑖 is more severely degraded than the matched audio-pathway knowledge. 
+
+• Aggregate metrics. Let 𝐷 𝑝 denote the mean forgetting on path-way 𝑝 :
+
+𝐷 𝑝 = 1
+
+|E| ∑︁ 𝑖 ∈ E 
+
+𝐹 𝑖,𝑝 . (4) The absolute forgetting gap Δ𝐷 measures how much more the text pathway forgets than the audio pathway on average: 
+
+Δ𝐷 = 𝐷 𝑇 − 𝐷 𝐴 = 1
+
+|E| ∑︁ 𝑖 ∈ E 
+
+𝐴 𝑖 . (5) To express this gap as a proportion of text-pathway forgetting, we define the relative retention shift (RRS): 
+
+RRS = 𝐷 𝑇 − 𝐷 𝐴 
+
+𝐷 𝑇 
+
+. (6) Intuitively, RRS expresses how much of the text pathway’s total forgetting is excess degradation not shared by the audio pathway; a higher value indicates a larger structural disadvantage for the text pathway. 
+
+• Hypothesis testing. The null hypothesis posits that the expected item-level asymmetry is zero; the alternative posits a systematic positive shift: 
+
+𝐻 0 : E[𝐴 𝑖 ] = 0, 𝐻 1 : E[𝐴 𝑖 ] > 0. (7) Rejection of 𝐻 0 with positive Δ𝐷 constitutes evidence for pathway-dependent forgetting . We evaluate this via one-tailed Wilcoxon signed-rank tests [ 35 ] on the paired {𝐴 𝑖 } distribution and report Cohen’s 𝑑 = ¯𝐴 /𝑠 𝐴 [ 7 ] as the standardized effect size. Bootstrap confidence intervals [ 8] are computed for both Δ𝐷 and RRS; the confidence level and number of resamples are specified in Sec-tion 5.1.  When the Same Musical Knowledge Forgets Differently: A Clean Probe of Pathway-Dependent Forgetting 
+
+Table 1: Experimental roadmap: each candidate explanation for the observed asymmetry, the control designed to test it, and the outcome. The rightmost column indicates whether the explanation is ruled out as sufficient.                                    
+
+> Candidate Explanation Testable Prediction Control Experiment Ruled Out?
+> Differential acquisition T2T has more to lose from Phase 1 (Main & PPCP ) ANCOVA on 𝐺 𝑖,𝑝 (Table 2, RQ1) ✓
+> Direct text overwrite Removing text pressure closes gap (a) Audio-only forgetting (Table 3 a; RQ2) ✓
+> Projector shielding Perturbing projector reduces gap (b) Gaussian noise 𝜎 ∈ { 0.50 –1.00 }(Table 3 b; RQ2) ✓
+> Contradictory replacement Correct labels eliminate gap (c) MELD emotion classif. (Table 3 c; RQ2) ✓
+> Routing depth protection Extra routing replicates gap (d) TTS + text-routed probes (Table 3 d; RQ2) ✓
+> Layer-specific gradient pressure Freezing T2T-dominant layers compresses gap (e) Freeze layers 0–8 / 10–29 (Table 3 e; RQ2) ✓
+> Shallow training artifact Replay closes the gap (f) Balanced & T2T-targeted replay (Table 4; RQ3) ✓
+
+Table 2: Pathway asymmetry across all evaluated runs. All models show that the text pathway (T2T) forgets significantly more than the audio pathway (A2T). All bootstrap 95% CI lower bounds remain strictly above zero, and all 𝑝 -values are < 0.001 .
+
+Raw Forgetting Pathway Asymmetry Statistical Analysis 
+
+Model 𝐷 A2T ↓ 𝐷 T2T ↓ Δ𝐷 gen ↑ RRS gen ↑ RRS logit ↑ 𝑑 ↑ 𝑝 ↓ Δ𝐷 gen CI Δ𝐷 logit CI RRS gen CI Qwen2-Audio seed42 [5] 0.235 0.289 +0.054 +0.187 +0.402 0.289 < 0.001 [+ .038 , +.071 ] [+ .267 , +.367 ] [+ .133 , +.244 ]
+
+Qwen2-Audio seed43 [5] 0.233 0.287 +0.054 +0.189 +0.403 0.297 < 0.001 [+ .038 , +.070 ] [+ .263 , +.360 ] [+ .135 , +.244 ]
+
+Qwen2-Audio seed44 [5] 0.228 0.281 +0.053 +0.188 +0.423 0.282 < 0.001 [+ .036 , +.069 ] [+ .278 , +.377 ] [+ .130 , +.245 ]
+
+SALMONN [28] 0.232 0.276 +0.044 +0.158 +0.289 0.288 < 0.001 [+ .031 , +.057 ] [+ .177 , +.232 ] [+ .112 , +.206 ]
+
+Audio Flamingo 3 [11] 0.175 0.281 +0.106 +0.377 +0.302 0.517 < 0.001 [+ .088 , +.124 ] [+ .199 , +.262 ] [+ .309 , +.449 ]
+
+Qwen2.5-Omni [36] 0.242 0.271 +0.029 +0.107 +0.358 0.213 < 0.001 [+ .017 , +.041 ] [+ .185 , +.273 ] [+ .064 , +.150 ]
+
+• Acquisition confound control. Higher forgetting on the text pathway could in principle reflect stronger Phase 1 acquisition rather than weaker retention: a pathway that learned more has more to lose, so observing larger 𝐹 𝑖,𝑇 does not by itself imply greater struc-tural vulnerability. To disentangle acquisition strength from path-way identity, we use analysis of covariance (ANCOVA) [ 6], a linear model that combines the logic of ANOVA—testing whether a cate-gorical factor (here, pathway) affects the outcome—with regression— adjusting for a continuous covariate (here, Phase 1 acquisition gain). Concretely, we model forgetting as 
+
+𝐹 𝑖,𝑝 = 𝜇 + 𝛽 path · 1[𝑝 = 𝑇 ] + 𝛽 gain · 𝐺 𝑖,𝑝 + 𝜖 𝑖,𝑝 , (8) where 𝜇 is the intercept, 1[𝑝 = 𝑇 ] is the indicator variable that equals 1 when the pathway is text and 0 otherwise, 𝛽 gain absorbs the linear relationship between how much was learned ( 𝐺 𝑖,𝑝 ) and how much was forgotten ( 𝐹 𝑖,𝑝 ), 𝛽 path captures the residual pathway effect on forgetting after this acquisition-driven component has been removed, and 𝜖 𝑖,𝑝 is the residual error term. A significantly positive 
+
+𝛽 path > 0 would indicate that the text pathway forgets more even among items with comparable acquisition strength, constituting evidence that the asymmetry is a property of the pathway itself rather than an artifact of differential learning. 
+
+## 5 Experiments 
+
+We structure our experimental investigation around three research questions; all experiments are conducted under PPCP , with a full roadmap of candidate explanations and controlled experiments given in Table 1. RQ1: Does pathway-dependent forgetting exist, and is it robust across architectures, seeds, metrics, and question categories? RQ2: What Drives the Asymmetry? RQ3: Can the Asymmetry Be Mitigated? 
+
+## 5.1 Experimental Setup 
+
+• Data. We use MusicQA [ 15 ], which provides open-ended QA pairs over music audio across genre, instrument, mood, tempo, vo-cal, and sound-description categories. Following Section 4.3, we derive one canonical description per clip from the “Describe the audio” answer, restrict to non-numeric, non-temporal content, re-move the source question and two high-overlap families identified by embedding-similarity audit, and enforce audio-level train/test separation. After filtering, Phase 1 comprises 6,750 A2T + 6,750 T2T examples from a shared knowledge pool plus 1,500 general instructions; Phase 2 comprises 12,000 A2T + 12,000 T2T examples with category-consistent replacement answers; the test set contains 500 held-out items. Additional controls are detailed in Section 5.3 (cross-domain MELD [ 23 ] control) and Section 5.3 (routing-depth probes). 
+
+• Models. We evaluate four music-capable audio-language mod-els spanning distinct architectural paradigms: Qwen2-Audio-7B-Instruct [ 5], SALMONN [ 28 ], Audio Flamingo 3 (AF3) [ 11 ], and Qwen2.5-Omni [ 36 ]. These models differ in encoder design (Whis-per [ 24 ], BEATs [ 3 ]+Whisper, AF-Whisper), projection mechanism (linear, Q-Former [ 14 ], MLP, none), language model backbone (Qwen 2-7B, Vicuna [ 4 ], Qwen-2.5-7B), and overall paradigm (encoder– projector–LLM vs. Thinker–Talker). 
+
+• Evaluation metrics. Aggregate forgetting quantities are de-fined in Section 4.4. The primary generation-space metric uses all-MiniLM-L6-v2 [ 25 ]; logit-space RRS serves as a secondary di-agnostic. Across RQ1 –RQ3 , our statistical toolkit includes paired significance testing, standardized effect sizes, interval estimation, acquisition-confound adjustment, and leakage sanity checks. Natu-ral Language Inference (NLI) entailment scores and BERTScore [ 39 ]Liu et al. 
+
+are computed as additional robustness checks. Statistical signifi-cance is assessed via one-tailed Wilcoxon signed-rank tests with Cohen’s 𝑑 as effect size; bootstrap confidence intervals (95%, 10,000 resamples) are reported for Δ𝐷 and RRS; acquisition confounds are controlled via ANCOVA (Eq. 8); and per-item leakage is checked with Spearman rank correlation. 
+
+• Training details. All models are trained with bfloat16 precision using gradient accumulation to maintain a consistent effective batch size. Phase 1 runs for 3 epochs and Phase 2 for 2 epochs across all models. For Qwen2-Audio [ 5 ], we perform full fine-tuning and run three independent seeds (42, 43, 44) for cross-seed stability analysis. Audio Flamingo 3 [ 11 ] uses a custom HuggingFace trainer due to framework incompatibility. SALMONN [ 28 ] freezes its dual audio encoder and Q-Former [ 14 ] bridge, fine-tuning only the Vicuna [ 4]backbone. Qwen2.5-Omni [ 36 ] applies full fine-tuning to its Thinker module. 
+
+• Controlled experiments overview. Beyond the primary four-model evaluation, we conduct six targeted controls on Qwen2-Audio (seed 42) to rule out alternative explanations: (a) Pressure-modality variation : Phase 2 uses only A2T items (audio-only) or only T2T items (text-only), testing whether direct overwriting of text rep-resentations is necessary. (b) Projector perturbation : Gaussian noise (𝜎 ∈ { 0.50 , 0.75 , 1.00 }) is injected into audio projector weights after Phase 1, with a decoder-noise control, testing whether projector geometry protects the audio pathway. (c) MELD cross-domain con-trol : Phase 2 is replaced by correct-label emotion classification from MELD [ 23 ] (12,000 items per arm, paired audio and transcript with shared emotion labels), testing whether contradictory replacement is necessary. (d) Routing-depth probes (two probes used jointly): a TTS-routed probe feeds synthesized speech through the full audio stack, and a text-routed probe adds an extra linear block to the text pathway; the two have orthogonal confound structures and jointly test whether architectural depth explains the asymmetry. 
+
+(e) Layer freezing : decoder layers 0–8 or 10–29 are frozen during Phase 2, testing whether the gradient distribution pattern is causally responsible. (f) Replay : balanced (5%, 10%) and T2T-targeted (5%) replay are mixed into Phase 2, testing whether lightweight mit-igation closes the gap. Table 1 maps each candidate explanation to its control; Table 3 reports all results; full hyperparameters , per-category statistics , metric robustness data , additional control details ,and baseline scores are in Appendices A–E .
+
+## 5.2 RQ1: The Asymmetry Exists and Is Robust 
+
+Table 2 presents the aggregate results. Despite receiving identi-cal contradictory supervision during Phase 2, the text pathway (T2T) suffers significantly greater degradation than the audio path-way (A2T) across every model and seed. This holds across funda-mentally different architectural paradigms—early-fusion projector (SALMONN), deep-fusion integration (AF3), and native multimodal backbone (Qwen2.5-Omni)—with the generation-space gap Δ𝐷 gen 
+
+ranging from +0.029 to +0.106 and all bootstrap confidence inter-vals excluding zero. At the latent level the asymmetry is even more pronounced: logit-space RRS reaches up to +0.423 , indicating that the text pathway loses over 40% more predictive probability mass for the original target than the audio pathway. Three Qwen2-Audio seeds yield near-identical gaps ( Δ𝐷 gen ≈ + 0.054 ), demonstrating stability across random initialization. 
+
+• Statistical significance. Across all configurations, one-tailed Wilcoxon signed-rank tests yield 𝑝 -values < 0.001 with Cohen’s 𝑑 
+
+ranging from 0.213 to 0.517. Bootstrap 95% confidence intervals for 
+
+Δ𝐷 gen and both RRS remain strictly above zero in every run. 
+
+• Temporal trajectory. Figure 3 shows that pathway divergence emerges within the first few hundred steps and remains direction-ally positive throughout training. The gap magnitude is not strictly monotonic: it can fluctuate and partially narrow at later steps in some models (notably Qwen2.5-Omni after step 1000), while pre-serving the same overall direction. 
+
+• Acquisition confound. The ANCOVA pathway coefficient 𝛽 path 
+
+is positive and significant for reported seeds ( 𝛽 path = +0.057 , 𝑝 =
+
+1.67 × 10 −4 for seed 42 ; 𝑝 = 1.41 × 10 −4 for seed 43 ; see Eq. 8), confirm-ing that the asymmetry persists after controlling for differential Phase 1 acquisition strength. 
+
+• Category and metric robustness. The asymmetry is direction-ally positive across all five retained question categories ( 𝑛 ≥ 30 ). Excluding the strongest category (sound-content, 𝑑 = 0.81 ), the residual aggregate effect remains significant across all three seeds (𝑑 : 0.146–0.193, 𝑝 < 0.003 ), ruling out a single-category explanation. Figure 3 confirms that across all four models and both semantic spaces, the text pathway shows consistently larger relative declines. A leakage sanity check finds no significant correlation between per-item semantic overlap and per-item asymmetry (Spearman 
+
+𝜌 = 0.064 , 𝑝 = 0.528 ). Qualitatively, the audio pathway preserves the perceptual structure of the original content after Phase 2, while the text pathway drifts toward plausible but content-mismatched substitutes. 
+
+## 5.3 RQ2: What Drives the Asymmetry? 
+
+Having established that the asymmetry is real and robust, we sys-tematically test five candidate explanations and find that none is sufficient on its own. Table 3 reports all controlled conditions against a common baseline. 
+
+• (a) Direct text overwrite. If text-pathway knowledge forgets more only because Phase 2 directly rewrites text-side representa-tions, then removing text-side pressure should eliminate the gap. Under audio-only pressure, the text pathway is never directly over-written, yet T2T still forgets more than A2T in both generation and logit space (Table 3, block (a)), ruling out a direct-overwrite-only explanation. 
+
+• (b) Projector shielding. If the audio pathway forgets less only because its projected representation occupies a geometrically pro-tected region, then perturbing the projector should reduce the gap. We inject Gaussian noise into projector weights before Phase 2: 
+
+𝑃 ′ = 𝑃 + 𝜎𝑍 (𝑍 ∼ N ( 0, 𝐼 ), 𝜎 ∈ { 0.50 , 0.75 , 1.00 }). Noise-only per-turbation causes negligible Phase 1 retention damage ( < 0.01 ), confirming that the perturbation alters projector geometry without collapsing acquisition. Yet the asymmetry remains positive through-out (Table 3, block (b)), indicating that projector geometry alone does not explain the effect. A decoder-noise control ( 𝜎 = 0.50 ) con-firms this is not a generic insensitivity to perturbation: it reduces 
+
+Δ𝐷 gen from +0.054 to +0.039 .
+
+• (c) Contradictory replacement. The preceding controls retain the core mechanism of contradictory overwriting. To test whether the asymmetry depends on this mechanism, we replace Phase 2  When the Same Musical Knowledge Forgets Differently: A Clean Probe of Pathway-Dependent Forgetting -0.30                                      
+
+> -0.15
+> 0.00
+> 0.15
+> 0.30
+> 0.45
+> NLI
+> Qwen2-Audio
+> -0.30
+> -0.15
+> 0.00
+> 0.15
+> 0.30
+> 0.45
+> SALMONN
+> -0.30
+> -0.15
+> 0.00
+> 0.15
+> 0.30
+> 0.45
+> 0.60
+> AF3
+> -0.30
+> -0.15
+> 0.00
+> 0.15
+> 0.30
+> 0.45
+> Qwen2.5-Omni
+> P1 500 1k 1.5k 2k 2.5k 3k
+> Training Step
+> -0.30
+> -0.15
+> 0.00
+> 0.15
+> 0.30
+> 0.45
+> 0.60
+> Sent-Trans
+> P1 500 1k 1.5k 2k 2.5k 3k
+> Training Step
+> -0.30
+> -0.15
+> 0.00
+> 0.15
+> 0.30
+> 0.45
+> 0.60
+> P1 500 1k 1.5k 2k 2.5k 3k
+> Training Step
+> -0.30
+> -0.15
+> 0.00
+> 0.15
+> 0.30
+> 0.45
+> 0.60
+> P1 500 1k 1.5k 2k 2.5k 3k
+> Training Step
+> -0.30
+> -0.15
+> 0.00
+> 0.15
+> 0.30
+> 0.45
+> 0.60
+> Audio (A2T) Score SAudio (A2T) Drop S=SSP1Text (T2T) Score SText (T2T) Drop S=SSP1
+
+Figure 3: Trajectory of modality-specific performance and degradation across training steps, where the upper bars represent absolute scores ( 𝑆 ) and the lower shaded areas indicate relative performance drops ( Δ𝑆 = 𝑆 − 𝑆 𝑃 1) from the baseline (Phase 1). Table 3: Controlled analyses and structural probes (RQ2). Five candidate explanations are tested; all are ruled out as sufficient explanations. All rows report Δ𝐷 = 𝐷 T2T − 𝐷 A2T unless noted otherwise. Significance: ∗∗∗ 𝑝 < 0.001 ; ∗∗ 𝑝 < 0.01 ; n.s. 𝑝 ≥ 0.05 .
+
+Generation Space Logit Space 
+
+Condition Δ𝐷 ↑ RRS ↑ 𝑑 ↑ Δ𝐷 ↑ RRS ↑ 𝑑 ↑
+
+Baseline ‡ +0.054 +0.187 0.289 ∗∗∗ +0.315 +0.402 0.546 ∗∗∗ 
+
+(a) Direct text overwrite: pressure-modality variation 
+
+Audio-only +0.032 +0.122 0.162 ∗∗∗ +0.152 +0.558 0.416 ∗∗∗ 
+
+Text-only +0.071 +0.240 0.367 ∗∗∗ +0.450 +0.863 0.854 ∗∗∗ 
+
+(b) Projector shielding: projector perturbation with decoder noise control 
+
+Projector 𝜎 = 0.50 +0.055 +0.192 0.297 ∗∗∗ +0.318 +0.409 0.548 ∗∗∗ 
+
+Projector 𝜎 = 0.75 +0.059 +0.211 0.321 ∗∗∗ +0.321 +0.416 0.564 ∗∗∗ 
+
+Projector 𝜎 = 1.00 +0.055 +0.190 0.297 ∗∗∗ +0.313 +0.396 0.543 ∗∗∗ 
+
+Decoder noise ctrl 𝜎 = 0.50 +0.039 +0.138 0.223 ∗∗∗ +0.330 +0.415 0.567 ∗∗∗ 
+
+(c) Contradictory replacement (MELD); overall 𝐷 gen  
+
+> 𝑇
+
+≈ 0.50 vs. baseline 0.29 
+
+A2T-fair training +0.058 +0.116 0.385 ∗∗∗ −0.002 −0.000 −0.004 n.s. 
+
+T2T-fair training +0.050 +0.099 0.323 ∗∗∗ +0.046 +0.005 0.088 n.s. 
+
+(d) Routing depth protection †; Δ𝐷 = 𝐷 routed − 𝐷 direct 
+
+TTS-routed (full audio stack) −0.010 −0.034 −0.065 n.s. −0.081 −0.097 −0.264 ∗∗∗ 
+
+Text-routed (extra linear block) −0.002 −0.007 −0.027 n.s. +0.012 +0.037 +0.151 ∗∗ 
+
+(e) Layer-specific gradient pressure: decoder layer freezing during Phase 2 
+
+Freeze layers 0–8 +0.064 +0.219 0.342 ∗∗∗ +0.356 +0.653 0.627 ∗∗∗ 
+
+Freeze layers 10–29 +0.057 +0.190 0.293 ∗∗∗ +0.350 +0.529 0.610 ∗∗∗    
+
+> ‡Qwen2-Audio both-pathway contradictory pressure. †Phase 1 acquisition matched: TTS 0.777/0.777; text-routed 0.772/0.773.
+
+with a MELD-based emotion classification task [ 23 ]: a correct-label, cross-domain new task with no contradictory pressure. Each utter-ance provides paired audio and transcript with a shared emotion label, preserving pathway-matched comparability; both arms are evaluated on the original MusicQA paired test set to measure re-tention of musical knowledge. The generation-space asymmetry persists under both arms ( Δ𝐷 gen = +0.058 and +0.050 ; Table 3, block (c)), and the absolute gap remains in the same band as the contradictory baseline ( Δ𝐷 gen ≈ + 0.054 ) despite overall forgetting increasing substantially ( 𝐷 gen  
+
+> 𝑇
+
+≈ 0.50 vs. 0.29 ). In logit space, neither arm shows a significant asymmetry (both 𝑝 > 0.6), indicating that the cross-domain shift induces large but approximately pathway-symmetric logit degradation. Under this interference regime, the generation-space readout remains the clearer indicator of pathway-dependent forgetting. 
+
+• (d) Routing depth protection. The audio pathway traverses additional encoder and projector stages, so the asymmetry could reflect routing depth rather than pathway identity. We address this with two complementary probes (Table 3, block (d)). TTS-routed probe : identical text descriptions are converted to synthetic speech and fed through the full audio stack, so that content is held constant while routing depth varies. With Phase 1 acquisition matched, the routing-depth effect is non-significant in generation space ( 𝑑 =
+
+−0.065 , 𝑝 = 0.253 ) but significant in logit space ( 𝑑 = −0.264 , 𝑝 =
+
+7.7 × 10 −7); against the primary asymmetry (generation 𝑑 = 0.289 ,logit 𝑑 = 0.546 ), depth accounts for at most a minor fraction of Liu et al. 0.1               
+
+> 0.2
+> 0.3
+> (a) Qwen2-Audio (b) SALMONN
+> 500 1000 1500 2000 2500 3000
+> 0.1
+> 0.2
+> 0.3
+> (c) AF3
+> 500 1000 1500 2000 2500 3000
+> (d) Qwen2.5-Omni
+> Phase-2 Training Steps
+> Forgetting Magnitude  D
+> Audio Pathway (A2T) Text Pathway (T2T) Asymmetry D
+
+Figure 4: Per-pathway forgetting trajectory during Phase 2. The text pathway (orange) forgets more than the audio path-way (blue) from the earliest checkpoint onward. 0 5 10 15 20 25 30 
+
+> Decoder Layer
+> 10 0
+> 10 1
+> 10 2
+> Gradient Magnitude
+> (log scale)
+> Raw + Loss-Normalized Gradients
+> A2T (raw)
+> T2T (raw)
+> A2T (norm)
+> T2T (norm)
+
+Figure 5: Exploratory gradient analysis on Qwen2-Audio (Phase 2). 
+
+the gap. Text-routed probe : an extra linear projection block (Linear 
+
+4096 → 4096 with residual connection) is applied to all token embeddings via a forward hook on the embedding layer, adding a routing stage while keeping the input modality fixed as text. 1
+
+Phase 1 acquisition is again matched ( 0.772 vs. 0.773 ), and the generation-space forgetting gap is negligible ( Δ𝐷 gen = −0.002 ,
+
+𝑑 = −0.027 , n.s.); in logit space the extra block slightly increases 
+
+forgetting ( Δ𝐷 logit = +0.012 , 𝑑 = +0.151 , 𝑝 < 0.01 ), the opposite of a protective effect. The two probes have orthogonal confound structures—one varies modality while preserving the real audio stack, the other preserves modality while adding an extra block— yet converge on the same conclusion: routing depth alone does not account for the observed asymmetry. 
+
+• (e) Layer-specific gradient pressure. Loss-normalized gradient profiles during Phase 2 (Figure 5) show that A2T updates concen-trate in early decoder layers (0–8) while T2T updates are relatively larger in layers 10–29. If this pattern were causally explanatory, freezing the T2T-dominant band should substantially reduce Δ𝐷 ,while freezing the A2T-dominant band should increase it. Neither prediction holds: Δ𝐷 gen = +0.064 under freezing layers 0–8 and 
+
++0.057 under freezing layers 10–29, both comparable to the un-frozen baseline ( +0.054 ; Table 3, block (e)). The logit-space effect sizes under both conditions ( 𝑑 = 0.627 and 0.610 ) exceed the base-line ( 𝑑 = 0.546 ), ruling out a simple layer-specific causal account: the asymmetry is a distributed, architecture-level property. 
+
+> 1The hook operates on all tokens including those generated autoregressively, and the training mixture includes general instruction data alongside paired music items, matching the primary Phase 1 recipe.
+
+Table 4: Replay-based probe on Qwen2-Audio (generation space). Replay reduces overall forgetting but does not mate-rially narrow the T2T–A2T gap. 
+
+Condition 𝐷 A2T ↓ 𝐷 T2T ↓ Δ𝐷 ↑ RRS ↑ 𝑑 ↑ 𝑝 ↓
+
+Baseline 0.235 0.289 +0.054 +0.187 0.289 1.3e-09 Balanced 5% 0.179 0.240 +0.062 +0.256 0.290 2.0e-11 T2T-targeted 5% 0.171 0.225 +0.054 +0.239 0.262 6.7e-09 Balanced 10% 0.160 0.211 +0.051 +0.243 0.245 6.4e-09 INPUT QUERY :  
+
+> What is the mood of
+> Canon in D?
+> GROUND TRUTH :
+> Calm and elegant
+> PHASE A2T T2T
+> phase 1
+> phase 2
+> Gentle, elegant,
+> and serene
+> Peaceful and
+> flowing
+> Calm and graceful
+> Dark and intense
+> MATCH
+> DISMATCH
+> phase 0
+> Equivalent
+> knowledge
+
+Figure 6: After Phase 2, A2T vs. T2T. 
+
+The effect survives all five controlled tests, consistent with a structural property of how these models retain knowledge along different input pathways. 
+
+## 5.4 RQ3: Can the Asymmetry Be Mitigated? 
+
+As shown in Table 4, three replay conditions reduce overall forget-ting for both pathways, but the absolute pathway gap Δ𝐷 remains in the same band as the baseline ( +0.051 –+0.062 versus +0.054 )rather than collapsing toward zero. The persistence of Δ𝐷 under replay suggests that text-pathway vulnerability reflects a structural property of how these models organize knowledge along differ-ent pathways, rather than a shallow training artifact amenable to simple intervention, ruling out the last candidate explanation (f). 
+
+## 5.5 Case Study 
+
+Figure 6 illustrates a representative case from the music QA eval-uation. After Phase 1, both pathways correctly capture the calm, elegant character of Canon in D . After Phase 2, the audio pathway remains semantically anchored (“Peaceful and flowing”), while the text pathway drifts to a plausible but incorrect substitute (“Dark and intense”), suggesting that contradictory pressure overwrites content-specific bindings in the text pathway while leaving the audio pathway’s perceptual grounding largely intact. 
+
+## 6 Discussion 6.1 Scope of the Present Findings 
+
+In the music domain, the asymmetry is robust across architectures, models, metrics, interference regimes, and controlled probes (Sec-tion 5), providing evidence against the Pathway-Invariant Assump-tion : retention in the studied models depends not only on what was learned, but on how that knowledge entered the model. Our pri-mary claim is scoped to the encoder–projector–LLM architectural family, whose categorical attributes (genre, instrumentation, mood, texture) enable strict pathway-level alignment; whether the ob-served direction generalizes to other modality pairs or architectural families remains open. 
+
+• Entanglement. In all evaluated models, the audio pathway tra-verses additional encoder and projector stages, so pathway identity  When the Same Musical Knowledge Forgets Differently: A Clean Probe of Pathway-Dependent Forgetting 
+
+and routing depth are structurally entangled. Two complementary probes (Section 5.3) address this: the TTS-routed probe varies depth while changing modality, and the text-routed probe adds depth while holding modality fixed. Neither finds a significant routing-depth effect at the generation level, and both are more consistent with pathway identity and input representation as dominant con-tributors. A residual caveat is that the TTS probe’s in-distribution Whisper processing and the text-routed probe’s single linear block may underestimate depth effects relative to a full pretrained en-coder; complete decomposition remains an open direction. 
+
+• Perceptual grounding. An alternative account is that audio-pathway knowledge resists forgetting because perceptual ground-ing provides an implicit anchor. The MELD control (Section 5.3) bears directly on this account: without contradictory replacement, the generation-space gap Δ𝐷 gen remains clearly positive, weaken-ing the claim that perceptual grounding alone is sufficient. 
+
+## 6.2 Open Problems and Broader Implications 
+
+• Pathway-aware forgetting mitigation. Uniform replay budgets do not close the gap (Section 5), suggesting that effective strategies may need to allocate protective resources in proportion to each pathway’s vulnerability. 
+
+• Broader implications. If pathway-dependent forgetting extends beyond the current setting, it carries implications for multimodal architecture design (routing as a retention-shaping factor), model editing and unlearning [ 19 , 20 ] (pathway-specific interventions for complete fact removal), and continual learning (pathway-aware rather than uniform mitigation). 
+
+## 7 Conclusion 
+
+We asked whether the route through which musical knowledge enters an audio-language model shapes its vulnerability to later forgetting. PPCP, a three-phase protocol designed to address both the Pathway-Invariant Assumption and the Symmetric Continua-tion Bias, reveals a consistent asymmetry: text-pathway knowledge is forgotten more than matched audio-pathway knowledge across multiple architecturally distinct models. The effect survives six tar-geted controls, and two independent routing-depth probes confirm that architectural depth alone does not account for it. These results suggest that retention depends not only on what a model learned but on how that knowledge entered the model, motivating acqui-sition route as a new analytical dimension for forgetting research and multimodal system design. 
+
+## References 
+
+[1] Arslan Chaudhry, Marcus Rohrbach, Mohamed Elhoseiny, Thalaiyasingam Ajber, and Stefano Soatto. 2019. Continual learning with tiny episodic memories. In 
+
+Workshop on Multi-Task and Lifelong Reinforcement Learning .[2] Qizhou Chen, Chengyu Wang, Dakan Wang, Taolin Zhang, Wangyue Li, and Xiaofeng He. 2025. Lifelong knowledge editing for vision language models with low-rank mixture-of-experts. In Proceedings of the Computer Vision and Pattern Recognition Conference . 9455–9466. [3] Sanyuan Chen, Yu Wu, Chengyi Wang, Shujie Liu, Daniel Tompkins, Zhuo Chen, and Furu Wei. 2023. BEATs: Audio Pre-Training with Acoustic Tokenizers. In 
+
+Proceedings of the 40th International Conference on Machine Learning (ICML) ,Vol. 202. PMLR, 5178–5193. [4] Wei-Lin Chiang, Zhuohan Li, Zi Lin, Ying Sheng, Zhanghao Wu, Hao Zhang, Lianmin Zheng, Siyuan Zhuang, Yonghao Zhuang, Joseph E. Gonzalez, Ion Stoica, and Eric P. Xing. 2023. Vicuna: An Open-Source Chatbot Impressing GPT-4 with 90%* ChatGPT Quality. https://lmsys.org/blog/2023-03-30-vicuna/. [5] Yunfei Chu, Jin Xu, Qian Yang, Haojie Wei, Xipin Wei, Zhifang Guo, Yichong Leng, Yuanjun Lv, Jinzheng He, Junyang Lin, et al . 2024. Qwen2-Audio technical report. arXiv preprint arXiv:2407.10759 (2024). [6] William G. Cochran. 1957. Analysis of Covariance: Its Nature and Uses. Biometrics 
+
+13, 3 (1957), 261–281. [7] Jacob Cohen. 1988. Statistical Power Analysis for the Behavioral Sciences (2nd ed.). Lawrence Erlbaum Associates. [8] Bradley Efron. 1979. Bootstrap Methods: Another Look at the Jackknife. The Annals of Statistics 7, 1 (1979), 1–26. [9] Robert M French. 1999. Catastrophic forgetting in connectionist networks. Trends in Cognitive Sciences 3, 4 (1999), 128–135. [10] Sreyan Ghosh, Arushi Goel, Lasha Koroshinadze, Sang-gil Lee, Zhifeng Kong, Joao Felipe Santos, Ramani Duraiswami, Dinesh Manocha, Wei Ping, Mohammad Shoeybi, and Bryan Catanzaro. 2025. Music Flamingo: Scaling Music Under-standing in Audio Language Models. arXiv preprint arXiv:2511.10289 (2025). [11] Arushi Goel, Sreyan Ghosh, Jaehyeon Kim, Sonal Kumar, Zhifeng Kong, Sang-gil Lee, Chao-Han Huck Yang, Ramani Duraiswami, Dinesh Manocha, Rafael Valle, and Bryan Catanzaro. 2025. Audio Flamingo 3: Advancing Audio Intelligence with Fully Open Large Audio Language Models. arXiv preprint arXiv:2507.08128 
+
+(2025). [12] Tianyu Huai, Jie Zhou, Xingjiao Wu, Qin Chen, Qingchun Bai, Ze Zhou, and Liang He. 2025. Cl-moe: Enhancing multimodal large language model with dual momentum mixture-of-experts for continual visual question answering. In Proceedings of the computer vision and pattern recognition conference . 19608– 19617. [13] James Kirkpatrick, Razvan Pascanu, Neil Rabinowitz, Joel Veness, Guillaume Desjardins, Andrei A Rusu, Kieran Milan, John Quan, Tiago Ramalho, Agnieszka Grabska-Barwinska, et al . 2017. Overcoming catastrophic forgetting in neural networks. Proceedings of the National Academy of Sciences 114, 13 (2017), 3521– 3526. [14] Junnan Li, Dongxu Li, Silvio Savarese, and Steven Hoi. 2023. BLIP-2: Boot-strapping Language-Image Pre-Training with Frozen Image Encoders and Large Language Models. In International Conference on Machine Learning . PMLR, 19730– 19742. [15] Shansong Liu, Atin Sakkeer Hussain, Chenshuo Sun, and Ying Shan. 2024. Music understanding llama: Advancing text-to-music generation with question an-swering and captioning. In ICASSP 2024-2024 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP) . IEEE, 286–290. [16] Xiaohao Liu, Xiaobo Xia, See-Kiong Ng, and Tat-Seng Chua. 2025. Continual multimodal contrastive learning. arXiv preprint arXiv:2503.14963 (2025). [17] Pratyush Maini, Zhili Feng, Avi Schwarzschild, Zachary Chase Lipton, and J Zico Kolter. 2024. TOFU: A Task of Fictitious Unlearning for LLMs. In Advances in Neural Information Processing Systems .[18] Michael McCloskey and Neal J Cohen. 1989. Catastrophic interference in con-nectionist networks: The sequential learning problem. Psychology of Learning and Motivation 24 (1989), 109–165. [19] Kevin Meng, David Bau, Alex Andonian, and Yonatan Belinkov. 2022. Locating and Editing Factual Associations in GPT. In Advances in Neural Information Processing Systems .[20] Eric Mitchell, Charles Lin, Antoine Bosselut, Chelsea Finn, and Christopher D Manning. 2023. Mass-Editing Memory in a Transformer. In Proceedings of the 11th International Conference on Learning Representations (ICLR) .[21] Shuai Pan et al . 2025. Audio-Language Models for Audio-Centric Tasks: A Survey. 
+
+arXiv preprint arXiv:2501.15177 (2025). [22] Weiguo Pian, Shijian Deng, Shentong Mo, Yunhui Guo, and Yapeng Tian. 2025. Modality-Inconsistent Continual Learning of Multimodal Large Language Mod-els. In Proceedings of the 39th AAAI Conference on Artificial Intelligence .[23] Soujanya Poria, Devamanyu Hazarika, Navonil Majumder, Gautam Naik, Erik Cambria, and Rada Mihalcea. 2019. MELD: A Multimodal Multi-Party Dataset for Emotion Recognition in Conversations. In Proceedings of the 57th Annual Meeting of the Association for Computational Linguistics . 527–536. [24] Alec Radford, Jong Wook Kim, Tao Xu, Greg Brockman, Christine McLeavey, and Ilya Sutskever. 2023. Robust Speech Recognition via Large-Scale Weak Super-vision. In Proceedings of the 40th International Conference on Machine Learning (ICML) , Vol. 202. PMLR, 28492–28518. [25] Nils Reimers and Iryna Gurevych. 2019. Sentence-BERT: Sentence Embeddings using Siamese BERT-Networks. In Proceedings of the 2019 Conference on Empirical Methods in Natural Language Processing .[26] Andrei A Rusu, Neil C Rabinowitz, Guillaume Desjardins, Hubert Soyer, James Kirkpatrick, Koray Kavukcuoglu, Razvan Pascanu, and Raia Hadsell. 2016. Pro-gressive neural networks. arXiv preprint arXiv:1606.04671 (2016). [27] Haizhou Shi, Zihao Xu, Hengyi Wang, Weiyi Qin, Wenyuan Wang, Yibin Wang, Zifeng Wang, Sayna Ebrahimi, and Hao Wang. 2025. Continual Learning of Large Language Models: A Comprehensive Survey. Comput. Surveys 58, 5 (2025). doi:10.1145/3735633 [28] Changli Tang, Wenyi Yu, Guangzhi Sun, Xianzhao Chen, Tian Tan, Wei Li, Lu Lu, Zejun Ma, and Chao Zhang. 2023. Salmonn: Towards generic hearing abilities for large language models. arXiv preprint arXiv:2310.13289 (2023). Liu et al. 
+
+[29] Lukas Thede, Karsten Roth, Matthias Bethge, Zeynep Akata, and Tom Hartvigsen. 2025. Wikibigedit: Understanding the limits of lifelong knowledge editing in LLMs. arXiv preprint arXiv:2503.05683 (2025). [30] Gido M van de Ven, Nicholas Soures, and Dhireesha Kudithipudi. 2025. Continual Learning and Catastrophic Forgetting. In Learning and Memory: A Comprehensive Reference (3rd ed.), John Wixted (Ed.). Vol. 1. Academic Press, 153–168. [31] Liyuan Wang, Xingxing Zhang, Hang Su, and Jun Zhu. 2024. A Comprehensive Survey of Continual Learning: Theory, Method and Application. IEEE Trans-actions on Pattern Analysis and Machine Intelligence 46, 8 (2024), 5362–5383. doi:10.1109/TPAMI.2024.3367329 [32] Jason Wei, Maarten Bosma, Vincent Y Zhao, Kelvin Guu, Adams Wei Yu, Brian Lester, Nan Du, Andrew M Dai, and Quoc V Le. 2022. Finetuned Language Models Are Zero-Shot Learners. In Proceedings of the 10th International Conference on Learning Representations (ICLR) .[33] Xiwen Wei, Mustafa Munir, and Radu Marculescu. 2025. Mitigating Intra- and Inter-modal Forgetting in Continual Learning of Unified Multimodal Models. In 
+
+Advances in Neural Information Processing Systems .[34] Xiwen Wei, Mustafa Munir, and Radu Marculescu. 2025. Mitigating Intra-and Inter-modal Forgetting in Continual Learning of Unified Multimodal Models. 
+
+arXiv preprint arXiv:2512.03125 (2025). [35] Frank Wilcoxon. 1945. Individual Comparisons by Ranking Methods. Biometrics Bulletin 1, 6 (1945), 80–83. [36] Jin Xu, Zhifang Guo, Jinzheng He, Hangrui Hu, Ting He, Shuai Bai, Keqin Chen, Jialin Wang, Yang Fan, Kai Dang, Bin Zhang, Xiong Wang, Yunfei Chu, and Jun-yang Lin. 2025. Qwen2.5-Omni Technical Report. arXiv preprint arXiv:2503.20215 
+
+(2025). [37] Yuexiang Zhai, Shengbang Tong, Xiao Li, Mu Cai, Qing Qu, Yong Jae Lee, and Yi Ma. 2024. Investigating the Catastrophic Forgetting in Multimodal Large Language Models. In Conference on Parsimony and Learning .[38] Qiang Zhang, Fanrui Zhang, Jiawei Liu, Ming Hu, Junjun He, and Zheng-Jun Zha. [n. d.]. Reliable Lifelong Multimodal Editing: Conflict-Aware Retrieval Meets Multi-Level Guidance. In The Thirty-ninth Annual Conference on Neural Information Processing Systems .[39] Tianyi Zhang, Varsha Kishore, Felix Wu, Kilian Q. Weinberger, and Yoav Artzi. 2020. BERTScore: Evaluating Text Generation with BERT. In Proceedings of the 8th International Conference on Learning Representations (ICLR) .[40] Junhao Zheng, Qianli Ma, Zhen Liu, Binquan Wu, and Huawen Feng. 2024. Beyond Anti-Forgetting: Multimodal Continual Instruction Tuning with Positive Forward Transfer. arXiv preprint arXiv:2401.09181 (2024).  When the Same Musical Knowledge Forgets Differently: A Clean Probe of Pathway-Dependent Forgetting 
+
+## A Training Hyperparameters 
+
+Table 5 lists the full training configuration for each model. All models use bfloat16 mixed precision, batch size 1 with gradient accumulation 16 (effective batch size 16), and a maximum sequence length of 2048 tokens. 
+
+Table 5: Training hyperparameters and infrastructure.                           
+
+> Model Trainable component P1 LR P2 LR Precision GPU Qwen2-Audio [5] Full model 2e-5 5e-5 bf16 H100 SALMONN [28] Vicuna (enc.+QF frozen) 2e-5 5e-5 bf16 H100 Audio Flamingo 3 [11] Full model 2e-5 7e-5 bf16 H100 Qwen2.5-Omni [36] Thinker module 2e-5 5e-5 bf16 H100
+> Batch 1, grad. acc. 16, max len. 2048. P1: 3 ep.; P2: 2 ep.; AdamW. Seeds: 42/43/44 (Qwen2-Audio), 42 (others). 4 ×NVIDIA H100 80GB.
+
+## B Per-Category Statistics 
+
+Table 6 reports per-category forgetting asymmetry for all eight question categories on Qwen2-Audio (seed 42, generation space). Categories with 𝑛 < 30 are separated below the line. All five cate-gories with 𝑛 ≥ 30 show positive Δ𝐷 direction; of the three excluded categories, one (use_case_purpose) also shows positive direction. 
+
+Table 6: Per-category forgetting asymmetry (Qwen2-Audio, seed 42, generation space). Categories above the line have 
+
+𝑛 ≥ 30 ; those below are excluded from the main analysis due to small sample size. 
+
+Category 𝑛 Δ𝐷 Cohen’s 𝑑 𝑝 
+
+sound_content 101 +0.162 0.782 5.1e-11 genre_style 104 +0.048 0.277 2.9e-4 instrument_presence 31 +0.062 0.362 0.092 mood_emotion 79 +0.010 0.070 0.305 unclassified 133 +0.023 0.137 0.339 use_case_purpose 23 +0.044 0.269 0.099 vocal_performer 20 −0.049 −0.209 0.733 tempo_rhythm 9 −0.025 — —
+
+## C Metric Robustness: Full Data 
+
+Table 7 reports the complete forgetting asymmetry across four eval-uation metrics and all six runs. All three semantic metrics (sentence-transformer, NLI, BERTScore) yield significant positive asymmetry in every run. ROUGE-L reaches significance for SALMONN, AF3, and Qwen2.5-Omni but not for Qwen2-Audio. 
+
+## D Additional Control Details D.1 Sentence-Form MELD Control 
+
+The MELD control replaces contradictory Phase 2 supervision with a correct-label cross-domain task built from paired speech utter-ances and transcripts [ 23 ]. Each arm uses 12,000 Phase 2 items and is evaluated on the original 500-item MusicQA paired test set. To keep the supervision closer to a generation task, emotion labels are expressed as short natural-language sentences rather than bare class tokens. 
+
+Table 7: Full metric robustness data. 𝐷 𝐴 /𝐷 𝑇 : mean forgetting for A2T/T2T; Δ𝐷 = 𝐷 𝑇 − 𝐷 𝐴 . Significance: ∗∗∗ 𝑝 < 0.001 ; ∗∗ 𝑝 <
+
+0.01 ; n.s. 𝑝 ≥ 0.05 .
+
+Run Metric 𝐷 𝐴 𝐷 𝑇 Δ𝐷 𝑑 𝑝 
+
+Qwen2-Audio (s42) [5] Sent.-trans. .235 .289 +.054 .289 ∗∗∗ 1.3e-9 NLI .092 .283 +.192 .370 ∗∗∗ 2.6e-13 BERTScore .029 .033 +.004 .121 ∗∗ 2.6e-3 ROUGE-L .193 .192 −.001 −.005 n.s. .18 Qwen2-Audio (s43) Sent.-trans. .233 .287 +.054 .297 ∗∗∗ 5.6e-10 NLI .089 .295 +.207 .401 ∗∗∗ 2.6e-14 BERTScore .029 .032 +.003 .107 ∗∗ 7.1e-3 ROUGE-L .189 .196 +.007 .033 n.s. .073 Qwen2-Audio (s44) Sent.-trans. .228 .281 +.053 .282 ∗∗∗ 1.7e-9 NLI .069 .292 +.223 .431 ∗∗∗ 4.0e-17 BERTScore .029 .033 +.004 .122 ∗∗ 4.8e-3 ROUGE-L .190 .195 +.005 .026 n.s. .11 SALMONN [28] Sent.-trans. .232 .276 +.044 .288 ∗∗∗ 3.9e-9 NLI .163 .275 +.113 .237 ∗∗∗ 3.3e-10 BERTScore .024 .029 +.005 .203 ∗∗∗ 6.6e-7 ROUGE-L .174 .199 +.026 .150 ∗∗∗ 4.3e-5 Audio Flamingo 3 [11] Sent.-trans. .160 .268 +.109 .524 ∗∗∗ 3.2e-27 NLI .090 .287 +.197 .391 ∗∗∗ 2.8e-16 BERTScore .018 .031 +.012 .391 ∗∗∗ 1.5e-17 ROUGE-L .153 .203 +.050 .250 ∗∗∗ 2.9e-11 Qwen2.5-Omni [36] Sent.-trans. .242 .271 +.029 .213 ∗∗∗ 2.1e-5 NLI .162 .257 +.096 .225 ∗∗∗ 8.6e-7 BERTScore .028 .031 +.003 .120 ∗∗ 5.4e-3 ROUGE-L .171 .194 +.023 .142 ∗∗ 1.9e-3 
+
+Table 8: Sentence-form MELD control on Qwen2-Audio (seed 42). The generation-space asymmetry remains positive under both fair-training arms, while logit-space asymmetry stays weak and individually non-significant. 
+
+Condition 𝐷 gen  
+
+> 𝐴
+
+𝐷 gen  
+
+> 𝑇
+
+Δ𝐷 gen 𝑑 gen 𝑝 gen 
+
+A2T-fair 0.443 0.501 +0.058 0.385 < 0.001 
+
+T2T-fair 0.455 0.505 +0.050 0.323 < 0.001 
+
+Condition Δ𝐷 logit 𝑑 logit 𝑝 logit 
+
+A2T-fair −0.002 −0.004 n.s. T2T-fair +0.046 0.088 n.s. 
+
+Relative to the contradictory baseline ( Δ𝐷 gen ≈ + 0.054 ), sentence-form MELD increases overall forgetting while keeping the absolute pathway gap in the same band. This strengthens the conclusion that the main asymmetry is not specific to contradictory replacement. 
+
+## D.2 TTS-Routed Probe 
+
+The TTS-routed probe feeds the same canonical text descriptions through two routes: a direct text route and a routed audio route obtained by first synthesizing the description into speech and then processing it through the full audio stack. This keeps the semantic content fixed while changing the route structure. Phase 1 acquisi-tion is tightly matched in generation space ( 0.7774 direct vs. 0.7768 
+
+routed). Liu et al. 
+
+Table 9: TTS-routed probe on Qwen2-Audio (seed 42). Routed audio yields only a modest retention advantage relative to the direct text route.                   
+
+> Route P1 gen P2 gen 𝐷 gen P1 logit P2 logit 𝐷 logit
+> Direct text 0.7774 0.4751 0.3023 −1.1741 −2.0079 0.8338 TTS-routed 0.7768 0.4847 0.2921 −1.2887 −2.0412 0.7526
+
+The routed path forgets slightly less in generation space ( Δ𝐷 gen =
+
+−0.010 , 𝑑 = −0.065 , n.s.) and more clearly less in logit space ( Δ𝐷 logit =
+
+−0.081 , 𝑑 = −0.264 , 𝑝 < 0.001 ), indicating at most a modest route-structure contribution relative to the primary asymmetry. 
+
+## D.3 Text-Routed Probe: Implementation and Validation 
+
+The text-routed probe adds a single linear projection block (Linear 
+
+4096 → 4096 ) with a residual connection to the text pathway via a forward hook on the embedding layer. The block is initialized to exact zeros so that the residual connection acts as an identity at initialization; this ensures that Phase 0 scores for the direct and routed pathways are identical. 
+
+• Phase 0 validation. Table 10 confirms that the zero-initialized probe produces exact score parity at Phase 0 (gap = 0.000000 in both spaces), validating the implementation. Phase 1 acquisition is matched to within 0.0004 in generation space, satisfying acquisition comparability. 
+
+• Design choices. Two alternative implementations were tested and rejected during development. Xavier-normal initialization (gain 
+
+= 0.1) produced negligible logit-space deviation but caused generation-space scores to diverge by 0.31 due to autoregressive error ac-cumulation. Passing routed embeddings via inputs_embeds in-stead of input_ids caused KV-cache inconsistencies in Hugging-Face’s generate() , producing a 0.31 generation gap even with zero-valued embeddings. Both issues were resolved by the zero-initialized forward-hook design. 
+
+Table 10: Text-routed probe: scores at each PPCP phase.                 
+
+> Phase Direct (gen) Routed (gen) Direct (logit) Routed (logit) 00.7289 0.7289 −2.9010 −2.9010 10.7724 0.7728 −3.0163 −3.0182 20.4543 0.4568 −3.3507 −3.3650
+
+These phase scores imply generation-space forgetting of 0.318 for the direct path and 0.316 for the routed path ( Δ𝐷 gen = −0.002 , 𝑑 =
+
+−0.027 , n.s.), while in logit space the extra block slightly increases forgetting ( 0.335 → 0.347 , Δ𝐷 logit = +0.012 , 𝑑 = +0.151 , 𝑝 < 0.01 ). Taken together, the text-routed probe does not reproduce the main protective effect. 
+
+## E Phase 0 and Phase 1 Baseline Scores 
+
+Table 11 reports the raw pathway scores before any forgetting pressure is applied. Phase 0 reflects pretrained model performance; Phase 1 reflects post-injection performance after matched path-way activation. Acquisition gain ( 𝐺 = 𝑆 (1) − 𝑆 (0) ) is positive for both pathways in all models, confirming that Phase 1 successfully engages both pathways on the target knowledge. 
+
+Table 11: Phase 0 and Phase 1 scores and acquisition gains (seed 42). Gen: generation-space similarity; Log: mean log-prob.

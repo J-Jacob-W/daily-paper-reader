@@ -1,0 +1,564 @@
+Title: SPICE: Synergy and Partial Information Based Curriculum Evolution
+
+URL Source: https://arxiv.org/pdf/2606.16639v1
+
+Published Time: Tue, 16 Jun 2026 02:12:31 GMT
+
+Number of Pages: 9
+
+Markdown Content:
+# SPICE: Synergy and Partial Information Based Curriculum Evolution 
+
+# Ankush Pratap Singh 
+
+asing213@nyu.edu New York Institute of Technology New York, NY, USA 
+
+# Houwei Cao 
+
+hcao02@nyit.edu New York Institute of Technology New York, NY, USA 
+
+# Yong Liu 
+
+yongliu@nyu.edu New York University New York, NY, USA 
+
+## Abstract 
+
+Multimodal learning exploits complementary information across heterogeneous modalities. The informativeness of each modality can vary widely across samples and training stages. Existing multi-modal curriculum learning strategies often assume that the relative complexity of samples remains unchanged throughout training and therefore cannot adapt to model evolution. We propose SPICE 
+
+(Synergy and Partial Information based Curriculum Evolution), a novel progressive curriculum framework for multimodal interaction learning. Guided by Partial Information Decomposition (PID) 
+
+theory, our approach decomposes multimodal interactions into re-dundant , unique , and synergistic information components, enabling an interpretable and dynamic characterization of sample complexity. Building on this decomposition, we design a progressive curriculum that evolves throughout training, allowing the model to transition from learning shared cross-modal cues to modality-specific pat-terns and, finally, to complex synergistic interactions. Adapting to model evolution, sample ordering is refined in real-time using PID information estimates derived from unimodal and multimodal predictions. Experiments across multiple multimodal benchmarks demonstrate consistent improvements over conventional training and state-of-the-art baselines, highlighting the effectiveness of PID information decomposition and adaptive sample ordering for mul-timodal curriculum learning. 
+
+## CCS Concepts 
+
+• Computing methodologies → Neural networks ; Learning settings .
+
+## Keywords 
+
+Multimodal Learning, Curriculum Learning, Partial Information Decomposition (PID) 
+
+## 1 Introduction 
+
+Multimodal learning has become a fundamental paradigm for in-telligent interactive systems, enabling models to jointly reason across heterogeneous modalities such as audio, vision, text, and motion [ 3 , 43 ]. By leveraging complementary information across modalities, multimodal models have achieved strong performance across a wide range of tasks, including affective computing [ 24 , 28 ], audiovisual understanding [ 1 , 38 ], human-computer interaction [ 2,29 ], and multimodal reasoning [ 20 , 34 ]. A key challenge in these systems is effectively learning cross-modal interactions , as different modalities often contribute unequally, the relative informativeness of modalities varies across training samples, and model components specific for different modalities often converge at different rates throughout training [25, 32]. 
+
+Figure 1: SPICE Workflow: PID Information Estimation ⇒
+
+Adaptive Sample Ordering ⇒ Dynamic Curriculum 
+
+Existing multimodal training strategies typically assume that the relative difficulty of samples and modalities remains fixed through-out model weights optimization. Under this view, samples are either treated uniformly via random shuffling or assigned static difficulty scores for curriculum-based training [ 5, 14 , 30 , 31 ]. However, this as-sumption is fundamentally limiting. In practice, sample difficulty is inherently dynamic : samples that are difficult early in training may become easier as the model and representations mature [ 35 ]. For multimodal interaction learning, a sample’s complexity depends not only on the quality of each modality but also on how the modalities interact. For example, some samples may contain strongly aligned cross-modal cues that are straightforward for the model to learn. In contrast, other samples might require the model to identify subtle signals specific to each modality or to recognize higher-order syn-ergistic dependencies that become informative only when signals from multiple modalities are combined [ 4]. Higher-order cross-modal interactions may emerge only after strong modality-specific features are learned. Ignoring this evolving nature of multimodal training can lead to suboptimal training dynamics and poor model-ing of complex dependencies between modalities. To address this, we propose SPICE (Figure 1), a novel pro-gressive curriculum framework that dynamically assesses the difficulty of multimodal samples throughout training. Guided by the Partial Information Decomposition (PID) theory [ 6 , 39 ], our approach captures multimodal interactions through three in-terpretable components: redundant , unique , and synergistic infor-mation. At any training stage, we quantify a sample’s informa-tion distribution across the three PID components based on agree-ment/disagreement among the current model’s unimodal and multi-modal predictions, as well as their alignment with its ground-truth 
+
+> arXiv:2606.16639v1 [cs.LG] 15 Jun 2026
+
+Figure 2: Illustration of SPICE: (a). Multi-modal learning framework, (b). PID-Based Sample Ordering, (c). Dynamic Curriculum Scheduler. 
+
+label. A learning curriculum is constructed by strategically order-ing samples according to their PID information distributions, guid-ing the model from learning shared, easy, low-level cross-modal representations to recognizing modality-specific representations, and finally to understanding complex synergistic interactions. Un-like conventional curricula, our framework continuously updates the sample ordering based on real-time unimodal and multimodal predictions, adapting to the model’s evolving internal learning state [ 11 , 17 ]. Figure 2 presents an overview of the proposed frame-work, including (a) the multimodal learning architecture, (b) PID-based sample ordering, and (c) dynamic curriculum scheduler. We evaluate the proposed approach across multiple multimodal benchmarks and demonstrate consistent improvements over the traditional training strategies and state-of-the-art baselines. Our work demonstrates that an information-theoretic decomposition provides a robust framework for designing curricula in multimodal learning. Our results also emphasize the importance of dynamically assessing sample difficulty to make the curriculum adaptive to the training state. The main contributions are summarized as follows: 
+
+• We propose a novel multimodal curriculum learning frame-work guided by PID information theory, which orders sam-ples based on their PID information distributions. This ap-proach helps the model progressively learn redundant, unique, and synergistic multimodal interactions. 
+
+• We emphasize that sample difficulty in multimodal learning is inherently dynamic and evolves with the model’s training state. Using real-time PID information estimates from uni-modal and multimodal predictions, our curriculum adapts sample ordering to the model’s evolution. 
+
+• We demonstrate consistent improvements across multiple multimodal datasets and tasks compared to conventional and state-of-the-art multimodal training baselines. 
+
+## 2 Related Work 2.1 Multimodal Interaction Learning 
+
+Multimodal learning aims to jointly model heterogeneous data sources, such as audio, vision, text, and motion, to capture com-plementary information for downstream tasks. Recent advances in multimodal learning have shown strong performance in areas such as audiovisual understanding, sentiment analysis, emotion recogni-tion, and human-computer interaction. A significant challenge for these systems is learning cross-modal interactions effectively. Existing approaches primarily focus on improving fusion archi-tectures, cross-modal attention mechanisms, and alignment strate-gies to better understand interactions among modalities [ 15 , 23 , 27 ]. While these methods enhance representation learning, they of-ten overlook how the difficulty of learning multimodal interactions evolves during training . Our work explicitly models interaction complexity as a dynamic quantity that changes with the model’s learning state. 2.2 Balanced and Curriculum-based Multimodal Learning 
+
+A growing body of research has addressed the issue of modality imbalance , in which dominant modalities can suppress weaker ones during joint optimization. Prior methods have tackled this chal-lenge from various perspectives. Gradient modulation techniques rebalance optimization dynamics by adjusting gradient contribu-tions across modalities, as explored in OGM [ 25 ] and AGM [ 19 ]. Additionally, prototype- and representation-based balancing meth-ods, such as PMR [ 9 ], MLA [ 44 ], and AMSS [ 40 ], enhance modality cooperation through structured feature adaptation and representa-tion alignment. More recently, sample-level and optimization-aware strategies such as ReconBoost [ 16 ], MMPareto [ 37 ], and SMV [ 36 ]have sought to improve multimodal robustness through sample valuation, Pareto-based optimization, and modality reconciliation. Curriculum-based methods, such as BSS [ 13 ], have also shown that the order in which samples are presented can significantly enhance multimodal learning by transitioning from balanced to imbalanced samples. However, existing curriculum strategies often rely on difficulty measures such as loss and prediction similarity, rather than on agreement between the modalities and alignment with the ground truth. In contrast, our proposed SPICE framework dynamically adjusts sample ordering based on alignment and agree-ment of current unimodal and multimodal predictions, enabling progressive learning that evolves from redundant to unique and synergistic interactions as the model matures. 
+
+## 2.3 Partial Information Decomposition (PID) 
+
+Information-theoretic frameworks have long been principled tools for analyzing multimodal interactions. In particular, Partial In-formation Decomposition (PID) [ 6, 39 ] decomposes multimodal information into redundant , unique , and synergistic components. In an example of predicting 𝑌 using two modalities 𝑋 1 and 𝑋 2:
+
+𝐼 (𝑋 1, 𝑋 2; 𝑌 ) = 𝑅 (𝑌 ) + 𝑈 𝑋 1 (𝑌 ) + 𝑈 𝑋 2 (𝑌 ) + 𝑆 (𝑌 ),
+
+where 𝑅 (𝑌 ) is redundant information about 𝑌 present in both modal-ities, 𝑈 𝑋 𝑖 (𝑌 ) is information unique to 𝑋 𝑖 , and synergistic informa-tion 𝑆 (𝑌 ) arises only under joint observation of 𝑋 1 and 𝑋 2. PID extends naturally to more than two modalities [12]. PID provides an interpretable characterization of how different modalities contribute individually and jointly to prediction. Recent studies have explored PID for multimodal representation analysis and interpretability [ 21 ]. However, these approaches primarily fo-cus on post-hoc analysis rather than training dynamics. To the best of our knowledge, our work is the first to leverage PID as a dynamic curriculum signal for multimodal interaction learning. 
+
+## 3 Methodology 
+
+In this section, we present SPICE , a PID-guided curriculum frame-work for multimodal interaction learning. The proposed method is motivated by the observation that multimodal sample difficulty is fundamentally governed by the distribution of information across modalities and its evolution during training. Some samples con-tain strong shared information across multiple modalities and are easier to learn, while others require modality-specific reasoning or higher-order cross-modal interactions. To explicitly model this behavior, we decompose multimodal information into three com-ponents: redundancy , unique information , and synergy . Based on these quantities, we design a progressive curriculum learning strategy that dynamically updates sample ordering using unimodal and multimodal predictions. 
+
+## 3.1 Problem Formulation 
+
+Let the multimodal training dataset be defined as 
+
+D =
+
+n 
+
+{𝑥 (𝑚 ) 
+
+> 𝑖
+
+}𝑀 𝑚 =1, 𝑦 𝑖 
+
+o 𝑁 𝑖 =1 , (1) where 𝑁 is the number of samples, 𝑀 is the number of modali-ties, 𝑥 (𝑚 ) 
+
+> 𝑖
+
+denotes the 𝑚 -th modality of the 𝑖 -th sample, and 𝑦 𝑖 ∈{1, . . . , 𝐶 } is its class label. For each modality, we use a modality-specific encoder: 
+
+𝑧 (𝑚 ) 
+
+> 𝑖
+
+= 𝑓 𝑚 (𝑥 (𝑚 ) 
+
+> 𝑖
+
+), 𝑚 = 1, . . . , 𝑀, (2) where 𝑓 𝑚 (·) denotes the encoder corresponding to modality 𝑚 . The fused multimodal representation is obtained as 
+
+𝑧 𝑚𝑢𝑙𝑡𝑖 𝑖 = 𝑔 
+
+
+
+𝑧 (1) 
+
+> 𝑖
+
+, 𝑧 (2) 
+
+> 𝑖
+
+, . . . , 𝑧 (𝑀 )
+
+> 𝑖
+
+
+
+, (3) where 𝑔 (·) denotes the multimodal fusion function. The unimodal prediction distributions are: 
+
+𝑝 (𝑚 ) 
+
+> 𝑖
+
+= softmax (𝑊 𝑚 𝑧 (𝑚 ) 
+
+> 𝑖
+
+), 𝑚 = 1, . . . , 𝑀, (4) while the fused multimodal prediction is: 
+
+𝑝 𝑚𝑢𝑙𝑡𝑖 𝑖 = softmax (𝑊 𝑚𝑢𝑙𝑡𝑖 𝑧 𝑚𝑢𝑙𝑡𝑖 𝑖 ). (5) The confidence scores for unimodal and multi-modal predictions with respect to the ground-truth label 𝑦 𝑖 are defined as: 
+
+𝑐 (𝑚 ) 
+
+> 𝑖
+
+= 𝑝 (𝑚 ) 
+
+> 𝑖
+
+(𝑦 𝑖 ), 𝑐 𝑚𝑢𝑙𝑡𝑖 𝑖 = 𝑝 𝑚𝑢𝑙𝑡𝑖 𝑖 (𝑦 𝑖 ). (6) 
+
+## 3.2 PID-inspired Sample Ordering 
+
+Motivated by PID theory, for sample 𝑖 , the mutual information be-tween its multimodal data {𝑥 (𝑚 ) 
+
+> 𝑖
+
+}𝑀 𝑚 =1 and the target label 𝑦 𝑖 can be decomposed into information redundant cross all modalities, in-formation unique to a single modality, and synergistic information that only presents through the interactions of all modalities. For multimodal training, samples carrying mostly redundant informa-tion are the “easiest", and can be used to bootstrap encoders for all modalities; samples with unique information in a dominating expressive modality are specialized to train the encoder for that modality; samples with strong synergistic information are ideal candidates to train multimodal fusion. This naturally leads to a progressive multimodal curriculum with ordered samples: 
+
+𝑟𝑒𝑑𝑢𝑛𝑑𝑎𝑛𝑡 (𝑒𝑎𝑠𝑦 ) → 𝑢𝑛𝑖𝑞𝑢𝑒 (𝑠𝑝𝑒𝑐𝑖𝑎𝑙𝑖𝑧𝑒𝑑 ) → 𝑠𝑦𝑛𝑒𝑟𝑔𝑖𝑠𝑡𝑖𝑐 (𝑐𝑜𝑚𝑝𝑙𝑒𝑥 )
+
+(7) To quantify the distribution of PID information, one can rely on 
+
+static exogenous inputs , e.g., unimodal and multimodal human per-ceptions of emotion clips in CREMA-D [ 7 ]. If unimodal and multi-modal human perceived emotion labels match with ground-truth labels (the intended emotion), the clip is modality-redundant; if only audio or visual perception matches with the intended, the clip is modality-unique; if neither audio nor visual perception matches with the ground-truth, but audio-visual perception does, the clip carries mostly synergistic information. However, many multimodal datasets lack per-modality labels. In addition, as discussed earlier, static sample ordering cannot adapt to model training evolution. 
+
+## 3.3 Dynamic Multimodal PID Curriculum 
+
+To develop a dynamic curriculum for any multimodal datasets, we propose to estimate PID information distribution for sample 
+
+𝑖 using endogenous model outputs , namely unimodal and multi-modal predictions {{ 𝑝 (𝑚 ) 
+
+> 𝑖
+
+}𝑀 𝑖 =1, 𝑝 𝑚𝑢𝑙𝑡𝑖 𝑖 }. We consider two key factors: 
+
+agreement/disagreement across unimodal and multimodal predictions , and their alignment with the ground-truth label .This dual perspective allows SPICE to distinguish easy shared cues from modality-specific and synergistic interactions. Throughout training, we periodically refresh the PID information distribution estimates, allowing the curriculum to adaptively reorder samples as the model matures. 
+
+3.3.1 Redundancy Score. For a sample that carries mostly redun-dant information, all modalities independently provide strong, mu-tually consistent predictions that align with the ground truth. For unimodal prediction in modality 𝑚 , we first compute its divergence from the average prediction in the remaining modalities: 
+
+𝐷 (𝑚 ) 
+
+> 𝑖
+
+= 𝐷 𝐾𝐿 𝑝 (𝑚 ) 
+
+> 𝑖
+
+∥ 1
+
+𝑀 − 1∑︁ 𝑛 ≠𝑚 
+
+𝑝 (𝑛 )
+
+> 𝑖
+
+!
+
+, (8) where 𝐷 𝐾𝐿 (·) is the directional Kullback-Leibler (KL) divergence. We then compute the average cross-modal divergence as 
+
+¯𝐷 𝑖 = 1
+
+𝑀 
+
+> 𝑀
+
+∑︁ 
+
+> 𝑚 =1
+
+𝐷 (𝑚 ) 
+
+> 𝑖
+
+. (9) The redundancy score for sample 𝑖 is defined as 
+
+𝑅 𝑖 ≜
+
+> 𝑀
+
+Ö
+
+> 𝑚 =1
+
+𝑐 (𝑚 )
+
+> 𝑖
+
+!| {z }
+
+> alignment
+
+· exp (− ¯𝐷 𝑖 )
+
+| {z }
+
+> agreement
+
+, (10) where the alignment term ensures that all modalities confidently assign high values to the ground-truth label, while the agreement term penalizes a mismatch between unimodal predictions. A high redundancy score indicates that the modalities provide strong, con-sistent predictions aligned with the true label. 
+
+3.3.2 Unique Information Score. For a sample dominated by unique information, one modality provides strong discriminative evidence while the remaining modalities are relatively uncertain. For each modality 𝑚 , we define its unique contribution as 
+
+𝑈 (𝑚 ) 
+
+> 𝑖
+
+≜ 𝑐 (𝑚 )
+
+> 𝑖
+
+Ö
+
+> 𝑛 ≠𝑚
+
+(1 − 𝑐 (𝑛 ) 
+
+> 𝑖
+
+)
+
+!| {z }
+
+> alignment
+
+·
+
+
+
+1 − exp (− 𝐷 (𝑚 ) 
+
+> 𝑖
+
+)
+
+| {z }
+
+> agreement
+
+, (11) where 𝐷 (𝑚 ) 
+
+> 𝑖
+
+is the KL-divergence of modality 𝑚 from the aver-age prediction defined in (8). The first term captures samples in which the 𝑚 -th modality is highly confident about the ground truth, whereas the other modalities exhibit lower confidence. The second term ensures that modality 𝑚 provides a distinct prediction from the other modalities rather than simply varying in confidence magni-tude. A higher unique information score indicates a greater degree of modality-specific learning. The total unique score is obtained by summing up the unique scores in all modalities: 
+
+𝑈 𝑖 ≜
+
+> 𝑀
+
+∑︁ 
+
+> 𝑚 =1
+
+𝑈 (𝑚 ) 
+
+> 𝑖
+
+(12) 
+
+3.3.3 Synergy Score. Synergy captures higher-order information that emerges only after multimodal fusion and is not available in any individual modality. We first calculate the divergence of multimodal prediction from unimodal predictions: 
+
+𝐷 𝑠𝑦𝑛 𝑖 = 𝐷 𝐾𝐿 𝑝 𝑚𝑢𝑙𝑡𝑖 𝑖 ∥ 1
+
+𝑀 
+
+> 𝑀
+
+∑︁ 
+
+> 𝑚 =1
+
+𝑝 (𝑚 )
+
+> 𝑖
+
+!
+
+(13) The synergy score is computed as 
+
+𝑆 𝑖 ≜
+
+
+
+𝑐 𝑚𝑢𝑙𝑡𝑖 𝑖 − max  
+
+> 𝑚
+
+𝑐 (𝑚 )
+
+> 𝑖
+
+| {z }
+
+> alignment
+
+· 𝐷 𝑠𝑦𝑛 𝑖 
+
+|{z} 
+
+> agreement
+
+. (14) The alignment term assesses how much the fused prediction im-proves over the strongest individual modality. Meanwhile, the agree-ment term measures how much the multimodal prediction differs from the average of all unimodal predictions. A higher synergy score indicates larger information gain from cross-modal interac-tions beyond unimodal information. 
+
+3.3.4 Score Normalization. Since 𝑅 𝑖 , 𝑈 𝑖 , and 𝑆 𝑖 may lie on different scales, we apply min-max normalization. 
+
+ˆ𝐶 𝑖 = 𝐶 𝑖 − 𝐶 𝑚𝑖𝑛 
+
+𝐶 𝑚𝑎𝑥 − 𝐶 𝑚𝑖𝑛 
+
+, 𝐶 ∈ { 𝑅, 𝑈 , 𝑆 }, (15) This ensures ˆ𝑅 𝑖 , ˆ𝑈 𝑖 , ˆ𝑆 𝑖 ∈ [ 0, 1].
+
+## 3.4 Sample Allocation Strategies 
+
+As described in (7), samples are progressively introduced to cur-riculum learning based on their PID information distributions. We investigate two sample allocation strategies. 
+
+3.4.1 SPICE-S: Stage-wise Curriculum with Sample Binning. In the stage-wise curriculum, we first divide samples into three bins: re-dundant D𝑅 , unique D𝑈 , and synergistic D𝑆 based on their domi-nant PID scores, i.e., arg max ( ˆ𝑅 𝑖 , ˆ𝑈 𝑖 , ˆ𝑆 𝑖 ). Training begins with only samples from the Redundant bin. Samples from the Unique and Syn-ergy bins are added sequentially in the following stages, facilitating gradual learning while reducing the risk of catastrophic forgetting. 
+
+(D 𝑅 ) → (D 𝑅 ∪ D 𝑈 ) → (D 𝑅 ∪ D 𝑈 ∪ D 𝑆 ). (16) One motivation of SPICE-S is to lower the computation cost asso-ciated with gradient updates because it is trained using a subset of the dataset rather than the entire dataset at the first two stages. If one gradient update is performed per batch, SPICE-S requires fewer gradient updates to complete the same number of training epochs. A more detailed discussion on this can be found in 4.4.5. To adapt to model evolution, the PID scores are recalculated every 𝑘 
+
+epochs. Samples are redistributed to bins using updated PID scores. Table 1: Implementation details across datasets. Setting CREMA-D Kinetics-Sounds NVGesture VGGSound                             
+
+> Modalities 2232Backbone ResNet18 ResNet18 ResNet18 ResNet18 Optimizer SGD SGD SGD SGD Learning Rate 0.01 0.1 0.01 0.01 Momentum 0.9 0.9 0.9 0.9 Weight Decay 10 −410 −410 −410 −4
+> Scheduler CosineAnnealingLR StepLR StepLR StepLR
+
+3.4.2 SPICE-E: Entire Dataset Curriculum with Sample Ordering. In SPICE-E, the entire dataset is used throughout training. Instead of assigning samples to bins based on their dominant PID scores, we use different PID scores to determine the sample orders in different training stages. We first calculate the relative contribution of each PID component for a given sample as 𝑃 𝑅 (𝑖 ) = ˆ𝑅 𝑖 / ˆ𝑇 𝑖 , 𝑃 𝑈 (𝑖 ) = ˆ𝑈 𝑖 / ˆ𝑇 𝑖 ,
+
+𝑃 𝑆 (𝑖 ) = ˆ𝑆 𝑖 / ˆ𝑇 𝑖 , where ˆ𝑇 𝑖 = ˆ𝑅 𝑖 + ˆ𝑈 𝑖 + ˆ𝑆 𝑖 .During each epoch of all training stages (Redundant, Unique, or Synergistic), all samples are sequenced based on stage-specific sam-pling probabilities derived from their PID scores. A sample drawn into an earlier batch will be excluded from the subsequent batches in the same epoch. Specifically, in the Redundant stage, higher 𝑃 𝑅 
+
+scores indicate easier samples, so the sampling probabilities are pro-portional to 𝑃 𝑅 , prioritize more redundant instances to the earlier batches. In contrast, in the Unique and Synergistic stages, higher 
+
+𝑃 𝑈 and 𝑃 𝑆 scores signify increased training difficulty. To facilitate an easy-to-hard learning progression, we use 1 − 𝑃 𝑈 and 1 − 𝑃 𝑆 
+
+as the sampling probabilities in the Unique and Synergistic stages respectively, prioritizing simpler samples to the earlier batches. The PID scores are recalculated every 𝑘 epochs, making the sample ordering adaptive to model evolution. 
+
+## 3.5 Loss Function 
+
+The total loss is defined as 
+
+L = L𝑚𝑢𝑙𝑡𝑖 +
+
+> 𝑀
+
+∑︁ 
+
+> 𝑚 =1
+
+L𝑚 , (17) where L𝑚𝑢𝑙𝑡𝑖 = 𝐶𝐸 (𝑝 𝑚𝑢𝑙𝑡𝑖 , 𝑦 ) and L𝑚 = 𝐶𝐸 (𝑝 (𝑚 ) , 𝑦 ) are the cross-entropy losses for multimodal and unimodal predictions. 
+
+## 3.6 Model Inference 
+
+During inference, the final prediction is obtained by aggregating all unimodal and multimodal predictions: 
+
+𝑧 𝑓 𝑖𝑛𝑎𝑙 = 𝑧 𝑚𝑢𝑙𝑡𝑖 +
+
+> 𝑀
+
+∑︁ 
+
+> 𝑚 =1
+
+𝑧 (𝑚 ) (18) The predicted class label is 
+
+ˆ𝑦 = arg max (𝑧 𝑓 𝑖𝑛𝑎𝑙 ) (19) 
+
+## 4 Experiments 
+
+In this section, we present our evaluation of the proposed SPICE 
+
+framework across various multimodal benchmarks, including au-diovisual emotion recognition, audiovisual event understanding, and trimodal gesture recognition. Our experiments are designed to address three key questions: (i) Does dynamically modeling modality interactions and sample difficulty enhance multimodal learning? (ii) 
+
+How does SPICE compare to existing state-of-the-art multimodal in-teraction baselines? (iii) What roles do the individual PID components play in the construction of multimodal curriculum? 
+
+## 4.1 Datasets 
+
+To evaluate the general applicability of the proposed SPICE frame-work across diverse multimodal interaction scenarios, we conducted experiments using four widely recognized benchmark datasets. These cover different areas, such as emotion recognition, audio-visual event understanding, and gesture recognition, as well as datasets of different scales. 
+
+CREMA-D [ 7] is a multimodal emotion recognition dataset comprising audiovisual clips from 91 actors who perform emotional expressions across six categories: anger, disgust, fear, happiness, neutrality, and sadness. The dataset includes a total of 7,442 video clips, with 6,698 samples designated for training and 744 for testing. 
+
+Kinetics-Sounds [ 18 ] is an audiovisual action recognition bench-mark containing short video clips paired with corresponding audio signals. It comprises 31 distinct action classes, with 15,000 training samples and 1,900 testing samples. 
+
+NVGesture [22 ] is a multimodal gesture recognition dataset that encompasses RGB, optical flow, and depth modalities. It consists of 25 dynamic hand gesture classes captured from multiple viewpoints and sensors, making it particularly suitable for evaluating trimodal interaction learning. The dataset includes 1,050 samples for training and 482 samples for testing. 
+
+VGGSound [8 ] is a large-scale audiovisual benchmark that fea-tures video clips collected from diverse real-world environments. It includes 310 categories and presents a challenging setting for large-scale multimodal interaction learning due to significant varia-tions in visual and acoustic contexts. The dataset comprises 182,608 videos for training, along with 15,337 videos for testing. 
+
+## 4.2 Implementation Details 
+
+For our work, we follow the standard ResNet18 architectures as the backbone to isolate the impact of curriculum sampling from architectural complexities. The detailed implementation settings are summarized in Table 1. For bimodal datasets such as CREMA-D, Kinetics-Sounds, and VGGSound, we employ separate encoders and linear layers for modality representations and predictions. These representations are then processed by a fusion module for multimodal representation, followed by a linear prediction head. For NVGesture, we use three independent encoders and pre-diction layers for the RGB, optical flow, and depth branches. The representations are subsequently combined through multimodal fusion and passed to a linear layer for prediction. All models are trained for 150 epochs. For PID curricula, each training stage consists of 50 epochs. An initial warm-up stage of 30 epochs is introduced to stabilize representations before dynamic curriculum learning begins. This approach prevents the curriculum from being biased towards a particular PID component due to unstable early predictions and encourages faster convergence. Following our methodology, PID scores are recalculated every 
+
+𝑘 = 5 epochs using the latest model predictions. These dynamically Table 2: Performance comparison on CREMA-D, Kinetics-Sounds, and NVGesture datasets. Best results are shown in bold.                                                                                                                                                                     
+
+> Method CREMA-D Kinetics-Sounds NVGesture
+> ACC (%) mAP (%) ACC (%) mAP (%) ACC (%) F1 (%) Audio / RGB 63.17 68.61 54.12 56.69 78.22 78.33 Video / OF 45.83 58.79 55.62 58.37 78.63 78.65 Depth ––––81.54 81.83 Concat 63.31 68.31 64.55 71.31 81.33 81.47 Affine 66.26 71.93 64.24 69.31 82.78 82.81 Channel 66.13 71.75 63.51 68.66 81.54 81.57 ML-LSTM 62.94 64.73 63.84 69.02 83.20 83.30 Sum 63.44 69.08 64.97 71.03 82.99 83.05 Weight 66.53 73.26 65.33 71.33 83.42 83.57 ETMC 65.86 71.34 65.67 71.19 83.61 83.69 MSES 61.56 68.83 64.71 70.63 81.12 81.47 OGR-GB 64.65 84.54 67.10 71.39 82.99 83.05 DOMFN 67.34 85.72 66.25 72.44 ––OGM 66.94 71.73 66.06 71.44 ––MSLR 65.46 71.38 65.91 71.96 82.86 82.92 AGM 67.07 73.58 66.02 72.52 82.78 82.82 PMR 66.59 70.30 66.56 71.93 ––ReconBoost 74.84 81.24 70.85 74.24 84.13 86.32 MMPareto 74.87 85.35 70.00 78.50 83.82 84.24 SMV 78.72 84.17 69.00 74.26 83.52 83.41 MLA 79.43 85.72 70.04 74.13 83.40 83.72 AMSS 70.30 76.14 72.25 79.13 84.64 84.94 BSS-H 80.78 87.86 72.67 78.61 85.06 85.15 BSS-L 82.80 88.61 73.95 79.43 86.72 87.04 SPICE-S 80.91 86.76 72.41 78.07 86.51 86.77 SPICE-E 83.06 89.07 73.99 79.48 87.14 87.36
+
+updated PID scores are then used to allocate and order samples in new PID curricula. 
+
+## 4.3 Baselines and Evaluation Metrics 
+
+To comprehensively evaluate the effectiveness of the proposed 
+
+SPICE framework, we compare it against a diverse set of mul-timodal learning baselines, including classical fusion strategies, modality rebalancing approaches, and curriculum-based methods. The classical fusion-based baselines include Concat , Affine [27 ], 
+
+Channel , ML-LSTM [ 23 ], Sum , Weight , and ETMC [ 15 ]. These meth-ods represent traditional multimodal fusion paradigms that combine modality-specific representations through concatenation, weighted aggregation, or learned fusion operators. The modality balancing and optimization-based baselines 
+
+include MSES [ 10 ], OGR-GB [33 ], DOMFN [41 ], OGM [25 ], MSLR [ 42 ], 
+
+AGM [ 19 ], PMR [9 ], ReconBoost [ 16 ], MMPareto [37 ], SMV [ 36 ], 
+
+MLA [44 ], and AMSS [40 ]. These baselines focus on addressing modality imbalance through optimization control, adaptive fusion, sample-level valuation, and representation rebalancing. We further compare against recent curriculum-based meth-ods , including BSS-H [13 ] and BSS-L [13 ], which develop training schedules based on loss and similarity measures. Following [ 16 , 26 ], we report Accuracy (ACC) , Mean Average Precision (mAP) , and 
+
+Macro F1-score (Mac-F1) as evaluation metrics. Accuracy mea-sures the proportion of correctly classified samples, mAP captures the average precision across all samples, while Mac-F1 computes the average of F1 scores across all categories. 
+
+## 4.4 Results and Analysis 
+
+4.4.1 Overall Results. Table 2 presents a quantitative comparison of the proposed SPICE framework against various fusion-based, optimization-based, and sequence sampling baselines across three benchmark datasets: CREMA-D, Kinetics-Sounds, and NVGesture. The benchmark results of baselines are adopted from the BSS pa-per [13], following their pre-processing and evaluation protocol. Overall, the proposed SPICE-E consistently achieves the best performance across all evaluated benchmarks, demonstrating the effectiveness of dynamically modeling multimodal sample difficulty using PID-inspired interaction scores. Please note that the “-” in Table 2 indicates that the corresponding methods are not applicable to those datasets. 
+
+4.4.2 Results on Bimodal Datasets. On CREMA-D , SPICE-E achieves the highest performance with an accuracy of 83.06% and mAP of 89.07% , outperforming the strongest prior baseline BSS-L by 
+
++0.26% in ACC and +0.46% in mAP. While the numerical gains may appear modest, they are significant given the already saturated performance regime of recent multimodal rebalancing approaches. A similar trend is observed on Kinetics-Sounds , where SPICE-E achieves 73.99% ACC and 79.48% mAP, again surpassing BSS-L Table 3: Performance comparison on the VGGSound dataset. Best results are shown in bold. 
+
+Method ACC (%) mAP (%) 
+
+OGM 48.29 49.78 AGM 47.11 51.98 ReconBoost 50.97 53.87 MMPareto 51.25 54.73 SMV 50.31 53.62 MLA 51.65 54.73 BSS-H 51.61 55.68 BSS-L 52.80 56.61 SPICE-E 54.98 56.63 
+
+and all other baselines. The improvement over BSS-L is particularly notable in terms of mAP, suggesting that the proposed curriculum better preserves ranking consistency across samples and categories. 
+
+4.4.3 Results on Trimodal Dataset. On the more challenging NVGes-ture benchmark, which involves three modalities, SPICE-E obtains the best overall performance with 87.14% ACC and 87.36% F1-score. This improvement over BSS-L ( 86 .72% ACC, 87 .04% F1) highlights the scalability of the proposed PID-guided curriculum beyond bi-modal settings. 
+
+4.4.4 Results on Large-Scale Dataset. To evaluate the proposed framework’s scalability, we conducted experiments on the large-scale VGGSound benchmark. As shown in Table 3, BSS-L offers the best baseline among prior multimodal learning methods. By extending SPICE to a larger, diverse benchmark, we explored the effectiveness of the PID guided dynamic curricula beyond medium scale datasets like CREMA-D, Kinetics-Sounds, and NVGes-ture. The results show that SPICE-E maintains strong performance in large-scale scenarios, indicating that the dynamic approach to sample difficulty ordering generalizes well across different dataset scales and complexities. 
+
+4.4.5 Sample Binning vs. Ordering. Comparing SPICE-S and SPICE-E highlights the importance of the type of dynamic scheduling. 
+
+SPICE-S divides samples into different bins, and uses different bin combinations in different training stages. Only a subset of bins are used in the early stages. SPICE-E , on the other hand, utilizes all samples in all the training stages, but orders them using different strategies based on PID scores in different training stages. While SPICE-S achieves strong performance, SPICE-E consis-tently outperforms it. This suggests that using all samples with continuously updated ordering is more effective than stage-wise sample selection. The gains are particularly pronounced on CREMA-D, where SPICE-E improves over SPICE-S by +2.15% for ACC and 
+
++2.31% for mAP. One potential advantage of SPICE-S is its training efficiency at the early stages where only a subset of samples are used. Figure 3 illustrates that SPICE-S achieves high accuracy with fewer gradient updates than SPICE-E and the BSS baseline. This indicates faster convergence and greater training efficiency in the early stages. SPICE-E gradually catches up and surpasses SPICE-S in the final accuracy, demonstrating its long-term performance gain with more 0 5000 10000 15000 20000 25000 30000 
+
+> Cumulative Gradient Updates
+> 55.0%
+> 60.0%
+> 65.0%
+> 70.0%
+> 75.0%
+> 80.0%
+> Accuracy
+> Training Efficiency of Scheduling Strategies on CREMA-D Dataset
+> SPICE - S
+> SPICE - E
+> BSS - H
+> BSS - L
+
+Figure 3: Cost comparison in terms of gradient updates for SPICE-S, SPICE-E, BSS-H, and BSS-L. 
+
+gradient updates. Overall, SPICE-S is clearly a cost-effective method for training the multimodal network, as it offers comparable per-formance (2.15% decrease in final accuracy) with nearly one-third fewer gradient updates. 
+
+4.4.6 Discussion on prior sequence sampling methods. A particu-larly important comparison can be made with the balance-aware sequence sampling baselines BSS-H and BSS-L , which also employ sample scheduling strategies for dynamic curriculum learning. Unlike BSS methods, which rely on a multi-perspective balance measurer combining correlation and information criteria, SPICE dynamically updates the curriculum throughout training using model-driven estimates of redundancy, unique information, and synergy. Specifically, BSS quantifies sample difficulty via a balance score that integrates prediction consistency across modalities (cor-relation criterion) with label-dependent training loss (information criterion), and then constructs a training sequence that prioritizes more “balanced” samples. While its heuristic scheduler follows a predefined pacing function over a fixed ranking, and its learning-based variant introduces probabilistic reweighting with periodic updates. While effective, this design still relies on proxy measures of agreement and correctness, and the curriculum is only indirectly influenced by the evolving model. In contrast, SPICE avoids such proxy measures and instead leverages endogenous unimodal and multimodal predictions to directly estimate partial information components. The consistent gains of SPICE-E over BSS-L across all datasets validate our central hypothesis that multimodal sample difficulty evolves with the training progress and can be dynamically estimated from endogenous unimodal and multimodal predictions through the lens of PID . Consequently, SPICE adapts the sampling strategy (Sample Binning or Ordering discussed in Sec. 4.4.5) in a more principled and fine-grained manner as modality representa-tions and the fusion model mature. 
+
+4.4.7 Why Does SPICE Work? The superior performance of SPICE can be attributed to its ability to explicitly disentangle different forms of multimodal information during training. In the early stages, the curriculum prioritizes redundant infor-mation, allowing the model to first learn stable, low-level shared representations across modalities. As training progresses, the curriculum gradually shifts its focus toward unique and synergistic samples, which require modality-specific reasoning and higher-order interaction modeling. This easy-to-complex progression is realized either through stage-wise sample inclusion or continuous reordering, and aligns naturally with the evolution of learned representations, providing a more meaningful notion of difficulty. 
+
+## 5 Curriculum based on Annotator Responses 
+
+To better understand the role of curriculum construction, we con-duct a series of ablation studies based on annotator-derived dif-ficulty signals on CREMA-D dataset [ 7]. In CREMA-D, each clip has an intended emotion (the ground-truth label) and receives per-ceived emotion labels from crowdsourced human annotators. Since multiple annotators rate the same clip, their responses can vary, creating an annotation distribution that reflects different percep-tions of the emotion. Annotator-derived responses are the labels assigned by human raters who evaluate each clip. 
+
+## 5.1 Static Curriculum from Annotator Responses 
+
+In the first setting, we construct a static curriculum based solely on annotator responses and agreement scores. Specifically, the model predictions and confidence scores used in SPICE are replaced by annotator-derived responses. The curriculum is fully predefined before training begins and remains unchanged throughout the train-ing. To ensure fair comparison, training follows the same sampling strategy and uses the same number of epochs as SPICE-E. This study helps to isolate the contribution of human-derived static difficulty priors from the proposed model-adaptive curriculum. 
+
+## 5.2 Hybrid Adaptive Curriculum 
+
+We further investigate a hybrid adaptive PID curriculum that progressively transitions from PID-based sample ordering based on the exogeneous annotator responses to unimodal and multimodel predictions generated by the model under training. Hybrid scores at epoch 𝑡 are calculated as 
+
+𝐷 (𝑐 ) 
+
+> 𝑡
+
+= (1 − 𝛼 𝑡 )𝐷 (𝑐 ) 
+
+> annotator
+
++ 𝛼 𝑡 𝐷 (𝑐 )
+
+> model
+
+, 𝑐 ∈ { 𝑅, 𝑈 , 𝑆 }, (20) where 𝐷 (𝑐 ) 
+
+> annotator
+
+denotes the static PID score derived from annotator responses and 𝐷 (𝑐 ) 
+
+> model
+
+denotes the dynamic PID score estimated from the current model state. We evaluate two weighting functions: 1) 𝛼 𝑡 = 𝑡 𝑇 , which provides a linear convergence towards model predictions; 2) 𝛼 𝑡 = 1−cos (𝜋𝑡 /𝑇 ) 
+
+> 2
+
+, which enables a smoother non-linear (Cosine) shift from annotator priors to model predictions. These experiments are designed to analyze how curriculum diffi-culty should evolve and whether a hybrid human-model curriculum provides additional gains over fully model-driven SPICE. 
+
+## 5.3 Analysis of Annotator-Guided Curriculum Variants 
+
+Table 4 presents the ablation results for different curriculum strate-gies derived from annotator responses. 
+
+Table 4: PID curricula based on annotator responses for CREMA-D Dataset. Best results are shown in bold.             
+
+> Method ACC (%) mAP (%)
+> Complete Static Curriculum 76.75 83.59 Hybrid Linear Adaptive Curriculum 71.91 78.88 Hybrid Non-Linear Adaptive Curriculum 72.18 79.30 SPICE-S 80.91 86.76
+> SPICE-E 83.06 89.07
+
+Fully model-driven dynamic curriculum learning consistently outperforms annotator-informed curricula. The proposed SPICE-E achieves the highest performance, significantly surpassing all annotator-based alternatives. Among the annotator-guided vari-ants, the complete static curriculum achieves the strongest per-formance ( 76 .75% ACC, 83 .59% mAP). The significant performance gap between the static curriculum and SPICE-E ( +6.31% ACC and +5.48% mAP) strongly suggests that 
+
+human-derived difficulty alone is insufficient for optimal multimodal learning . While annotators may capture perceived ambiguity or disagreement, these signals remain fixed and do not adapt to the model’s evolving representational capacity. Interestingly, the hybrid adaptive curricula perform notably worse than the fully static variant. This observation suggests that naively interpolating between annotator priors and model-driven sample ordering may introduce instability in the curriculum transi-tion. During the intermediate training stages, the annotator-derived and model-derived signals may provide conflicting notions of diffi-culty, leading to suboptimal sampling and poor convergence. The results further highlight that sample difficulty in multimodal interaction learning is not purely an intrinsic property of the data, but rather a dynamic and model-dependent quantity . As train-ing progresses, samples that are initially difficult may become easier once shared representations mature, while higher-order synergistic interactions may only emerge in later stages. This directly supports the central motivation of SPICE: sam-ple ordering should be dynamically adjusted based on the current model state rather than being fixed a priori .
+
+## 6 Conclusion and Future Work 
+
+In this paper, we propose SPICE , a PID-guided progressive curricu-lum framework for multimodal interaction learning that models sample difficulty as a dynamic and evolving quantity . By decom-posing multimodal interactions into redundant , unique , and syn-ergistic components, SPICE enables interpretable and adaptive curriculum construction. Extensive experiments demonstrate that SPICE consistently outperforms conventional fusion, modality re-balancing, and balance-aware sequence sampling, validating our hypothesis that sample ordering should be updated continuously throughout training. For our future work, we aim to investigate the use of annotator priors as uncertainty-aware regularizers rather than direct curriculum signals and extend SPICE to large multi-modal foundation models and sequential interaction settings. References 
+
+[1] Jean-Baptiste Alayrac, Adrià Recasens, Rosalia Schneider, Relja Arandjelović, Jason Ramapuram, Jeffrey De Fauw, Lucas Smaira, Sander Dieleman, and Andrew Zisserman. 2020. Self-Supervised MultiModal Versatile Networks. In NeurIPS .[2] Jose Daniel Azofeifa, Julieta Noguez, Sergio Ruiz, José Martín Molina-Espinosa, Alejandra J Magana, and Bedrich Benes. 2022. Systematic review of multimodal human–computer interaction. In Informatics , Vol. 9. MDPI, 13. [3] Tadas Baltrusaitis, Chaitanya Ahuja, and Louis-Philippe Morency. 2019. Multi-modal Machine Learning: A Survey and Taxonomy. IEEE Trans. Pattern Anal. Mach. Intell. 41, 2 (Feb. 2019), 423–443. doi:10.1109/TPAMI.2018.2798607 [4] Adam B. Barrett. 2015. Exploration of synergistic and redundant information sharing in static and dynamical Gaussian systems. Phys. Rev. E 91 (May 2015), 052802. Issue 5. doi:10.1103/PhysRevE.91.052802 [5] Yoshua Bengio, Jérôme Louradour, Ronan Collobert, and Jason Weston. 2009. Curriculum learning. In Proceedings of the 26th annual international conference on machine learning . 41–48. [6] Nils Bertschinger, Johannes Rauh, Eckehard Olbrich, Jürgen Jost, and Nihat Ay. 2013. Quantifying unique information. Entropy 16 (2013), 2161–2183. [7] Houwei Cao, David Cooper, Michael Keutmann, Ruben Gur, Ani Nenkova, and Ragini Verma. 2014. CREMA-D: Crowd-sourced emotional multimodal actors dataset. IEEE transactions on affective computing 5 (10 2014), 377–390. doi:10. 1109/TAFFC.2014.2336244 [8] Honglie Chen, Weidi Xie, Andrea Vedaldi, and Andrew Zisserman. 2020. Vg-gsound: A Large-Scale Audio-Visual Dataset. ICASSP 2020 - 2020 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP) (2020), 721–725. [9] Yunfeng Fan, Wenchao Xu, Haozhao Wang, Junxiao Wang, and Song Guo. 2023. PMR: Prototypical Modal Rebalance for Multimodal Learning. In Pro-ceedings - 2023 IEEE/CVF Conference on Computer Vision and Pattern Recogni-tion, CVPR 2023 (Proceedings of the IEEE Computer Society Conference on Com-puter Vision and Pattern Recognition) . IEEE Computer Society, 20029–20038. doi:10.1109/CVPR52729.2023.01918 Publisher Copyright: © 2023 IEEE.; 2023 IEEE/CVF Conference on Computer Vision and Pattern Recognition, CVPR 2023 ; Conference date: 18-06-2023 Through 22-06-2023. [10] Naotsuna Fujimori, Rei Endo, Yoshihiko Kawai, and Takahiro Mochizuki. 2019. Modality-Specific Learning Rate Control for Multimodal Classification. In Asian Conference on Pattern Recognition .[11] Alex Graves, Marc G. Bellemare, Jacob Menick, Rémi Munos, and Koray Kavukcuoglu. 2017. Automated curriculum learning for neural networks. In 
+
+Proceedings of the 34th International Conference on Machine Learning - Volume 70 
+
+(Sydney, NSW, Australia) (ICML’17) . JMLR.org, 1311–1320. [12] Virgil Griffith and Christof Koch. 2014. Quantifying synergistic mutual informa-tion. In Guided self-organization: inception . Springer, 159–190. [13] Zhi-Hao Guan, Qing-Yuan Jiang, and Yang Yang. 2025. Balance-aware Sequence Sampling Makes Multimodal Learning Better. In IJCAI .[14] Guy Hacohen and Daphna Weinshall. 2019. On the power of curriculum learning in training deep networks. In International conference on machine learning . PMLR, 2535–2544. [15] Zongbo Han, Changqing Zhang, Huazhu Fu, and Joey Tianyi Zhou. 2023. Trusted Multi-View Classification With Dynamic Evidential Fusion . IEEE Transactions on Pattern Analysis & Machine Intelligence 45, 02 (Feb. 2023), 2551–2566. doi:10. 1109/TPAMI.2022.3171983 [16] Cong Hua, Qianqian Xu, Shilong Bao, Zhiyong Yang, and Qingming Huang. 2024. ReconBoost: boosting can achieve modality reconcilement. In Proceedings of the 41st International Conference on Machine Learning (Vienna, Austria) (ICML’24) .JMLR.org, Article 789, 25 pages. [17] Lu Jiang, Deyu Meng, Qian Zhao, Shiguang Shan, and Alexander G. Haupt-mann. 2015. Self-paced curriculum learning. In Proceedings of the Twenty-Ninth AAAI Conference on Artificial Intelligence (Austin, Texas) (AAAI’15) . AAAI Press, 2694–2700. [18] Will Kay, João Carreira, Karen Simonyan, Brian Hu Zhang, Chloe Hillier, Sud-heendra Vijayanarasimhan, Fabio Viola, Tim Green, Trevor Back, Apostol Natsev, Mustafa Suleyman, and Andrew Zisserman. 2017. The Kinetics Human Action Video Dataset. ArXiv abs/1705.06950 (2017). [19] Hong Li, Xingyu Li, Pengbo Hu, Yinuo Lei, Chunxiao Li, and Yi Zhou. 2023. Boosting Multi-modal Model Performance with Adaptive Gradient Modulation. In Proceedings of the IEEE/CVF International Conference on Computer Vision . 22214– 22224. [20] Pan Lu, Swaroop Mishra, Tanglin Xia, Liang Qiu, Kai-Wei Chang, Song-Chun Zhu, Oyvind Tafjord, Peter Clark, and Ashwin Kalyan. 2022. Learn to explain: Multi-modal reasoning via thought chains for science question answering. Advances in neural information processing systems 35 (2022), 2507–2521. [21] Zhaozhao Ma and Shujian Yu. 2025. Explainable Multimodal Regression via Information Decomposition. arXiv preprint arXiv:2512.22102 (2025). [22] Pavlo Molchanov, Xiaodong Yang, Shalini Gupta, Kihwan Kim, Stephen Tyree, and Jan Kautz. 2016. Online Detection and Classification of Dynamic Hand Gestures with Recurrent 3D Convolutional Neural Networks. In 2016 IEEE Conference on Computer Vision and Pattern Recognition (CVPR) . 4207–4215. [23] Weizhi Nie, Yan Yan, Dan Song, and Kun Wang. 2021. Multi-modal feature fusion based on multi-layers LSTM for video emotion recognition. Multimedia Tools and Applications 80 (05 2021). doi:10.1007/s11042-020-08796-8 [24] Guanxiong Pei, Haiying Li, Yandi Lu, Yanlei Wang, Shizhen Hua, and Taihao Li. 2024. Affective Computing: Recent Advances, Challenges, and Future Trends. Intelligent Computing 3 (2024), 0076. arXiv:https://spj.science.org/doi/pdf/10.34133/icomputing.0076 doi:10.34133/icomputing.0076 [25] Xiaokang Peng, Yake Wei, Andong Deng, Dong Wang, and Di Hu. 2022. Bal-anced Multimodal Learning via On-the-fly Gradient Modulation. 2022 IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) (2022), 8228–8237. [26] Xiaokang Peng, Yake Wei, Andong Deng, Dong Wang, and Di Hu. 2022. Balanced Multimodal Learning via On-the-fly Gradient Modulation. In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition .[27] Ethan Perez, Florian Strub, Harm de Vries, Vincent Dumoulin, and Aaron Courville. 2018. FiLM: visual reasoning with a general conditioning layer. In 
+
+Proceedings of the Thirty-Second AAAI Conference on Artificial Intelligence and Thirtieth Innovative Applications of Artificial Intelligence Conference and Eighth AAAI Symposium on Educational Advances in Artificial Intelligence (New Orleans, Louisiana, USA) (AAAI’18/IAAI’18/EAAI’18) . AAAI Press, Article 483, 10 pages. [28] R.W. Picard. 2000. Toward computers that recognize and respond to user emotion. 
+
+IBM Systems Journal 39, 3.4 (2000), 705–719. doi:10.1147/sj.393.0705 [29] R. Sharma, V.I. Pavlovic, and T.S. Huang. 1998. Toward multimodal human-computer interface. Proc. IEEE 86, 5 (1998), 853–869. doi:10.1109/5.664275 [30] Ankush Pratap Singh, Houwei Cao, and Yong Liu. 2026. CHUCKLE – When Humans Teach AI To Learn Emotions The Easy Way. arXiv:2510.09382 [cs.LG] https://arxiv.org/abs/2510.09382 [31] Petru Soviany, Radu Tudor Ionescu, Paolo Rota, and Nicu Sebe. 2022. Curriculum learning: A survey. International Journal of Computer Vision 130, 6 (2022), 1526– 1565. [32] Weiyao Wang, Du Tran, and Matt Feiszli. 2019. What Makes Training Multi-Modal Classification Networks Hard? 2020 IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) (2019), 12692–12702. [33] Weiyao Wang, Du Tran, and Matt Feiszli. 2019. What Makes Training Multi-Modal Classification Networks Hard? 2020 IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) (2019), 12692–12702. [34] Yiqi Wang, Wentao Chen, Xiaotian Han, Xudong Lin, Haiteng Zhao, Yongfei Liu, Bohan Zhai, Jianbo Yuan, Quanzeng You, and Hongxia Yang. 2024. Exploring the reasoning abilities of multimodal large language models (mllms): A com-prehensive survey on emerging trends in multimodal reasoning. arXiv preprint arXiv:2401.06805 (2024). [35] Yiru Wang, Weihao Gan, Jie Yang, Wei Wu, and Junjie Yan. 2019. Dynamic Curriculum Learning for Imbalanced Data Classification. In Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV) .[36] Yake Wei, Ruoxuan Feng, Zihe Wang, and Di Hu. 2024. Enhancing multimodal Cooperation via Sample-level Modality Valuation. In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition .[37] Yake Wei and Di Hu. 2024. MMPareto: Boosting Multimodal Learning with Innocent Unimodal Assistance. In Proceedings of the 41st International Confer-ence on Machine Learning (Proceedings of Machine Learning Research, Vol. 235) ,Ruslan Salakhutdinov, Zico Kolter, Katherine Heller, Adrian Weller, Nuria Oliver, Jonathan Scarlett, and Felix Berkenkamp (Eds.). PMLR, 52559–52572. https: //proceedings.mlr.press/v235/wei24d.html [38] Yake Wei, Di Hu, Yapeng Tian, and Xuelong Li. 2022. Learning in audio-visual context: A review, analysis, and new perspective. arXiv preprint arXiv:2208.09579 
+
+(2022). [39] Paul L. Williams and Randall D. Beer. 2010. Nonnegative Decomposition of Multivariate Information. ArXiv abs/1004.2515 (2010). [40] Yang Yang, Hongpeng Pan, Qing-Yuan Jiang, Yi Xu, and Jinhui Tang. 2025. Learn-ing to Rebalance Multi-Modal Optimization by Adaptively Masking Subnet-works. IEEE Trans. Pattern Anal. Mach. Intell. 47, 6 (June 2025), 4553–4566. doi:10.1109/TPAMI.2025.3547417 [41] Yang Yang, Jingshuai Zhang, Fan Gao, Xiaoru Gao, and Hengshu Zhu. 2022. DOMFN: A Divergence-Orientated Multi-Modal Fusion Network for Resume Assessment. Proceedings of the 30th ACM International Conference on Multimedia 
+
+(2022). [42] Yiqun Yao and Rada Mihalcea. 2022. Modality-specific Learning Rates for Effective Multimodal Additive Late-fusion. In Findings of the Association for Computational Linguistics: ACL 2022 , Smaranda Muresan, Preslav Nakov, and Aline Villavicencio (Eds.). Association for Computational Linguistics, Dublin, Ireland, 1824–1834. doi:10.18653/v1/2022.findings-acl.143 [43] Yuan Yuan, Zhaojian Li, and Bin Zhao. 2025. A Survey of Multimodal Learning: Methods, Applications, and Future. ACM Comput. Surv. 57, 7, Article 167 (Feb. 2025), 34 pages. doi:10.1145/3713070 [44] Xiaohui Zhang, Jaehong Yoon, Mohit Bansal, and Huaxiu Yao. 2023. Multimodal Representation Learning by Alternating Unimodal Adaptation. 2024 IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) (2023), 27446– 27456.

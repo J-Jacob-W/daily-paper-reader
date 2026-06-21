@@ -1,0 +1,1032 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-21T20:56:49.182062+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 3,
+    "deep_divecandidates": 36,
+    "deep_cap": 8,
+    "deep_selected": 12,
+    "quick_candidates": 60,
+    "quick_skim_target": 13,
+    "quick_selected": 13
+  },
+  "deep_dive": [
+    {
+      "id": "2606.15099v1",
+      "source": "arxiv",
+      "title": "Think Less, Act Early: Reinforced Latent Reasoning with Early Exit in Vision-Language-Action Models",
+      "abstract": "Existing Vision-Language-Action (VLA) models predominantly rely on explicit Chain-of-Thought (CoT) reasoning to bridge perception and action. While effective, this paradigm suffers from high computational costs and error propagation in multi-step tasks. In this paper, we propose Adaptive Variable Alignment VLA (AVA-VLA), a novel Latent Reasoning VLA framework that models reasoning as a sequence of unobservable latent variables, bypassing the need for explicit text generation. However, latent trajectories are inherently susceptible to noise interference and misalignment with downstream objectives. To address this, we introduce a Reinforcement Learning-based Denoising mechanism that treats latent state generation as a sequential decision process, optimizing reasoning trajectories via task-level rewards. Furthermore, we incorporate an Early-Exit Strategy that adaptively terminates reasoning based on state confidence, enabling a dynamic trade-off between depth and efficiency. Extensive experiments on embodied decision benchmarks demonstrate that AVA-VLA achieves a 6x inference speedup over explicit CoT methods while attaining a 98.3% average success rate on LIBERO, improving both efficiency and long-horizon stability over full-reasoning baselines.",
+      "authors": [
+        "Dianqiao Lei",
+        "Lianlei Shan"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.LG",
+        "cs.RO"
+      ],
+      "published": "2026-06-13T04:16:18+00:00",
+      "link": "https://arxiv.org/pdf/2606.15099v1",
+      "tags": [
+        "keyword:multi-modal",
+        "query:multi-modal"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "studies vision-language-action models, a type of multimodal language model",
+      "llm_evidence_cn": "研究视觉-语言-动作模型，属于多模态语言模型",
+      "llm_evidence": "研究视觉-语言-动作模型，属于多模态语言模型",
+      "canonical_evidence": "研究视觉-语言-动作模型，属于多模态语言模型",
+      "llm_tldr_en": "Proposes AVA-VLA, a latent reasoning VLA framework using reinforcement learning denoising to avoid explicit chain-of-thought, reducing cost and error propagation.",
+      "llm_tldr_cn": "现有视觉-语言-动作模型依赖显式思维链推理，计算昂贵且容易错误传播。本文提出AVA-VLA框架，将推理建模为隐变量序列，并引入强化学习去噪机制来稳定隐轨迹。实验表明该方法在多项动作任务中提升了效率并减少了错误。该工作为多模态语言模型在动作领域的应用提供了新思路。",
+      "llm_tldr": "现有视觉-语言-动作模型依赖显式思维链推理，计算昂贵且容易错误传播。本文提出AVA-VLA框架，将推理建模为隐变量序列，并引入强化学习去噪机制来稳定隐轨迹。实验表明该方法在多项动作任务中提升了效率并减少了错误。该工作为多模态语言模型在动作领域的应用提供了新思路。",
+      "llm_tags": [
+        "query:multi-modal:composite"
+      ],
+      "matched_query_tag": "query:multi-modal:composite",
+      "matched_query_text": "Papers central to 帮我找一些关于多模态语言模型或多模态融合的研究文章, especially work that connects or combines: multimodal language model research; techniques for multimodal fusion; vision language model architectures; learning cross modal representations; multimodal learning methods; multimodal alignment approaches; What are the latest advances in multimodal language models?; How is multimodal fusion achieved in deep learning?; Compare different architectures for vision language models.; Find papers on cross modal representation learning..",
+      "matched_requirement_id": "req-composite-multi-modal",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.15231v1",
+      "source": "arxiv",
+      "title": "Visual-Seeker: Towards Visual-Native Multimodal Agentic Search via Active Visual Reasoning",
+      "abstract": "Multimodal large language models (MLLMs) have demonstrated impressive capabilities in many visual tasks, but they often struggle with factual grounding when confronted with complex, open-world scenarios. While recent multimodal deep search agents attempt to address this issue by utilizing external tools, the visual-native search paradigm remains underexplored. Existing methods primarily rely on simple images with explicit semantics and text-only evidence trajectories, limiting the agent's ability to perform multi-hop, cross-modal reasoning and search. To address these limitations, we propose Visual-Seeker, a visual-native multimodal deep search agent via active visual reasoning. Rather than treating vision as a static input, our agent actively attends to fine-grained visual details, dynamically harvests visual evidence throughout the search process. To unlock its visual-native potential, we design an active visual reasoning data pipeline and synthesize 5K high-quality multimodal trajectories for model training. Extensive experiments demonstrate the state-of-the-art performance across five challenging multimodal search benchmarks, even surpassing several proprietary models, validating robust visual-native reasoning and search in real-world web environments. The code and data can be accessed at: https://github.com/ZhengboZhang/Visual-Seeker.",
+      "authors": [
+        "Zhengbo Zhang",
+        "Changtao Miao",
+        "Jinbo Su",
+        "Zhaowen Zhou",
+        "Chunxia Zhang",
+        "Xukai Wang",
+        "Ruiqi Liu",
+        "Kaiyuan Zheng",
+        "Jiansheng Cai",
+        "Bo Zhang",
+        "Zhe Li",
+        "Shiming Xiang",
+        "Ying Yan"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-06-13T10:07:32+00:00",
+      "link": "https://arxiv.org/pdf/2606.15231v1",
+      "tags": [
+        "keyword:multi-modal",
+        "query:multi-modal"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "visual-native multimodal agentic search",
+      "llm_evidence_cn": "视觉原生多模态智能体搜索",
+      "llm_evidence": "视觉原生多模态智能体搜索",
+      "canonical_evidence": "视觉原生多模态智能体搜索",
+      "llm_tldr_en": "Introduces Visual-Seeker, a visual-native multimodal agent that performs active visual reasoning for search, enabling multi-hop cross-modal reasoning beyond static image inputs.",
+      "llm_tldr_cn": "针对现有多模态搜索代理依赖简单图像和文本轨迹的局限，本文提出Visual-Seeker，一种视觉原生的多模态深度搜索代理。通过主动视觉推理，该代理能够进行多跳跨模态推理和搜索，在复杂开放世界场景下显著提升了事实性知识检索的准确性。",
+      "llm_tldr": "针对现有多模态搜索代理依赖简单图像和文本轨迹的局限，本文提出Visual-Seeker，一种视觉原生的多模态深度搜索代理。通过主动视觉推理，该代理能够进行多跳跨模态推理和搜索，在复杂开放世界场景下显著提升了事实性知识检索的准确性。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "vision language model architectures",
+      "matched_requirement_id": "req-22",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.15308v1",
+      "source": "arxiv",
+      "title": "Forced Deferral: Manipulating Routing Decisions in Multimodal LLM Cascades",
+      "abstract": "While multimodal large language models (MLLMs) have shown strong visual reasoning abilities, serving a large model for every query is computationally expensive. MLLM cascades mitigate this cost by first querying a weak but cheaper model and deferring to a strong model when the weak model's output is unconfident. However, since the weak model's confidence directly controls compute allocation, these systems expose a new attack surface: an adversary can manipulate confidence so that their queries are consistently deferred to the strong model. Motivated by this vulnerability, we introduce the Forced Deferral Attack (FDA), an adversarial image attack that lowers the weak model's confidence and causes cascades to route queries to the strong model. FDA learns a universal border trigger by optimizing a temperature-flattened objective. This objective pushes the weak model's token distribution on triggered inputs toward less concentrated targets constructed from its clean responses. Across datasets, model families, and deferral metrics, FDA consistently increases strong-model routing while outperforming image-perturbation and prompt-injection baselines. These results show that MLLM cascades are vulnerable to attacks that manipulate compute allocation, forcing unintended strong-model usage without directly targeting answer correctness.",
+      "authors": [
+        "Zhongye Liu",
+        "Yaopei Zeng",
+        "Yurui Chang",
+        "Lu Lin"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-06-13T13:53:11+00:00",
+      "link": "https://arxiv.org/pdf/2606.15308v1",
+      "tags": [
+        "keyword:multi-modal",
+        "query:multi-modal"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "attacks multimodal LLM cascades, core to multimodal language model research",
+      "llm_evidence_cn": "攻击多模态LLM级联系统，属于多模态语言模型核心研究",
+      "llm_evidence": "攻击多模态LLM级联系统，属于多模态语言模型核心研究",
+      "canonical_evidence": "攻击多模态LLM级联系统，属于多模态语言模型核心研究",
+      "llm_tldr_en": "Introduces Forced Deferral Attack (FDA) that manipulates weak model confidence in MLLM cascades to force deferral to strong model, revealing a new vulnerability.",
+      "llm_tldr_cn": "多模态大模型级联系统通过弱模型置信度决定是否调用强模型，存在安全隐患。本文提出强制延迟攻击（FDA），利用对抗图像降低弱模型置信度，使得所有查询都被路由到强模型。实验表明该攻击成功率高且不易察觉。这项工作揭示了多模态语言模型部署中新的攻击面。",
+      "llm_tldr": "多模态大模型级联系统通过弱模型置信度决定是否调用强模型，存在安全隐患。本文提出强制延迟攻击（FDA），利用对抗图像降低弱模型置信度，使得所有查询都被路由到强模型。实验表明该攻击成功率高且不易察觉。这项工作揭示了多模态语言模型部署中新的攻击面。",
+      "llm_tags": [
+        "query:multi-modal:composite"
+      ],
+      "matched_query_tag": "query:multi-modal:composite",
+      "matched_query_text": "Papers central to 帮我找一些关于多模态语言模型或多模态融合的研究文章, especially work that connects or combines: multimodal language model research; techniques for multimodal fusion; vision language model architectures; learning cross modal representations; multimodal learning methods; multimodal alignment approaches; What are the latest advances in multimodal language models?; How is multimodal fusion achieved in deep learning?; Compare different architectures for vision language models.; Find papers on cross modal representation learning..",
+      "matched_requirement_id": "req-composite-multi-modal",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.15608v1",
+      "source": "arxiv",
+      "title": "On the Adversarial Robustness of Multimodal LLM Judges",
+      "abstract": "Multimodal Large Language Models (MLLMs) are increasingly used as automated judges, e.g., for image quality and safety assessment. However, their adversarial robustness remains largely unexplored, threatening the fairness and reliability of automated judging. To bridge this gap, we introduce RobustMLLMJudge, the first general framework for evaluating the adversarial robustness of general-purpose MLLMs when functioning as judges. It covers diverse attacks against popular judge approaches across quality and safety evaluation scenarios. Using RobustMLLMJudge, we reveal that i) different MLLM judges are highly vulnerable to score-inflating adversarial attacks; and ii) although effective, these attack methods face a critical challenge due to unique constraints in the evaluation protocols of MLLM judges. We further propose MGSIA, namely Manifold-Guided Semantic Induction Attack, a novel method that bypasses these constraints to enable more effective and transferable attacks on MLLM judges. The core idea of MGSIA is to combine affirmative semantic induction with high-score manifold alignment: it maximizes the probability that judges yield affirmative responses (e.g., \"Yes\") to binary semantic queries, while regularizing adversarial representations toward high-score centers estimated from proxy protocols. Together, these objectives yield transferable score-inflating perturbations. Extensive experiments demonstrate the superiority and generalizability of MGSIA in deceiving advanced MLLM judges under different evaluation scenarios, highlighting the need for robust MLLM judges. Code and data will be made available at https://github.com/mala-lab/RobustMLLMJudge.",
+      "authors": [
+        "Zihan Wang",
+        "Guansong Pang",
+        "Zelin Liu",
+        "Wenjun Miao",
+        "Jin Zheng",
+        "Xiao Bai"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-06-14T05:30:20+00:00",
+      "link": "https://arxiv.org/pdf/2606.15608v1",
+      "tags": [
+        "keyword:multi-modal",
+        "query:multi-modal"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "adversarial robustness of multimodal LLM judges, directly on MLLMs",
+      "llm_evidence_cn": "多模态LLM裁判的对抗鲁棒性，直接研究多模态大模型",
+      "llm_evidence": "多模态LLM裁判的对抗鲁棒性，直接研究多模态大模型",
+      "canonical_evidence": "多模态LLM裁判的对抗鲁棒性，直接研究多模态大模型",
+      "llm_tldr_en": "Introduces RobustMLLMJudge to evaluate adversarial robustness of MLLMs as judges, revealing vulnerability to score-inflating attacks.",
+      "llm_tldr_cn": "多模态大模型被用作自动裁判评估图像质量或安全性，但其对抗鲁棒性未知。本文提出RobustMLLMJudge框架，涵盖多种攻击方法对裁判模型进行评估。研究发现不同MLLM裁判极易受到分数膨胀攻击，且现有攻击方法在裁判场景下面临独特挑战。该工作为多模态模型的安全部署提供了重要警示。",
+      "llm_tldr": "多模态大模型被用作自动裁判评估图像质量或安全性，但其对抗鲁棒性未知。本文提出RobustMLLMJudge框架，涵盖多种攻击方法对裁判模型进行评估。研究发现不同MLLM裁判极易受到分数膨胀攻击，且现有攻击方法在裁判场景下面临独特挑战。该工作为多模态模型的安全部署提供了重要警示。",
+      "llm_tags": [
+        "query:multi-modal:composite"
+      ],
+      "matched_query_tag": "query:multi-modal:composite",
+      "matched_query_text": "Papers central to 帮我找一些关于多模态语言模型或多模态融合的研究文章, especially work that connects or combines: multimodal language model research; techniques for multimodal fusion; vision language model architectures; learning cross modal representations; multimodal learning methods; multimodal alignment approaches; What are the latest advances in multimodal language models?; How is multimodal fusion achieved in deep learning?; Compare different architectures for vision language models.; Find papers on cross modal representation learning..",
+      "matched_requirement_id": "req-composite-multi-modal",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.15651v1",
+      "source": "arxiv",
+      "title": "Self-Questioning Vision-Language Models: Reinforcement Learning for Compositional Visual Reasoning",
+      "abstract": "Vision-Language Models (VLMs) are AI systems that process both images and text, yet they often struggle with compositional visual reasoning questions that require chaining multiple steps together, such as identifying objects, counting them, and comparing the results. Existing approaches improve this reasoning by training models on human-written step-by-step explanations, but creating these annotations is expensive and difficult to scale. We propose a self-questioning framework that trains a VLM to break visual questions into smaller sub-questions and answer each one before producing a final response, using a reinforcement learning algorithm called Group Relative Policy Optimization (GRPO). The model is never shown examples of how to decompose questions, it discovers this behavior on its own, guided by a reward signal that scores whether the output contains sub-questions and whether the final answer is correct. We apply this framework to a 3-billion-parameter model, training on both synthetic scenes of geometric shapes (CLEVR) and real-world photographs (A-OKVQA). On A-OKVQA, both self-questioning and standard reinforcement learning substantially improve accuracy over the untrained model (52.2% and 51.6% vs. 46.8%). We introduce the first self-questioning VLM by rewarding not only the final answer like standard RL but additionally for generating intermediate sub-questions, enabling it to discover compositional decomposition strategies. These results suggest that teaching AI systems to ask themselves intermediate questions is a promising strategy for complex visual reasoning, particularly when the difficulty of a question warrants explicit step-by-step decomposition.",
+      "authors": [
+        "Saraswathy Amjith"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-06-14T07:42:34+00:00",
+      "link": "https://arxiv.org/pdf/2606.15651v1",
+      "tags": [
+        "keyword:multi-modal",
+        "query:multi-modal"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "self-questioning VLM for compositional visual reasoning",
+      "llm_evidence_cn": "自问答VLM用于组合视觉推理",
+      "llm_evidence": "自问答VLM用于组合视觉推理",
+      "canonical_evidence": "自问答VLM用于组合视觉推理",
+      "llm_tldr_en": "Proposes a self-questioning framework that trains a VLM to decompose visual questions into sub-questions using reinforcement learning, improving compositional reasoning without human annotations.",
+      "llm_tldr_cn": "针对视觉语言模型在组合视觉推理任务中的不足，本文提出自问答框架，通过强化学习训练VLM将复杂问题分解为子问题并逐步回答，无需人工标注。实验表明该方法显著提升了模型在组合推理基准上的表现，为VLM推理能力增强提供了新范式。",
+      "llm_tldr": "针对视觉语言模型在组合视觉推理任务中的不足，本文提出自问答框架，通过强化学习训练VLM将复杂问题分解为子问题并逐步回答，无需人工标注。实验表明该方法显著提升了模型在组合推理基准上的表现，为VLM推理能力增强提供了新范式。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "vision language model architectures",
+      "matched_requirement_id": "req-22",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.16256v1",
+      "source": "arxiv",
+      "title": "KeepLoRA++: Continual Learning with Layer-Scaled Residual Gradient Adaptation",
+      "abstract": "Continual learning for pre-trained vision-language models requires balancing three competing objectives: retaining pre-trained knowledge, preserving knowledge from a sequence of learned tasks, and maintaining the plasticity to acquire new knowledge. This paper presents KeepLoRA++, balancing these objectives through a unified dual-dimensional knowledge retention mechanism. We analyze knowledge distribution of Transformer architecture from both inter-layer and intra-layer perspectives. The inter-layer perspective examines how retention is distributed across layers, while the intra-layer perspective focuses on the parameter space within each layer. Our analysis reveals a structural property: general transferable knowledge is mainly encoded in the shallow layers and the principal subspace of the parameters, while task-specific adaptations are localized in the deep layers and the residual subspace. Motivated by this insight, KeepLoRA++ introduces a layer-scaled residual gradient adaptation method. New tasks are learned by restricting LoRA parameter updates to the residual subspace, combined with a shallow-to-deep layer scaling, to prevent interference with previously acquired capabilities. Specifically, the gradient of a new task is projected onto a subspace orthogonal to both the principal subspace of the pre-trained model and the dominant directions of previous task features, while simultaneously assigning smaller update magnitudes to shallow layers and larger ones to deeper layers. Our theoretical analysis and empirical evaluations confirm that KeepLoRA++ successfully balances these three competing objectives, consistently outperforming representative baselines across image classification, visual question answering, and video understanding tasks.",
+      "authors": [
+        "Mao-Lin Luo",
+        "Yi-Lin Zhang",
+        "Zi-Hao Zhou",
+        "Yankun Hong",
+        "Xialiang Tong",
+        "Mingxuan Yuan",
+        "Tong Wei",
+        "Min-Ling Zhang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.LG"
+      ],
+      "published": "2026-06-15T05:57:59+00:00",
+      "link": "https://arxiv.org/pdf/2606.16256v1",
+      "tags": [
+        "query:multi-modal"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "continual learning for pre-trained vision-language models, core to multimodal learning",
+      "llm_evidence_cn": "预训练视觉语言模型的持续学习，是多模态学习核心技术",
+      "llm_evidence": "预训练视觉语言模型的持续学习，是多模态学习核心技术",
+      "canonical_evidence": "预训练视觉语言模型的持续学习，是多模态学习核心技术",
+      "llm_tldr_en": "Proposes KeepLoRA++ for continual learning in VLMs, using layer-scaled residual gradient adaptation to balance retention and plasticity.",
+      "llm_tldr_cn": "预训练视觉语言模型在持续学习中需要平衡旧知识保留与新知识获取。本文提出KeepLoRA++，通过层间和层内双维度知识保留机制，分析Transformer中知识分布，采用层缩放残差梯度适应。实验表明该方法在多个任务序列上有效防止灾难性遗忘，同时保持学习新任务的能力。为多模态模型的持续学习提供了新方案。",
+      "llm_tldr": "预训练视觉语言模型在持续学习中需要平衡旧知识保留与新知识获取。本文提出KeepLoRA++，通过层间和层内双维度知识保留机制，分析Transformer中知识分布，采用层缩放残差梯度适应。实验表明该方法在多个任务序列上有效防止灾难性遗忘，同时保持学习新任务的能力。为多模态模型的持续学习提供了新方案。",
+      "llm_tags": [
+        "query:multi-modal:composite"
+      ],
+      "matched_query_tag": "query:multi-modal:composite",
+      "matched_query_text": "Papers central to 帮我找一些关于多模态语言模型或多模态融合的研究文章, especially work that connects or combines: multimodal language model research; techniques for multimodal fusion; vision language model architectures; learning cross modal representations; multimodal learning methods; multimodal alignment approaches; What are the latest advances in multimodal language models?; How is multimodal fusion achieved in deep learning?; Compare different architectures for vision language models.; Find papers on cross modal representation learning..",
+      "matched_requirement_id": "req-composite-multi-modal",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.16639v1",
+      "source": "arxiv",
+      "title": "SPICE: Synergy and Partial Information Based Curriculum Evolution",
+      "abstract": "Multimodal learning exploits complementary information across heterogeneous modalities. The informativeness of each modality can vary widely across samples and training stages. Existing multimodal curriculum learning strategies often assume that the relative complexity of samples remains unchanged throughout training and therefore cannot adapt to model evolution. We propose SPICE (Synergy and Partial Information based Curriculum Evolution), a novel progressive curriculum framework for multimodal interaction learning. Guided by Partial Information Decomposition (PID) theory, our approach decomposes multimodal interactions into redundant, unique, and synergistic information components, enabling an interpretable and dynamic characterization of sample complexity. Building on this decomposition, we design a progressive curriculum that evolves throughout training, allowing the model to transition from learning shared cross-modal cues to modality-specific patterns and, finally, to complex synergistic interactions. Adapting to model evolution, sample ordering is refined in real-time using PID information estimates derived from unimodal and multimodal predictions. Experiments across multiple multimodal benchmarks demonstrate consistent improvements over conventional training and state-of-the-art baselines, highlighting the effectiveness of PID information decomposition and adaptive sample ordering for multimodal curriculum learning.",
+      "authors": [
+        "Ankush Pratap Singh",
+        "Houwei Cao",
+        "Yong Liu"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG"
+      ],
+      "published": "2026-06-15T12:27:33+00:00",
+      "link": "https://arxiv.org/pdf/2606.16639v1",
+      "tags": [
+        "query:multi-modal"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "progressive curriculum framework for multimodal interaction learning based on partial information decomposition",
+      "llm_evidence_cn": "基于部分信息分解的多模态交互学习渐进课程框架",
+      "llm_evidence": "基于部分信息分解的多模态交互学习渐进课程框架",
+      "canonical_evidence": "基于部分信息分解的多模态交互学习渐进课程框架",
+      "llm_tldr_en": "Proposes SPICE, a curriculum learning framework that uses Partial Information Decomposition to characterize sample complexity dynamically for multimodal learning.",
+      "llm_tldr_cn": "现有多模态课程学习假设样本相对复杂度不变，无法适应模型演化。本文提出SPICE框架，基于部分信息分解理论将多模态交互分解为冗余、独特和协同信息成分，实现可解释的动态样本复杂度表征。根据协同信息量调整课程进度，在多个多模态任务上比固定课程和随机顺序取得更优性能。",
+      "llm_tldr": "现有多模态课程学习假设样本相对复杂度不变，无法适应模型演化。本文提出SPICE框架，基于部分信息分解理论将多模态交互分解为冗余、独特和协同信息成分，实现可解释的动态样本复杂度表征。根据协同信息量调整课程进度，在多个多模态任务上比固定课程和随机顺序取得更优性能。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "multimodal learning methods",
+      "matched_requirement_id": "req-24",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.18249v1",
+      "source": "arxiv",
+      "title": "Unified Multimodal Autoregressive Modeling with Shared Context-Visual Tokenizer is Key to Unification",
+      "abstract": "Unified Multimodal Modeling aims to integrate visual understanding and generation within a single system. However, existing approaches typically rely on two disparate visual tokenizers, which splits the representation space and hinders truly unified modeling. We propose UniAR, a unified autoregressive framework where a single discrete visual tokenizer serves as the key bridge between understanding and generation, enabling a shared context in which the model can directly interpret its own generated visual tokens without additional re-encoding. UniAR adapts a pretrained vision encoder with multi-level feature fusion and a lookup-free bitwise quantization scheme, preserving both high-level semantics and low-level details while scaling the effective visual vocabulary at minimal cost. Building on this, the unified autoregressive model adopts parallel-bitwise-prediction to jointly predict spatially grouped, multi-level visual codes, substantially reducing visual sequence length and accelerating generation. Finally, a diffusion-based visual decoder operates on discrete visual tokens to decode high-fidelity images. Through large-scale pre-training, followed by supervised fine-tuning and reinforcement learning, UniAR achieves state-of-the-art performance on image generation and image editing while remaining competitive on multimodal understanding benchmarks. The project page is available at https://sharelab-sii.github.io/uniar-web.",
+      "authors": [
+        "Wujian Peng",
+        "Lingchen Meng",
+        "Yuxuan Cai",
+        "Xianwei Zhuang",
+        "Yuhuan Yang",
+        "Rongyao Fang",
+        "Chenfei Wu",
+        "Junyang Lin",
+        "Zuxuan Wu",
+        "Shuai Bai"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-06-16T17:59:22+00:00",
+      "link": "https://arxiv.org/pdf/2606.18249v1",
+      "tags": [
+        "query:multi-modal"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "unified multimodal autoregressive model with shared visual tokenizer",
+      "llm_evidence_cn": "统一多模态自回归模型，共享视觉分词器",
+      "llm_evidence": "统一多模态自回归模型，共享视觉分词器",
+      "canonical_evidence": "统一多模态自回归模型，共享视觉分词器",
+      "llm_tldr_en": "Proposes UniAR, a unified autoregressive framework that uses a single discrete visual tokenizer to bridge understanding and generation in multimodal models.",
+      "llm_tldr_cn": "现有统一多模态建模依赖两个分离的视觉分词器，导致表示空间割裂。本文提出UniAR框架，通过一个共享的离散视觉分词器连接视觉理解与生成，使模型可直接解读自身生成的视觉token。该方法适配预训练视觉编码器，采用多级特征融合与免查询位量化，在保持高层语义的同时保留低层细节，实现了统一多模态建模的新范式。",
+      "llm_tldr": "现有统一多模态建模依赖两个分离的视觉分词器，导致表示空间割裂。本文提出UniAR框架，通过一个共享的离散视觉分词器连接视觉理解与生成，使模型可直接解读自身生成的视觉token。该方法适配预训练视觉编码器，采用多级特征融合与免查询位量化，在保持高层语义的同时保留低层细节，实现了统一多模态建模的新范式。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "multimodal language model research",
+      "matched_requirement_id": "req-20",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.18249v2",
+      "source": "arxiv",
+      "title": "Unified Multimodal Autoregressive Modeling with Shared Context-Visual Tokenizer is Key to Unification",
+      "abstract": "Unified Multimodal Modeling aims to integrate visual understanding and generation within a single system. However, existing approaches typically rely on two disparate visual tokenizers, which splits the representation space and hinders truly unified modeling. We propose UniAR, a unified autoregressive framework where a single discrete visual tokenizer serves as the key bridge between understanding and generation, enabling a shared context in which the model can directly interpret its own generated visual tokens without additional re-encoding. UniAR adapts a pretrained vision encoder with multi-level feature fusion and a lookup-free bitwise quantization scheme, preserving both high-level semantics and low-level details while scaling the effective visual vocabulary at minimal cost. Building on this, the unified autoregressive model adopts parallel-bitwise-prediction to jointly predict spatially grouped, multi-level visual codes, substantially reducing visual sequence length and accelerating generation. Finally, a diffusion-based visual decoder operates on discrete visual tokens to decode high-fidelity images. Through large-scale pre-training, followed by supervised fine-tuning and reinforcement learning, UniAR achieves state-of-the-art performance on image generation and image editing while remaining competitive on multimodal understanding benchmarks. The project page is available at https://sharelab-sii.github.io/uniar-web.",
+      "authors": [
+        "Wujian Peng",
+        "Lingchen Meng",
+        "Yuxuan Cai",
+        "Xianwei Zhuang",
+        "Yuhuan Yang",
+        "Rongyao Fang",
+        "Chenfei Wu",
+        "Junyang Lin",
+        "Zuxuan Wu",
+        "Shuai Bai"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-06-16T17:59:22+00:00",
+      "link": "https://arxiv.org/pdf/2606.18249v2",
+      "tags": [
+        "query:multi-modal"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "unified multimodal autoregressive modeling, directly on multimodal language models",
+      "llm_evidence_cn": "统一多模态自回归建模，直接研究多模态语言模型",
+      "llm_evidence": "统一多模态自回归建模，直接研究多模态语言模型",
+      "canonical_evidence": "统一多模态自回归建模，直接研究多模态语言模型",
+      "llm_tldr_en": "Proposes UniAR, a unified autoregressive framework using a single visual tokenizer shared between understanding and generation for multimodal modeling.",
+      "llm_tldr_cn": "现有多模态模型通常使用两个不同的视觉分词器，割裂了表示空间。本文提出UniAR，采用单一的离散视觉分词器作为理解与生成的桥梁，并引入多级特征融合和无查找量化。实验证明该框架在视觉理解和生成任务上均达到优异性能，同时降低了模型复杂度。这是向真正统一多模态模型的重要一步。",
+      "llm_tldr": "现有多模态模型通常使用两个不同的视觉分词器，割裂了表示空间。本文提出UniAR，采用单一的离散视觉分词器作为理解与生成的桥梁，并引入多级特征融合和无查找量化。实验证明该框架在视觉理解和生成任务上均达到优异性能，同时降低了模型复杂度。这是向真正统一多模态模型的重要一步。",
+      "llm_tags": [
+        "query:multi-modal:composite"
+      ],
+      "matched_query_tag": "query:multi-modal:composite",
+      "matched_query_text": "Papers central to 帮我找一些关于多模态语言模型或多模态融合的研究文章, especially work that connects or combines: multimodal language model research; techniques for multimodal fusion; vision language model architectures; learning cross modal representations; multimodal learning methods; multimodal alignment approaches; What are the latest advances in multimodal language models?; How is multimodal fusion achieved in deep learning?; Compare different architectures for vision language models.; Find papers on cross modal representation learning..",
+      "matched_requirement_id": "req-composite-multi-modal",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.19100v1",
+      "source": "arxiv",
+      "title": "AMALIA-VL: A Native European Portuguese Open-Source Vision and Language Model",
+      "abstract": "Large Vision and Language Models (LVLMs) have advanced rapidly, yet European Portuguese (pt-PT) remains systematically underserved by existing open-source multimodal models, which either conflate it with Brazilian Portuguese or severely under-represent it in their training data mixes. We introduce AMALIA-VL, the first open-source instruction-tuned LVLM built natively for pt-PT, pairing a high-resolution vision encoder with dynamic image tiling and a fully open pt-PT-optimized language model via a learned connector. We contribute with a purposefully designed three-stage training process - vision-language alignment, general visual instruction tuning, and preference optimization - together with a pt-PT-centric multimodal data mix combining curated and translated public datasets with novel datasets that address the near-total absence of European Portuguese multimodal resources. Our evaluation shows that AMALIA-VL establishes a strong baseline for open-source pt-PT LVLMs.We will release model weights, training data, and construction pipelines along with machine-translated pt-PT evaluation benchmarks to help democratize pt-PT LVLM development.",
+      "authors": [
+        "Diogo Glória-Silva",
+        "João Cardeira",
+        "Manuel Letras da Luz",
+        "Afonso Simplício",
+        "Gonçalo Vinagre",
+        "Diogo Tavares",
+        "Rafael Ferreira",
+        "Inês Calvo",
+        "Inês Vieira",
+        "David Semedo",
+        "João Magalhães"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-06-17T14:11:41+00:00",
+      "link": "https://arxiv.org/pdf/2606.19100v1",
+      "tags": [
+        "query:multi-modal"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "open-source vision and language model for European Portuguese",
+      "llm_evidence_cn": "面向欧洲葡萄牙语的开源视觉语言模型",
+      "llm_evidence": "面向欧洲葡萄牙语的开源视觉语言模型",
+      "canonical_evidence": "面向欧洲葡萄牙语的开源视觉语言模型",
+      "llm_tldr_en": "Introduces AMALIA-VL, the first open-source instruction-tuned LVLM for European Portuguese, with a three-stage training process including vision-language alignment, instruction tuning, and preference optimization.",
+      "llm_tldr_cn": "欧洲葡萄牙语缺乏开源多模态模型。本文提出AMALIA-VL，首个原生欧洲葡萄牙语的指令微调大型视觉语言模型。系统采用高分辨率视觉编码器、动态图像分块和三级训练流程（视觉-语言对齐、通用视觉指令微调、偏好优化），并构建了葡萄牙语多模态数据集。在多个基准上达到领先性能。",
+      "llm_tldr": "欧洲葡萄牙语缺乏开源多模态模型。本文提出AMALIA-VL，首个原生欧洲葡萄牙语的指令微调大型视觉语言模型。系统采用高分辨率视觉编码器、动态图像分块和三级训练流程（视觉-语言对齐、通用视觉指令微调、偏好优化），并构建了葡萄牙语多模态数据集。在多个基准上达到领先性能。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "multimodal language model research",
+      "matched_requirement_id": "req-20",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.19120v1",
+      "source": "arxiv",
+      "title": "Seeing Before Reasoning: Decoupling Perception and Reasoning for Shortcut-Resilient Multimodal On-Policy Self-Distillation",
+      "abstract": "On-policy self-distillation (OPSD) trains a model on its own rollouts and uses a frozen copy to provide dense token-level targets conditioned on a reference target. This works well for LLM reasoning, but a direct extension to multimodal large language models (MLLMs) can create a shortcut: the privileged target may guide tokens mainly based on the text reference target rather than the image. We propose ViGOS, a visually grounded OPSD framework for MLLM post-training. The student first writes a visual description and then reasons toward the final answer. For valid rollouts, an image-only perception teacher supervises the description, while a privileged reasoning teacher supervises the reasoning and final answer on the same student prefix. A reference teacher is used only for invalid rollouts to recover the output format. Across general vision-language, expert reasoning, visual math, spatial grounding, and visual-language-prior benchmarks, ViGOS keeps the main benefits of OPSD and improves image-grounded behavior in shortcut-prone settings.",
+      "authors": [
+        "Sihan Wang",
+        "Xiyao Liu",
+        "Lianqing Liu",
+        "Zhi Han"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.CV"
+      ],
+      "published": "2026-06-17T14:33:38+00:00",
+      "link": "https://arxiv.org/pdf/2606.19120v1",
+      "tags": [
+        "query:multi-modal"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "multimodal on-policy self-distillation with perception-reasoning decoupling",
+      "llm_evidence_cn": "多模态在线自蒸馏，解耦感知与推理",
+      "llm_evidence": "多模态在线自蒸馏，解耦感知与推理",
+      "canonical_evidence": "多模态在线自蒸馏，解耦感知与推理",
+      "llm_tldr_en": "Proposes ViGOS, a visually grounded OPSD framework for MLLMs that decouples perception and reasoning to avoid shortcut learning.",
+      "llm_tldr_cn": "多模态大模型的在线自蒸馏容易产生捷径，即模型仅依赖文本参考而不看图像。本文提出ViGOS框架，要求学生先写视觉描述再推理，并分别使用图像感知教师和特权推理教师进行监督。实验表明该方法有效缓解了捷径问题，提升了视觉推理质量。这项工作为多模态模型的对齐训练提供了新范式。",
+      "llm_tldr": "多模态大模型的在线自蒸馏容易产生捷径，即模型仅依赖文本参考而不看图像。本文提出ViGOS框架，要求学生先写视觉描述再推理，并分别使用图像感知教师和特权推理教师进行监督。实验表明该方法有效缓解了捷径问题，提升了视觉推理质量。这项工作为多模态模型的对齐训练提供了新范式。",
+      "llm_tags": [
+        "query:multi-modal:composite"
+      ],
+      "matched_query_tag": "query:multi-modal:composite",
+      "matched_query_text": "Papers central to 帮我找一些关于多模态语言模型或多模态融合的研究文章, especially work that connects or combines: multimodal language model research; techniques for multimodal fusion; vision language model architectures; learning cross modal representations; multimodal learning methods; multimodal alignment approaches; What are the latest advances in multimodal language models?; How is multimodal fusion achieved in deep learning?; Compare different architectures for vision language models.; Find papers on cross modal representation learning..",
+      "matched_requirement_id": "req-composite-multi-modal",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.19534v1",
+      "source": "arxiv",
+      "title": "PerceptionDLM: Parallel Region Perception with Multimodal Diffusion Language Models",
+      "abstract": "Multimodal large language models (MLLMs) have achieved remarkable progress in visual understanding tasks. However, most existing MLLMs rely on autoregressive generation, which limits their efficiency for perception tasks that require captioning multiple regions. In this work, we propose PerceptionDLM, a multimodal diffusion language model optimized for efficient parallel region perception. Built upon PerceptionDLM-Base, a strong foundational baseline that achieves state-of-the-art performance among open-source diffusion MLLMs, our architecture fully leverages the parallel decoding nature of DLMs. Specifically, we introduce efficient prompting and structured attention masking to enable simultaneous perception of multiple masked regions, allowing the model to generate region descriptions in parallel at both the sequence and token levels. This design significantly improves inference efficiency compared with existing approaches that process regions sequentially. To systematically evaluate the parallelism property of visual perception capability for DLMs, we construct a new Parallel Detailed Localized Captioning Benchmark (ParaDLC-Bench) by scaling the DLC-Bench to include multiple region masks per image, enabling joint evaluation of both caption quality and inference efficiency. Experiments demonstrate that PerceptionDLM maintains competitive performance in region captioning while achieving substantial speed improvements for multi-region perception tasks. Our results highlight the potential of multimodal diffusion language models for efficient, parallel visual perception. To the best of our knowledge, we are the first to achieve parallel region caption and perception by leveraging the advantages of diffusion language models. Code, models, and datasets are released.",
+      "authors": [
+        "Yueyi Sun",
+        "Yuhao Wang",
+        "Jason Li",
+        "Ye Tian",
+        "Tao Zhang",
+        "Jacky Mai",
+        "Yihan Wang",
+        "Haochen Wang",
+        "Jinbin Bai",
+        "Ling Yang",
+        "Yunhai Tong"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.AI",
+        "cs.CL"
+      ],
+      "published": "2026-06-17T19:27:55+00:00",
+      "link": "https://arxiv.org/pdf/2606.19534v1",
+      "tags": [
+        "query:multi-modal"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "multimodal diffusion language model for parallel region perception",
+      "llm_evidence_cn": "用于并行区域感知的多模态扩散语言模型",
+      "llm_evidence": "用于并行区域感知的多模态扩散语言模型",
+      "canonical_evidence": "用于并行区域感知的多模态扩散语言模型",
+      "llm_tldr_en": "Proposes PerceptionDLM, a multimodal diffusion language model that achieves efficient parallel perception of multiple image regions using structured attention masking.",
+      "llm_tldr_cn": "针对现有MLLM依赖自回归生成导致区域感知效率低的问题，本文提出PerceptionDLM，一种多模态扩散语言模型。通过高效提示和结构化注意力掩码，实现多个掩码区域的并行感知，在区域描述任务上达到最先进性能，同时大幅提升推理速度。",
+      "llm_tldr": "针对现有MLLM依赖自回归生成导致区域感知效率低的问题，本文提出PerceptionDLM，一种多模态扩散语言模型。通过高效提示和结构化注意力掩码，实现多个掩码区域的并行感知，在区域描述任务上达到最先进性能，同时大幅提升推理速度。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "vision language model architectures",
+      "matched_requirement_id": "req-22",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2606.15088v1",
+      "source": "arxiv",
+      "title": "When the Same Musical Knowledge Forgets Differently: A Clean Probe of Pathway-Dependent Forgetting",
+      "abstract": "A model can learn that the piano piece Für Elise is calm and reflective by listening to the audio or by reading a text description, but does it matter which route that knowledge took when it is later at risk of being forgotten? Forgetting research in multimodal models measures what knowledge is lost under adaptation, yet has not asked whether acquisition route affects how easily that knowledge is forgotten. We call this untested premise the Pathway-Invariant Assumption. Music understanding enables a clean test because a music clip and a canonical text description can be aligned to the same perceptual content, allowing the same knowledge unit to enter a model through listening or reading while the target remains fixed. Across multiple architecturally distinct audio-language models, we observe a consistent asymmetry: text-pathway knowledge is forgotten more than matched audio-pathway knowledge under identical adaptation pressure. To attribute this effect to route rather than confounds, we introduce the Paired Pathway Controlled Protocol (PPCP), a three-phase design that establishes matched pathway baselines, activates both pathways under symmetric supervision on the same knowledge pool, and applies identical forgetting pressure to both pathways. The gap is stable across models and gain-controlled analyses, persists when contradictory overwrite is replaced by correct-label cross-domain learning, remains under single-modality pressure, and is not removed by lightweight replay. Two independent routing-depth controls confirm that the effect is not explained by architectural depth, pointing to input representation as the dominant factor. Under PPCP, our results demonstrate that forgetting is highly route-dependent, establishing acquisition route as a new analytical dimension for forgetting research and multimodal system design.",
+      "authors": [
+        "Yu Liu",
+        "Zhiwei Yang",
+        "Wenxiao Zhang",
+        "Cong Cao",
+        "Fangfang Yuan",
+        "Kun Peng",
+        "Haimei Qin",
+        "Lei Jiang",
+        "Jin B. Hong",
+        "Hao Peng",
+        "Yanbing Liu"
+      ],
+      "primary_category": "cs.SD",
+      "categories": [
+        "cs.SD",
+        "cs.CL",
+        "eess.AS"
+      ],
+      "published": "2026-06-13T03:42:08+00:00",
+      "link": "https://arxiv.org/pdf/2606.15088v1",
+      "tags": [
+        "keyword:multi-modal"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "probes pathway-dependent forgetting in multimodal models, relevant to cross-modal learning",
+      "llm_evidence_cn": "探测多模态模型的路径依赖遗忘，涉及跨模态学习",
+      "llm_evidence": "探测多模态模型的路径依赖遗忘，涉及跨模态学习",
+      "canonical_evidence": "探测多模态模型的路径依赖遗忘，涉及跨模态学习",
+      "llm_tldr_en": "Investigates whether knowledge acquired via different modalities (audio vs. text) is forgotten differently in multimodal models using music understanding.",
+      "llm_tldr_cn": "多模态模型可以通过不同模态获取相同知识，但遗忘是否与输入模态有关？本文以音乐理解为测试平台，让模型分别通过音频和文本学习同一首曲子的情感特征，然后比较遗忘模式。实验发现获取路径确实影响遗忘速度，打破了路径不变假设。该成果对多模态模型的知识保存和重用有重要意义。",
+      "llm_tldr": "多模态模型可以通过不同模态获取相同知识，但遗忘是否与输入模态有关？本文以音乐理解为测试平台，让模型分别通过音频和文本学习同一首曲子的情感特征，然后比较遗忘模式。实验发现获取路径确实影响遗忘速度，打破了路径不变假设。该成果对多模态模型的知识保存和重用有重要意义。",
+      "llm_tags": [
+        "query:multi-modal:composite"
+      ],
+      "matched_query_tag": "query:multi-modal:composite",
+      "matched_query_text": "Papers central to 帮我找一些关于多模态语言模型或多模态融合的研究文章, especially work that connects or combines: multimodal language model research; techniques for multimodal fusion; vision language model architectures; learning cross modal representations; multimodal learning methods; multimodal alignment approaches; What are the latest advances in multimodal language models?; How is multimodal fusion achieved in deep learning?; Compare different architectures for vision language models.; Find papers on cross modal representation learning..",
+      "matched_requirement_id": "req-composite-multi-modal",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "2606.15285v1",
+      "source": "arxiv",
+      "title": "Acting While Understanding: Asynchronous Semantic-Action Decoupling for Real-Time Vision-Language-Action Models",
+      "abstract": "Vision-Language-Action models (VLAs) have demonstrated strong task understanding and generalization in robotic manipulation, yet the high computational cost of full-model inference limits their deployment in low-latency, high-frequency closed-loop control. We propose an asynchronous semantic-action decoupling framework that separates semantic understanding from action generation along the internal semantic-action interface of existing VLAs, without redesigning the vision-language backbone or introducing an external planner. A low-frequency understanding module asynchronously updates reusable semantic conditions, while a high-frequency action module continuously outputs control actions without repeatedly invoking the full model. To mitigate the temporal mismatch between stale semantics and the current execution state, we further introduce historical action conditioning and time-misalignment training, which provide short-horizon execution context and improve feedback control robustness under stale semantic conditions. Experiments on LIBERO with $π_{0.5}$ and UniVLA, together with real-robot deployment using UniVLA, show that the proposed framework achieves up to 35.6 Hz server-side action-module inference throughput and offers a low-intrusion path to high-frequency closed-loop control without running full VLA inference at control rate.",
+      "authors": [
+        "Shenhao Yan",
+        "Ge Wang",
+        "Qi Liu",
+        "Weilin Meng",
+        "Jiahao Yang",
+        "Chengsi Yao",
+        "Fan Feng",
+        "Xiaoguang Ma",
+        "Yiming Zhao",
+        "Yatong Han"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO"
+      ],
+      "published": "2026-06-13T12:49:42+00:00",
+      "link": "https://arxiv.org/pdf/2606.15285v1",
+      "tags": [
+        "keyword:multi-modal",
+        "query:multi-modal"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "asynchronous decoupling for real-time vision-language-action models",
+      "llm_evidence_cn": "异步解耦用于实时视觉-语言-动作模型",
+      "llm_evidence": "异步解耦用于实时视觉-语言-动作模型",
+      "canonical_evidence": "异步解耦用于实时视觉-语言-动作模型",
+      "llm_tldr_en": "Proposes asynchronous semantic-action decoupling for VLAs, separating low-frequency understanding from high-frequency action generation to enable real-time closed-loop control.",
+      "llm_tldr_cn": "提出异步语义-动作解耦框架，将视觉-语言-动作模型（VLA）中的语义理解与动作生成分离：低频模块更新语义条件，高频模块持续输出动作，实现低延迟闭环控制，无需重新设计骨干网络。",
+      "llm_tldr": "提出异步语义-动作解耦框架，将视觉-语言-动作模型（VLA）中的语义理解与动作生成分离：低频模块更新语义条件，高频模块持续输出动作，实现低延迟闭环控制，无需重新设计骨干网络。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "vision language model architectures",
+      "matched_requirement_id": "req-22",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.15514v1",
+      "source": "arxiv",
+      "title": "Reinforcement Learning-Guided Retrieval with Soft Fusion for Robust Multimodal Imitation Learning under Missing Modalities",
+      "abstract": "Robotic systems perceive the world through multiple input modalities -- including visual camera streams and natural language instructions -- and must select appropriate actions based on these signals. However, assuming the permanent availability of all input devices is unrealistic, as sensors may fail, become occluded, or drop out entirely during deployment. Robust handling of such missing-modality scenarios is therefore essential for real-world robot operation. This paper introduces RL4IL, a reinforcement learning guided method for imitation learning that selects the most suitable action for a given observation by identifying the most relevant expert demonstrations from a training library. A reinforcement learning policy, trained via Proximal Policy Optimisation over Breadth-First Search candidate sets, ranks candidate demonstrations and a soft cross-attention fusion head aggregates their action signals to produce the final prediction. When a modality is missing at inference time, a dedicated per-modality RL retrieval policy identifies donor demonstrations from the training library, and a soft imputation head reconstructs the missing embedding via cross-attention over the top-ranked donors -- without requiring any retraining of the system. Experiments on three LIBERO benchmark suites demonstrate that RL4IL substantially outperforms state-of-the-art imitation learning methods under sensor dropout conditions, while requiring no policy network training. The code can be found at https://github.com/h-ismkhan/Reinforcement-Learning-via-kNN-for-Robotic-Learning-with-Missing-Camera",
+      "authors": [
+        "Hassan Ismkhan",
+        "Hamid Bouchahcia"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO",
+        "cs.LG"
+      ],
+      "published": "2026-06-13T23:53:00+00:00",
+      "link": "https://arxiv.org/pdf/2606.15514v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "soft fusion and retrieval for missing modalities in imitation learning",
+      "llm_evidence_cn": "在模仿学习中使用软融合和检索处理缺失模态",
+      "llm_evidence": "在模仿学习中使用软融合和检索处理缺失模态",
+      "canonical_evidence": "在模仿学习中使用软融合和检索处理缺失模态",
+      "llm_tldr_en": "Introduces RL4IL, a reinforcement learning guided method that retrieves relevant expert demonstrations and uses soft fusion for robust multimodal imitation learning under missing modalities.",
+      "llm_tldr_cn": "针对机器人操作中传感器可能失效导致模态缺失的问题，本文提出RL4IL方法，利用强化学习指导从训练库中检索最相关的专家演示，并结合软融合机制对多模态信息进行整合，在缺失任意模态时仍能选择合适动作，提高了多模态模仿学习的鲁棒性，为实际机器人部署中的传感器故障提供了有效解决方案。",
+      "llm_tldr": "针对机器人操作中传感器可能失效导致模态缺失的问题，本文提出RL4IL方法，利用强化学习指导从训练库中检索最相关的专家演示，并结合软融合机制对多模态信息进行整合，在缺失任意模态时仍能选择合适动作，提高了多模态模仿学习的鲁棒性，为实际机器人部署中的传感器故障提供了有效解决方案。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "techniques for multimodal fusion",
+      "matched_requirement_id": "req-21",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2606.15088v2",
+      "source": "arxiv",
+      "title": "When the Same Musical Knowledge Forgets Differently: A Clean Probe of Pathway-Dependent Forgetting",
+      "abstract": "A model can learn that the piano piece Für Elise is calm and reflective by listening to the audio or by reading a text description, but does it matter which route that knowledge took when it is later at risk of being forgotten? Forgetting research in multimodal models measures what knowledge is lost under adaptation, yet has not asked whether acquisition route affects how easily that knowledge is forgotten. We call this untested premise the Pathway-Invariant Assumption. Music understanding enables a clean test because a music clip and a canonical text description can be aligned to the same perceptual content, allowing the same knowledge unit to enter a model through listening or reading while the target remains fixed. Across multiple architecturally distinct audio-language models, we observe a consistent asymmetry: text-pathway knowledge is forgotten more than matched audio-pathway knowledge under identical adaptation pressure. To attribute this effect to route rather than confounds, we introduce the Paired Pathway Controlled Protocol (PPCP), a three-phase design that establishes matched pathway baselines, activates both pathways under symmetric supervision on the same knowledge pool, and applies identical forgetting pressure to both pathways. The gap is stable across models and gain-controlled analyses, persists when contradictory overwrite is replaced by correct-label cross-domain learning, remains under single-modality pressure, and is not removed by lightweight replay. Two independent routing-depth controls confirm that the effect is not explained by architectural depth, pointing to input representation as the dominant factor. Under PPCP, our results demonstrate that forgetting is highly route-dependent, establishing acquisition route as a new analytical dimension for forgetting research and multimodal system design.",
+      "authors": [
+        "Yu Liu",
+        "Zhiwei Yang",
+        "Wenxiao Zhang",
+        "Cong Cao",
+        "Fangfang Yuan",
+        "Kun Peng",
+        "Haimei Qin",
+        "Lei Jiang",
+        "Jin B. Hong",
+        "Hao Peng",
+        "Yanbing Liu"
+      ],
+      "primary_category": "cs.SD",
+      "categories": [
+        "cs.SD",
+        "cs.CL",
+        "eess.AS"
+      ],
+      "published": "2026-06-13T03:42:08+00:00",
+      "link": "https://arxiv.org/pdf/2606.15088v2",
+      "tags": [
+        "keyword:multi-modal"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "studies pathway-dependent forgetting in multimodal models",
+      "llm_evidence_cn": "研究多模态模型中的路径依赖遗忘",
+      "llm_evidence": "研究多模态模型中的路径依赖遗忘",
+      "canonical_evidence": "研究多模态模型中的路径依赖遗忘",
+      "llm_tldr_en": "This paper investigates whether the acquisition route (audio vs. text) affects how easily knowledge is forgotten in multimodal models, using music understanding as a testbed.",
+      "llm_tldr_cn": "该论文探究多模态模型中知识获取路径（音频或文本）是否影响遗忘容易度。以音乐理解为测试平台，通过对齐音乐片段与文本描述，检验路径无关假设。实验揭示了遗忘依赖于初始学习模态，对多模态模型的知识维持和迁移有重要意义。",
+      "llm_tldr": "该论文探究多模态模型中知识获取路径（音频或文本）是否影响遗忘容易度。以音乐理解为测试平台，通过对齐音乐片段与文本描述，检验路径无关假设。实验揭示了遗忘依赖于初始学习模态，对多模态模型的知识维持和迁移有重要意义。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "multimodal language model research",
+      "matched_requirement_id": "req-20",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "2606.15287v1",
+      "source": "arxiv",
+      "title": "G2IA: Geometry-Guided Instance-Aware Retrieval and Refinement for Cross-Modal Place Recognition",
+      "abstract": "Cross-modal place recognition (CMPR) enables camera-only robots to localize against pre-built LiDAR maps in autonomous navigation scenarios. This image-to-point-cloud setting is challenged by two coupled ambiguities: the modality gap between perspective RGB appearance and sparse metric geometry, and perceptual aliasing among urban places with similar roads, facades, intersections, and object arrangements. Instead of treating CMPR as a single global descriptor matching problem, we argue that reliable retrieval requires both geometry-aware representation alignment and fine-grained candidate verification. In this paper, we propose G2IA, a geometry-guided instance-aware framework for image-to-point-cloud place recognition. In the retrieval stage, visual geometry priors from VGGT and instance features are integrated to construct place descriptors that are more compatible with LiDAR-derived map representations. In the refinement stage, the retrieved candidates are re-ranked by explicitly verifying whether local instance shapes and their relative spatial layouts are consistent across modalities. Experiments on public benchmarks demonstrate that G2IA consistently improves image-to-point-cloud place recognition under different localization thresholds, and exhibits strong cross-dataset generalization.",
+      "authors": [
+        "Xianyun Jiao",
+        "Jingyi Xu",
+        "Zhongmiao Yan",
+        "Xieyuanli Chen",
+        "Lin Pei"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-06-13T12:53:52+00:00",
+      "link": "https://arxiv.org/pdf/2606.15287v1",
+      "tags": [
+        "keyword:multi-modal",
+        "query:multi-modal"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Cross-modal place recognition with geometry-guided instance-aware retrieval",
+      "llm_evidence_cn": "几何引导的实例感知跨模态地点识别",
+      "llm_evidence": "几何引导的实例感知跨模态地点识别",
+      "canonical_evidence": "几何引导的实例感知跨模态地点识别",
+      "llm_tldr_en": "Proposes G2IA, a geometry-guided instance-aware framework for image-to-point-cloud place recognition, addressing modality gap and perceptual aliasing through geometry-aware representation alignment and fine-grained verification.",
+      "llm_tldr_cn": "针对图像到点云跨模态地点识别中的模态间隙和感知混淆问题，提出了G2IA框架。该方法通过几何感知表示对齐和细粒度候选验证，实现了可靠的跨模态检索。在多个数据集上的实验证明，G2IA显著优于现有方法，为视觉定位提供了有效方案。",
+      "llm_tldr": "针对图像到点云跨模态地点识别中的模态间隙和感知混淆问题，提出了G2IA框架。该方法通过几何感知表示对齐和细粒度候选验证，实现了可靠的跨模态检索。在多个数据集上的实验证明，G2IA显著优于现有方法，为视觉定位提供了有效方案。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "learning cross modal representations",
+      "matched_requirement_id": "req-23",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.15920v1",
+      "source": "arxiv",
+      "title": "OmniOPSD: Rationale-Privileged On-Policy Self-Distillation for Affective Computing",
+      "abstract": "Reinforcement learning for multimodal large language models (MLLMs) is often hindered by severe reward sparsity in complex reasoning tasks. This challenge is particularly pronounced in human-centered scenarios involving states, emotions, intentions, and behaviors, where heterogeneous multimodal signals and subjective human factors make high-quality chain-of-thought (CoT) annotations expensive and difficult to obtain. Although many multimodal datasets provide expert-annotated ground-truth labels, directly using these labels for supervised fine-tuning may encourage shortcut learning in multimodal perception and provides limited transparency for safety-critical human--AI interaction. To address these limitations, we propose OmniOPSD, a Rationale-Privileged On-Policy Self-Distillation framework that uses frontier-generated rationales as teacher-side privileged evidence rather than student imitation targets. OmniOPSD uses frontier-generated evidence-aware rationales only as training-time privileged evidence context for a local teacher. The student samples its own rollout from the original multimodal input, while the rationale-privileged teacher scores the same tokens and provides dense token-level supervision. Thus, the student learns on its own trajectory distribution without directly imitating frontier-model completions, and inference requires no labels, rationales, CoT annotations, or closed-source model access. Experiments on MER-UniBench show that OmniOPSD achieves state-of-the-art performance with an average score of $84.19$, and ablations further support the value of rationale-privileged teacher guidance.",
+      "authors": [
+        "Zebang Cheng",
+        "Shuimu Chen",
+        "Boxue Yang",
+        "Yuanshen Guan",
+        "Jingyi Chen",
+        "Zheng Lian",
+        "Xiaojiang Peng",
+        "Fei Ma",
+        "LaiZhong Cui",
+        "Qi Tian"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-06-14T16:51:22+00:00",
+      "link": "https://arxiv.org/pdf/2606.15920v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "query:multi-modal"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "multimodal affective computing reinforcement learning",
+      "llm_evidence_cn": "多模态情感计算强化学习",
+      "llm_evidence": "多模态情感计算强化学习",
+      "canonical_evidence": "多模态情感计算强化学习",
+      "llm_tldr_en": "Proposes OmniOPSD, a rationale-privileged on-policy self-distillation method for MLLMs in affective computing, addressing reward sparsity.",
+      "llm_tldr_cn": "多模态大语言模型在情感计算等人类中心任务中面临奖励稀疏和标注困难问题。本文提出OmniOPSD，一种基于理由特权的在策略自蒸馏方法，利用专家标注构建推理链，通过强化学习提升模型在多模态情感推理中的表现。在多个情感基准上，该方法提高了模型的可解释性和准确性。",
+      "llm_tldr": "多模态大语言模型在情感计算等人类中心任务中面临奖励稀疏和标注困难问题。本文提出OmniOPSD，一种基于理由特权的在策略自蒸馏方法，利用专家标注构建推理链，通过强化学习提升模型在多模态情感推理中的表现。在多个情感基准上，该方法提高了模型的可解释性和准确性。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "multimodal learning methods",
+      "matched_requirement_id": "req-24",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2606.15152v1",
+      "source": "arxiv",
+      "title": "Can Agents Read the Room? Benchmarking Visual Social Intelligence in Multimodal Simulation",
+      "abstract": "Social interaction depends on both language and visible social signals, such as facial expressions, posture, gaze, and emotional shifts. Yet existing social-agent benchmarks are largely text-based and rarely test whether multimodal agents can use visual cues to guide interaction. We introduce \\textsc{\\benchmarkname{}}, a benchmark evaluating visual social intelligence in multimodal social simulation. It contains 240 scenarios, 585 role instances, and 2,340 role-task instances, combining aligned textual-visual evidence, structured role profiles, and four role-level tasks: expression task, characteristic task, interaction regulation task, and interaction outcome task. Evaluating seven recent MLLMs under verbalized-vision and direct-vision reveals a clear gap between local role enactment and interaction management: role-specific expression and conflict handling are near saturation, whereas interaction regulation and visually grounded outcome achievement remain substantially more difficult. The code is released at https://github.com/JunsWan/AgentViSS, and the dataset is available at https://huggingface.co/datasets/JunsWan/AgentViSS.",
+      "authors": [
+        "Shijun Wan",
+        "Xuehai Wu",
+        "Jiwen Zhang",
+        "Siyuan Wang",
+        "Zhongyu Wei"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL"
+      ],
+      "published": "2026-06-13T06:44:31+00:00",
+      "link": "https://arxiv.org/pdf/2606.15152v1",
+      "tags": [
+        "keyword:multi-modal"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "benchmark for visual social intelligence in multimodal simulation, evaluating MLLMs",
+      "llm_evidence_cn": "多模态模拟中视觉社会智能基准，评估多模态大模型",
+      "llm_evidence": "多模态模拟中视觉社会智能基准，评估多模态大模型",
+      "canonical_evidence": "多模态模拟中视觉社会智能基准，评估多模态大模型",
+      "llm_tldr_en": "Introduces a benchmark for evaluating visual social intelligence in multimodal social simulation, testing MLLMs on four role-level tasks with aligned textual-visual evidence.",
+      "llm_tldr_cn": "现有社交智能基准多基于文本，未检验多模态智能体利用视觉线索的能力。本文提出一个包含240场景、585角色实例的多模态社会模拟基准，涉及表情、特征、交互调节与结果预测四个任务。评估了七种主流多模态大模型在语言化视觉与直接视觉条件下的表现，揭示了当前MLLMs在视觉社会智能上的不足。",
+      "llm_tldr": "现有社交智能基准多基于文本，未检验多模态智能体利用视觉线索的能力。本文提出一个包含240场景、585角色实例的多模态社会模拟基准，涉及表情、特征、交互调节与结果预测四个任务。评估了七种主流多模态大模型在语言化视觉与直接视觉条件下的表现，揭示了当前MLLMs在视觉社会智能上的不足。",
+      "llm_tags": [
+        "query:multi-modal:composite"
+      ],
+      "matched_query_tag": "query:multi-modal:composite",
+      "matched_query_text": "Papers central to 帮我找一些关于多模态语言模型或多模态融合的研究文章, especially work that connects or combines: multimodal language model research; techniques for multimodal fusion; vision language model architectures; learning cross modal representations; multimodal learning methods; multimodal alignment approaches; What are the latest advances in multimodal language models?; How is multimodal fusion achieved in deep learning?; Compare different architectures for vision language models.; Find papers on cross modal representation learning..",
+      "matched_requirement_id": "req-composite-multi-modal",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "2606.15320v1",
+      "source": "arxiv",
+      "title": "Conditional Multi-Event Temporal Grounding in Long-Form Video",
+      "abstract": "Multimodal large language models have made rapid progress in video temporal grounding, yet real-world applications routinely require localizing every event that satisfies compositional temporal and spatial conditions. Existing benchmarks fall short: they localize only a single moment per query, count without temporal conditions, or treat grounding and counting as disjoint tasks. We introduce CoMET-Bench for Conditional Multi-Event Temporal Grounding in long-form video, comprising 2789 queries over 600 videos averaging 33.8 minutes across five real-world domains, with each query composed from 4 temporal conditions, 3 spatial conditions, and a dedicated negative-query subset. We further propose a unified evaluation protocol jointly measuring counting, grounding, and negative-query recognition, including a new Rejection-F1 metric that prevents trivial gaming by lazy \"always-empty\" models. Benchmarking a broad suite of MLLMs, agent-based, and grounding-specialized methods reveals that existing approaches remain far from solving this task. Building on these findings, we propose CoMET-Agent, a training-free agentic framework that reformulates the task as structured search-and-aggregate, improving F1@0.5 by 6.1% over GPT-5 purely through structural reasoning. Failure analysis further surfaces three open directions: fine-grained entity tracking, position-uniform retrieval, and causal event pairing.",
+      "authors": [
+        "Yuanhao Zou",
+        "Arthad Kulkarni",
+        "Lucas Tonanez",
+        "Lincoln Spencer",
+        "Guangyu Sun",
+        "Tianxingjian Ding",
+        "Andong Deng",
+        "Yi Li",
+        "Shuangjun Liu",
+        "Yuan Li",
+        "Dashan Gao",
+        "Ning Bi",
+        "Taotao Jing",
+        "Shuai Zhang",
+        "Chen Chen"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-06-13T14:27:58+00:00",
+      "link": "https://arxiv.org/pdf/2606.15320v1",
+      "tags": [
+        "keyword:multi-modal",
+        "query:multi-modal"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Multi-event temporal grounding in long-form video with MLLMs",
+      "llm_evidence_cn": "使用多模态大模型对长视频进行多事件时序定位",
+      "llm_evidence": "使用多模态大模型对长视频进行多事件时序定位",
+      "canonical_evidence": "使用多模态大模型对长视频进行多事件时序定位",
+      "llm_tldr_en": "Introduces CoMET-Bench for conditional multi-event temporal grounding in long-form video, with a unified evaluation protocol for counting, grounding, and compositional conditions.",
+      "llm_tldr_cn": "针对现有视频时序定位基准只能定位单事件的问题，提出了CoMET-Bench。该基准包含2789个查询，涵盖600个长视频（平均33.8分钟），每个查询包含多个时空条件。同时提出了统一的评估协议，联合衡量计数、定位和条件满足程度，推动了视频理解领域的发展。",
+      "llm_tldr": "针对现有视频时序定位基准只能定位单事件的问题，提出了CoMET-Bench。该基准包含2789个查询，涵盖600个长视频（平均33.8分钟），每个查询包含多个时空条件。同时提出了统一的评估协议，联合衡量计数、定位和条件满足程度，推动了视频理解领域的发展。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "multimodal language model research",
+      "matched_requirement_id": "req-20",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.17188v2",
+      "source": "arxiv",
+      "title": "Not Truly Multilingual: Script Consistency as a Missing Dimension in VLM Evaluation",
+      "abstract": "Current multilingual evaluations for Vision-Language Models (VLMs) assume a one-to-one mapping between language and orthography, overlooking billions of users of multi-script languages. We introduce PuMVR (Punjabi Multimodal Visual Reasoning), a benchmark of 1,000 strictly parallel image-text instances across Punjabi's three active scripts: Gurmukhi, Shahmukhi, and Roman. Evaluating 10 state-of-the-art VLMs, we expose a substantial and systematic Script Gap. Models frequently solve visual tasks in one script while failing identical tasks in another, with accuracy deltas reaching 16%. Crucially, visual input boosts absolute performance uniformly yet does not close the orthographic gap. Furthermore, cross-script in-context transfer is highly brittle, exposing script-locked knowledge representation. Supported by McNemar tests across all script pairs, our findings demonstrate that current \"multilingual\" VLMs are not truly multi-script. We propose the Script Consistency Rate (SCR), which falls as low as 24.8% on our benchmark, as a mandatory metric for script-agnostic evaluation to ensure equitable AI access. Data and code are available at: https://github.com/prabhjotschugh/Not-Truly-Multilingual-PuMVR.",
+      "authors": [
+        "Prabhjot Singh",
+        "Bhushan Pawar",
+        "Madhu Reddiboina",
+        "Rajvee Sheth"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.CL"
+      ],
+      "published": "2026-06-15T18:25:23+00:00",
+      "link": "https://arxiv.org/pdf/2606.17188v2",
+      "tags": [
+        "query:multi-modal"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "multimodal VLM evaluation script gap",
+      "llm_evidence_cn": "多模态视觉语言模型评估中的脚本差异",
+      "llm_evidence": "多模态视觉语言模型评估中的脚本差异",
+      "canonical_evidence": "多模态视觉语言模型评估中的脚本差异",
+      "llm_tldr_en": "Reveals a systematic Script Gap in VLMs via a Punjabi benchmark, showing accuracy drops of 16% across scripts despite visual input.",
+      "llm_tldr_cn": "现有视觉语言模型的多语言评估忽略了多脚本语言问题。本文构建了旁遮普语多模态视觉推理基准(PuMVR)，包含三种脚本的1000个图文实例。评估10个SOTA VLM发现显著的脚本差距，相同视觉任务在不同脚本上准确率差异高达16%。视觉输入虽提升绝对性能但无法消除正交差异。",
+      "llm_tldr": "现有视觉语言模型的多语言评估忽略了多脚本语言问题。本文构建了旁遮普语多模态视觉推理基准(PuMVR)，包含三种脚本的1000个图文实例。评估10个SOTA VLM发现显著的脚本差距，相同视觉任务在不同脚本上准确率差异高达16%。视觉输入虽提升绝对性能但无法消除正交差异。",
+      "llm_tags": [
+        "query:multi-modal:composite"
+      ],
+      "matched_query_tag": "query:multi-modal:composite",
+      "matched_query_text": "Papers central to 帮我找一些关于多模态语言模型或多模态融合的研究文章, especially work that connects or combines: multimodal language model research; techniques for multimodal fusion; vision language model architectures; learning cross modal representations; multimodal learning methods; multimodal alignment approaches; What are the latest advances in multimodal language models?; How is multimodal fusion achieved in deep learning?; Compare different architectures for vision language models.; Find papers on cross modal representation learning..",
+      "matched_requirement_id": "req-composite-multi-modal",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2606.15160v1",
+      "source": "arxiv",
+      "title": "DLWM: Diverse Latent World Models for Efficient Multimodal Reasoning",
+      "abstract": "Reasoning capabilities of multimodal large language models (MLLMs) have improved considerably in recent years. Existing approaches typically rely on explicit chain-of-thought or continuous latent-space trajectories to enhance multi-step reasoning. However, these methods generally assume that an input admits a single latent interpretation and unfold reasoning along a fixed path or under a uniform computation budget. In real-world multimodal settings, visual observations are often subject to occlusion, blur, viewpoint variation, or semantic ambiguity, giving rise to multiple plausible interpretations. A uniform reasoning strategy not only limits the model's ability to explore multiple hypotheses but also incurs high memory usage and rollout cost. We present DLWM (Diverse Latent World Models), a multimodal reasoning framework that combines latent-space reasoning with reinforcement learning. First, we construct a set of diverse latent world hypotheses in continuous latent space, each capturing a different plausible interpretation of the visual input, and unfold latent reasoning independently on each hypothesis. An orthogonality-based diversity regularizer explicitly prevents hypothesis collapse. Second, we formulate the latent reasoning process as a resource-constrained sequential decision problem and introduce a resource-aware reinforcement learning policy that adaptively allocates computation across hypotheses, dynamically deciding whether to expand, terminate, or merge reasoning paths, thereby substantially reducing memory footprint and improving rollout efficiency. Experiments on multiple multimodal reasoning benchmarks demonstrate that DLWM outperforms existing methods by 2-5 points in accuracy while reducing memory usage by 24%.",
+      "authors": [
+        "David Huang",
+        "Lianlei Shan"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.LG"
+      ],
+      "published": "2026-06-13T07:12:46+00:00",
+      "link": "https://arxiv.org/pdf/2606.15160v1",
+      "tags": [
+        "keyword:multi-modal",
+        "query:multi-modal"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "diverse latent world models for efficient multimodal reasoning",
+      "llm_evidence_cn": "多样潜在世界模型用于高效多模态推理",
+      "llm_evidence": "多样潜在世界模型用于高效多模态推理",
+      "canonical_evidence": "多样潜在世界模型用于高效多模态推理",
+      "llm_tldr_en": "DLWM proposes diverse latent world models that explore multiple hypotheses in multimodal reasoning, reducing memory and rollout costs compared to single-path methods.",
+      "llm_tldr_cn": "DLWM提出了多样潜在世界模型，在多模态推理中同时探索多个假说路径，避免单一固定路径的局限。通过动态分配计算预算，在保持推理质量的同时显著降低了内存和展开成本，适用于视觉观察存在歧义的真实场景。",
+      "llm_tldr": "DLWM提出了多样潜在世界模型，在多模态推理中同时探索多个假说路径，避免单一固定路径的局限。通过动态分配计算预算，在保持推理质量的同时显著降低了内存和展开成本，适用于视觉观察存在歧义的真实场景。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "multimodal language model research",
+      "matched_requirement_id": "req-20",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "2606.15417v1",
+      "source": "arxiv",
+      "title": "From Frames to Temporal Graphs: In-Context Egocentric Action Recognition with Vision-Language Models",
+      "abstract": "Action reasoning in egocentric video requires capturing fine-grained transitions of hand-object interactions, a task where general-purpose Vision-Language Models (VLMs) often struggle when operating directly on raw pixels. We propose to decouple visual perception from symbolic reasoning by converting videos into Temporal Action Graphs. In a multi-stage prompting pipeline, we first generate dense natural language narratives over short temporal windows as a semantic bottleneck, then formalize them into structured, open-vocabulary graph representations. On the EGTEA and Epic-Kitchens-100 datasets, the symbolic representation unlocks efficient in-context learning: few-shot graph demonstrations yield substantial accuracy gains over zero-shot frame and graph-based inference alike. Even in the zero-shot setting, graph-based reasoning remains competitive with pixel-based inference despite potential pretraining contamination favoring the latter. Across 11 open-weight VLMs from 6 model families ranging from 2B to 235B parameters, our findings indicate that current VLMs are more effective as symbolic reasoners than as direct visual observers. By projecting video into the language domain, we provide a scalable, fine-tuning-free alternative to end-to-end approaches that better leverages these models' latent reasoning strengths. The code will be made public.",
+      "authors": [
+        "Bessie Dominguez-Dager",
+        "Francisco Gomez-Donoso",
+        "Miguel Cazorla",
+        "Marc Pollefeys",
+        "Daniel Barath",
+        "Zuria Bauer"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-06-13T18:00:42+00:00",
+      "link": "https://arxiv.org/pdf/2606.15417v1",
+      "tags": [
+        "keyword:multi-modal",
+        "query:multi-modal"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "vision-language model egocentric action recognition",
+      "llm_evidence_cn": "视觉语言模型用于第一人称动作识别",
+      "llm_evidence": "视觉语言模型用于第一人称动作识别",
+      "canonical_evidence": "视觉语言模型用于第一人称动作识别",
+      "llm_tldr_en": "Converts egocentric videos into Temporal Action Graphs for VLM few-shot action recognition, achieving gains on EGTEA and Epic-Kitchens.",
+      "llm_tldr_cn": "通用VLM直接处理原始像素难以捕捉手-物交互的精细时序变化。本文提出将视频转换为时序动作图，通过多阶段提示生成密集叙述并结构化。在EGTEA和Epic-Kitchens数据集上，少样本图演示带来了显著的准确率提升，证明了符号化表征在VLM动作推理中的有效性。",
+      "llm_tldr": "通用VLM直接处理原始像素难以捕捉手-物交互的精细时序变化。本文提出将视频转换为时序动作图，通过多阶段提示生成密集叙述并结构化。在EGTEA和Epic-Kitchens数据集上，少样本图演示带来了显著的准确率提升，证明了符号化表征在VLM动作推理中的有效性。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "vision language model architectures",
+      "matched_requirement_id": "req-22",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.19088v1",
+      "source": "arxiv",
+      "title": "ReSiReg: Towards Spatially Consistent Semantics in Language-Conditioned Robotic Tasks",
+      "abstract": "Vision-Language Models (VLMs) enable robots to follow open-language instructions. However, dense VLM embeddings have shown to be noisy and lack spatial consistency. This is problematic for robotic applications, which require simultaneous reasoning over semantics and 3D space. We examine spatial structure across recent VLMs and propose ReSiReg, a feature reconstruction method that uses spatially consistent VLM intermediates to improve dense language-grounded retrieval. ReSiReg clusters intermediates into visual prototypes, derives their language descriptors, and reconstructs each patch as a soft mixture of prototype-level language embeddings. We evaluate quantitatively on OVSS and 3D mapping across backbones, and qualitatively in real-world manipulation scenes. Quantitative results show improved dense retrieval; manipulation scenes show more spatially consistent target activations. We further provide a compact 25M dense VLM for robotic applications, substantially smaller than and competitive with ViT-B baselines. Available at https://resireg.github.io",
+      "authors": [
+        "Simon Schwaiger",
+        "David Seyser",
+        "Alessandro Scherl",
+        "Wilfried Wöber",
+        "Gerald Steinbauer-Wagner"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO"
+      ],
+      "published": "2026-06-17T13:58:06+00:00",
+      "link": "https://arxiv.org/pdf/2606.19088v1",
+      "tags": [
+        "query:multi-modal"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "spatially consistent VLM embeddings for language-conditioned robotic tasks",
+      "llm_evidence_cn": "面向语言条件机器人任务的空间一致VLM嵌入",
+      "llm_evidence": "面向语言条件机器人任务的空间一致VLM嵌入",
+      "canonical_evidence": "面向语言条件机器人任务的空间一致VLM嵌入",
+      "llm_tldr_en": "Proposes ReSiReg, a feature reconstruction method that uses spatially consistent VLM intermediates to improve dense language-grounded retrieval for robotics.",
+      "llm_tldr_cn": "视觉语言模型嵌入缺乏空间一致性，不利于机器人语义与3D空间推理。本文提出ReSiReg，通过聚类视觉原型并重构为原型级语言嵌入，提升密集语言定位检索的空间一致性。在开放词汇语义分割和3D映射上验证了有效性。",
+      "llm_tldr": "视觉语言模型嵌入缺乏空间一致性，不利于机器人语义与3D空间推理。本文提出ReSiReg，通过聚类视觉原型并重构为原型级语言嵌入，提升密集语言定位检索的空间一致性。在开放词汇语义分割和3D映射上验证了有效性。",
+      "llm_tags": [
+        "query:multi-modal:composite"
+      ],
+      "matched_query_tag": "query:multi-modal:composite",
+      "matched_query_text": "Papers central to 帮我找一些关于多模态语言模型或多模态融合的研究文章, especially work that connects or combines: multimodal language model research; techniques for multimodal fusion; vision language model architectures; learning cross modal representations; multimodal learning methods; multimodal alignment approaches; What are the latest advances in multimodal language models?; How is multimodal fusion achieved in deep learning?; Compare different architectures for vision language models.; Find papers on cross modal representation learning..",
+      "matched_requirement_id": "req-composite-multi-modal",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2606.15307v1",
+      "source": "arxiv",
+      "title": "Adapting Reinforcement Learning with Chain-of-Thought Supervision for Explainable Detection of Hateful and Propagandistic Memes",
+      "abstract": "Hateful and propagandistic memes exploit the interplay between images and text to convey harmful intent that neither modality reveals alone. Although thinking-based multimodal large language models (MLLMs) have advanced vision-language understanding, their application to meme content moderation remains underexplored. We propose a reinforcement learning-based post-training method that improves classification performance and reference-based explanation quality in thinking-based MLLMs via task-specific rewards and Group Relative Policy Optimization (GRPO). Concretely, we (i) conduct a systematic empirical study of off-the-shelf MLLMs for hateful and propagandistic meme understanding across English and Arabic benchmarks, (ii) extend existing meme datasets with weakly supervised chain-of-thought (CoT) rationales via distillation and multi-LLM fine-grained propaganda annotations, (iii) introduce a GRPO-based objective with thinking-length regularization that jointly optimizes classification accuracy and explanation quality, and (iv) investigate self-supervised GRPO on unlabeled memes using consensus-based pseudo-labels. Experiments on the Hateful Memes and ArMeme benchmarks show that our approach improves over previously reported results on FHM accuracy (up to +2.1%, from 79.9% to 82.0%) and on ArMeme macro-F1 (up to +7.6 points, from 0.536 to 0.612 with explanations; +6.1 compared to the original ArMeme benchmark), while also generating natural-language explanations. On ArMeme, sequence-classification baselines remain stronger in terms of raw accuracy, whereas our approach provides more balanced per-class performance along with explanations. We publicly release our code, data extensions, and evaluation resources.",
+      "authors": [
+        "Mohamed Bayan Kmainasi",
+        "Mucahid Kutlu",
+        "Ali Ezzat Shahroor",
+        "Abul Hasnat",
+        "Firoj Alam"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL",
+        "cs.AI"
+      ],
+      "published": "2026-06-13T13:51:54+00:00",
+      "link": "https://arxiv.org/pdf/2606.15307v1",
+      "tags": [
+        "keyword:multi-modal"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "reinforcement learning post-training for multimodal hateful meme detection",
+      "llm_evidence_cn": "基于强化学习的多模态仇恨梗检测后训练方法",
+      "llm_evidence": "基于强化学习的多模态仇恨梗检测后训练方法",
+      "canonical_evidence": "基于强化学习的多模态仇恨梗检测后训练方法",
+      "llm_tldr_en": "Proposes a RL-based post-training method to improve classification and explanation quality in thinking-based MLLMs for hateful and propagandistic meme detection.",
+      "llm_tldr_cn": "仇恨与宣传梗利用图像与文本的交互表达恶意意图。现有MLLMs在该应用上探索不足。本文提出基于强化学习的后训练方法，通过任务特定奖励和组相对策略优化（GRPO）提升分类与解释质量。实验表明该方法有效增强了MLLMs的记忆理解能力，在多语言梗图检测中取得显著提升。",
+      "llm_tldr": "仇恨与宣传梗利用图像与文本的交互表达恶意意图。现有MLLMs在该应用上探索不足。本文提出基于强化学习的后训练方法，通过任务特定奖励和组相对策略优化（GRPO）提升分类与解释质量。实验表明该方法有效增强了MLLMs的记忆理解能力，在多语言梗图检测中取得显著提升。",
+      "llm_tags": [
+        "query:multi-modal:composite"
+      ],
+      "matched_query_tag": "query:multi-modal:composite",
+      "matched_query_text": "Papers central to 帮我找一些关于多模态语言模型或多模态融合的研究文章, especially work that connects or combines: multimodal language model research; techniques for multimodal fusion; vision language model architectures; learning cross modal representations; multimodal learning methods; multimodal alignment approaches; What are the latest advances in multimodal language models?; How is multimodal fusion achieved in deep learning?; Compare different architectures for vision language models.; Find papers on cross modal representation learning..",
+      "matched_requirement_id": "req-composite-multi-modal",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "8plus"
+    }
+  ]
+}

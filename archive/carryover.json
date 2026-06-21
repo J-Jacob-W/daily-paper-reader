@@ -1,70 +1,22 @@
 {
-  "generated_at": "2026-06-20T21:38:49.739249+00:00",
-  "updated_date": "20260620",
+  "generated_at": "2026-06-21T20:56:49.183901+00:00",
+  "updated_date": "20260621",
   "carryover_days": 9,
   "tag_states": {
     "EEG-ODE-LN": {
-      "updated_date": "20260620",
+      "updated_date": "20260621",
       "carryover_days": 9,
       "items": []
     },
     "neural-ode": {
-      "updated_date": "20260620",
+      "updated_date": "20260621",
       "carryover_days": 9,
       "items": []
     },
     "multi-modal": {
-      "updated_date": "20260620",
+      "updated_date": "20260621",
       "carryover_days": 9,
       "items": [
-        {
-          "id": "2606.20477v1",
-          "source": "arxiv",
-          "title": "Scalable Training of Spatially Grounded 2D Vision-Language Models for Radiology",
-          "abstract": "We study how to train visually grounded vision-language models (VLMs) for radiology without manual spatial annotations. We introduce RefRad2D, a large-scale bilingual (German/English) dataset of 1.2M CT and MR image-text pairs derived from clinical practice, with task-specific VQA and spatial grounding subsets generated automatically via LLM-based curation and automated segmentation. Trained on this data, our model RadGrounder jointly performs report generation, visual question answering, and spatial grounding via bounding-box detection or segmentation. On external VQA benchmarks (Slake, VQA-RAD), RadGrounder achieves competitive results with specialized medical VLMs. Adding our clinical data to the training mixture improves open-ended VQA over fine-tuning on the downstream datasets alone, showing the transferability of our dataset. Crucially, adding grounding supervision does not degrade language quality, enabling spatially verifiable outputs at no cost to VQA performance.",
-          "authors": [
-            "Yusuf Salcan",
-            "Simon Ging",
-            "Robin Schirrmeister",
-            "Philipp Arnold",
-            "Elmar Kotter",
-            "Behzad Bozorgtabar",
-            "Thomas Brox"
-          ],
-          "primary_category": "cs.CV",
-          "categories": [
-            "cs.CV",
-            "cs.CL",
-            "cs.LG"
-          ],
-          "published": "2026-06-18T16:55:26+00:00",
-          "link": "https://arxiv.org/pdf/2606.20477v1",
-          "tags": [
-            "keyword:EEG-ODE-LN",
-            "keyword:multi-modal",
-            "keyword:neural-ode",
-            "query:EEG-ODE-LN",
-            "query:multi-modal",
-            "query:neural-ode"
-          ],
-          "llm_score": 8.0,
-          "llm_evidence_en": "Vision-language model for radiology with spatial grounding",
-          "llm_evidence_cn": "放射学视觉语言模型与空间接地",
-          "llm_evidence": "放射学视觉语言模型与空间接地",
-          "canonical_evidence": "放射学视觉语言模型与空间接地",
-          "llm_tldr_en": "Presents RadGrounder, a VLM trained on large-scale bilingual radiology data that jointly performs report generation, VQA, and spatial grounding without manual annotations.",
-          "llm_tldr_cn": "针对放射学中缺乏空间标注的视觉语言模型训练问题，提出基于大规模双语临床图像-文本对的训练方法。构建了包含120万CT/MR图像-文本对的RefRad2D数据集，并自动生成空间接地子集。训练的RadGrounder模型同时支持报告生成、视觉问答和空间定位，在外部基准上取得有竞争力的结果。",
-          "llm_tldr": "针对放射学中缺乏空间标注的视觉语言模型训练问题，提出基于大规模双语临床图像-文本对的训练方法。构建了包含120万CT/MR图像-文本对的RefRad2D数据集，并自动生成空间接地子集。训练的RadGrounder模型同时支持报告生成、视觉问答和空间定位，在外部基准上取得有竞争力的结果。",
-          "llm_tags": [
-            "query:multi-modal"
-          ],
-          "matched_query_tag": "query:multi-modal",
-          "matched_query_text": "vision language model architectures",
-          "matched_requirement_id": "req-22",
-          "selection_source": "carryover_cache",
-          "paper_id": "2606.20477v1",
-          "carry_days": 1
-        },
         {
           "id": "biorxiv-10-64898-2026-06-10-731476-v1",
           "source": "biorxiv",
@@ -111,6 +63,608 @@
           "matched_requirement_id": "req-21",
           "selection_source": "carryover_cache",
           "paper_id": "biorxiv-10-64898-2026-06-10-731476-v1",
+          "carry_days": 2
+        },
+        {
+          "id": "2606.15631v1",
+          "source": "arxiv",
+          "title": "Retrieve, Don't Retrain: Extending Vision Language Action Models to New Tasks at Test Time",
+          "abstract": "Extending a vision-language-action (VLA) policy to a new task typically requires task-specific teleoperated demonstrations and per-task fine-tuning, making adaptation costly in both data collection and compute. In this paper, we show that this target-side per-task adaptation cost can be replaced by retrieval. Our retrieval-augmented policy is trained once on paired demonstrations from the target embodiment (query) and a cheaper embodiment (pool, e.g., human-hand video), then frozen. New tasks are added at deployment by appending pool-side demonstrations to a retrieval pool. The frozen policy conditions on retrieved trajectories at every control step, so new tasks are absorbed by indexing data rather than updating parameters. Fine-tuning is needed only to take on a new, unseen embodiment, not for each new task. We show that retrieval improves policies beyond a specific backbone, including standard VLA policies, but its effect is especially pronounced in Cosmos Policy, a video-generation-based world-action model (WAM). In this setting, retrieval supplies coarse task progression, while the WAM's future-image objective provides an additional visual consistency signal that strengthens the retrieval-conditioned actions. On PushT, we study how retrieval provides a reusable high-level motion prior for cross-embodiment generalization to unseen goal angles, while on RoboTwin 2.0 our method outperforms cross-embodiment baselines on unseen tasks, and we additionally demonstrate the method on a real robot.",
+          "authors": [
+            "Jeongeun Park",
+            "Juhan Park",
+            "Taekyung Kim",
+            "Sungjoon Choi",
+            "Dongyoon Han",
+            "Sangdoo Yun"
+          ],
+          "primary_category": "cs.RO",
+          "categories": [
+            "cs.RO",
+            "cs.AI"
+          ],
+          "published": "2026-06-14T06:48:01+00:00",
+          "link": "https://arxiv.org/pdf/2606.15631v1",
+          "tags": [
+            "keyword:multi-modal",
+            "query:multi-modal"
+          ],
+          "llm_score": 8.0,
+          "llm_evidence_en": "retrieval-augmented VLA policy for task adaptation",
+          "llm_evidence_cn": "检索增强的视觉语言动作策略用于任务适配",
+          "llm_evidence": "检索增强的视觉语言动作策略用于任务适配",
+          "canonical_evidence": "检索增强的视觉语言动作策略用于任务适配",
+          "llm_tldr_en": "Proposes a retrieval-augmented vision-language-action policy that absorbs new tasks by indexing demonstrations at test time, avoiding per-task fine-tuning.",
+          "llm_tldr_cn": "针对扩展VLA策略到新任务需要大量演示和微调的问题，本文提出检索增强策略。该策略在训练时学习跨任务知识，测试时通过索引新任务的演示来适应，无需更新参数。实验表明该方法在多个机器人操作任务上有效降低了数据需求。",
+          "llm_tldr": "针对扩展VLA策略到新任务需要大量演示和微调的问题，本文提出检索增强策略。该策略在训练时学习跨任务知识，测试时通过索引新任务的演示来适应，无需更新参数。实验表明该方法在多个机器人操作任务上有效降低了数据需求。",
+          "llm_tags": [
+            "query:multi-modal"
+          ],
+          "matched_query_tag": "query:multi-modal",
+          "matched_query_text": "vision language model architectures",
+          "matched_requirement_id": "req-22",
+          "selection_source": "carryover_cache",
+          "paper_id": "2606.15631v1",
+          "carry_days": 1
+        },
+        {
+          "id": "2606.19950v1",
+          "source": "arxiv",
+          "title": "Confidence Calibration for Multimodal LLMs: An Empirical Study through Medical VQA",
+          "abstract": "Multimodal Large Language Models (MLLMs) show great potential in medical tasks, but their elicited confidence often misaligns with actual accuracy, potentially leading to misdiagnosis or overlooking correct advice. This study presents the first comprehensive analysis of the relationship between accuracy and confidence in medical MLLMs. It proposes a novel method that combines Multi-Strategy Fusion-Based Interrogation (MS-FBI) with auxiliary expert LLM assessment, aiming to improve confidence calibration in Medical Visual Question Answering (VQA). Experiments demonstrate that our method reduces the Expected Calibration Error (ECE) by an average of 40\\% across three Medical VQA datasets, significantly enhancing MLLMs' reliability. The findings highlight the importance of domain-specific calibration for MLLMs in healthcare, offering a more trustworthy solution for AI-assisted diagnosis.",
+          "authors": [
+            "Yuetian Du",
+            "Yucheng Wang",
+            "Ming Kong",
+            "Tian Liang",
+            "Qiang Long",
+            "Bingdi Chen",
+            "Qiang Zhu"
+          ],
+          "primary_category": "cs.CV",
+          "categories": [
+            "cs.CV",
+            "cs.AI"
+          ],
+          "published": "2026-06-18T08:49:11+00:00",
+          "link": "https://arxiv.org/pdf/2606.19950v1",
+          "tags": [
+            "keyword:EEG-ODE-LN",
+            "keyword:multi-modal",
+            "query:multi-modal"
+          ],
+          "llm_score": 8.0,
+          "llm_evidence_en": "confidence calibration for MLLMs using multi-strategy fusion",
+          "llm_evidence_cn": "使用多策略融合的MLLM置信度校准",
+          "llm_evidence": "使用多策略融合的MLLM置信度校准",
+          "canonical_evidence": "使用多策略融合的MLLM置信度校准",
+          "llm_tldr_en": "First comprehensive analysis of accuracy-confidence misalignment in medical MLLMs, proposing a multi-strategy fusion-based interrogation method with expert LLM assessment to improve calibration.",
+          "llm_tldr_cn": "本文首次全面分析医学MLLM中置信度与准确率不匹配的问题，提出多策略融合询问结合专家LLM评估的方法来改进校准。在三个医学VQA数据集上，期望校准误差平均降低40%，显著提升了模型可靠性。",
+          "llm_tldr": "本文首次全面分析医学MLLM中置信度与准确率不匹配的问题，提出多策略融合询问结合专家LLM评估的方法来改进校准。在三个医学VQA数据集上，期望校准误差平均降低40%，显著提升了模型可靠性。",
+          "llm_tags": [
+            "query:multi-modal"
+          ],
+          "matched_query_tag": "query:multi-modal",
+          "matched_query_text": "How is multimodal fusion achieved in deep learning?",
+          "matched_requirement_id": "req-27",
+          "selection_source": "carryover_cache",
+          "paper_id": "2606.19950v1",
+          "carry_days": 1
+        },
+        {
+          "id": "2606.17924v1",
+          "source": "arxiv",
+          "title": "PearlVLA: Progressive Embodied Action-Plan Refinement in Latent Space",
+          "abstract": "Current Vision-Language-Action (VLA) models face a trade-off between efficient action generation and explicit deliberation. Directly decoding actions from vision-language backbone representations enables low-latency control, whereas explicit reasoning through textual chains, pixel-level subgoals, or action search can improve planning but incurs substantial latency and computational cost. We propose PearlVLA, a VLA framework that moves deliberation into the latent space of a vision-language model (VLM). PearlVLA separates VLM meta-query representations into a fixed visual grounding branch and an iterative latent plan branch. At each refinement round, a plan-conditioned world query probes a lightweight frozen latent world model for an action-free future observation latent, which is fed back to guide plan refinement. A future-guided RefineNet then applies scheduled residual updates to progressively refine a coarse semantic draft into a fine-grained latent action plan. The refined plan after K rounds is then decoded in parallel into an action chunk for low-latency execution. We further introduce Causal Refinement-Grouped Process-Reward RL to optimize the latent refinement process with rewards from longer-horizon imagined futures induced by latent plan edits. Empirical evaluations on the LIBERO benchmark demonstrate that PearlVLA achieves state-of-the-art performance among existing methods.",
+          "authors": [
+            "Bochen Yang",
+            "Lianlei Shan"
+          ],
+          "primary_category": "cs.RO",
+          "categories": [
+            "cs.RO",
+            "cs.AI"
+          ],
+          "published": "2026-06-16T13:38:03+00:00",
+          "link": "https://arxiv.org/pdf/2606.17924v1",
+          "tags": [
+            "query:multi-modal"
+          ],
+          "llm_score": 8.0,
+          "llm_evidence_en": "Vision-Language-Action model with latent space deliberation",
+          "llm_evidence_cn": "视觉语言动作模型的潜在空间推理",
+          "llm_evidence": "视觉语言动作模型的潜在空间推理",
+          "canonical_evidence": "视觉语言动作模型的潜在空间推理",
+          "llm_tldr_en": "Proposes PearlVLA, a VLA framework that performs action-plan refinement in the latent space of a VLM, separating visual grounding from iterative latent planning to balance efficiency and deliberation.",
+          "llm_tldr_cn": "针对视觉语言动作模型中高效动作生成与显式推理之间的权衡，提出了PearlVLA框架。该方法将推理过程迁移到视觉语言模型的潜在空间，通过分离视觉定位和迭代潜在规划分支，在保持低延迟的同时提升了规划质量。实验证明该方法在机器人任务上实现了更优的性能。",
+          "llm_tldr": "针对视觉语言动作模型中高效动作生成与显式推理之间的权衡，提出了PearlVLA框架。该方法将推理过程迁移到视觉语言模型的潜在空间，通过分离视觉定位和迭代潜在规划分支，在保持低延迟的同时提升了规划质量。实验证明该方法在机器人任务上实现了更优的性能。",
+          "llm_tags": [
+            "query:multi-modal"
+          ],
+          "matched_query_tag": "query:multi-modal",
+          "matched_query_text": "vision language model architectures",
+          "matched_requirement_id": "req-22",
+          "selection_source": "carryover_cache",
+          "paper_id": "2606.17924v1",
+          "carry_days": 1
+        },
+        {
+          "id": "2606.15694v1",
+          "source": "arxiv",
+          "title": "MAF: Multimodal Adaptive Few-shot Prompting for Sentiment Analysis with MLLMs",
+          "abstract": "Multimodal large language models (MLLMs) have demonstrated remarkable capabilities in understanding complex multimodal content. However, their performance in sentiment analysis exhibits acute sensitivity to prompt design, rendering static, uniformly applied prompts inherently suboptimal for capturing the nuanced multimodal cues that vary across inputs. To address this limitation, we propose a Multimodal Adaptive Few-Shot Prompting (MAF) framework, which dynamically retrieves and integrates query-relevant demonstrations to elicit the sentiment reasoning capabilities of MLLMs in a context-sensitive manner. MAF constructs a demonstration retrieval module that holistically encodes facial expressions, scene context, and textual semantics, with a lip movement amplitude detection mechanism introduced for accurate speaker identification in multi-person scenarios. Departing from conventional fixed-weight fusion, a lightweight coefficient generation network is trained to output query-conditioned fusion weights in real time, enabling weighted aggregation of multimodal similarity scores to retrieve the top-K most informative demonstrations. Prediction stability is further enhanced through majority voting over multiple candidate outputs generated by the MLLM. Extensive experiments on public benchmark datasets demonstrate that MAF achieves substantial and consistent performance improvements over the corresponding backbone variants and remains competitive with strong multimodal sentiment-analysis baselines.",
+          "authors": [
+            "Hangling Xie"
+          ],
+          "primary_category": "cs.MM",
+          "categories": [
+            "cs.MM",
+            "cs.AI",
+            "cs.CV",
+            "cs.LG"
+          ],
+          "published": "2026-06-14T09:16:36+00:00",
+          "link": "https://arxiv.org/pdf/2606.15694v1",
+          "tags": [
+            "keyword:EEG-ODE-LN",
+            "keyword:multi-modal",
+            "query:multi-modal"
+          ],
+          "llm_score": 8.0,
+          "llm_evidence_en": "Multimodal adaptive few-shot prompting for sentiment analysis",
+          "llm_evidence_cn": "多模态自适应少样本提示用于情感分析",
+          "llm_evidence": "多模态自适应少样本提示用于情感分析",
+          "canonical_evidence": "多模态自适应少样本提示用于情感分析",
+          "llm_tldr_en": "Proposes MAF, a multimodal adaptive few-shot prompting framework that dynamically retrieves query-relevant demonstrations to improve MLLM sentiment analysis performance.",
+          "llm_tldr_cn": "针对多模态大语言模型在情感分析中对提示设计敏感的问题，提出了MAF框架。该方法动态检索与查询相关的示范样本，以上下文敏感的方式激发模型的推理能力。MAF综合编码面部表情、场景语境和文本语义，在多个情感分析基准上显著超过静态提示方法。",
+          "llm_tldr": "针对多模态大语言模型在情感分析中对提示设计敏感的问题，提出了MAF框架。该方法动态检索与查询相关的示范样本，以上下文敏感的方式激发模型的推理能力。MAF综合编码面部表情、场景语境和文本语义，在多个情感分析基准上显著超过静态提示方法。",
+          "llm_tags": [
+            "query:multi-modal"
+          ],
+          "matched_query_tag": "query:multi-modal",
+          "matched_query_text": "multimodal learning methods",
+          "matched_requirement_id": "req-24",
+          "selection_source": "carryover_cache",
+          "paper_id": "2606.15694v1",
+          "carry_days": 1
+        },
+        {
+          "id": "2606.17053v1",
+          "source": "arxiv",
+          "title": "Context-Aware RL for Agentic and Multimodal LLMs",
+          "abstract": "Large language models (LLMs) often fail when answering requires identifying a small but decisive piece of evidence within a long or complex context, such as a single line in a tool trace or a subtle detail in an image. We propose ContextRL, a context-aware reinforcement learning (RL) method that improves long-horizon reasoning and multimodal performance through an \\emph{indirect} auxiliary objective. Instead of supervising only the final answer, ContextRL presents the model with a query, an answer, and two highly similar contexts, and rewards it for selecting the context that supports the query--answer pair, thereby encouraging fine-grained grounding. We construct contrastive context data in two domains: for coding agents, trajectories serve as contexts, yielding 1k pairs built via condition filtering; for multimodal reasoning, images serve as contexts, yielding 7K pairs built via generative editing and similarity search. ContextRL achieves average gains of +2.2% over standard GRPO on 5 long-horizon benchmarks, and +1.8% across 12 diverse visual question answering benchmarks. To disentangle the effect of the proposed objective from that of additional data, we compare against data-augmentation baselines that repurpose the same contrastive contexts as standard query--context--answer examples. These baselines provide little to no improvement, showing that the gains arise from the proposed context-selection objective rather than from the contrastive data alone.",
+          "authors": [
+            "Peiyang Xu",
+            "Bangzheng Li",
+            "Sijia Liu",
+            "Karthik R. Narasimhan",
+            "Pramod Viswanath",
+            "Prateek Mittal",
+            "Xingyu Fu"
+          ],
+          "primary_category": "cs.CL",
+          "categories": [
+            "cs.CL",
+            "cs.CV"
+          ],
+          "published": "2026-06-15T17:59:28+00:00",
+          "link": "https://arxiv.org/pdf/2606.17053v1",
+          "tags": [
+            "query:multi-modal"
+          ],
+          "llm_score": 8.0,
+          "llm_evidence_en": "Context-aware RL for multimodal LLMs",
+          "llm_evidence_cn": "多模态LLM的上下文感知强化学习",
+          "llm_evidence": "多模态LLM的上下文感知强化学习",
+          "canonical_evidence": "多模态LLM的上下文感知强化学习",
+          "llm_tldr_en": "Proposes ContextRL, a context-aware RL method that improves fine-grained grounding in multimodal LLMs by rewarding the model for selecting the correct context among similar alternatives.",
+          "llm_tldr_cn": "针对大语言模型在长上下文或复杂场景中难以定位关键证据的问题，提出了ContextRL。该方法通过间接辅助目标，让模型在相似上下文中选择支持问答对的正确语境，从而增强细粒度定位能力。在编码智能体和多模态任务上构建对比数据，实验表明ContextRL显著提升了模型在需要精确证据的任务上的表现。",
+          "llm_tldr": "针对大语言模型在长上下文或复杂场景中难以定位关键证据的问题，提出了ContextRL。该方法通过间接辅助目标，让模型在相似上下文中选择支持问答对的正确语境，从而增强细粒度定位能力。在编码智能体和多模态任务上构建对比数据，实验表明ContextRL显著提升了模型在需要精确证据的任务上的表现。",
+          "llm_tags": [
+            "query:multi-modal"
+          ],
+          "matched_query_tag": "query:multi-modal",
+          "matched_query_text": "multimodal language model research",
+          "matched_requirement_id": "req-20",
+          "selection_source": "carryover_cache",
+          "paper_id": "2606.17053v1",
+          "carry_days": 1
+        },
+        {
+          "id": "2606.16158v1",
+          "source": "arxiv",
+          "title": "Focus When Necessary: Adaptive Routing and Collaborative Grounding for Training-Free Visual Grounding",
+          "abstract": "While Multimodal Large Language Models (MLLMs) excel in cross-modal reasoning, they often struggle to perceive fine-grained details in complex high-resolution images. Recent training-free methods address this through image scaling and localized cropping. However, applying these manipulations indiscriminately introduces computational redundancy for simple queries and can degrade accuracy by truncating essential global context or introducing irrelevant background noise. To this end, we propose LazyMCoT, a dynamic and training-free framework that adaptively allocates visual grounding efforts based on sample difficulty. The framework features an Adaptive Routing mechanism that evaluates predictive uncertainty using first-token statistics from a single forward pass. This efficiently bypasses confident cases while ensuring the recall of difficult samples via conformal calibration. For these challenging cases, a Collaborative Grounding module integrates the inherent cross-modal attention of the model with an external visual expert through a two-stage refinement process. This refinement process generates a precise localized display to recover small or occluded targets. Extensive experiments across diverse benchmarks demonstrate that LazyMCoT rivals training-based approaches by simultaneously improving reasoning accuracy and reducing average inference latency. Our code is availble at https://github.com/TencentBAC/LazyMCoT.",
+          "authors": [
+            "Yifan Wang",
+            "Peiming Li",
+            "Shiyu Li",
+            "Zhiyuan Hu",
+            "Xiaochen Yang",
+            "Wenming Yang",
+            "Yang Tang",
+            "Zheng Wei"
+          ],
+          "primary_category": "cs.CV",
+          "categories": [
+            "cs.CV",
+            "cs.CL"
+          ],
+          "published": "2026-06-15T03:17:44+00:00",
+          "link": "https://arxiv.org/pdf/2606.16158v1",
+          "tags": [
+            "query:multi-modal"
+          ],
+          "llm_score": 8.0,
+          "llm_evidence_en": "training-free visual grounding framework with adaptive routing for multimodal large language models",
+          "llm_evidence_cn": "针对多模态大语言模型的免训练视觉指代框架，采用自适应路由",
+          "llm_evidence": "针对多模态大语言模型的免训练视觉指代框架，采用自适应路由",
+          "canonical_evidence": "针对多模态大语言模型的免训练视觉指代框架，采用自适应路由",
+          "llm_tldr_en": "Proposes LazyMCoT, a dynamic training-free framework that adaptively allocates visual grounding efforts based on sample difficulty using adaptive routing and collaborative grounding.",
+          "llm_tldr_cn": "针对多模态大语言模型在处理复杂高分辨率图像时无法兼顾细粒度细节和计算冗余的问题，本文提出LazyMCoT框架，通过自适应路由机制根据样本难度动态分配视觉定位资源，并结合协同定位策略，在免训练条件下实现了精确且高效的视觉指代，避免了不必要的计算开销，显著提升了简单查询和复杂查询的综合性能。",
+          "llm_tldr": "针对多模态大语言模型在处理复杂高分辨率图像时无法兼顾细粒度细节和计算冗余的问题，本文提出LazyMCoT框架，通过自适应路由机制根据样本难度动态分配视觉定位资源，并结合协同定位策略，在免训练条件下实现了精确且高效的视觉指代，避免了不必要的计算开销，显著提升了简单查询和复杂查询的综合性能。",
+          "llm_tags": [
+            "query:multi-modal"
+          ],
+          "matched_query_tag": "query:multi-modal",
+          "matched_query_text": "vision language model architectures",
+          "matched_requirement_id": "req-22",
+          "selection_source": "carryover_cache",
+          "paper_id": "2606.16158v1",
+          "carry_days": 1
+        },
+        {
+          "id": "2606.19882v1",
+          "source": "arxiv",
+          "title": "Multimodal Concept Bottleneck Models",
+          "abstract": "Concept Bottleneck Models (CBMs) enhance the interpretability of deep learning networks by aligning the features extracted from images with natural concepts. However, existing CBMs are constrained in their ability to generalize beyond a fixed set of predefined classes and the risk of non-concept information leakage, where predictive signals outside the intended concepts are inadvertently exploited. In this paper, we propose Multimodal Concept Bottleneck Model (MM-CBM) to address these issues and extend CBMs into CLIP. MM-CBM utilizes dual Concept Bottleneck Layers (CBLs) to align both the image and text embeddings into interpretable features. This allows us to perform new vision tasks like zero-shot classification or image retrieval in an interpretable way. Compared to existing methods, MM-CBM achieves up to 51.26% accuracy improvement on average across four standard benchmarks. Our method maintains high accuracy, staying within ~5% of black-box performance while offering greater interpretability.",
+          "authors": [
+            "Tongqing Shi",
+            "Ge Yan",
+            "Tuomas Oikarinen",
+            "Tsui-Wei Weng"
+          ],
+          "primary_category": "cs.CV",
+          "categories": [
+            "cs.CV",
+            "cs.LG"
+          ],
+          "published": "2026-06-18T07:41:50+00:00",
+          "link": "https://arxiv.org/pdf/2606.19882v1",
+          "tags": [
+            "query:multi-modal"
+          ],
+          "llm_score": 8.0,
+          "llm_evidence_en": "multimodal alignment with dual concept bottleneck layers",
+          "llm_evidence_cn": "双概念瓶颈层实现多模态对齐",
+          "llm_evidence": "双概念瓶颈层实现多模态对齐",
+          "canonical_evidence": "双概念瓶颈层实现多模态对齐",
+          "llm_tldr_en": "Proposes Multimodal Concept Bottleneck Model (MM-CBM) extending CBMs to CLIP using dual bottleneck layers for image-text alignment, enabling interpretable zero-shot classification and retrieval.",
+          "llm_tldr_cn": "现有概念瓶颈模型泛化能力有限且存在非概念信息泄露风险。本文提出多模态概念瓶颈模型（MM-CBM），通过双概念瓶颈层对齐图像和文本嵌入，将CBM扩展到CLIP。该方法支持可解释的零样本分类和图像检索。实验表明，MM-CBM在保持高准确率的同时提供了更好的可解释性，为多模态对齐提供了新范式。",
+          "llm_tldr": "现有概念瓶颈模型泛化能力有限且存在非概念信息泄露风险。本文提出多模态概念瓶颈模型（MM-CBM），通过双概念瓶颈层对齐图像和文本嵌入，将CBM扩展到CLIP。该方法支持可解释的零样本分类和图像检索。实验表明，MM-CBM在保持高准确率的同时提供了更好的可解释性，为多模态对齐提供了新范式。",
+          "llm_tags": [
+            "query:multi-modal"
+          ],
+          "matched_query_tag": "query:multi-modal",
+          "matched_query_text": "multimodal alignment approaches",
+          "matched_requirement_id": "req-25",
+          "selection_source": "carryover_cache",
+          "paper_id": "2606.19882v1",
+          "carry_days": 1
+        },
+        {
+          "id": "2606.16799v1",
+          "source": "arxiv",
+          "title": "Decoupling Semantics from Distortions: Multi-Scale Two-Stream Vision-Language Alignment for AI-Generated Image Quality Assessment",
+          "abstract": "Existing vision-language model (VLM)-based AI-generated image quality assessment (AIGIQA) methods suffer from a fundamental semantic-distortion dimensional conflict: monolithic representations optimized for semantic discrimination inherently entangle compositional understanding with low-level perceptual sensitivity, rendering them blind to fine-grained quality degradations. We introduce MST-CLIPIQA, a multi-scale two-stream framework that achieves hierarchical vision-language alignment through explicit representational decoupling. Our architecture leverages dual CLIP encoders with complementary patch granularities: coarse-grained streams capture global semantic coherence while fine-grained streams preserve textural signatures and artifact patterns. An information bottleneck-inspired gated fusion mechanism performs adaptive cross-scale distillation, with optional cross-attention enabling prompt-anchored correspondence evaluation when generation prompts are available. Extensive experiments across five benchmarks establish new state-of-the-art results, achieving average improvements of 1.11 percent SRCC on quality and 2.35 percent SRCC on text-image correspondence prediction, while maintaining efficiency with only 0.8M trainable parameters. Our project is available at https://github.com/YMlinfeng/MST-CLIPIQA.",
+          "authors": [
+            "Zijie Meng"
+          ],
+          "primary_category": "cs.CV",
+          "categories": [
+            "cs.CV",
+            "cs.AI"
+          ],
+          "published": "2026-06-15T14:40:30+00:00",
+          "link": "https://arxiv.org/pdf/2606.16799v1",
+          "tags": [
+            "query:multi-modal"
+          ],
+          "llm_score": 8.0,
+          "llm_evidence_en": "hierarchical vision-language alignment for image quality assessment",
+          "llm_evidence_cn": "分层视觉-语言对齐用于图像质量评估",
+          "llm_evidence": "分层视觉-语言对齐用于图像质量评估",
+          "canonical_evidence": "分层视觉-语言对齐用于图像质量评估",
+          "llm_tldr_en": "Introduces MST-CLIPIQA, a multi-scale two-stream framework that decouples semantics from distortions via hierarchical vision-language alignment for AI-generated image quality assessment.",
+          "llm_tldr_cn": "现有VLM方法在AI生成图像质量评估中混淆了语义与失真信息。本文提出MST-CLIPIQA多尺度双流框架，通过显式解耦表征实现分层视觉-语言对齐。粗粒度流捕捉全局语义，细粒度流感知质量退化。在多个AIGIQA基准上优于现有方法，证明了语义-失真解耦的有效性。",
+          "llm_tldr": "现有VLM方法在AI生成图像质量评估中混淆了语义与失真信息。本文提出MST-CLIPIQA多尺度双流框架，通过显式解耦表征实现分层视觉-语言对齐。粗粒度流捕捉全局语义，细粒度流感知质量退化。在多个AIGIQA基准上优于现有方法，证明了语义-失真解耦的有效性。",
+          "llm_tags": [
+            "query:multi-modal"
+          ],
+          "matched_query_tag": "query:multi-modal",
+          "matched_query_text": "multimodal alignment approaches",
+          "matched_requirement_id": "req-25",
+          "selection_source": "carryover_cache",
+          "paper_id": "2606.16799v1",
+          "carry_days": 1
+        },
+        {
+          "id": "2606.17678v1",
+          "source": "arxiv",
+          "title": "See First, Answer Later: Visual Evidence Pre-Alignment via Sufficiency-Driven RL",
+          "abstract": "Multimodal large language models (MLLMs) integrate strong text reasoning with visual inputs, yet their responses can be inconsistent with the underlying images, indicating ineffective utilization of visual evidence during inference. The prevailing training paradigm relies on large-scale caption-based pretraining for general alignment, followed by supervised fine-tuning and reinforcement learning to enable instruction following and complex reasoning. However, such pretraining provides only weak visual grounding: short, coarse captions bias models toward salient objects while neglecting fine-grained visual evidence. In this paper, we introduce Visual Evidence Pre-Alignment (VEPA), an intermediate stage between pretraining and post-training that explores a novel sufficiency-driven objective with Group Relative Policy Optimization (GRPO) to optimize question-conditioned visual evidence descriptions. Extensive experiments across diverse benchmarks show that our VEPA consistently enhances performance on visually demanding evaluations and complements standard supervised post-training. Further analyses show that the income stems from strengthened, transferable visual grounding, rather than from additional task-specific training.",
+          "authors": [
+            "Yilian Liu",
+            "Sicong Leng",
+            "Guoshun Nan",
+            "Junyi Zhu",
+            "Jiayu Huang",
+            "Minghao Sun",
+            "Xuancheng Zhu",
+            "Yisong Chen",
+            "Zexian Wei",
+            "Xiaofeng Tao"
+          ],
+          "primary_category": "cs.CV",
+          "categories": [
+            "cs.CV",
+            "cs.AI"
+          ],
+          "published": "2026-06-16T08:45:24+00:00",
+          "link": "https://arxiv.org/pdf/2606.17678v1",
+          "tags": [
+            "query:multi-modal"
+          ],
+          "llm_score": 8.0,
+          "llm_evidence_en": "multimodal large language models visual alignment",
+          "llm_evidence_cn": "多模态大语言模型视觉对齐",
+          "llm_evidence": "多模态大语言模型视觉对齐",
+          "canonical_evidence": "多模态大语言模型视觉对齐",
+          "llm_tldr_en": "Proposes VEPA, an intermediate training stage that improves visual evidence utilization in MLLMs via sufficiency-driven RL, enhancing fine-grained grounding.",
+          "llm_tldr_cn": "多模态大语言模型在推理时往往忽视图像中的细粒度视觉证据。本文提出视觉证据预对齐(VEPA)方法，在预训练和后训练之间插入一个中间阶段，通过充分性驱动的强化学习增强模型对视觉信息的利用。在多个基准上，VEPA提升了视觉定位能力和回答一致性，证明了中间对齐阶段的有效性。",
+          "llm_tldr": "多模态大语言模型在推理时往往忽视图像中的细粒度视觉证据。本文提出视觉证据预对齐(VEPA)方法，在预训练和后训练之间插入一个中间阶段，通过充分性驱动的强化学习增强模型对视觉信息的利用。在多个基准上，VEPA提升了视觉定位能力和回答一致性，证明了中间对齐阶段的有效性。",
+          "llm_tags": [
+            "query:multi-modal"
+          ],
+          "matched_query_tag": "query:multi-modal",
+          "matched_query_text": "multimodal language model research",
+          "matched_requirement_id": "req-20",
+          "selection_source": "carryover_cache",
+          "paper_id": "2606.17678v1",
+          "carry_days": 1
+        },
+        {
+          "id": "2606.19776v1",
+          "source": "arxiv",
+          "title": "Occ-VLM: Occupancy Grounded Vision Language Model for Indoor Scene Understanding",
+          "abstract": "Recently, vision-language models (VLMs) have made significant progress in 3D scene understanding, driving advances in applications such as embodied intelligence and robotic vision. However, existing approaches typically either rely directly on explicit 3D inputs (e.g., point clouds or RGB-D sequences), or introduce an additional 3D geometry encoder to derive 3D-aware visual tokens from 2D images. Such designs structurally decouple 3D geometric perception from the rich 2D semantics learned via vision-language pre-training, hindering the development of a unified 3D vision-language representation. In this work, we propose Occ-VLM, a novel framework for 3D scene understanding that operates purely on posed RGB images and employs a single 2D vision encoder. Specifically, Occ-VLM reconstructs 3D scene occupancy as an auxiliary geometric prior, which is utilized to spatially associate foreground 2D tokens with 3D space. These tokens are then decoded by a Large Language Model (LLM) for unified scene understanding. Extensive experiments demonstrate that Occ-VLM achieves both accurate geometric perception and robust vision-language reasoning: it attains state-of-the-art performance on multi-view occupancy prediction, while performing on par with 3D-input VLMs on 3D Visual Question Answering (VQA) and 3D dense captioning benchmarks.",
+          "authors": [
+            "Jianing Li",
+            "Zhou Fang",
+            "Yijiang Liu",
+            "Li Du"
+          ],
+          "primary_category": "cs.CV",
+          "categories": [
+            "cs.CV"
+          ],
+          "published": "2026-06-18T04:24:28+00:00",
+          "link": "https://arxiv.org/pdf/2606.19776v1",
+          "tags": [
+            "query:multi-modal"
+          ],
+          "llm_score": 8.0,
+          "llm_evidence_en": "vision-language model 3D scene understanding",
+          "llm_evidence_cn": "视觉语言模型用于三维场景理解",
+          "llm_evidence": "视觉语言模型用于三维场景理解",
+          "canonical_evidence": "视觉语言模型用于三维场景理解",
+          "llm_tldr_en": "Proposes Occ-VLM, a VLM for indoor 3D scene understanding using only posed RGB images and a single 2D vision encoder.",
+          "llm_tldr_cn": "现有3D场景理解的VLM方法通常依赖显式3D输入或额外几何编码器，导致2D语义与3D几何分离。本文提出Occ-VLM，仅用有位姿的RGB图像和单一2D视觉编码器，通过占用网格表示实现统一的3D视觉-语言模型。在多个室内场景数据集上，Occ-VLM在无需3D真值的情况下取得了优异的语义理解性能。",
+          "llm_tldr": "现有3D场景理解的VLM方法通常依赖显式3D输入或额外几何编码器，导致2D语义与3D几何分离。本文提出Occ-VLM，仅用有位姿的RGB图像和单一2D视觉编码器，通过占用网格表示实现统一的3D视觉-语言模型。在多个室内场景数据集上，Occ-VLM在无需3D真值的情况下取得了优异的语义理解性能。",
+          "llm_tags": [
+            "query:multi-modal"
+          ],
+          "matched_query_tag": "query:multi-modal",
+          "matched_query_text": "vision language model architectures",
+          "matched_requirement_id": "req-22",
+          "selection_source": "carryover_cache",
+          "paper_id": "2606.19776v1",
+          "carry_days": 1
+        },
+        {
+          "id": "2606.16586v1",
+          "source": "arxiv",
+          "title": "LOCUS: Local Visual Cue Search for Enhancing Fine-Grained Perception in Multimodal Large Language Models",
+          "abstract": "Multimodal Large Language Models (MLLMs) remain unreliable on fine-grained visual perception, even when high-resolution inputs preserve the necessary local details. We identify this limitation as visual context rot: decisive evidence may exist in the full image, yet fail to be reliably selected and used amid redundant visual context. We propose LOCUS (LOcal visual CUe Search), a training framework that teaches MLLMs to internalize local evidence search through a verifiable proxy task. During training, LOCUS provides a local crop as a visual cue and optimizes the model to recover its spatial support in the full image using an IoU-based reward. The visual cue is used only during training, leaving the standard image-question inference interface unchanged. Experiments across fine-grained perception, hallucination, general understanding, and reasoning benchmarks show that LOCUS improves localization-sensitive visual understanding while preserving broad capabilities. Attention analyses further indicate stronger focus on task-relevant evidence regions, suggesting that training-time visual cue search provides an effective route to internalized fine-grained evidence selection.",
+          "authors": [
+            "Zhou Tao",
+            "Fang Zhang",
+            "Zewen Ding",
+            "Shida Wang",
+            "Xiaokun Sun",
+            "YongXiang Hua",
+            "Haoyu Cao",
+            "Linli Xu"
+          ],
+          "primary_category": "cs.CV",
+          "categories": [
+            "cs.CV"
+          ],
+          "published": "2026-06-15T11:30:56+00:00",
+          "link": "https://arxiv.org/pdf/2606.16586v1",
+          "tags": [
+            "query:multi-modal"
+          ],
+          "llm_score": 8.0,
+          "llm_evidence_en": "training framework for MLLMs to internalize local evidence search via IoU-based reward",
+          "llm_evidence_cn": "通过IoU奖励训练MLLMs内化局部证据搜索",
+          "llm_evidence": "通过IoU奖励训练MLLMs内化局部证据搜索",
+          "canonical_evidence": "通过IoU奖励训练MLLMs内化局部证据搜索",
+          "llm_tldr_en": "Proposes LOCUS, a training framework that teaches MLLMs to search for local visual cues using an IoU-based reward, enhancing fine-grained perception.",
+          "llm_tldr_cn": "多模态大模型在细粒度视觉感知上不可靠，原因是视觉上下文腐烂：关键证据存在于全图但未被选择。本文提出LOCUS框架，在训练时提供局部裁剪作为视觉线索，并优化模型用IoU奖励恢复其在全图中的空间支持。训练后模型可直接推理无需额外裁剪，显著提升细粒度感知准确性。",
+          "llm_tldr": "多模态大模型在细粒度视觉感知上不可靠，原因是视觉上下文腐烂：关键证据存在于全图但未被选择。本文提出LOCUS框架，在训练时提供局部裁剪作为视觉线索，并优化模型用IoU奖励恢复其在全图中的空间支持。训练后模型可直接推理无需额外裁剪，显著提升细粒度感知准确性。",
+          "llm_tags": [
+            "query:multi-modal"
+          ],
+          "matched_query_tag": "query:multi-modal",
+          "matched_query_text": "multimodal learning methods",
+          "matched_requirement_id": "req-24",
+          "selection_source": "carryover_cache",
+          "paper_id": "2606.16586v1",
+          "carry_days": 1
+        },
+        {
+          "id": "2606.20044v1",
+          "source": "arxiv",
+          "title": "FUSE: Frequency-domain Unification and Spectral Energy Alignment for Multi-modal Object Re-Identification",
+          "abstract": "Despite significant progress in multi-modal Re-Identification (ReID), existing methods tend to emphasize low-frequency cues. Consequently, they focus on attributes such as color, illumination, and coarse appearance, while overlooking mid and high-frequency structures that encode geometric, textural, and identity-discriminative details. This imbalance leads to incomplete spectral representations and unstable cross-modal alignment. To overcome these limitations, we introduce FUSE, a frequency-domain framework that reformulates multi-modal ReID as a two-stage process of spectral disentanglement and energy alignment. The proposed Spectral Decomposition Module (SDM) adaptively partitions features into low, mid, and high-frequency subspaces, enabling hierarchical spectral modeling. The Cross-Modal Alignment Module (CAM) further enforces energy alignment and subspace complementarity across modalities via frequency-consistency regularization. In addition, FUSE incorporates learnable frequency modulation to enhance robustness under varying illumination and heterogeneous sensor conditions. Extensive experiments on RGBNT201, RGBNT100, and MSVR310 show that FUSE achieves 9.1\\% mAP and 9.5\\% Rank-1 improvements, establishing an interpretable frequency-domain paradigm for multi-modal representation learning.",
+          "authors": [
+            "Xuanhao Qi",
+            "Tom H. Luan",
+            "Yukang Zhang",
+            "Jinkai Zheng",
+            "Zhou Su",
+            "Shuwei Li",
+            "Lei Tan"
+          ],
+          "primary_category": "cs.CV",
+          "categories": [
+            "cs.CV"
+          ],
+          "published": "2026-06-18T10:21:32+00:00",
+          "link": "https://arxiv.org/pdf/2606.20044v1",
+          "tags": [
+            "query:multi-modal"
+          ],
+          "llm_score": 8.0,
+          "llm_evidence_en": "frequency-domain framework for multi-modal ReID with spectral disentanglement and energy alignment",
+          "llm_evidence_cn": "频域框架实现多模态重识别，采用频谱解缠与能量对齐",
+          "llm_evidence": "频域框架实现多模态重识别，采用频谱解缠与能量对齐",
+          "canonical_evidence": "频域框架实现多模态重识别，采用频谱解缠与能量对齐",
+          "llm_tldr_en": "Proposes FUSE, a frequency-domain framework that reformulates multi-modal ReID as spectral disentanglement and energy alignment, addressing imbalanced spectral representations.",
+          "llm_tldr_cn": "多模态重识别方法偏重低频线索，忽略中高频结构。本文提出FUSE框架，将多模态重识别重新表述为频谱解缠与能量对齐两阶段过程。频谱分解模块自适应分割特征为低、中、高频，并通过能量对齐稳定跨模态表示，有效弥补了频谱不平衡问题，超越现有方法。",
+          "llm_tldr": "多模态重识别方法偏重低频线索，忽略中高频结构。本文提出FUSE框架，将多模态重识别重新表述为频谱解缠与能量对齐两阶段过程。频谱分解模块自适应分割特征为低、中、高频，并通过能量对齐稳定跨模态表示，有效弥补了频谱不平衡问题，超越现有方法。",
+          "llm_tags": [
+            "query:multi-modal"
+          ],
+          "matched_query_tag": "query:multi-modal",
+          "matched_query_text": "multimodal alignment approaches",
+          "matched_requirement_id": "req-25",
+          "selection_source": "carryover_cache",
+          "paper_id": "2606.20044v1",
+          "carry_days": 1
+        },
+        {
+          "id": "2606.15743v1",
+          "source": "arxiv",
+          "title": "Unsupervised Learning for Missing Modalities in Multimodal Learning",
+          "abstract": "This paper addresses the missing-modality challenge in multi-modal learning by introducing Unsupervised Learning for Missing Modalities in Multi-Modal Learning (UL4M4), a flexible framework that imputes missing feature embeddings in a task-independent manner before supervised prediction. We propose modality-specific   normalization and a novel partial-modality distance metric to enable fair clustering of incomplete observations, capturing cross-modal structures while preserving scale-invariance across varying dimensionalities and modality counts. Cluster centers from this unsupervised stage guide an iterative greedy imputation process for any   missing modalities during training or inference, supporting arbitrary numbers of modalities and arbitrary missing patterns per sample. The imputation module is lightweight, uses frozen encoders, and decouples from the downstream task, allowing easy integration with any fusion/prediction architecture. Extensive experiments under diverse and highly incomplete regimes demonstrate UL4M4's robustness, achieving, to   the best of our knowledge, the first consistent F1-Micro scores above 0.7 on challenging missing configurations even when more than 50\\% of modality slots are missing. Results are also stable across cluster sizes and significantly outperform state-of-the-art baselines. Code is available here: https://github.com/h-ismkhan/Multimodal-Learning-with-Missing-Modalities-via-Unsupervised-Learning.",
+          "authors": [
+            "Hassan Ismkhan",
+            "Hamid Bouchahcia"
+          ],
+          "primary_category": "cs.LG",
+          "categories": [
+            "cs.LG"
+          ],
+          "published": "2026-06-14T11:04:33+00:00",
+          "link": "https://arxiv.org/pdf/2606.15743v1",
+          "tags": [
+            "keyword:multi-modal",
+            "query:multi-modal"
+          ],
+          "llm_score": 8.0,
+          "llm_evidence_en": "unsupervised imputation for missing modalities in multimodal fusion",
+          "llm_evidence_cn": "多模态融合中缺失模态的无监督补全",
+          "llm_evidence": "多模态融合中缺失模态的无监督补全",
+          "canonical_evidence": "多模态融合中缺失模态的无监督补全",
+          "llm_tldr_en": "UL4M4 imputes missing modalities in multimodal learning via unsupervised clustering and iterative greedy imputation, enabling fair clustering of incomplete observations and supporting arbitrary modality numbers and missing patterns.",
+          "llm_tldr_cn": "本文提出UL4M4框架，解决多模态学习中缺失模态的挑战。该方法通过无监督聚类学习跨模态结构，并用迭代贪心策略补全任意缺失的模态嵌入。实验表明该框架能有效处理多种缺失模式，且与下游任务无关。这为多模态融合提供了灵活的预处理方案。",
+          "llm_tldr": "本文提出UL4M4框架，解决多模态学习中缺失模态的挑战。该方法通过无监督聚类学习跨模态结构，并用迭代贪心策略补全任意缺失的模态嵌入。实验表明该框架能有效处理多种缺失模式，且与下游任务无关。这为多模态融合提供了灵活的预处理方案。",
+          "llm_tags": [
+            "query:multi-modal"
+          ],
+          "matched_query_tag": "query:multi-modal",
+          "matched_query_text": "techniques for multimodal fusion",
+          "matched_requirement_id": "req-21",
+          "selection_source": "carryover_cache",
+          "paper_id": "2606.15743v1",
+          "carry_days": 1
+        },
+        {
+          "id": "2606.15910v1",
+          "source": "arxiv",
+          "title": "Calibrated Triage, Not Autonomy: Confidence Estimation for Medical Vision-Language Models",
+          "abstract": "A vision-language model can answer a question about a medical image fluently and confidently while barely using the image, leaning instead on language priors. In medicine this is the failure that matters most, because the answer looks trustworthy and is not, and the only protection is a confidence score reliable enough to tell the system when to abstain. We ask a deployment question rather than an accuracy one: how much imaging work a model can safely handle alone, and which confidence signal makes that possible. We evaluate seven confidence estimators across five open-weight LVLMs and three medical visual-question-answering datasets spanning broad clinical imaging, radiology, and pathology, with every probe trained only on natural images and applied without adaptation. Recast as bounded selective prediction (automate a case only when confidence clears a threshold, defer the rest), the comparison is cautionary. The standard metrics are poor guides: discrimination barely separates the methods, and the weak calibration of a cheap self-report is cheaply removed by off-domain temperature scaling without changing deployable yield. What distinguishes a usable estimator is the high-confidence region a clinician acts on: the weakest baselines are confidently wrong on 41 to 45 percent of their errors against 1 to 4 percent for the best probe, and no estimator is reliably best across domains or models. Safe handoff is governed at two levels: base-model competence sets a ceiling, so a well-calibrated score recovers roughly a third of radiology cases at a 20 percent error tolerance but almost none of pathology; the confidence layer then decides how much of that ceiling is reachable. The usable role today is calibrated triage, not autonomy: automate the cases a calibrated score marks safe, route the rest to a clinician. We release all outputs, correctness judgments, and confidence scores, with code.",
+          "authors": [
+            "Reza Khanmohammadi",
+            "Kundan Thind",
+            "Mohammad M. Ghassemi"
+          ],
+          "primary_category": "cs.CL",
+          "categories": [
+            "cs.CL"
+          ],
+          "published": "2026-06-14T16:39:17+00:00",
+          "link": "https://arxiv.org/pdf/2606.15910v1",
+          "tags": [
+            "keyword:multi-modal"
+          ],
+          "llm_score": 8.0,
+          "llm_evidence_en": "confidence estimation for medical vision-language models",
+          "llm_evidence_cn": "医学视觉语言模型的置信度估计",
+          "llm_evidence": "医学视觉语言模型的置信度估计",
+          "canonical_evidence": "医学视觉语言模型的置信度估计",
+          "llm_tldr_en": "Evaluates seven confidence estimators across five medical vision-language models and three VQA datasets to determine how much imaging work a model can safely handle alone, addressing overconfident incorrect answers.",
+          "llm_tldr_cn": "本文聚焦医学视觉语言模型的安全部署问题，评估了七种置信度估计器在五个公开VLM和三个医学VQA数据集上的表现。研究发现当前模型常因语言先验给出看似可信的错误答案，而可靠的置信度信号可以决定模型何时应弃权。实验表明校准的置信度估计能有效识别不可靠预测，提升医疗AI的安全性。",
+          "llm_tldr": "本文聚焦医学视觉语言模型的安全部署问题，评估了七种置信度估计器在五个公开VLM和三个医学VQA数据集上的表现。研究发现当前模型常因语言先验给出看似可信的错误答案，而可靠的置信度信号可以决定模型何时应弃权。实验表明校准的置信度估计能有效识别不可靠预测，提升医疗AI的安全性。",
+          "llm_tags": [
+            "query:multi-modal"
+          ],
+          "matched_query_tag": "query:multi-modal",
+          "matched_query_text": "vision language model architectures",
+          "matched_requirement_id": "req-22",
+          "selection_source": "carryover_cache",
+          "paper_id": "2606.15910v1",
+          "carry_days": 1
+        },
+        {
+          "id": "2606.19828v1",
+          "source": "arxiv",
+          "title": "3D-PLOT-LLM: Part-Level Object Tokens for 3D Large Language Models",
+          "abstract": "3D multimodal large language models (3D MLLMs) describe a 3D object as a whole but cannot address, name, or reason about its parts. Prior part-aware attempts add segmentation decoders, heavier 3D encoders, or bounding-box grammars at substantial parameter cost. We take a fundamentally different path: we reorganize the input token stream so that parts become directly addressable through the LLM's own vocabulary. Our model, 3D-PLOT-LLM, partitions the frozen point encoder's patches into K locally coherent regions and inserts, before each region's patch tokens, a learnable per-region marker and a reserved vocabulary token <part_k>; a Marker-Space Refinement (MSR) module then conditions each marker on its region's spatial statistics and adjacency neighbors. The model thus cites parts in its output and follows prompts that refer to parts by token, a capability absent from prior object-level 3D MLLMs. To probe this interface, we construct PartVerse-QA, a vocabulary-level part-QA benchmark adapted from PartVerse mesh annotations (77K training pairs and 588 held-out queries on disjoint object splits), on which 3D-PLOT-LLM reaches caption-to-slots Jaccard 0.459 and Exact-match 13.78%, with a slot-to-caption GPT-4o judge of 44.68. On the 3DCoMPaT-GrIn part-aware grounded description benchmark, 3D-PLOT-LLM outperforms PointLLM, Kestrel, PARIS3D, and SegPoint on every text-output metric, and ShapeLLM on 3 of 4, with up to +3.03 GPT-4o judge over PointLLM. On Objaverse whole-object captioning, adding PartVerse-QA at Stage 2 yields +0.65 SBERT and +1.85 GPT-4o over PointLLM, and tops PointLLM-PiSA on 4 of 5 traditional metrics (SBERT, SimCSE, BLEU-1, METEOR) despite targeting a different (part-grounded) objective. All with under 1M new trainable parameters on a frozen point encoder, an order of magnitude below prior part-aware 3D MLLMs, and no segmentation decoder or bounding-box head.",
+          "authors": [
+            "Jintang Xue",
+            "Xinyu Wang",
+            "Yixing Wu",
+            "Jingwen Chen",
+            "C. -C. Jay Kuo"
+          ],
+          "primary_category": "cs.CV",
+          "categories": [
+            "cs.CV"
+          ],
+          "published": "2026-06-18T06:12:59+00:00",
+          "link": "https://arxiv.org/pdf/2606.19828v1",
+          "tags": [
+            "query:multi-modal"
+          ],
+          "llm_score": 8.0,
+          "llm_evidence_en": "3D multimodal LLM with part-level tokenization",
+          "llm_evidence_cn": "三维多模态大语言模型的部件级令牌化",
+          "llm_evidence": "三维多模态大语言模型的部件级令牌化",
+          "canonical_evidence": "三维多模态大语言模型的部件级令牌化",
+          "llm_tldr_en": "3D-PLOT-LLM reorganizes the token stream of 3D point clouds so that object parts become directly addressable through the LLM's own vocabulary, eliminating the need for segmentation decoders or bounding boxes.",
+          "llm_tldr_cn": "本文提出3D-PLOT-LLM，通过重新组织点云令牌流，使三维大语言模型能直接通过词汇表引用物体部件。该方法无需额外分割解码器或边界框，仅通过在令牌序列中插入可学习标记和保留词汇令牌实现部件级推理。实验证明该方法在部件命名和推理任务上优于现有方案，且参数开销极小。",
+          "llm_tldr": "本文提出3D-PLOT-LLM，通过重新组织点云令牌流，使三维大语言模型能直接通过词汇表引用物体部件。该方法无需额外分割解码器或边界框，仅通过在令牌序列中插入可学习标记和保留词汇令牌实现部件级推理。实验证明该方法在部件命名和推理任务上优于现有方案，且参数开销极小。",
+          "llm_tags": [
+            "query:multi-modal"
+          ],
+          "matched_query_tag": "query:multi-modal",
+          "matched_query_text": "vision language model architectures",
+          "matched_requirement_id": "req-22",
+          "selection_source": "carryover_cache",
+          "paper_id": "2606.19828v1",
           "carry_days": 1
         }
       ]
