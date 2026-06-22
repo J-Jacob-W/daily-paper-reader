@@ -1,0 +1,280 @@
+Title: SARLO-80: Worldwide Slant SAR Language Optic Dataset 80cm
+
+URL Source: https://arxiv.org/pdf/2606.20523v1
+
+Published Time: Fri, 19 Jun 2026 01:21:50 GMT
+
+Number of Pages: 14
+
+Markdown Content:
+# SARLO-80: Worldwide Slant SAR Language Optic Dataset 80cm 
+
+Solène Debuysère 1 Nicolas Trouvé 1 Nathan Letheule 1 Elise Colin 2
+
+Georgia Channing 31DEMR-ONERA – The French Aerospace Lab, Université Paris-Saclay, Palaiseau, France 
+
+{solene.debuysere,nicolas.trouve,nathan.letheule,elise.colin}@onera.fr 
+
+> 2
+
+DTIS-ONERA – The French Aerospace Lab, Université Paris-Saclay, Palaiseau, France 
+
+{solene.debuysere,nicolas.trouve,nathan.letheule,elise.colin}@onera.fr 
+
+> 3
+
+Hugging Face, London 
+
+georgia.channing@hugging.co 
+
+Abstract 
+
+Multimodal foundation models have advanced rapidly thanks to large optical benchmarks, but comparable resources for synthetic aperture radar (SAR) remain limited. Existing SAR– optical datasets largely rely on low-resolution, intensity-only Ground Range Detected (GRD) products and do not preserve complex-valued SAR measurements or native acquisition geometry, which restricts physically grounded multimodal learning. In particular, large-scale public datasets combining very-high-resolution (VHR) SAR SLC, aligned optical imagery, and natural-language descriptions are still lacking. We present a VHR SAR–optical–text dataset built from open-access Umbra spotlight acquisitions distributed as Sensor Independent Complex Data (SICD). From ∼2,500 worldwide scenes (VV/HH, 20 cm–2 m native resolution), we standardize all SAR data to an 80 cm slant-range grid via band-limited FFT resampling and tile the imagery into 1024 × 1024 patches. For each SAR patch, we retrieve a high-resolution optical tile and warp it into the SAR grid using local coordinate correspondences for local pixel-level alignment. We further generate three caption variants (SHORT/MID/LONG) per sample to support vision–language training and evaluation. Our dataset contains 119,566 triplets (complex and amplitude slant-range SAR patch, aligned optical patch, natural-language description) covering 257 locations across 72 countries and a broad range of land types and infrastructures. We release fixed train/validation/test splits and the full preprocessing and baseline code to enable reproducible benchmarks for multimodal alignment on cross-modal retrieval and conditional generation in native SAR geometry. The dataset is publicly available on the Hugging Face Hub at https://huggingface.co/datasets/ONERA/SARLO-80 .
+
+# 1 Introduction 
+
+Synthetic Aperture Radar (SAR) complements optical imagery because it measures the scene structure through radar scattering instead of using visible light. It works day and night and is much less affected by clouds or smoke. Moreover, SAR data are originally provided as complex SLC measurements (amplitude + phase) in the sensor’s native slant-range geometry, where effects such as layover and shadow are visible. Keeping this physical information is valuable, but it also makes SAR harder to use and often requires specific processing and domain knowledge. 1
+
+> arXiv:2606.20523v1 [cs.CV] 18 Jun 2026
+
+Multimodal learning in remote sensing relies on large and well-curated datasets, yet most existing SAR–optical benchmarks are built from Sentinel-1 Ground Range Detected (GRD) products. These data are intensity-only, ground-projected, and relatively low resolution (typically 
+
+∼10–30 m), which discards important information contained in complex SAR measurements such as phase and native acquisition geometry. As a result, current datasets provide limited support for learning representations that fully exploit SAR-specific physical properties. In particular, large-scale multimodal resources combining very-high-resolution (VHR) SAR SLC imagery with aligned optical observations and natural-language descriptions remain largely unavailable, and no public vision–language models are currently focused on such data. At the same time, SAR sensing capabilities are rapidly evolving: modern commercial constellations (e.g., Umbra, ICEYE, Capella) can acquire VHR SAR imagery, and recent open-access initiatives are beginning to make these data available to the research community. In this context, we present our SAR-specific multimodal dataset in native SAR geometry (119,566 samples at 80 cm) built from processing open-access spotlight acquisitions of the Umbra satellite constellation [ 7]. We start from thousands of complex SAR scenes (SICD) acquired worldwide and processed them by refocusing and resampling at 80 cm. Each scene is then tiled into 1024 × 1024 patches in slant-range grid. To form multimodal pairs, we associate each SAR patch with a high-resolution optical image mapped into the SAR slant-range frame via a first-order affine approximation, ensuring pixel-wise correspondence. By preserving the complex-valued SAR signal in native slant-range geometry, the dataset retains the band-limited coherent field required for theoretically sound post-hoc resampling under Shannon–Nyquist, while avoiding detection and reprojection steps that geometrically rewarp layover, foreshortening, and shadowing effects. Then, three captions are generated from the optical modality and post-processed for consistency. The goal of our baseline experiments is not to establish a new state-of-the-art model, but to provide a simple proof-of-concept illustrating how the proposed dataset can support cross-modal retrieval and conditional generation in very-high-resolution SLC SAR. We will release the full preprocessing pipeline, training/validation/testing splits, and evaluation code to facilitate reproducible benchmarking. In general, our dataset provides a foundation for training multimodal SAR-aware models, including vision–language models (VLMs), generative models, and other foundation models for tasks such as super-resolution, semantic understanding, and multimodal reasoning. The remainder of the paper is organized as follows: Section section 2 reviews existing SAR datasets and their limitations; Section section 3 describes the dataset construction and preprocessing pipeline; Section section 5 presents initial experiments for cross-modal retrieval and conditional generation in native SAR geometry; and Section section 6 concludes with perspectives and future work. 
+
+# 2 Related Works 
+
+SAR–optical paired datasets. Several open datasets have been proposed to combine SAR and optical imagery for many Earth observation tasks. Early benchmarks such as SEN1-2 [ 4]pair Sentinel-1 with Sentinel-2 to enable global-scale learning under diverse seasonal conditions, while SEN12MS [5] extends this idea with multi-spectral optical data and additional land-cover information. BigEarthNet-MM [ 6] provides a large collection of SAR–optical patches over Europe with consistent labeling, and later regional datasets such as MultiSenGE [ 8] focus on specific areas with tighter acquisition control. More recently, multi-modal resources such as MMEarth [ 2]and TerraMesh [ 1] scale up the number of locations and modalities (e.g., DEM, vegetation indices, land-cover layers) to support representation learning across sensors and geographies. Table 1 summarizes representative datasets and highlights key differences in modality, geometry, and scale. 2Dataset SAR Sen-sor SAR Ge-ometry Coregistered Modality SAR Reso-lution Patch Size Sample Count Coverage SEN1-2 (2018)                                               
+
+> S-1 (C-band) GRD Sentinel-2 (optical RGB+NIR/MS)
+> ∼10 m 256 ×256 px 282,384 SAR– optical pairs Global, all seasons
+> SARptical (2018) TerraSAR-X (X-band) VHR Slant-range (SLC) Aerial Ultra-CAM optical
+> ∼1 m 112 ×112 px 10,000 SAR– optical pairs Dense urban area around Munich, Germany (2009– 2013)
+> SEN12MS (2019)
+> Sentinel-1 (C-band) Dual-pol VV/VH, GRD Sentinel-2 MS + MODIS LULC 10 m 256 ×256 px 180,682 triplets Global, 4 seasons
+> BigEarthNet-MM (2019)
+> S-1 (C-band) Dual-pol VV/VH, GRD Sentinel-2 MS (12 bands) + CLC labels 10 m 120 ×120 px 590,326 pairs 10 European coun-tries (2017–2018)
+> MultiSenGE (2022)
+> Sentinel-1 (C-band) Dual-pol IW GRD Sentinel-2 MS, LULC map 10 m 256 ×256 px 8,157 triplets Eastern France (2020)
+> MMEarth (2024)
+> Sentinel-1 (C-band), 8 bands (VV/VH/ HV/HH asc/desc) Map-projected (pixel-level reprojected to S2 10 m grid) 12 modalities: S2, DEM + labeled dataset 10 m 128 ×128 px 1.2M locations Global, 14 biomes, 2017–2020
+> TerraMesh (2025)
+> S-1 GSD S-2, DEM, NDVI, LULC 10 m 264 ×264 px ∼8M co-registered samples
+> Global, multi-year
+> BRIGHT (2025) Capella & Umbra (X-band)
+> GSD VHR optical (+ labeled dataset)
+> 0.3–1 m 1024 ×1024 px
+> ∼4.2–4.5k mul-timodal image pairs 14 disaster events in 23 regions worldwide
+> Our Dataset Umbra (X-band, VV/HH) VHR Slant-range (SLC) HR optical (pixel-aligned with SAR SLC) 0.8 m 1024 ×1024 px
+> ∼120,000 triplets (SAR com-plex+amplitude PNG, optical, text)+ meta-data (bbox, incidence angle)
+> Global Cover-age
+
+Table 1: Existing open-source SAR–Optical datasets and their characteristics. We highlight VHR and/or Umbra-based resources that are closest to our setting. 
+
+Very-high-resolution (VHR) SAR–optical data Compared to Sentinel-based benchmarks, only a few datasets provide VHR SAR paired with optical imagery. SARptical pairs TerraSAR-X spotlight acquisitions with high-resolution aerial imagery, offering detailed urban content but limited geographic diversity and scale. BRIGHT moves toward modern commercial SAR by combining X-band data (e.g., Capella and Umbra) with VHR optical imagery in a disaster-response context; however, it remains relatively small and focused on a limited set of events. 
+
+Current limitations Despite their impact, existing open SAR-optical datasets are still con-strained compared to optical-only benchmarks, particularly for training SAR-centric foundation models. First, most resources rely on Sentinel-1 GRD products, which are intensity-only, ground-projected images and therefore discard complex measurements that encode key SAR physical properties (layover, shadow or foreshortening). Second, many datasets standardize all modalities onto coarse, fixed grids (often around 10 m) by upsampling lower-resolution layers, which simplifies fusion but limits the study of fine-scale structure. Third, patch-based formats dominate with fixed image sizes (e.g., 128 × 128 , 256 × 256 ), and few datasets provide consistent access to the original high-resolution acquisition geometry. Finally, large-scale multimodal resources jointly combining VHR SAR, aligned optical imagery, and natural-language descriptions remain largely unavailable. In general, existing open benchmarks also lack temporal and polarimetric configurations that would enable joint analysis of SAR SLC/full-polarimetric data and optical time series. 3(a) Geographic distribution of the Umbra SICD scenes used to build our dataset. 
+
+> (b) SAR geometry acquisition with slant-range and ground-range planes.
+> Figure 1: Overview of dataset coverage and SAR acquisition geometry.
+
+Positioning of our dataset Our dataset addresses these gaps by focusing on (i) very-high-resolution SAR while preserving the complex SLC data in native slant-range geometry (orange plane in Figure fig. 1), enabling principled resampling without geometric reprojection artifacts; (ii) a standardized 0.8 m slant-range representation in a deep learning-ready format (frequency-domain resampling that prioritizes downsampling); and (iii) pixel-aligned high-resolution optical imagery projected onto the SAR grid, complemented with 
+
+natural-language descriptions at multiple lengths. This design better reflects modern SAR sensing capabilities and enables multimodal learning, retrieval, and foundation-model research that can exploit SAR’s sensor-specific characteristics. 
+
+# 3 Dataset Creation and methodology 
+
+3.1 Source data: UMBRA Collections 
+
+We built our dataset from open-access spotlight acquisitions collected by the Umbra satellite constellation and distributed as Sensor Independent Complex Data (SICD). SICD products provide complex-valued SAR images (magnitude and phase) together with rich metadata (sampling spacings, scene center point, imaging geometry), which makes them well suited for reproducible preprocessing. We select 2,565 SICD scenes covering all continents and diverse environments (urban, rural, coastal, mountainous) as shown in Figure fig. 1a, with VV or HH polarization, incidence angles ranging from 10 ◦ to 70 ◦, and native resolutions from 20 cm to 2 m. As shown in Figure 2, and reflecting Umbra’s acquisition footprint together with our processing steps (summarized in Figure 3), the dataset has worldwide scope with 257 different locations in 72 countries. The USA contributes ∼33% of samples and a large share of distinct cities, while the remaining images come from many countries with a long-tail distribution. 
+
+3.2 Preprocessing steps 
+
+Frequency-domain resampling to 0.8 m pixel spacing Each SICD scene is converted into a fixed target sampling of 80 cm × 80 cm in slant-range geometry. To resample consistently while preserving the complex signal structure, we operate in the 2D frequency domain. We compute the centered spectrum then perform band-limited resampling by either cropping the central band (downsampling) or zero-padding the spectrum (upsampling), depending on the original sampling compared to the target. Finally, the standardized complex image is obtained by the inverse Fourier Transform. This procedure preserves the band-limited coherent field and ensures Shannon–Nyquist-consistent resampling without introducing geometric distortions. 4(a) Number of samples per country (b) Distinct cities per country 
+
+Figure 2: Overview of our final dataset (Top-N + Other): distribution of images by country (left), and distribution of distinct cities by country (right)                                 
+
+> 1○Umbra SICD Products →2○FFT Resampling
+> Download open SICD campaigns from AWS (umbra-open-data-catalog) Select VV/HH, 0.2–2 m SLC data (complex) Full-scene 2D FFT resampling to 0.8 m If native spacing <0.8 m: crop spectrum (downsample) If native spacing >0.8 m: zero-pad (upsample)
+> 3○Geolocation grid →4○Patch tiling
+> Full-scene dense pixel grid (centered at Scene Center Pixel (SCP)) SarPy: image_to_ground →ECEF
+> ecf_to_geodetic →LLH (WGS84) Crop full scene into 1024 ×1024 patches (stride 512) Store complex SAR + amplitude preview Store LLH/ECEF grids per crop to get optical correspondence
+> 5○Crop Optical pairing →6○Local alignment
+> WGS84 bbox from LLH footprint TMS download ( tms_to_geotiff ): source=Satellite ,zoom=19
+> RGB GeoTIFF covering the AOI (closest-date) Affine transformation from SAR and Optical corners Warp optical into SAR slant grid Bilinear sampling + visual validity check
+> 7○Captioning
+> CogVLM2 on warped optical 3 prompts: short/mid/long LLM cleanup: no colors, less speculation
+> →8○Release (public at camera-ready)
+> Triplets: SAR (complex array + amplitude PNG), Optical reconstructed on demand + 3 captions (short/mid/long)
+> Metadata: city, umbra_satellite_pass, operation_sampling, bbox_ecf, bbox_llh, local_incidence_angle
+
+Figure 3: Detailed overview of the dataset creation pipeline. Steps 1○– 7○ describe downloading, prepro-cessing, pairing, and caption generation; step 8○ summarizes released triplets. 
+
+Geolocation grid: from SAR pixels to Earth coordinates SAR images are delivered in slant-range geometry, meaning that each pixel is indexed in the radar acquisition coordinates (azimuth and range) rather than in a map-projected ground plane, as shown in Figure fig. 1b. To link each standardized SAR pixel to its physical location on Earth, we compute a dense geolocation grid using the SICD metadata. For each scene, the SICD file provides the scene center point (SCP) in pixel coordinates, the sampling spacings in azimuth and range, and the imaging geometry needed to project image coordinates onto the Earth. We first build a regular grid of pixel coordinates over the standardized SAR image, centered on the SCP and expressed in the original SICD sampling. We then apply the SICD image-to-ground projection to every pixel to obtain its corresponding Earth-Centered, Earth-Fixed (ECEF) coordinate. Finally, we convert these ECEF coordinates to WGS84 geodetic coordinates (latitude, longitude, altitude). This produces two aligned grids per scene (ECEF and lat/lon/height), which are saved once and later cropped to match each 1024 × 1024 SAR patch. 5Patch selection and tiling Each standardized scene is divided into overlapping patches of size 1024 × 1024 with a stride of 512 pixels. For each selected crop, we store the complex SAR patch, a normalized amplitude PNG, and the corresponding LLH/ECEF coordinate crops. 
+
+Optical pairing and projection into SAR slant-range geometry The dataset is SAR-oriented, so our goal is to keep SAR SLC data in its native slant-range geometry. Optical images are only approximately projected onto the SAR grid via coordinate correspondences (affine mapping). The dataset is SAR-oriented: we keep SAR SLC patches in their native slant-range grid to preserve radar physics and avoid any resampling that could alter complex statistics. To build multimodal pairs, we associate each SAR patch with an optical RGB tile covering the same geographic area, then warp the optical image onto the SAR pixel grid using a simple coordinate-based approximation. For each 1024 ×1024 SAR crop, we compute its geographic footprint from the LLH grid, retrieve the corresponding optical tile in WGS84, and estimate a first-order 2D affine transform from the SAR crop corners mapped into optical pixel coordinates. This affine model is a local approximation (valid over the small crop extent) and does not require an explicit sensor model. We then apply inverse mapping and bilinear interpolation to sample the optical intensities on the SAR grid: Let ˜psar = [ x y 1] ⊤ and ˜popt = [ u v 1] ⊤ denote homogeneous pixel coordinates in the SAR and optical images, respectively. From three (or four) corner correspondences {(p(i)sar , p(i)opt )}Ni=1 ,we estimate the affine transform from SAR to optical, 
+
+˜popt = Asar →opt ˜psar , Asar →opt =
+
+
+
+a11 a12 tx
+
+a21 a22 ty
+
+0 0 1
+
+ , (1) by solving a (least-squares) fit over the matched points. To obtain an optical image on the SAR pixel grid, we use inverse warping (i.e., we iterate over SAR output pixels and sample the optical source image). For each SAR pixel (x, y ), we compute its corresponding optical coordinates 
+
+
+
+u(x, y )
+
+v(x, y )1
+
+ = Asar →opt 
+
+
+
+xy
+
+1
+
+ , (2) and define the warped optical image as 
+
+Iopt →sar (x, y ) = Iopt 
+
+ u(x, y ), v (x, y ), (3) where Iopt is evaluated at non-integer coordinates using bilinear interpolation. Pixels mapped outside the optical tile are set to zero. 
+
+3.3 SAR–Optical pairs: Captioning 
+
+Captions are generated directly from the optical patch projected to the SAR grid. We use CogVLM2 with three prompting variants to obtain three captions per patch (short, medium, and long). All prompts follow three different instructions, for example: ‘Describe the key structural features of the satellite image in a few words. Do not use color terms in the text description. Avoid hypothesis or vague wording.” . We then post-process and normalize the generated captions using a large language model to improve consistency, remove residual color words, and reduce speculative phrasing. Figure fig. 4 illustrates one SAR-optical pair along with example captions such as: A satellite image of large circular patterns of a field intersected by a road with a small structure nearby. 
+
+6Across 119,566 patches, the three caption variants average 14.9/25.3/37.1 words (SHORT/ MID/ LONG) and show increasing lexical diversity, with a larger and more varied vocabulary in the longer captions (see Figure 5b. Several qualitative examples from the dataset are shown in Fig. 7 and Fig. 8. 
+
+> Figure 4: Example of SAR–optical–Caption from our Dataset
+
+We labeled each MID caption with a scene category using a manually defined keyword vocabulary (positive/negative terms) and a simple rule-based matcher, resulting in a diverse distribution of scene types, including agriculture, vegetation, urban areas, airports, ports, water, mining, volcanoes, and other landscapes like coastal, roads, volcano, industrial, mountain, desert, snow ice and rail (see Figure 5b). Thus, our dataset consists of 119,566 samples: a complex SAR patch (SICD-derived), its aligned optical image in slant-range geometry, and text descriptions. 
+
+# 4 Dataset Storage, Format, and Licensing 
+
+4.1 Storage and access 
+
+We release SARLO-80 on the Hugging Face Hub as a WebDataset made of sharded .tar 
+
+archives. The dataset is about 1.42 TB in total. The files are organized as train/chunk_XXX/ shard-XXXXX.tar and are split into train, validation, and test sets. The splits are disjoint and are made by satellite pass. This format makes the dataset easier to use at large scale. Samples can be streamed and shuffled directly from the archives, without extracting the full dataset. Each sample has a unique key and contains the SAR data, the SICD metadata, and the text annotations, as shown in Table 2. The optical image is not stored as a warped PNG. Instead, we store the metadata needed to reconstruct it when needed. This keeps the dataset lighter and also avoids redistributing optical imagery from a third-party provider. The main fields used for this reconstruction are listed in Table 3. To reconstruct the optical view, the WGS84 footprint in meta.json is used to download the optical tile. Then, the four corners of the SAR crop are projected to WGS84 using the SICD metadata. These points are converted into pixels in the optical image. An affine transform is then estimated and used to warp the optical tile into the SAR crop frame. Since this transform is stored in the metadata, users can also project other external maps or labels into the SAR grid. We provide reference code for this reconstruction. 
+
+4.2 Licensing 
+
+SARLO-80 combines data from different sources, so the licensing is handled carefully. The SAR data come from the Umbra Open Data Program. The original SICD products are released under a Creative Commons Attribution license (CC-BY-4.0), with attribution to Umbra. We therefore redistribute the resampled SAR patches and the related SICD metadata with this attribution. 7(a) Label distribution from prompt-based keyword matching.                           
+
+> Prompt Avg. P10 P90 Vocab Dup.
+> SHORT 14.9 12 18 1623 0.2643 MID 25.3 20 32 3376 0.0044 LONG 37.1 27 49 4655 0.0000
+> (b) Prompt text statistics: Avg. words per prompt; P10/P90 are the 10th/90th per-centiles of prompt length (in words); Vocab is the vocabulary size; Dup. rate is the fraction of prompts that are exact duplicates.
+
+Figure 5: Prompt labeling overview (left) and summary prompt statistics (right). 
+
+File Content 
+
+<id>.sar.jpg SAR amplitude image in slant-range geometry ( ∼1024 ×1024) 
+
+<id>.sar.npy Complex-valued SAR array in slant-range geometry 
+
+<id>.sicd.xml SICD metadata of the original Umbra acquisition 
+
+<id>.meta.json Geometry, captions, incidence angles, and optical reconstruction metadata 
+
+<id>.__key__ Unique WebDataset sample key Table 2: Contents of each released WebDataset sample. The optical PNG is not redistributed. It is reconstructed when needed from meta.json and sicd.xml .
+
+The optical images are retrieved from Google Satellite TMS at zoom level 19. These terms do not allow us to redistribute the optical images directly. For this reason, we only provide the metadata and reference code needed to download the optical tiles and project them into the SAR grid. 
+
+# 5 Experiments and Discussion 
+
+Recent progress in vision–language models (VLMs) and generative text-to-image pipelines has demonstrated that large-scale multimodal alignment enables strong cross-modal retrieval, cap-tioning, and conditional generation capabilities. However, these advances have been almost exclusively developed for optical imagery. In contrast, very-high-resolution (VHR) synthetic aperture radar (SAR) imagery, particularly in complex-valued SLC format, remains largely unexplored in multimodal learning benchmarks. Existing SAR datasets typically rely on lower-resolution GRD products or different sensor configurations, making direct comparison with current foundation models difficult. As a result, there are currently no publicly available vision–language models trained on VHR SAR SLC imagery. Our dataset therefore provides a first benchmark for studying multimodal learning in this modality. To illustrate the capabilities enabled by the dataset, we evaluate two representative multimodal tasks: text-to-SAR generation and cross-modal retrieval. 
+
+5.1 Text-to-SAR Generation Baseline 
+
+In previous work, we adapt a text-to-image latent diffusion model [ 3] using standard parameter-efficient fine-tuning and prompt augmentation strategies to benefit from its strong text–image composition. Based on these experiments, we chose to fine-tune the model on our dataset for 8
+
+epochs with a batch size of B= 32 (with gradient accumulation of 4), using a cosine learning-rate (LR) schedule with a base LR of 5×10 −5 for full U-Net fine-tuning. We additionally apply LoRA 8M_C1      
+
+> M_C3
+> M_C3_TO
+> (a) (b) (c) (d) (e) (f)
+> Real
+
+Figure 6: Comparison of generated SAR images across models and real data (1024 ×1024 px, 80 cm resolution) with the same seed (over training and testing generator). See               
+
+> meta.json field Description
+> optical.corners_wgs84 WGS84 corners used to retrieve the optical tile
+> optical.source ,optical.zoom Optical tile source and zoom level
+> crop ,Nb_pixel_a/r SAR crop indices and crop size
+> ss_row/col ,spacing_eff_az/rg SAR sampling and effective azimuth/range spacing
+> scp_row/col Scene-center pixel coordinates
+> bbox_ecf ,bbox_llh SAR crop bounding boxes in ECEF and latitude/longitude/height
+> incidence_angles.{terrain,ellipsoid,sicd}_deg Incidence angles, when available
+> caption.{SHORT,MID,LONG} Three caption versions for each sample
+
+Table 3: Main fields stored in meta.json . Together with the SICD XML, these fields make it possible to reconstruct the optical image and align it with the SAR crop. 
+
+adapters to the text encoders with rank r=8 and scaling α=4, using a learning rate of 4×10 −4.This work was done with one H100 GPU. Training on real satellite SAR is challenging due to speckle noise and large intra-class variability (urban cores, ports, forests, and mountains all exhibit different backscatter statistics). We therefore analyze how batch-level caption optimization and late-stage timestep reweighting influence convergence and SAR realism. The model M_C1 is trained with a single caption per sample (average length ∼30 tokens). The model M_C3 is trained with three caption formats (short / medium / long) in each batch, which increases robustness. Finally, M_C3_TO adds a final timestep-optimization phase, where late training reweights denoising steps to learn high-frequency texture. We used the KL divergence to capture global backscatter statistics, and the autocorrelation metric to measure the local spatial correlation in homogeneous areas that is strongly influenced by speckle structure. Table 4 shows that M_C3_TO reaches the lowest training loss and the lowest local autocorrelation (AC = 0.38), moving closer to real SAR speckle (AC = 0.21). This suggests that the final timestep optimization step helps restore high-frequency structure and reduces 9Model Avg.Loss ↓ KL Dist ↓ AC ↓
+
+M_C1 0.092 1.35 0.40 M_C3 0.088 0.55 0.41 M_C3_TO 0.061 0.54 0.38 Real – – 0.21                                                                       
+
+> Table 4: Quantitative comparison of SDXL trainings. KL Dist is the Kullback–Leibler divergence between the global amplitude distribution of generated SAR and real SAR. Lower is better. AC is the mean neighbour autocorrelation computed on homogeneous 96 ×96 crops. Lower AC means less oversmoothing.
+> Model Training Image →Text Text →Image
+> R@10 (%) ↑MedR ↓R@10 (%) ↑MedR ↓
+> ViT-B/16 Frozen 2.73 245 5.93 296 ViT-B/32 Frozen 2.60 355 4.87 382 ViT-L/14 Frozen 4.87 240 8.00 240 ViT-H/14 Frozen 3.13 257 9.20 242 ViT-bigG Frozen 4.87 240 8.00 240 ViT-B/32 Full FT 22.36 40 23.35 39 ViT-B/16 Full FT 25.33 33 25.42 33
+> ViT-L/14 Full FT 28.47 29 28.86 29
+> ViT-H/14 Full FT 26.31 33 26.69 31 ViT-bigG Full FT 23.97 37 24.48 35 Table 5: Cross-modal retrieval results between SAR images and text on 15K testset
+
+oversmoothing in the generated images. We also observe that mixing the three caption variants (SHORT/MID/LONG) uniformly within each training batch consistently improves performance compared to using a single caption length, suggesting that caption diversity helps learning robust alignments. In Figure 6 our results show that M_C1 shows unstable training and produces low-contrast textures and false color artefacts. Even if M_C3 slightly improves optimization stability over M_C1 
+
+(lower loss), M_C3 significantly improves semantic vision–language alignment. M_C3_TO produces more coherent harbour structure, sharper forest texture, cleaner river boundaries, and even plausible ship targets on water. 
+
+5.2 Cross-modal Retrieval Baseline 
+
+We evaluate cross-modal retrieval between SAR imagery and text descriptions using several CLIP backbones. For training, models are fully fine-tuned on our dataset using a single MID-length caption per sample, with a batch size of 32, a cosine learning-rate schedule with base LR 5 × 10 −5,and early stopping; parameter-efficient LoRA adapters were also tested but resulting in inferior performance compared to full fine-tuning. Importantly, the dataset split is constructed such that satellite passes are disjoint between training/validation and test sets, preventing the model from observing the same acquisition geometry during training and evaluation, while maintaining a balanced distribution of semantic labels across the train, validation, and test subsets. Table 5 reports that frozen CLIP models perform poorly on this task, reflecting the large modality gap between optical imagery used during CLIP pretraining and SAR backscatter imagery. After fine-tuning on our dataset, retrieval performance improves across all architectures in particular, the ViT-L/14 backbone. But these results highlight the importance of domain adaptation for aligning VHR SLC SAR imagery with natural language, as SAR backscatter signatures can vary significantly with landscape type and acquisition parameters (e.g., incidence angle or viewing geometry), even when acquired by the same sensor. 10 5.3 Discussion 
+
+The results show that SARLO-80 can support meaningful alignment between SAR images and natural language. At the same time, they also show that SAR remains a difficult modality to model, because its appearance is strongly linked to the physics of radar imaging. Some objects that are easy to describe in optical images can be much harder to recognize in SAR images, especially when their radar response is affected by geometry, speckle, or strong scattering effects. The 80 cm resolution is also important. It is much finer than typical Sentinel-scale GRD products, so SAR-specific effects become more visible. These include layover, shadowing, strong urban scattering, and non-Gaussian scattering statistics, which can be studied for example with log-cumulant analysis. The incidence-angle metadata can also help analyze how acquisition geometry and terrain affect the SAR appearance. The SAR–text pairs make it possible to study vision–language grounding and cross-modal retrieval. Since each SAR image is associated with several caption levels, the dataset can also be used to analyze how much semantic detail is needed to describe a SAR scene. This is useful for understanding whether models only learn broad scene categories, such as urban areas or water bodies, or whether they can also capture more detailed structures. Another important point is that the SAR patches are complex-valued and kept in slant-range geometry. This makes it possible to test different SAR representations, such as amplitude, log-intensity, phase-related information, or other derived features. Comparing these representations can help identify which parts of the SAR signal are most useful for multimodal alignment and retrieval. The complex SAR signal can be used even without the optical image or the text caption. It supports tasks such as despeckling, spectrum-domain super-resolution, and speckle or equivalent-number-of-looks analysis. It can also be decomposed into sub-apertures. These sub-apertures can be used to study scattering diversity and to create colorized SAR images, by assigning different sub-aperture views to different color channels. This SAR colorization can make some structures easier to interpret and can also provide another useful representation for learning models. The SAR–optical pair adds another useful direction. The optical image gives a more intuitive view of the scene, while the SAR image shows radar-specific effects. When an optical-based description does not fully match the SAR appearance, this difference can itself be informative. It can reveal effects such as layover, shadowing, or multi-bounce scattering, and can help models learn the gap between optical and radar geometry. Finally, we keep the tiles large, with a size of 1024 × 1024 pixels, because small patches are often not enough for foundation-model training. However, this also makes the problem harder. At very high resolution, speckle has a mixed behaviour: it is mostly random in homogeneous areas, but it can become more deterministic around strong urban scatterers. This remains difficult for standard generative models, including diffusion models. For this reason, complex-domain very-high-resolution SAR generation is still an open research problem. 
+
+# 6 Conclusion 
+
+To the best of our knowledge, this is the first large-scale dataset providing such a large collection (> 110 ,000 ) of co-registered SLC SAR-optical patches at sub-meter resolution while preserving the complex SAR measurements. Overall, this dataset provides both semantic and geographic signals for downstream analysis and benchmarking. We expect our dataset to support research on multimodal representation learning, retrieval, segmentation, and generative modeling for SAR, and to serve as a foundation for training and evaluating SAR-oriented foundation models. Future work includes extending the dataset with additional modalities (e.g., elevation data or co-registered multi-temporal scenes), improving caption diversity and grounding, and introducing standardized downstream benchmarks and evaluation protocols tailored to very-high-resolution slant-range SAR. 11 References 
+
+[1] Blumenstiel, B., Fraccaro, P., Marsocci, V., Jakubik, J., Maurogiovanni, S., Czerkawski, M., Sedona, R., Cavallaro, G., Brunschwiler, T., Bernabe-Moreno, J., Longépé, N.: Terramesh: A planetary mosaic of multimodal earth observation data (2025), https://arxiv.org/abs/ 2504.11172 
+
+[2] Nedungadi, V., Kariryaa, A., Oehmcke, S., Belongie, S., Igel, C., Lang, N.: Mmearth: Exploring multi-modal pretext tasks for geospatial representation learning (2024), https: //arxiv.org/abs/2405.02771 
+
+[3] Podell, D., English, Z., Lacey, K., Blattmann, A., Dockhorn, T., Müller, J., Penna, J., Rombach, R.: Sdxl: Improving latent diffusion models for high-resolution image synthesis (2023), https://arxiv.org/abs/2307.01952 
+
+[4] Schmitt, M., Hughes, L.H., Zhu, X.X.: The sen1-2 dataset for deep learning in sar-optical data fusion. ISPRS Annals of the Photogrammetry, Remote Sensing and Spatial Information Sciences IV-1 , 141–146 (2018). https://doi.org/10.5194/isprs-annals-IV-1-141-2018, https: //isprs-annals.copernicus.org/articles/IV-1/141/2018/ 
+
+[5] Schmitt, M., Hughes, L.H., Qiu, C., Zhu, X.X.: Sen12ms – a curated dataset of georeferenced multi-spectral sentinel-1/2 imagery for deep learning and data fusion (2019), https://arxiv. org/abs/1906.07789 
+
+[6] Sumbul, G., de Wall, A., Kreuziger, T., Marcelino, F., Costa, H., Benevides, P., Cae-tano, M., Demir, B., Markl, V.: Bigearthnet-mm: A large-scale, multimodal, mul-tilabel benchmark archive for remote sensing image classification and retrieval [soft-ware and data sets]. IEEE Geoscience and Remote Sensing Magazine 9(3), 174–180 (Sep 2021). https://doi.org/10.1109/mgrs.2021.3089174, http://dx.doi.org/10.1109/MGRS. 2021.3089174 
+
+[7] Umbra Lab Inc.: Open data program. https://umbra.space/open-data/ (2026), accessed: 2026-02-10 [8] Wenger, R., Puissant, A., Weber, J., Idoumghar, L., Forestier, G.: Multisenge: A multimodal and multitemporal benchmark dataset for land use/land cover remote sensing applications. ISPRS Annals of the Photogrammetry, Remote Sensing and Spatial Information Sciences 
+
+V-3-2022 , 635–640 (2022). https://doi.org/10.5194/isprs-annals-V-3-2022-635-2022, https: //isprs-annals.copernicus.org/articles/V-3-2022/635/2022/ 
+
+12 (a) (b) (c) 
+
+(d) (e) (f) 
+
+(g) (h) (i) 
+
+(j) (k) (l) 
+
+Figure 7: Examples of selected SAR–optical pairs from our dataset. (a) A satellite image of a coastal region featuring dense buildings, roads, parking lots, and ships docked at a port. Green spaces and a railway track are also visible. (b) A satellite image of a large highway interchange featuring multiple loops and ramps, surrounded by patches of agricultural land and a large water body, with a few isolated buildings visible. (c) A satellite image of a vast landscape featuring intricate erosion patterns, winding roads, and clusters of structures, highlighting linear features and geological formations. (d) A satellite image of a rugged terrain featuring rocky outcrops, sparse vegetation patches, and winding paths, with some darker areas possibly indicating water bodies. (e) A satellite image of an urban area featuring a grid-like road system, diverse residential buildings, a large sports field, adjacent water bodies, and patches of greenery. (f) A satellite image of a densely populated urban area featuring tightly packed buildings, diagonal streets, and patches of green space, with a railway track running diagonally through the city. (g) A satellite image of a landscape featuring agricultural fields with varied crops, residential clusters, roads, and water bodies, with some construction or excavation sites visible. (h) A satellite image of a coastal region displaying a dense urban area with residential neighborhoods, a large port including multiple docks and shipping containers, green spaces, roads, and a beachfront. (i) A satellite image of a rural landscape featuring geometrically organized agricultural fields, a winding river, roads, and small buildings. (j) A satellite image of an area featuring rectangular farmland plots, intersected by roads and a winding water body, with a cluster of structures adjacent to the water. (k) A satellite image of a dense forest canopy featuring uniform green tones interspersed with patches of lighter shades, likely indicating clearings or water bodies, and a cloud formation on the upper right. (l) A satellite image of a port featuring neatly arranged shipping containers in a structured grid, a pier extending into water, adjacent roads, and nearby green areas. 
+
+13 (a) (b) (c) 
+
+(d) (e) (f) 
+
+(g) (h) (i) 
+
+(j) (k) (l) 
+
+Figure 8: Additional examples of SAR–optical pairs from our dataset. (a) A satellite image of an expansive area featuring urban and natural elements such as a curving road, organized parking lots, industrial buildings, a large water body, and patches of greenery likely representing parks or reserves. (b) A satellite image of large circular patterns on agricultural fields intersected by a straight road, featuring a small structure likely a farm building near the intersection. (c) A satellite image of rugged terrain featuring rocky outcrops, sparse vegetation, and a winding water body, bordered by a large body of water. (d) A satellite image of a large water body featuring multiple structures, roads, and greenery, including possible navigation channels and a structured waterway system. (e) A satellite image of a winding road passing through a forested landscape, intersecting a large water body and featuring cleared areas including a possible dock. (f) A satellite image of a suburban area featuring residential homes, roads, a large highway interchange, commercial buildings, and patches of undeveloped land. (g) A satellite image of an urban landscape featuring a dense arrangement of rectangular buildings, organized streets, patches of vegetation, and open spaces. (h) A satellite image of an urban area featuring dense residential and commercial buildings, roads, train tracks, a river, and marinas with boats. (i) A satellite image of a dense forest region featuring a winding river and various patches of disturbed land, indicating possible mineral deposits or soil compositions. (j) A satellite image of dense forested areas, roads, a small town, and agricultural plots. (k) A satellite image of a coastal region featuring a dense forest, a barren area, and a curving shoreline adjacent to a large body of water with visible wave patterns. (l) A satellite image of a coastal area featuring a densely packed port with shipping containers arranged in neat rows and columns, a large ship docked, and a breakwater extending into the sea. Surrounding water and a road network are also visible. 
+
+14

@@ -1,0 +1,864 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-22T22:50:40.870379+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 3,
+    "deep_divecandidates": 25,
+    "deep_cap": 8,
+    "deep_selected": 8,
+    "quick_candidates": 21,
+    "quick_skim_target": 13,
+    "quick_selected": 13
+  },
+  "deep_dive": [
+    {
+      "id": "2606.16041v1",
+      "source": "arxiv",
+      "title": "EEGDash: An open-source platform for machine learning on public neurophysiological data",
+      "abstract": "Public neurophysiological datasets are increasingly accessible but remain hard to reuse: turning one into a trained model still takes thousands of lines of code for download, loading, format repair, windowing, and evaluation, and a dataset that meets metadata standards can still fail to load. EEG-Dash is a software resource that catalogues 791 publicly archived recordings (39,778 participants, over 86,051 hours) spanning electroencephalography (EEG), magnetoencephalography (MEG), intracranial EEG (iEEG), electromyography (EMG), and functional near-infrared spectroscopy (fNIRS) from the OpenNeuro and NEMAR archives. It exposes each dataset as an importable, queryable class that preserves signal attributes and loads into machine-learning workflows without custom code, delegating signal handling to MNE-Python, windowing to Braindecode, and format compliance to the official Brain Imaging Data Structure (BIDS) validator. A metadata-first registry adds semantic search, a format-repair layer, automatic dataset-level tags drawn from each source publication, and a feature-extraction framework. The catalogue, with per-record loadability and compliance metadata, supports benchmarking, model development, and cross-dataset analysis.",
+      "authors": [
+        "Bruno Aristimunha",
+        "Aviv Dotan",
+        "Pierre Guetschel",
+        "Aman Jaiswal",
+        "Gal Ashkenazi",
+        "Dung Truong",
+        "Kuntal Kokate",
+        "Amitrava Majumdar",
+        "Oren Shriki",
+        "Arnaud Delorme"
+      ],
+      "primary_category": "q-bio.NC",
+      "categories": [
+        "q-bio.NC"
+      ],
+      "published": "2026-06-14T22:22:08+00:00",
+      "link": "https://arxiv.org/pdf/2606.16041v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Platform for machine learning on EEG and fNIRS data",
+      "llm_evidence_cn": "用于EEG和fNIRS数据机器学习的平台",
+      "llm_evidence": "用于EEG和fNIRS数据机器学习的平台",
+      "canonical_evidence": "用于EEG和fNIRS数据机器学习的平台",
+      "llm_tldr_en": "EEG-Dash catalogs 791 public neurophysiological recordings including EEG and fNIRS, providing a unified importable class for machine learning, reducing code overhead and enabling easy reuse.",
+      "llm_tldr_cn": "该论文针对公共神经生理数据难以复用的问题，开发了EEG-Dash平台，收录了包括EEG和fNIRS在内的791个公开记录，为每个数据集提供可导入、可查询的类接口，可直接加载到机器学习管道中。该平台大幅降低了数据处理和格式修复的代码负担，支持EEG信号解码、多模态研究以及深度学习模型训练，是EEG与fNIRS多模态分析的重要基础工具。",
+      "llm_tldr": "该论文针对公共神经生理数据难以复用的问题，开发了EEG-Dash平台，收录了包括EEG和fNIRS在内的791个公开记录，为每个数据集提供可导入、可查询的类接口，可直接加载到机器学习管道中。该平台大幅降低了数据处理和格式修复的代码负担，支持EEG信号解码、多模态研究以及深度学习模型训练，是EEG与fNIRS多模态分析的重要基础工具。",
+      "llm_tags": [
+        "query:eeg-ode-ln:composite"
+      ],
+      "matched_query_tag": "query:eeg-ode-ln:composite",
+      "matched_query_text": "Papers central to 查找EEG解码（最好情绪识别）以及EEG+fNIRs多模态的文章, especially work that connects or combines: EEG signal decoding methods; multimodal EEG and fNIRS for brain activity decoding; affective computing using EEG; brain-computer interface for emotion; multimodal fusion of EEG and fNIRS; deep learning for EEG classification; Find papers on EEG decoding for emotion recognition; Search for multimodal EEG and fNIRS studies; EEG decoding for emotion recognition; multimodal EEG fNIRS studies.",
+      "matched_requirement_id": "req-composite-eeg-ode-ln",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.16255v1",
+      "source": "arxiv",
+      "title": "UniDDT: Unifying Multimodal Understanding and Generation with Decoupled Diffusion Transformer",
+      "abstract": "Unified Multimodal Models (UMMs) have emerged as a critical direction for general-purpose multimodal intelligence, integrating understanding and generation into a single framework. However, existing UMMs face prominent challenges: (1) the inherent learning conflicts between visual understanding and generation tasks, leading to suboptimal modeling in both tasks; (2) different understanding and generation visual spaces impeding scalability; (3) over-reliance on task-specific data that neglects the duality of text-image understanding and generation. To address these challenges, we propose UniDDT, which leverages a Noisy ViT encoder along with an LLM to unify semantic encoding for visual generation and understanding tasks, while employing a separate diffusion decoder to decouple diffusion decoding from text decoding. With this Noisy ViT encoder, UniDDT is able to leverage the latent space as a unified visual representation, enabling seamless compatibility between understanding and generation tasks. Thus, the scalability within the generation tasks and the semantic expressiveness within understanding tasks can be balanced. Also, we construct dual data structures from the same image-text pairs, fostering interdependence between the generation and understanding data to exploit their inherent duality. Extensive experiments demonstrate that UniDDT achieves effective unification of multimodal understanding and generation with enhanced semantic consistency and scalability. For visual generation tasks, our UniDDT achieves 0.87 GenEval score and 86.9 DPG overall score. For multimodal understanding tasks, our UniDDT achieves 1699.5 score on MME benchmark and 76.5 overall score on SEEDbench.",
+      "authors": [
+        "Shuai Wang",
+        "Liang Li",
+        "Yang Chen",
+        "Ruopeng Gao",
+        "Yao Teng",
+        "Limin Wang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-06-15T05:57:40+00:00",
+      "link": "https://arxiv.org/pdf/2606.16255v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:multi-modal",
+        "query:neural-ode"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Unified multimodal model for understanding and generation",
+      "llm_evidence_cn": "统一的多模态理解与生成模型",
+      "llm_evidence": "统一的多模态理解与生成模型",
+      "canonical_evidence": "统一的多模态理解与生成模型",
+      "llm_tldr_en": "UniDDT unifies multimodal understanding and generation via a Noisy ViT encoder and decoupled diffusion transformer, resolving task conflicts and achieving strong performance across benchmarks.",
+      "llm_tldr_cn": "针对统一多模态模型中视觉理解与生成任务的学习冲突和扩展性瓶颈，本文提出UniDDT，利用带噪ViT编码器和语言模型统一语义表示，结合解耦扩散变换器实现多模态理解与生成的无缝融合。实验表明该方法在多种任务上均取得领先性能，推动了通用多模态模型的发展。",
+      "llm_tldr": "针对统一多模态模型中视觉理解与生成任务的学习冲突和扩展性瓶颈，本文提出UniDDT，利用带噪ViT编码器和语言模型统一语义表示，结合解耦扩散变换器实现多模态理解与生成的无缝融合。实验表明该方法在多种任务上均取得领先性能，推动了通用多模态模型的发展。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "multimodal language model research",
+      "matched_requirement_id": "req-20",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.16866v1",
+      "source": "arxiv",
+      "title": "Redirecting the Flow: Image Customization through Attention Distribution Shift",
+      "abstract": "Subject-driven image customization aims to generate images that not only follow textual instructions but also preserve the identity of a given reference subject. Existing approaches, including test-time fine-tuning, encoder-based methods, and token competition in shared attention spaces, suffer from limited efficiency, misalignment between extracted reference features and the generative process, and interference from irrelevant information. To address these limitations, we formulate the customization task as a distribution shift induced by incorporating reference images into text-to-image generation, and derive a Conditional Attention Distribution Shift formulation grounded in maximum entropy theory. Building on this formulation, we propose CustomShift, a dual-branch architecture based on Stable Diffusion 3. The Reference-Alignment Branch leverages self-attention between reference images and subject names to achieve layer-wise alignment with latent representations, while the Cross-Guidance Branch integrates textual and reference cues to guide generation. Experiments on the DreamBooth and Custom101 benchmarks demonstrate that our method consistently outperforms state-of-the-art approaches, achieving a better balance between semantic fidelity and subject consistency.",
+      "authors": [
+        "Jie Li",
+        "Suorong Yang",
+        "Jian Zhao",
+        "Furao Shen"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-06-15T15:44:14+00:00",
+      "link": "https://arxiv.org/pdf/2606.16866v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "keyword:neural-ode",
+        "query:multi-modal",
+        "query:neural-ode"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "vision-language model for image customization via attention shift",
+      "llm_evidence_cn": "基于注意力偏移的图像定制视觉语言模型",
+      "llm_evidence": "基于注意力偏移的图像定制视觉语言模型",
+      "canonical_evidence": "基于注意力偏移的图像定制视觉语言模型",
+      "llm_tldr_en": "Proposes a conditional attention distribution shift method for subject-driven image customization, formulating the task as distribution shift to preserve identity while following text instructions, achieving efficient and high-quality generation.",
+      "llm_tldr_cn": "针对主题驱动的图像定制中效率低、特征不对齐等问题，本文提出条件注意力分布偏移（Cus）方法。将定制任务建模为引入参考图像后注意力分布的偏移，基于最大熵理论推导条件注意力分布，无需微调即可生成保留主体身份且符合文本指导的图像。实验证明该方法在保真度和对齐性上优于现有方法。",
+      "llm_tldr": "针对主题驱动的图像定制中效率低、特征不对齐等问题，本文提出条件注意力分布偏移（Cus）方法。将定制任务建模为引入参考图像后注意力分布的偏移，基于最大熵理论推导条件注意力分布，无需微调即可生成保留主体身份且符合文本指导的图像。实验证明该方法在保真度和对齐性上优于现有方法。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "vision language model architectures",
+      "matched_requirement_id": "req-22",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.20523v1",
+      "source": "arxiv",
+      "title": "SARLO-80: Worldwide Slant SAR Language Optic Dataset 80cm",
+      "abstract": "Multimodal foundation models have advanced rapidly thanks to large optical benchmarks, but comparable resources for synthetic aperture radar (SAR) remain limited. Existing SAR--optical datasets largely rely on low-resolution, intensity-only Ground Range Detected~(GRD) products and do not preserve complex-valued SAR measurements or native acquisition geometry, which restricts physically grounded multimodal learning. In particular, large-scale public datasets combining very-high-resolution (VHR) SAR SLC, aligned optical imagery, and natural-language descriptions are still lacking. We present a VHR SAR--optical--text dataset built from open-access Umbra spotlight acquisitions distributed as Sensor Independent Complex Data (SICD). From around 2,500 worldwide scenes (VV/HH, 20cm--2m native resolution), we standardize all SAR data to an 80cm slant-range grid via band-limited FFT resampling and tile the imagery into 1024 by 1024 patches. For each SAR patch, we retrieve a high-resolution optical tile and warp it into the SAR grid using local coordinate correspondences for local pixel-level alignment. We further generate three caption variants (SHORT/MID/LONG) per sample to support vision--language training and evaluation. Our dataset contains 119,566 triplets (complex and amplitude slant-range SAR patch, aligned optical patch, natural-language description) covering 257 locations across 72 countries and a broad range of land types and infrastructures. We release fixed train/validation/test splits and the full preprocessing and baseline code to enable reproducible benchmarks for multimodal alignment on cross-modal retrieval and conditional generation in native SAR geometry. The dataset is publicly available on the Hugging Face Hub at https://huggingface.co/datasets/ONERA/SARLO-80.",
+      "authors": [
+        "Solène Debuysère",
+        "Nicolas Trouvé",
+        "Nathan Letheule",
+        "Elise Colin",
+        "Georgia Channing"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.AI",
+        "cs.DB"
+      ],
+      "published": "2026-06-18T17:38:01+00:00",
+      "link": "https://arxiv.org/pdf/2606.20523v1",
+      "tags": [
+        "keyword:multi-modal"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "multimodal SAR-optical-text dataset for foundation models",
+      "llm_evidence_cn": "多模态SAR-光学-文本数据集用于基础模型",
+      "llm_evidence": "多模态SAR-光学-文本数据集用于基础模型",
+      "canonical_evidence": "多模态SAR-光学-文本数据集用于基础模型",
+      "llm_tldr_en": "A large-scale high-resolution SAR-optical-text dataset (SARLO-80) is constructed to support multimodal foundation model research, combining complex SAR SLC data, aligned optical imagery, and natural language descriptions.",
+      "llm_tldr_cn": "该论文构建了SARLO-80数据集，包含全球约2500个场景的甚高分辨率SAR SLC、对齐光学影像和自然语言描述。该数据集填补了现有SAR-光学数据集在分辨率和多模态文本对齐方面的空白，为多模态基础模型（特别是遥感领域）提供了关键资源。实验表明该数据集能有效支撑多模态学习与语言引导的SAR图像理解。",
+      "llm_tldr": "该论文构建了SARLO-80数据集，包含全球约2500个场景的甚高分辨率SAR SLC、对齐光学影像和自然语言描述。该数据集填补了现有SAR-光学数据集在分辨率和多模态文本对齐方面的空白，为多模态基础模型（特别是遥感领域）提供了关键资源。实验表明该数据集能有效支撑多模态学习与语言引导的SAR图像理解。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "multimodal language model research",
+      "matched_requirement_id": "req-20",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "biorxiv-10-64898-2026-06-14-732153-v1",
+      "source": "biorxiv",
+      "title": "Quantum machine learning for detection of sleep deprivation from EEG signals",
+      "abstract": "Approximately 50% of the population in India is estimated to experience sleep-related disorders. Sleep deprivation is a prevalent condition that adversely impacts cognitive performance, neural functioning, and overall health. Electroencephalography (EEG) offers an objective means of capturing neural alterations associated with sleep loss, making it well-suited for automated detection frameworks. In this study, we explore the application of a Quantum Support Vector Machine and Hybrid Quantum Neural Networks to classify sleep-deprived and well-rested states using resting-state EEG signals.\n\nA comprehensive feature extraction pipeline is employed, incorporating spectral band power, band ratios, Hjorth parameters, and functional connectivity measures. These features are subsequently encoded into quantum states to construct a quantum kernel, which is then utilized for classification. Model performance is evaluated under both epoch-level and subject-level data partitioning schemes.\n\nThe Hybrid Quantum Neural Network (HQNN) achieves the highest performance across both evaluation settings, attaining an accuracy of 96.88% at the epoch level and 81.25% at the subject level. The QSVM model achieves accuracies of 93.75% and 75.00% for epoch-level and subject-level evaluations, respectively. At subject-level and epoch -level evaluation, HQNN outperforms previously reported results (68.23% and 95.72%). Overall, these findings highlight the potential of quantum machine learning as a competitive approach for EEG-based sleep deprivation detection, with promising implications for real-world biomedical applications.",
+      "authors": [
+        "Sarma-Sarkar, P.",
+        "Saini, R.",
+        "Roy, P. P."
+      ],
+      "primary_category": "neuroscience",
+      "categories": [
+        "neuroscience"
+      ],
+      "published": "2026-06-18T00:00:00+00:00",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.06.14.732153v1.full.pdf",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:neural-ode"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "EEG signal decoding for sleep deprivation detection using quantum ML",
+      "llm_evidence_cn": "基于量子机器学习的EEG信号解码用于睡眠剥夺检测",
+      "llm_evidence": "基于量子机器学习的EEG信号解码用于睡眠剥夺检测",
+      "canonical_evidence": "基于量子机器学习的EEG信号解码用于睡眠剥夺检测",
+      "llm_tldr_en": "Explores quantum SVM and hybrid quantum neural networks to classify sleep-deprived vs rested states from EEG signals, with feature extraction including spectral power and connectivity.",
+      "llm_tldr_cn": "该论文研究用量子支持向量机和混合量子神经网络对静息态EEG信号进行睡眠剥夺检测。提取频谱功率、波段比、Hjorth参数和功能连接特征，在分类任务上探索量子机器学习相较于经典方法的潜力。",
+      "llm_tldr": "该论文研究用量子支持向量机和混合量子神经网络对静息态EEG信号进行睡眠剥夺检测。提取频谱功率、波段比、Hjorth参数和功能连接特征，在分类任务上探索量子机器学习相较于经典方法的潜力。",
+      "llm_tags": [
+        "query:eeg-ode-ln"
+      ],
+      "matched_query_tag": "query:eeg-ode-ln",
+      "matched_query_text": "EEG signal decoding methods",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.20074v1",
+      "source": "arxiv",
+      "title": "Evaluation of EEG Foundation Models for Event-Based Burst-Suppression Detection in ICU",
+      "abstract": "Burst suppression (BS) is a clinically relevant electroencephalographic (EEG) pattern used to monitor sedation depth and brain activity in critically ill patients, particularly during induced coma in Intensive Care Units (ICUs). Automatic burst detection remains challenging because BS patterns vary substantially between patients and annotated datasets are scarce. Recently, EEG Foundation Models (FMs) have shown promise across several downstream EEG applications, but their usefulness for BS detection remains unexplored. We present the first study to evaluate EEG FMs for burst detection in reduced-montage ICU EEG without patient-specific calibration. We compare REVE-base, LUNA-large and LuMamba-Tiny with an adaptive thresholding baseline and a task-specific EEGNet baseline. Additionally, we complement conventional EEG window-based classification with event-based burst detection evaluation. This helps assessing clinically whether burst episodes are correctly detected, reducing the impact of expected annotation variability. The best model, REVE-base, achieved the highest event-based F1-score ($0.868 \\pm 0.167$) and reduced burst-per-minute error by 52.1% and 36.2% compared to EEGNet and adaptive thresholding respectively, supporting FMs for scalable EEG monitoring in ICU. Ablation experiments showed that full fine-tuning was the most effective adaptation strategy with respect to frozen-backbone training, two-step fine-tuning, and LoRA-based adaptation, improving event-based F1-score over frozen-backbone training by up to $+0.102$ for LUNA-large. With reduced labeled datasets, pretrained REVE-base outperformed random initialization by $+0.723$ event-based F1 points at 25% of the cohort, demonstrating the benefit of pretraining FM representations when adapted to burst detection with limited labeled data.",
+      "authors": [
+        "Elisa Vasta",
+        "Thorir Mar Ingolfsson",
+        "Andrea Cossettini",
+        "Luca Benini",
+        "Tilman Beck",
+        "Emanuela Keller",
+        "Una Pale"
+      ],
+      "primary_category": "eess.SP",
+      "categories": [
+        "eess.SP",
+        "cs.AI",
+        "cs.LG"
+      ],
+      "published": "2026-06-18T10:49:36+00:00",
+      "link": "https://arxiv.org/pdf/2606.20074v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "query:EEG-ODE-LN"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "EEG foundation models for burst-suppression detection",
+      "llm_evidence_cn": "EEG基础模型用于爆发抑制检测",
+      "llm_evidence": "EEG基础模型用于爆发抑制检测",
+      "canonical_evidence": "EEG基础模型用于爆发抑制检测",
+      "llm_tldr_en": "Evaluates EEG foundation models (REVE-base, LUNA-large, LuMamba-Tiny) for ICU burst-suppression detection, showing competitive performance without patient-specific calibration.",
+      "llm_tldr_cn": "本文首次评估了EEG基础模型在ICU减导联EEG上检测爆发抑制模式的效果。比较了REVE-base、LUNA-large和LuMamba-Tiny三种模型，无需患者特定校准即可达到与自适应阈值基线相当的性能，证明了EEG基础模型在临床EEG分析中的潜力。",
+      "llm_tldr": "本文首次评估了EEG基础模型在ICU减导联EEG上检测爆发抑制模式的效果。比较了REVE-base、LUNA-large和LuMamba-Tiny三种模型，无需患者特定校准即可达到与自适应阈值基线相当的性能，证明了EEG基础模型在临床EEG分析中的潜力。",
+      "llm_tags": [
+        "query:eeg-ode-ln"
+      ],
+      "matched_query_tag": "query:eeg-ode-ln",
+      "matched_query_text": "EEG signal decoding methods",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.15910v1",
+      "source": "arxiv",
+      "title": "Calibrated Triage, Not Autonomy: Confidence Estimation for Medical Vision-Language Models",
+      "abstract": "A vision-language model can answer a question about a medical image fluently and confidently while barely using the image, leaning instead on language priors. In medicine this is the failure that matters most, because the answer looks trustworthy and is not, and the only protection is a confidence score reliable enough to tell the system when to abstain. We ask a deployment question rather than an accuracy one: how much imaging work a model can safely handle alone, and which confidence signal makes that possible. We evaluate seven confidence estimators across five open-weight LVLMs and three medical visual-question-answering datasets spanning broad clinical imaging, radiology, and pathology, with every probe trained only on natural images and applied without adaptation. Recast as bounded selective prediction (automate a case only when confidence clears a threshold, defer the rest), the comparison is cautionary. The standard metrics are poor guides: discrimination barely separates the methods, and the weak calibration of a cheap self-report is cheaply removed by off-domain temperature scaling without changing deployable yield. What distinguishes a usable estimator is the high-confidence region a clinician acts on: the weakest baselines are confidently wrong on 41 to 45 percent of their errors against 1 to 4 percent for the best probe, and no estimator is reliably best across domains or models. Safe handoff is governed at two levels: base-model competence sets a ceiling, so a well-calibrated score recovers roughly a third of radiology cases at a 20 percent error tolerance but almost none of pathology; the confidence layer then decides how much of that ceiling is reachable. The usable role today is calibrated triage, not autonomy: automate the cases a calibrated score marks safe, route the rest to a clinician. We release all outputs, correctness judgments, and confidence scores, with code.",
+      "authors": [
+        "Reza Khanmohammadi",
+        "Kundan Thind",
+        "Mohammad M. Ghassemi"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL"
+      ],
+      "published": "2026-06-14T16:39:17+00:00",
+      "link": "https://arxiv.org/pdf/2606.15910v1",
+      "tags": [
+        "keyword:multi-modal",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:neural-ode"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "confidence estimation for medical vision-language models",
+      "llm_evidence_cn": "医学视觉语言模型的置信度估计",
+      "llm_evidence": "医学视觉语言模型的置信度估计",
+      "canonical_evidence": "医学视觉语言模型的置信度估计",
+      "llm_tldr_en": "Evaluates confidence estimators for medical LVLMs to enable calibrated triage rather than full autonomy; shows reliable confidence can allow safe abstention.",
+      "llm_tldr_cn": "医学视觉语言模型依赖于语言先验而不充分使用图像时，错误回答可能造成严重后果。本文针对部署场景，评估了七种置信度估计方法在五个开源医学LVLM上的表现，结论是可靠的置信度可以实现系统安全的“分诊”而非完全自主。",
+      "llm_tldr": "医学视觉语言模型依赖于语言先验而不充分使用图像时，错误回答可能造成严重后果。本文针对部署场景，评估了七种置信度估计方法在五个开源医学LVLM上的表现，结论是可靠的置信度可以实现系统安全的“分诊”而非完全自主。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "multimodal language model research",
+      "matched_requirement_id": "req-20",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.15631v1",
+      "source": "arxiv",
+      "title": "Retrieve, Don't Retrain: Extending Vision Language Action Models to New Tasks at Test Time",
+      "abstract": "Extending a vision-language-action (VLA) policy to a new task typically requires task-specific teleoperated demonstrations and per-task fine-tuning, making adaptation costly in both data collection and compute. In this paper, we show that this target-side per-task adaptation cost can be replaced by retrieval. Our retrieval-augmented policy is trained once on paired demonstrations from the target embodiment (query) and a cheaper embodiment (pool, e.g., human-hand video), then frozen. New tasks are added at deployment by appending pool-side demonstrations to a retrieval pool. The frozen policy conditions on retrieved trajectories at every control step, so new tasks are absorbed by indexing data rather than updating parameters. Fine-tuning is needed only to take on a new, unseen embodiment, not for each new task. We show that retrieval improves policies beyond a specific backbone, including standard VLA policies, but its effect is especially pronounced in Cosmos Policy, a video-generation-based world-action model (WAM). In this setting, retrieval supplies coarse task progression, while the WAM's future-image objective provides an additional visual consistency signal that strengthens the retrieval-conditioned actions. On PushT, we study how retrieval provides a reusable high-level motion prior for cross-embodiment generalization to unseen goal angles, while on RoboTwin 2.0 our method outperforms cross-embodiment baselines on unseen tasks, and we additionally demonstrate the method on a real robot.",
+      "authors": [
+        "Jeongeun Park",
+        "Juhan Park",
+        "Taekyung Kim",
+        "Sungjoon Choi",
+        "Dongyoon Han",
+        "Sangdoo Yun"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO",
+        "cs.AI"
+      ],
+      "published": "2026-06-14T06:48:01+00:00",
+      "link": "https://arxiv.org/pdf/2606.15631v1",
+      "tags": [
+        "keyword:multi-modal",
+        "query:multi-modal"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "retrieval-augmented VLA policy for task adaptation",
+      "llm_evidence_cn": "检索增强的视觉语言动作策略用于任务适配",
+      "llm_evidence": "检索增强的视觉语言动作策略用于任务适配",
+      "canonical_evidence": "检索增强的视觉语言动作策略用于任务适配",
+      "llm_tldr_en": "Proposes a retrieval-augmented vision-language-action policy that absorbs new tasks by indexing demonstrations at test time, avoiding per-task fine-tuning.",
+      "llm_tldr_cn": "针对扩展VLA策略到新任务需要大量演示和微调的问题，本文提出检索增强策略。该策略在训练时学习跨任务知识，测试时通过索引新任务的演示来适应，无需更新参数。实验表明该方法在多个机器人操作任务上有效降低了数据需求。",
+      "llm_tldr": "针对扩展VLA策略到新任务需要大量演示和微调的问题，本文提出检索增强策略。该策略在训练时学习跨任务知识，测试时通过索引新任务的演示来适应，无需更新参数。实验表明该方法在多个机器人操作任务上有效降低了数据需求。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "vision language model architectures",
+      "matched_requirement_id": "req-22",
+      "selection_source": "carryover_cache",
+      "paper_id": "2606.15631v1"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2606.15694v1",
+      "source": "arxiv",
+      "title": "MAF: Multimodal Adaptive Few-shot Prompting for Sentiment Analysis with MLLMs",
+      "abstract": "Multimodal large language models (MLLMs) have demonstrated remarkable capabilities in understanding complex multimodal content. However, their performance in sentiment analysis exhibits acute sensitivity to prompt design, rendering static, uniformly applied prompts inherently suboptimal for capturing the nuanced multimodal cues that vary across inputs. To address this limitation, we propose a Multimodal Adaptive Few-Shot Prompting (MAF) framework, which dynamically retrieves and integrates query-relevant demonstrations to elicit the sentiment reasoning capabilities of MLLMs in a context-sensitive manner. MAF constructs a demonstration retrieval module that holistically encodes facial expressions, scene context, and textual semantics, with a lip movement amplitude detection mechanism introduced for accurate speaker identification in multi-person scenarios. Departing from conventional fixed-weight fusion, a lightweight coefficient generation network is trained to output query-conditioned fusion weights in real time, enabling weighted aggregation of multimodal similarity scores to retrieve the top-K most informative demonstrations. Prediction stability is further enhanced through majority voting over multiple candidate outputs generated by the MLLM. Extensive experiments on public benchmark datasets demonstrate that MAF achieves substantial and consistent performance improvements over the corresponding backbone variants and remains competitive with strong multimodal sentiment-analysis baselines.",
+      "authors": [
+        "Hangling Xie"
+      ],
+      "primary_category": "cs.MM",
+      "categories": [
+        "cs.MM",
+        "cs.AI",
+        "cs.CV",
+        "cs.LG"
+      ],
+      "published": "2026-06-14T09:16:36+00:00",
+      "link": "https://arxiv.org/pdf/2606.15694v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "query:multi-modal"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Multimodal adaptive few-shot prompting for sentiment analysis",
+      "llm_evidence_cn": "多模态自适应少样本提示用于情感分析",
+      "llm_evidence": "多模态自适应少样本提示用于情感分析",
+      "canonical_evidence": "多模态自适应少样本提示用于情感分析",
+      "llm_tldr_en": "Proposes MAF, a multimodal adaptive few-shot prompting framework that dynamically retrieves query-relevant demonstrations to improve MLLM sentiment analysis performance.",
+      "llm_tldr_cn": "针对多模态大语言模型在情感分析中对提示设计敏感的问题，提出了MAF框架。该方法动态检索与查询相关的示范样本，以上下文敏感的方式激发模型的推理能力。MAF综合编码面部表情、场景语境和文本语义，在多个情感分析基准上显著超过静态提示方法。",
+      "llm_tldr": "针对多模态大语言模型在情感分析中对提示设计敏感的问题，提出了MAF框架。该方法动态检索与查询相关的示范样本，以上下文敏感的方式激发模型的推理能力。MAF综合编码面部表情、场景语境和文本语义，在多个情感分析基准上显著超过静态提示方法。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "multimodal learning methods",
+      "matched_requirement_id": "req-24",
+      "selection_source": "carryover_cache",
+      "paper_id": "2606.15694v1",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "2606.20037v1",
+      "source": "arxiv",
+      "title": "Alzheimer's Disease Diagnosis using a Multimodal Approach with 3D MRI and PET",
+      "abstract": "Alzheimer's disease (AD) is an irreversible neurodegenerative disorder and a leading cause of death worldwide. Early diagnosis plays an important part especially at the Mild Cognitive Impairment stage, where timely intervention can help slow its progression before it advances to AD. Neuroimaging data, like Magnetic Resonance Imaging (MRI) and Positron Emission Tomography (PET) scans, can help detect brain changes early by providing structural and functional brain changes related to the disease. Yet, many multimodal models still fuse MRI and PET with static concatenation and apply identical computation to all subjects, which limits robustness to patient/site heterogeneity and can waste computation. To address these limitations, we present the first study of combining 3D convolutional feature extractors with three fusion strategies - concatenation, Gated Multimodal Unit (GMU), and gated self-attention - and a sparsely gated Mixture-of-Experts (MoE) classifier that performs input-adaptive routing, activating only the most informative experts per case. Finally, we utilize Grad-CAM to visualize disease-related regions, ensuring model interpretability. Experiments are performed across three binary classification tasks (NC vs. MCI, MCI vs. AD, and NC vs. AD). Results show that GMU achieves accuracies of 80.46 % (NC vs. MCI) and 95.47 % (NC vs. AD), while gated self-attention attains 82.08 % on MCI vs. AD. Ablations show that removing the MoE consistently degrades accuracy across all tasks. These findings underscore the value of input-adaptive, multimodal modeling for AD diagnosis by leveraging the complementary nature of MRI and PET.",
+      "authors": [
+        "Loukas Ilias",
+        "Anthi-Maria Vozinaki",
+        "Christos Ntanos",
+        "Dimitris Askounis"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG"
+      ],
+      "published": "2026-06-18T10:11:14+00:00",
+      "link": "https://arxiv.org/pdf/2606.20037v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:neural-ode"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "multimodal fusion of MRI and PET for Alzheimer's diagnosis",
+      "llm_evidence_cn": "多模态MRI和PET融合用于阿尔茨海默病诊断",
+      "llm_evidence": "多模态MRI和PET融合用于阿尔茨海默病诊断",
+      "canonical_evidence": "多模态MRI和PET融合用于阿尔茨海默病诊断",
+      "llm_tldr_en": "Proposes a multimodal approach for Alzheimer's diagnosis using 3D MRI and PET, addressing static concatenation limitations.",
+      "llm_tldr_cn": "该论文针对阿尔茨海默病早期诊断问题，提出一种多模态MRI与PET融合方法。现有方法采用静态拼接，对患者和机构异质性鲁棒性差且计算浪费。论文通过改进融合策略提升诊断精度和鲁棒性。实验表明该方法在多项指标上优于基线。这项研究为多模态医学影像分析提供了新的融合思路。",
+      "llm_tldr": "该论文针对阿尔茨海默病早期诊断问题，提出一种多模态MRI与PET融合方法。现有方法采用静态拼接，对患者和机构异质性鲁棒性差且计算浪费。论文通过改进融合策略提升诊断精度和鲁棒性。实验表明该方法在多项指标上优于基线。这项研究为多模态医学影像分析提供了新的融合思路。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "techniques for multimodal fusion",
+      "matched_requirement_id": "req-21",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "biorxiv-10-64898-2026-06-15-732402-v1",
+      "source": "biorxiv",
+      "title": "BAYESIAN STATE-SPACE MODEL FOR JOINT INFERENCE OF OSCILLATORY DYNAMICS AND POINT-PROCESS COUPLING",
+      "abstract": "Under a range of behavioral and physiological conditions, spike times and local field potential (LFP) oscillations exhibit phase coupling within specific frequency bands. Classical measures such as spike--field coherence (SFC) and the phase-locking value (PLV) quantify this coupling but estimate the LFP spectrum independently of spike timing. We introduce Joint SSMT, a Bayesian state-space framework that jointly infers LFP spectrograms and spike--field coupling strength. The model treats narrowband LFP activity as a latent process evolving in continuous time, with spike trains linked to the complex spectral state through a Bernoulli--logistic model. In simulations, Joint SSMT accurately recovers coupling strength, denoises the spectrogram, and uses spike timing to resolve fine temporal structure in the LFP. Applied to propofol anesthesia data, the model identifies coupling at a specific slow-oscillation frequency where SFC and PLV report only broad low-frequency coupling. We extend Joint SSMT to trial-structured experiments and apply it to primate recordings during an associative learning task, revealing frequency-specific coupling in hippocampus and prefrontal cortex. We also derive closed-form expressions for SFC and PLV as functions of the generative model parameters. Across simulations and two primate datasets, Joint SSMT provides more frequency-specific coupling estimates with principled uncertainty quantification than classical PLV and SFC.",
+      "authors": [
+        "Zheng, B.",
+        "Brincat, S.",
+        "Donoghue, J.",
+        "Miller, E.",
+        "Brown, E."
+      ],
+      "primary_category": "neuroscience",
+      "categories": [
+        "neuroscience"
+      ],
+      "published": "2026-06-19T00:00:00+00:00",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.06.15.732402v1.full.pdf",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:multi-modal",
+        "query:neural-ode"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "joint inference of oscillatory dynamics and point-process coupling for neural signals",
+      "llm_evidence_cn": "神经信号振荡与点过程耦合的联合推断",
+      "llm_evidence": "神经信号振荡与点过程耦合的联合推断",
+      "canonical_evidence": "神经信号振荡与点过程耦合的联合推断",
+      "llm_tldr_en": "Joint SSMT is a Bayesian state-space model that jointly infers LFP spectrograms and spike-field coupling strength, treating narrowband LFP as a latent process in continuous time.",
+      "llm_tldr_cn": "针对神经数据分析中LFP频谱和尖峰-场耦合独立估计的问题，提出贝叶斯状态空间框架Joint SSMT。该方法将窄带LFP视为连续时间潜变量，通过伯努利-逻辑模型与尖峰序列耦合，实现联合推断。仿真实验证明其能准确恢复耦合强度并去噪。该工作为神经振荡动力学分析提供了统一方法。",
+      "llm_tldr": "针对神经数据分析中LFP频谱和尖峰-场耦合独立估计的问题，提出贝叶斯状态空间框架Joint SSMT。该方法将窄带LFP视为连续时间潜变量，通过伯努利-逻辑模型与尖峰序列耦合，实现联合推断。仿真实验证明其能准确恢复耦合强度并去噪。该工作为神经振荡动力学分析提供了统一方法。",
+      "llm_tags": [
+        "query:eeg-ode-ln"
+      ],
+      "matched_query_tag": "query:eeg-ode-ln",
+      "matched_query_text": "EEG signal decoding methods",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2606.15743v1",
+      "source": "arxiv",
+      "title": "Unsupervised Learning for Missing Modalities in Multimodal Learning",
+      "abstract": "This paper addresses the missing-modality challenge in multi-modal learning by introducing Unsupervised Learning for Missing Modalities in Multi-Modal Learning (UL4M4), a flexible framework that imputes missing feature embeddings in a task-independent manner before supervised prediction. We propose modality-specific   normalization and a novel partial-modality distance metric to enable fair clustering of incomplete observations, capturing cross-modal structures while preserving scale-invariance across varying dimensionalities and modality counts. Cluster centers from this unsupervised stage guide an iterative greedy imputation process for any   missing modalities during training or inference, supporting arbitrary numbers of modalities and arbitrary missing patterns per sample. The imputation module is lightweight, uses frozen encoders, and decouples from the downstream task, allowing easy integration with any fusion/prediction architecture. Extensive experiments under diverse and highly incomplete regimes demonstrate UL4M4's robustness, achieving, to   the best of our knowledge, the first consistent F1-Micro scores above 0.7 on challenging missing configurations even when more than 50\\% of modality slots are missing. Results are also stable across cluster sizes and significantly outperform state-of-the-art baselines. Code is available here: https://github.com/h-ismkhan/Multimodal-Learning-with-Missing-Modalities-via-Unsupervised-Learning.",
+      "authors": [
+        "Hassan Ismkhan",
+        "Hamid Bouchahcia"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG"
+      ],
+      "published": "2026-06-14T11:04:33+00:00",
+      "link": "https://arxiv.org/pdf/2606.15743v1",
+      "tags": [
+        "keyword:multi-modal",
+        "query:multi-modal"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "unsupervised imputation for missing modalities in multimodal fusion",
+      "llm_evidence_cn": "多模态融合中缺失模态的无监督补全",
+      "llm_evidence": "多模态融合中缺失模态的无监督补全",
+      "canonical_evidence": "多模态融合中缺失模态的无监督补全",
+      "llm_tldr_en": "UL4M4 imputes missing modalities in multimodal learning via unsupervised clustering and iterative greedy imputation, enabling fair clustering of incomplete observations and supporting arbitrary modality numbers and missing patterns.",
+      "llm_tldr_cn": "本文提出UL4M4框架，解决多模态学习中缺失模态的挑战。该方法通过无监督聚类学习跨模态结构，并用迭代贪心策略补全任意缺失的模态嵌入。实验表明该框架能有效处理多种缺失模式，且与下游任务无关。这为多模态融合提供了灵活的预处理方案。",
+      "llm_tldr": "本文提出UL4M4框架，解决多模态学习中缺失模态的挑战。该方法通过无监督聚类学习跨模态结构，并用迭代贪心策略补全任意缺失的模态嵌入。实验表明该框架能有效处理多种缺失模式，且与下游任务无关。这为多模态融合提供了灵活的预处理方案。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "techniques for multimodal fusion",
+      "matched_requirement_id": "req-21",
+      "selection_source": "carryover_cache",
+      "paper_id": "2606.15743v1",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "biorxiv-10-64898-2026-01-26-701710-v4",
+      "source": "biorxiv",
+      "title": "Noninvasive and Objective Near Real-Time Detection of Pain Changes During Tonic Fluctuating Noxious Heat Stimulation",
+      "abstract": "Chronic pain involves natural intensity fluctuations that patients cannot control, contributing to learned helplessness and functional impairment. Detecting spontaneous pain decreases could enable precisely timed interventions that enhance perceived control. However, existing research on objective pain assessment has focused primarily on estimating static intensity from short, predictable stimuli rather than detecting moment-to-moment changes in ongoing pain. This study investigated whether pain decreases can be detected objectively using easily obtainable physiological signals during fluctuating pain. We recorded multiple physiological signals (8-channel EEG, electrodermal activity, heart rate, pupil diameter, facial expressions) from 42 healthy participants (M_age = 26.2 years, SD = 5.1) during calibrated tonic noxious heat stimulation on the left forearm with unpredictable intensity fluctuations (0-70 on visual analogue scale; twelve 3-minute trials). Temperature changes lasted 5-20 seconds. Using minimal preprocessing suitable for real-time applications, we trained deep learning models to classify pain decreases versus non-decreases from brief temporal windows, evaluated on a held-out test set (9 participants). Combining electrodermal activity, heart rate, and pupil diameter yielded optimal classification performance using a transformer-based architecture (AUROC = 0.854, accuracy = 76.8%). Electrodermal activity emerged as the most informative single predictor. Continuous stream analysis demonstrated median detection latency of 5.75 seconds with 70.4% sensitivity, reducible to 4.25 seconds at the cost of increased false positives. Results indicate that electrodermal activity and heart rate enable straightforward practical deployment, while highly variable signals such as EEG and facial expressions require personalized fine-tuned models. These findings establish a basis for closed-loop interventions targeting spontaneous pain changes.",
+      "authors": [
+        "Visser, L.",
+        "Buechel, C."
+      ],
+      "primary_category": "neuroscience",
+      "categories": [
+        "neuroscience"
+      ],
+      "published": "2026-06-20T00:00:00+00:00",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.01.26.701710v4.full.pdf",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "uses 8-channel EEG signal decoding for pain change detection",
+      "llm_evidence_cn": "使用8通道EEG信号解码疼痛变化",
+      "llm_evidence": "使用8通道EEG信号解码疼痛变化",
+      "canonical_evidence": "使用8通道EEG信号解码疼痛变化",
+      "llm_tldr_en": "This study uses multimodal physiological signals including 8-channel EEG to detect moment-to-moment pain decreases during tonic fluctuating heat stimulation, enabling objective near real-time pain assessment.",
+      "llm_tldr_cn": "现有疼痛评估主要针对静态强度，无法检测自然波动中的疼痛变化。本研究提出利用8通道EEG等多种生理信号，通过有监督学习模型近实时检测疼痛降低时刻。实验表明，模型能从波动性热痛刺激中准确识别疼痛变化，优于传统静态强度估计方法，为精准干预提供新工具。",
+      "llm_tldr": "现有疼痛评估主要针对静态强度，无法检测自然波动中的疼痛变化。本研究提出利用8通道EEG等多种生理信号，通过有监督学习模型近实时检测疼痛降低时刻。实验表明，模型能从波动性热痛刺激中准确识别疼痛变化，优于传统静态强度估计方法，为精准干预提供新工具。",
+      "llm_tags": [
+        "query:eeg-ode-ln"
+      ],
+      "matched_query_tag": "query:eeg-ode-ln",
+      "matched_query_text": "EEG signal decoding methods",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.16158v1",
+      "source": "arxiv",
+      "title": "Focus When Necessary: Adaptive Routing and Collaborative Grounding for Training-Free Visual Grounding",
+      "abstract": "While Multimodal Large Language Models (MLLMs) excel in cross-modal reasoning, they often struggle to perceive fine-grained details in complex high-resolution images. Recent training-free methods address this through image scaling and localized cropping. However, applying these manipulations indiscriminately introduces computational redundancy for simple queries and can degrade accuracy by truncating essential global context or introducing irrelevant background noise. To this end, we propose LazyMCoT, a dynamic and training-free framework that adaptively allocates visual grounding efforts based on sample difficulty. The framework features an Adaptive Routing mechanism that evaluates predictive uncertainty using first-token statistics from a single forward pass. This efficiently bypasses confident cases while ensuring the recall of difficult samples via conformal calibration. For these challenging cases, a Collaborative Grounding module integrates the inherent cross-modal attention of the model with an external visual expert through a two-stage refinement process. This refinement process generates a precise localized display to recover small or occluded targets. Extensive experiments across diverse benchmarks demonstrate that LazyMCoT rivals training-based approaches by simultaneously improving reasoning accuracy and reducing average inference latency. Our code is availble at https://github.com/TencentBAC/LazyMCoT.",
+      "authors": [
+        "Yifan Wang",
+        "Peiming Li",
+        "Shiyu Li",
+        "Zhiyuan Hu",
+        "Xiaochen Yang",
+        "Wenming Yang",
+        "Yang Tang",
+        "Zheng Wei"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.CL"
+      ],
+      "published": "2026-06-15T03:17:44+00:00",
+      "link": "https://arxiv.org/pdf/2606.16158v1",
+      "tags": [
+        "query:multi-modal"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "training-free visual grounding framework with adaptive routing for multimodal large language models",
+      "llm_evidence_cn": "针对多模态大语言模型的免训练视觉指代框架，采用自适应路由",
+      "llm_evidence": "针对多模态大语言模型的免训练视觉指代框架，采用自适应路由",
+      "canonical_evidence": "针对多模态大语言模型的免训练视觉指代框架，采用自适应路由",
+      "llm_tldr_en": "Proposes LazyMCoT, a dynamic training-free framework that adaptively allocates visual grounding efforts based on sample difficulty using adaptive routing and collaborative grounding.",
+      "llm_tldr_cn": "针对多模态大语言模型在处理复杂高分辨率图像时无法兼顾细粒度细节和计算冗余的问题，本文提出LazyMCoT框架，通过自适应路由机制根据样本难度动态分配视觉定位资源，并结合协同定位策略，在免训练条件下实现了精确且高效的视觉指代，避免了不必要的计算开销，显著提升了简单查询和复杂查询的综合性能。",
+      "llm_tldr": "针对多模态大语言模型在处理复杂高分辨率图像时无法兼顾细粒度细节和计算冗余的问题，本文提出LazyMCoT框架，通过自适应路由机制根据样本难度动态分配视觉定位资源，并结合协同定位策略，在免训练条件下实现了精确且高效的视觉指代，避免了不必要的计算开销，显著提升了简单查询和复杂查询的综合性能。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "vision language model architectures",
+      "matched_requirement_id": "req-22",
+      "selection_source": "carryover_cache",
+      "paper_id": "2606.16158v1",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "biorxiv-10-64898-2026-06-15-731669-v1",
+      "source": "biorxiv",
+      "title": "Language Immersion Enhances Attentional Speech Processing via Low-Frequency Neural Tracking",
+      "abstract": "Language experience is a powerful driver of neurocognitive plasticity, shown to modulate attentional and executive processing in speakers of multiple languages. This paper investigated how immersion in a second-language environment shapes attentional processing of speech. Fifty-eight bilingual Chinese-English speakers matched on their English language proficiency listened to competing continuous speech streams in a naturalistic listening task. They were immersed either in their native language environment (Beijing, China), or in the second language environment (Cambridge, UK). In an identical EEG experiment across the two immersion contexts, we assessed the listeners cortical tracking of attended and unattended speech and task-related attentional allocation using Temporal Response Function (mTRF) and Power Spectral Density (PSD) analyses. Behavioral comprehension of the attended narratives was uniformly high. PSD analyses showed no group difference in task-related attentional allocation, but mTRF results revealed robust differences in cortical tracking, with increased tracking of attended - but not unattended - streams in the immersed group, driven by the delta band (1-4 Hz). This boost in tracking of the attended signal declined with prolonged immersion, indicative of changes to attentional speech processing as the language environment stabilizes and consistent with the expansion-renormalization framework of neurocognitive adaptation. Jointly, these data imply that immersion in second-language environments shapes the way listeners encode speech, sharpening the brains ability to extract target auditory information from background noise. They furthermore suggest that, rather than being static or monotonous, this modulation reflects a flexible and dynamic process that is continuously shaped by changes in environmental demands and their duration.\n\nKey pointsO_LISecond language immersion boosts cortical tracking of attended speech, driven by the delta band (1-4 Hz).\nC_LIO_LIThis boost decreases with prolonged immersion, reflecting the dynamic, expansion-renormalization adaptation trajectory.\nC_LIO_LIImmersion does not influence task-related attentional allocation.\nC_LI",
+      "authors": [
+        "Wang, J.",
+        "Guo, T.",
+        "Bozic, M."
+      ],
+      "primary_category": "neuroscience",
+      "categories": [
+        "neuroscience"
+      ],
+      "published": "2026-06-16T00:00:00+00:00",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.06.15.731669v1.full.pdf",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "query:EEG-ODE-LN",
+        "query:multi-modal"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "EEG decoding of attentional speech processing",
+      "llm_evidence_cn": "EEG解码注意语音处理",
+      "llm_evidence": "EEG解码注意语音处理",
+      "canonical_evidence": "EEG解码注意语音处理",
+      "llm_tldr_en": "EEG study shows language immersion enhances low-frequency neural tracking of attended speech in bilinguals.",
+      "llm_tldr_cn": "该研究通过EEG实验发现，第二语言沉浸环境能增强双语者对注意语音的低频神经追踪。研究采用竞争语音流范式，比较了在不同语言环境下的皮层追踪差异，揭示了语言经验对注意力加工的神经可塑性影响。",
+      "llm_tldr": "该研究通过EEG实验发现，第二语言沉浸环境能增强双语者对注意语音的低频神经追踪。研究采用竞争语音流范式，比较了在不同语言环境下的皮层追踪差异，揭示了语言经验对注意力加工的神经可塑性影响。",
+      "llm_tags": [
+        "query:eeg-ode-ln"
+      ],
+      "matched_query_tag": "query:eeg-ode-ln",
+      "matched_query_text": "EEG signal decoding methods",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.16586v1",
+      "source": "arxiv",
+      "title": "LOCUS: Local Visual Cue Search for Enhancing Fine-Grained Perception in Multimodal Large Language Models",
+      "abstract": "Multimodal Large Language Models (MLLMs) remain unreliable on fine-grained visual perception, even when high-resolution inputs preserve the necessary local details. We identify this limitation as visual context rot: decisive evidence may exist in the full image, yet fail to be reliably selected and used amid redundant visual context. We propose LOCUS (LOcal visual CUe Search), a training framework that teaches MLLMs to internalize local evidence search through a verifiable proxy task. During training, LOCUS provides a local crop as a visual cue and optimizes the model to recover its spatial support in the full image using an IoU-based reward. The visual cue is used only during training, leaving the standard image-question inference interface unchanged. Experiments across fine-grained perception, hallucination, general understanding, and reasoning benchmarks show that LOCUS improves localization-sensitive visual understanding while preserving broad capabilities. Attention analyses further indicate stronger focus on task-relevant evidence regions, suggesting that training-time visual cue search provides an effective route to internalized fine-grained evidence selection.",
+      "authors": [
+        "Zhou Tao",
+        "Fang Zhang",
+        "Zewen Ding",
+        "Shida Wang",
+        "Xiaokun Sun",
+        "YongXiang Hua",
+        "Haoyu Cao",
+        "Linli Xu"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-06-15T11:30:56+00:00",
+      "link": "https://arxiv.org/pdf/2606.16586v1",
+      "tags": [
+        "query:multi-modal"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "training framework for MLLMs to internalize local evidence search via IoU-based reward",
+      "llm_evidence_cn": "通过IoU奖励训练MLLMs内化局部证据搜索",
+      "llm_evidence": "通过IoU奖励训练MLLMs内化局部证据搜索",
+      "canonical_evidence": "通过IoU奖励训练MLLMs内化局部证据搜索",
+      "llm_tldr_en": "Proposes LOCUS, a training framework that teaches MLLMs to search for local visual cues using an IoU-based reward, enhancing fine-grained perception.",
+      "llm_tldr_cn": "多模态大模型在细粒度视觉感知上不可靠，原因是视觉上下文腐烂：关键证据存在于全图但未被选择。本文提出LOCUS框架，在训练时提供局部裁剪作为视觉线索，并优化模型用IoU奖励恢复其在全图中的空间支持。训练后模型可直接推理无需额外裁剪，显著提升细粒度感知准确性。",
+      "llm_tldr": "多模态大模型在细粒度视觉感知上不可靠，原因是视觉上下文腐烂：关键证据存在于全图但未被选择。本文提出LOCUS框架，在训练时提供局部裁剪作为视觉线索，并优化模型用IoU奖励恢复其在全图中的空间支持。训练后模型可直接推理无需额外裁剪，显著提升细粒度感知准确性。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "multimodal learning methods",
+      "matched_requirement_id": "req-24",
+      "selection_source": "carryover_cache",
+      "paper_id": "2606.16586v1",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "2606.16799v1",
+      "source": "arxiv",
+      "title": "Decoupling Semantics from Distortions: Multi-Scale Two-Stream Vision-Language Alignment for AI-Generated Image Quality Assessment",
+      "abstract": "Existing vision-language model (VLM)-based AI-generated image quality assessment (AIGIQA) methods suffer from a fundamental semantic-distortion dimensional conflict: monolithic representations optimized for semantic discrimination inherently entangle compositional understanding with low-level perceptual sensitivity, rendering them blind to fine-grained quality degradations. We introduce MST-CLIPIQA, a multi-scale two-stream framework that achieves hierarchical vision-language alignment through explicit representational decoupling. Our architecture leverages dual CLIP encoders with complementary patch granularities: coarse-grained streams capture global semantic coherence while fine-grained streams preserve textural signatures and artifact patterns. An information bottleneck-inspired gated fusion mechanism performs adaptive cross-scale distillation, with optional cross-attention enabling prompt-anchored correspondence evaluation when generation prompts are available. Extensive experiments across five benchmarks establish new state-of-the-art results, achieving average improvements of 1.11 percent SRCC on quality and 2.35 percent SRCC on text-image correspondence prediction, while maintaining efficiency with only 0.8M trainable parameters. Our project is available at https://github.com/YMlinfeng/MST-CLIPIQA.",
+      "authors": [
+        "Zijie Meng"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.AI"
+      ],
+      "published": "2026-06-15T14:40:30+00:00",
+      "link": "https://arxiv.org/pdf/2606.16799v1",
+      "tags": [
+        "query:multi-modal"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "hierarchical vision-language alignment for image quality assessment",
+      "llm_evidence_cn": "分层视觉-语言对齐用于图像质量评估",
+      "llm_evidence": "分层视觉-语言对齐用于图像质量评估",
+      "canonical_evidence": "分层视觉-语言对齐用于图像质量评估",
+      "llm_tldr_en": "Introduces MST-CLIPIQA, a multi-scale two-stream framework that decouples semantics from distortions via hierarchical vision-language alignment for AI-generated image quality assessment.",
+      "llm_tldr_cn": "现有VLM方法在AI生成图像质量评估中混淆了语义与失真信息。本文提出MST-CLIPIQA多尺度双流框架，通过显式解耦表征实现分层视觉-语言对齐。粗粒度流捕捉全局语义，细粒度流感知质量退化。在多个AIGIQA基准上优于现有方法，证明了语义-失真解耦的有效性。",
+      "llm_tldr": "现有VLM方法在AI生成图像质量评估中混淆了语义与失真信息。本文提出MST-CLIPIQA多尺度双流框架，通过显式解耦表征实现分层视觉-语言对齐。粗粒度流捕捉全局语义，细粒度流感知质量退化。在多个AIGIQA基准上优于现有方法，证明了语义-失真解耦的有效性。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "multimodal alignment approaches",
+      "matched_requirement_id": "req-25",
+      "selection_source": "carryover_cache",
+      "paper_id": "2606.16799v1",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "2606.17053v1",
+      "source": "arxiv",
+      "title": "Context-Aware RL for Agentic and Multimodal LLMs",
+      "abstract": "Large language models (LLMs) often fail when answering requires identifying a small but decisive piece of evidence within a long or complex context, such as a single line in a tool trace or a subtle detail in an image. We propose ContextRL, a context-aware reinforcement learning (RL) method that improves long-horizon reasoning and multimodal performance through an \\emph{indirect} auxiliary objective. Instead of supervising only the final answer, ContextRL presents the model with a query, an answer, and two highly similar contexts, and rewards it for selecting the context that supports the query--answer pair, thereby encouraging fine-grained grounding. We construct contrastive context data in two domains: for coding agents, trajectories serve as contexts, yielding 1k pairs built via condition filtering; for multimodal reasoning, images serve as contexts, yielding 7K pairs built via generative editing and similarity search. ContextRL achieves average gains of +2.2% over standard GRPO on 5 long-horizon benchmarks, and +1.8% across 12 diverse visual question answering benchmarks. To disentangle the effect of the proposed objective from that of additional data, we compare against data-augmentation baselines that repurpose the same contrastive contexts as standard query--context--answer examples. These baselines provide little to no improvement, showing that the gains arise from the proposed context-selection objective rather than from the contrastive data alone.",
+      "authors": [
+        "Peiyang Xu",
+        "Bangzheng Li",
+        "Sijia Liu",
+        "Karthik R. Narasimhan",
+        "Pramod Viswanath",
+        "Prateek Mittal",
+        "Xingyu Fu"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL",
+        "cs.CV"
+      ],
+      "published": "2026-06-15T17:59:28+00:00",
+      "link": "https://arxiv.org/pdf/2606.17053v1",
+      "tags": [
+        "query:multi-modal"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Context-aware RL for multimodal LLMs",
+      "llm_evidence_cn": "多模态LLM的上下文感知强化学习",
+      "llm_evidence": "多模态LLM的上下文感知强化学习",
+      "canonical_evidence": "多模态LLM的上下文感知强化学习",
+      "llm_tldr_en": "Proposes ContextRL, a context-aware RL method that improves fine-grained grounding in multimodal LLMs by rewarding the model for selecting the correct context among similar alternatives.",
+      "llm_tldr_cn": "针对大语言模型在长上下文或复杂场景中难以定位关键证据的问题，提出了ContextRL。该方法通过间接辅助目标，让模型在相似上下文中选择支持问答对的正确语境，从而增强细粒度定位能力。在编码智能体和多模态任务上构建对比数据，实验表明ContextRL显著提升了模型在需要精确证据的任务上的表现。",
+      "llm_tldr": "针对大语言模型在长上下文或复杂场景中难以定位关键证据的问题，提出了ContextRL。该方法通过间接辅助目标，让模型在相似上下文中选择支持问答对的正确语境，从而增强细粒度定位能力。在编码智能体和多模态任务上构建对比数据，实验表明ContextRL显著提升了模型在需要精确证据的任务上的表现。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "multimodal language model research",
+      "matched_requirement_id": "req-20",
+      "selection_source": "carryover_cache",
+      "paper_id": "2606.17053v1",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "2606.17678v1",
+      "source": "arxiv",
+      "title": "See First, Answer Later: Visual Evidence Pre-Alignment via Sufficiency-Driven RL",
+      "abstract": "Multimodal large language models (MLLMs) integrate strong text reasoning with visual inputs, yet their responses can be inconsistent with the underlying images, indicating ineffective utilization of visual evidence during inference. The prevailing training paradigm relies on large-scale caption-based pretraining for general alignment, followed by supervised fine-tuning and reinforcement learning to enable instruction following and complex reasoning. However, such pretraining provides only weak visual grounding: short, coarse captions bias models toward salient objects while neglecting fine-grained visual evidence. In this paper, we introduce Visual Evidence Pre-Alignment (VEPA), an intermediate stage between pretraining and post-training that explores a novel sufficiency-driven objective with Group Relative Policy Optimization (GRPO) to optimize question-conditioned visual evidence descriptions. Extensive experiments across diverse benchmarks show that our VEPA consistently enhances performance on visually demanding evaluations and complements standard supervised post-training. Further analyses show that the income stems from strengthened, transferable visual grounding, rather than from additional task-specific training.",
+      "authors": [
+        "Yilian Liu",
+        "Sicong Leng",
+        "Guoshun Nan",
+        "Junyi Zhu",
+        "Jiayu Huang",
+        "Minghao Sun",
+        "Xuancheng Zhu",
+        "Yisong Chen",
+        "Zexian Wei",
+        "Xiaofeng Tao"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.AI"
+      ],
+      "published": "2026-06-16T08:45:24+00:00",
+      "link": "https://arxiv.org/pdf/2606.17678v1",
+      "tags": [
+        "query:multi-modal"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "multimodal large language models visual alignment",
+      "llm_evidence_cn": "多模态大语言模型视觉对齐",
+      "llm_evidence": "多模态大语言模型视觉对齐",
+      "canonical_evidence": "多模态大语言模型视觉对齐",
+      "llm_tldr_en": "Proposes VEPA, an intermediate training stage that improves visual evidence utilization in MLLMs via sufficiency-driven RL, enhancing fine-grained grounding.",
+      "llm_tldr_cn": "多模态大语言模型在推理时往往忽视图像中的细粒度视觉证据。本文提出视觉证据预对齐(VEPA)方法，在预训练和后训练之间插入一个中间阶段，通过充分性驱动的强化学习增强模型对视觉信息的利用。在多个基准上，VEPA提升了视觉定位能力和回答一致性，证明了中间对齐阶段的有效性。",
+      "llm_tldr": "多模态大语言模型在推理时往往忽视图像中的细粒度视觉证据。本文提出视觉证据预对齐(VEPA)方法，在预训练和后训练之间插入一个中间阶段，通过充分性驱动的强化学习增强模型对视觉信息的利用。在多个基准上，VEPA提升了视觉定位能力和回答一致性，证明了中间对齐阶段的有效性。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "multimodal language model research",
+      "matched_requirement_id": "req-20",
+      "selection_source": "carryover_cache",
+      "paper_id": "2606.17678v1",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "2606.17924v1",
+      "source": "arxiv",
+      "title": "PearlVLA: Progressive Embodied Action-Plan Refinement in Latent Space",
+      "abstract": "Current Vision-Language-Action (VLA) models face a trade-off between efficient action generation and explicit deliberation. Directly decoding actions from vision-language backbone representations enables low-latency control, whereas explicit reasoning through textual chains, pixel-level subgoals, or action search can improve planning but incurs substantial latency and computational cost. We propose PearlVLA, a VLA framework that moves deliberation into the latent space of a vision-language model (VLM). PearlVLA separates VLM meta-query representations into a fixed visual grounding branch and an iterative latent plan branch. At each refinement round, a plan-conditioned world query probes a lightweight frozen latent world model for an action-free future observation latent, which is fed back to guide plan refinement. A future-guided RefineNet then applies scheduled residual updates to progressively refine a coarse semantic draft into a fine-grained latent action plan. The refined plan after K rounds is then decoded in parallel into an action chunk for low-latency execution. We further introduce Causal Refinement-Grouped Process-Reward RL to optimize the latent refinement process with rewards from longer-horizon imagined futures induced by latent plan edits. Empirical evaluations on the LIBERO benchmark demonstrate that PearlVLA achieves state-of-the-art performance among existing methods.",
+      "authors": [
+        "Bochen Yang",
+        "Lianlei Shan"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO",
+        "cs.AI"
+      ],
+      "published": "2026-06-16T13:38:03+00:00",
+      "link": "https://arxiv.org/pdf/2606.17924v1",
+      "tags": [
+        "query:multi-modal"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Vision-Language-Action model with latent space deliberation",
+      "llm_evidence_cn": "视觉语言动作模型的潜在空间推理",
+      "llm_evidence": "视觉语言动作模型的潜在空间推理",
+      "canonical_evidence": "视觉语言动作模型的潜在空间推理",
+      "llm_tldr_en": "Proposes PearlVLA, a VLA framework that performs action-plan refinement in the latent space of a VLM, separating visual grounding from iterative latent planning to balance efficiency and deliberation.",
+      "llm_tldr_cn": "针对视觉语言动作模型中高效动作生成与显式推理之间的权衡，提出了PearlVLA框架。该方法将推理过程迁移到视觉语言模型的潜在空间，通过分离视觉定位和迭代潜在规划分支，在保持低延迟的同时提升了规划质量。实验证明该方法在机器人任务上实现了更优的性能。",
+      "llm_tldr": "针对视觉语言动作模型中高效动作生成与显式推理之间的权衡，提出了PearlVLA框架。该方法将推理过程迁移到视觉语言模型的潜在空间，通过分离视觉定位和迭代潜在规划分支，在保持低延迟的同时提升了规划质量。实验证明该方法在机器人任务上实现了更优的性能。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "vision language model architectures",
+      "matched_requirement_id": "req-22",
+      "selection_source": "carryover_cache",
+      "paper_id": "2606.17924v1",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "2606.19776v1",
+      "source": "arxiv",
+      "title": "Occ-VLM: Occupancy Grounded Vision Language Model for Indoor Scene Understanding",
+      "abstract": "Recently, vision-language models (VLMs) have made significant progress in 3D scene understanding, driving advances in applications such as embodied intelligence and robotic vision. However, existing approaches typically either rely directly on explicit 3D inputs (e.g., point clouds or RGB-D sequences), or introduce an additional 3D geometry encoder to derive 3D-aware visual tokens from 2D images. Such designs structurally decouple 3D geometric perception from the rich 2D semantics learned via vision-language pre-training, hindering the development of a unified 3D vision-language representation. In this work, we propose Occ-VLM, a novel framework for 3D scene understanding that operates purely on posed RGB images and employs a single 2D vision encoder. Specifically, Occ-VLM reconstructs 3D scene occupancy as an auxiliary geometric prior, which is utilized to spatially associate foreground 2D tokens with 3D space. These tokens are then decoded by a Large Language Model (LLM) for unified scene understanding. Extensive experiments demonstrate that Occ-VLM achieves both accurate geometric perception and robust vision-language reasoning: it attains state-of-the-art performance on multi-view occupancy prediction, while performing on par with 3D-input VLMs on 3D Visual Question Answering (VQA) and 3D dense captioning benchmarks.",
+      "authors": [
+        "Jianing Li",
+        "Zhou Fang",
+        "Yijiang Liu",
+        "Li Du"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-06-18T04:24:28+00:00",
+      "link": "https://arxiv.org/pdf/2606.19776v1",
+      "tags": [
+        "query:multi-modal"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "vision-language model 3D scene understanding",
+      "llm_evidence_cn": "视觉语言模型用于三维场景理解",
+      "llm_evidence": "视觉语言模型用于三维场景理解",
+      "canonical_evidence": "视觉语言模型用于三维场景理解",
+      "llm_tldr_en": "Proposes Occ-VLM, a VLM for indoor 3D scene understanding using only posed RGB images and a single 2D vision encoder.",
+      "llm_tldr_cn": "现有3D场景理解的VLM方法通常依赖显式3D输入或额外几何编码器，导致2D语义与3D几何分离。本文提出Occ-VLM，仅用有位姿的RGB图像和单一2D视觉编码器，通过占用网格表示实现统一的3D视觉-语言模型。在多个室内场景数据集上，Occ-VLM在无需3D真值的情况下取得了优异的语义理解性能。",
+      "llm_tldr": "现有3D场景理解的VLM方法通常依赖显式3D输入或额外几何编码器，导致2D语义与3D几何分离。本文提出Occ-VLM，仅用有位姿的RGB图像和单一2D视觉编码器，通过占用网格表示实现统一的3D视觉-语言模型。在多个室内场景数据集上，Occ-VLM在无需3D真值的情况下取得了优异的语义理解性能。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "vision language model architectures",
+      "matched_requirement_id": "req-22",
+      "selection_source": "carryover_cache",
+      "paper_id": "2606.19776v1",
+      "quick_tier": "8plus"
+    }
+  ]
+}

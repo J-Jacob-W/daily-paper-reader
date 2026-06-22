@@ -1,0 +1,923 @@
+Title: Focus When Necessary: Adaptive Routing and Collaborative Grounding for Training-Free Visual Grounding
+
+URL Source: https://arxiv.org/pdf/2606.16158v1
+
+Published Time: Tue, 16 Jun 2026 02:05:44 GMT
+
+Number of Pages: 15
+
+Markdown Content:
+# Focus When Necessary: Adaptive Routing and Collaborative Grounding for Training-Free Visual Grounding 
+
+Yifan Wang 1,2 , Peiming Li 1,3 , Shiyu Li 1, Zhiyuan Hu 1,3 , Xiaochen Yang 4,Wenming Yang 2, ∗, Yang Tang 1, ∗,†, Zheng Wei 1, ∗
+
+> 1
+
+Tencent BAC 2Shenzhen International Graduate School, Tsinghua University 
+
+> 3
+
+School of Electronic and Computer Engineering, Peking University 
+
+> 4
+
+School of Mathematics and Statistics, University of Glasgow {wyattyfwang, ethanntang, hemingwei}@tencent.com, yang.wenming@sz.tsinghua.edu.cn 
+
+Abstract 
+
+While Multimodal Large Language Models (MLLMs) ex-cel in cross-modal reasoning, they often struggle to perceive fine-grained details in complex high-resolution images. Re-cent training-free methods address this through image scaling and localized cropping. However, applying these manipula-tions indiscriminately introduces computational redundancy for simple queries and can degrade accuracy by truncat-ing essential global context or introducing irrelevant back-ground noise. To this end, we propose LazyMCoT , a dynamic and training-free framework that adaptively allocates visual grounding efforts based on sample difficulty. The frame-work features an Adaptive Routing mechanism that evaluates predictive uncertainty using first-token statistics from a sin-gle forward pass. This efficiently bypasses confident cases while ensuring the recall of difficult samples via confor-mal calibration. For these challenging cases, a Collaborative Grounding module integrates the inherent cross-modal atten-tion of the model with an external visual expert through a two-stage refinement process. This refinement process gen-erates a precise localized display to recover small or oc-cluded targets. Extensive experiments across diverse bench-marks demonstrate that LazyMCoT rivals training-based ap-proaches by simultaneously improving reasoning accuracy and reducing average inference latency. Our code is availble at https://github.com/TencentBAC/LazyMCoT. 
+
+Introduction 
+
+Multimodal Large Language Models (MLLMs) have recently achieved unprecedented success across vision-language tasks (Li et al. 2023; Dai et al. 2023; Liu et al. 2023; Bai et al. 2023). While early models with fixed resolution en-coders struggle to capture fine details in complex images (Li et al. 2023; Zhang et al. 2023; Liu et al. 2024a), recent advancements resolve this limitation through dynamic reso-lution mechanisms (Zhu et al. 2025; Bai et al. 2025b; Wang et al. 2025b; Bai et al. 2025a; Liu et al. 2024b). Building on these robust base models, training-free visual grounding methods have emerged as a promising paradigm (Wang et al. 2025c; Shen et al. 2025; Li et al. 2025). By utilizing visual experts, search algorithms, or attention decoupling, these 
+
+> ∗
+
+Corresponding author. 
+
+> †
+
+Project Lead. Easy Sample       
+
+> Hard Sample
+> Search Crop
+> Zoom in Zoom out
+> Visual
+> Manipulation
+> …
+> MLLM
+> MLLM
+> Answer
+> Answer
+> Easy Sample
+> Hard Sample
+> Adaptive
+> Routing
+> Collaborative Grounding MLLM Answer
+> MLLM Answer
+> Direct
+> Answer
+
+Figure 1: LazyMCoT allocates visual grounding effort by sample difficulty. (a) Previous training-free methods indis-criminately apply heavy visual manipulation to every sam-ple. (b) LazyMCoT instead routes easy samples to a direct answer and dispatches only hard samples through Collabo-rative Grounding before re-querying the MLLM. methods extract key patches and perform localized cropping to enhance the model’s perception of subtle visual evidence without the need for expensive retraining (Li et al. 2026; Liu et al. 2025; Khayatkhoei et al. 2025; Morini et al. 2026). Although effective on challenging instances, current visual grounding methods without additional training exhibit a crit-ical flaw by indiscriminately applying complex visual manip-ulations to all samples (Shen et al. 2025; Li et al. 2025; Gröpl et al. 2026). Empirical observations reveal that this uniform strategy is highly suboptimal. As shown in Fig. 2 and Fig. 3, it wastes significant computational resources since standard VLMs can accurately answer a large fraction of queries in a single forward pass. More importantly, forcibly applying localized cropping to straightforward samples can severely degrade performance. By truncating essential global con-text and introducing irrelevant background noise, redundant visual processing misguides the model and causes failures on otherwise solvable cases. This issue is particularly detri-mental in tasks demanding complex reasoning, where blind grounding reduces the overall accuracy of VLMs. Motivated by these observations, we argue that visual grounding should be applied selectively. We hypothesize that the base VLM’s initial predictive uncertainty is a strong indicator of whether further visual exploration is required. 
+
+> arXiv:2606.16158v1 [cs.CV] 15 Jun 2026
+
+Through statistical analysis, we discover that zero-cost fea-tures extracted from the first answer token’s logits, namely the option top probability and the option-versus-non-option logit gap, exhibit a strong monotonic correlation with the model’s predictive entropy. These statistics cleanly separate the samples that the base VLM can solve directly from those that genuinely require dense visual grounding. To translate this insight into an actionable solution, we propose LazyMCoT , a novel training-free framework that dynamically allocates visual grounding effort based on sam-ple difficulty. LazyMCoT consists of two core components, 
+
+Adaptive Routing and Collaborative Grounding . The Adaptive Routing employs a lightweight decision model to evaluate the first-token statistics, with its decision threshold calibrated via conformal prediction (Shafer and Vovk 2008) to provide a controllable lower bound on the recall of diffi-cult samples. If the model is confident, the router instantly returns the direct answer and bypasses any extra computation. Otherwise, the query is routed to the Collaborative Ground-ing module. As shown in Fig. 1, unlike previous methods that rely on inflexible search strategies (Shen et al. 2025; Li et al. 2025), our grounding module couples an attention-driven branch derived from the VLM’s cross-modal atten-tion with an external visual expert (Carion et al. 2025; Liu et al. 2024c) branch. Through a two-stage parallel detection and refinement process, it precisely extracts fine-grained ev-idence containing key targets, and renders a Localized Panel Display, which is then fed back to the VLM for reasoning. We conduct extensive experiments on multiple chal-lenging benchmarks using open-source VLM backbones. LazyMCoT consistently outperforms existing training-free methods and even matches or exceeds recent training-based grounding approaches. It not only achieves significant accu-racy gains on fine-grained localization tasks, but also pre-vents the performance degradation commonly observed in other grounding methods on reasoning-heavy tasks. Further-more, by short-circuiting easy samples, LazyMCoT signifi-cantly reduces the average end-to-end inference latency. In summary, our main contributions are threefold: 
+
+• We identify and empirically validate the inherent lim-itations of indiscriminate visual grounding in current training-free methods, demonstrating that redundant vi-sual manipulation may hurt performance on easy samples and wastes computational resources. 
+
+• We propose LazyMCoT , a dynamic framework featuring an Adaptive Routing that leverages zero-cost first-token statistics with conformal-calibrated decision rules to se-lectively trigger visual grounding, and a Collaborative Grounding module that synergizes VLM attention with visual experts for precise evidence extraction. 
+
+• Extensive experiments demonstrate that LazyMCoT achieves competitive performance among training-free methods across multiple benchmarks and VLMs, improv-ing accuracy and reducing inference latency. 
+
+Related Work 
+
+Multimodal Large Language Models. Multimodal Large Language Models (MLLMs) have demonstrated remark-able potential in cross-modal tasks. Among these, Vision-Language Models (VLMs) have advanced with particular ra-pidity. However, early models (Li et al. 2023; Dai et al. 2023; Liu et al. 2023; Bai et al. 2023; Liu et al. 2024a) relying on Q-Former (Li et al. 2023) or trainable visual adapters (Zhang et al. 2023) often lose fine-grained details due to their fixed-resolution visual encoders. To address complex visual rea-soning, dynamic resolution MLLMs (Zhu et al. 2025; Bai et al. 2025b; Gao et al. 2024; Chen et al. 2024; Liu et al. 2024b) have emerged to preserve spatial precision for high-resolution inputs. For instance, InternVL-3.5 (Wang et al. 2025b) utilizes dynamic slicing for high resolution images, while Qwen3-VL (Bai et al. 2025a) adopts DeepStack multi-layer visual injection for enhanced alignment. Building upon these advancements, we propose a training-free method that leverages the inherent capabilities of VLMs to enhance their perception and expand their performance boundaries. 
+
+Training-Free Visual Grounding. Globally uniform fea-ture extraction often wastes computational resources and obscures critical details within background noise. Con-sequently, recent studies emphasize training-free visual grounding and dynamic focusing mechanisms. For example, RAP (Wang et al. 2025c) pioneers spatially aware layouts, while ZoomEye (Shen et al. 2025) and DyFo (Li et al. 2025) utilize search algorithms for efficient visual navigation. Other approaches leverage visual experts for bottom-up evidence extraction (Li et al. 2026), entropy gradients for region guid-ance (Gröpl et al. 2026), or attention decoupling for key patch extraction (Liu et al. 2025; Khayatkhoei et al. 2025; Morini et al. 2026). Unlike previous methods relying on inflexible search strategies, our proposed approach integrates attention guidance with visual experts to extract fine-grained evidence much more precisely. Additionally, we introduce a dynamic routing mechanism to adaptively schedule inference paths based on varying sample difficulty. 
+
+Preliminary 
+
+Limitations of Existing Training-Free Visual Grounding Methods 
+
+Recent advancements (Li et al. 2026; Liu et al. 2025) in training-free visual grounding heavily rely on image scaling and localized cropping to enhance the perception of fine-grained details. However, observations reveal that these op-erations are not universally beneficial across all instances. A substantial portion of straightforward samples can be accu-rately resolved by original VLMs without additional visual manipulation. We evaluated on a unified benchmark compris-ing V* Bench (Wu and Xie 2024), HR-Bench 4K/8K (Wang et al. 2025a), and TreeBench (Wang et al. 2026). As shown in Fig. 2, an average of 67.17% of the samples can be correctly answered relying solely on the vanilla VLM inference. Furthermore, forcibly applying these complex operations to such simple cases can introduce unnecessary background noise or truncate essential global context. As shown in Fig. 3, this redundant processing occasionally misguides the model and leads to incorrect predictions for samples that the base VLM would have otherwise answered correctly. '                 
+
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> &#!"$
+> 
+> 
+> 
+> 
+> ' 
+> 
+>  
+> 
+> 
+> %#  
+> 
+> 
+> 
+> 
+>     
+
+Figure 2: Vanilla VLM inference successfully solves most samples. Breakdown of samples solved without extra visual operations ( Direct Correct , blue) vs. those requiring addi-tional grounding ( Needs Extra Operations , orange) for each VLM across four benchmarks. 
+
+Statistical Features for Sample Routing 
+
+Motivated by these observations, we propose selective visual grounding based on sample difficulty. We hypothesize that the base VLM’s initial predictive uncertainty indicates the need for further visual exploration. To verify this, we extract two zero-cost statistics from a single forward pass. Let z ∈ RV denote the first answer token’s logits, and O
+
+be the candidate option indices. Given the full vocabulary distribution pi = softmax( z)i and the renormalized option-restricted distribution ˜p, we define the option top probability (topp ) and option-versus-non-option logit gap ( ∆logit ) as: 
+
+topp = max  
+
+> i∈O
+
+˜pi, ∆logit = max  
+
+> i∈O
+
+zi − max  
+
+> j / ∈O
+
+zj . (1) Intuitively, topp measures probability concentration on the top option, while ∆logit reflects the model’s confidence in choosing a valid option over other tokens. To obtain a comparable scalar, we train a Gradient Boosting Deci-sion Tree (Friedman 2001) gθ on a held-out set to classify 
+
+x = (topp , ∆logit ) as ori-correct ( y = 0 ) or ori-wrong (y = 1 ). The routing score is the logit of the predicted ori-wrong probability ˆp(x) = gθ (x):
+
+s(x) = log ˆp(x)1 − ˆp(x) . (2) Using 1,000 samples from Sec. 3.1 mentioned dataset, we compute option entropy H(˜ p) = − P 
+
+> i∈O
+
+˜pi log ˜ pi
+
+and normalized vocabulary entropy ˜Hvocab =
+
+− PVi=1 pi log pi/ log V . As shown in Fig. 4, routing scores separate ori-correct and ori-wrong samples (Fig. 4a), validating topp and ∆logit as reliability indicators. Predic-tive entropy correlates monotonically with routing scores (Fig. 4b), peaking for ori-wrong samples. Thus, these statistics are ideal for a lightweight router to selectively trigger visual grounding. Please refer to Appendix Sec. C for these statistics on additional VLMs. 
+
+Method 
+
+Overview 
+
+Building on the observations in Sec. 3 , we propose LazyM-CoT , a training-free framework that dynamically allocates visual grounding effort based on sample difficulty. As il-lustrated in Fig. 5, given an image I and a multiple-choice question Q. First, a single-token forward pass yields a di-rect answer and statistics x = (topp , ∆logit ). An Adaptive Routing module evaluates x and returns the direct answer immediately if the routing score s(x) < s floor . Otherwise, a Collaborative Grounding module coupling attention and visual expert branches generates a Localized Panel Display (LPD) (Liu et al. 2025) via a two-stage detection. This LPD is then used to re-query the VLM to obtain the final answer. This design selectively applies dense grounding to hard sam-ples while preserving zero-shot efficiency on easy ones. 
+
+Adaptive Routing 
+
+The motivation of adaptive routing is to convert the empirical observations in Sec. 3.2 into an automatic decision rule that triggers Collaborative Grounding only when the base VLM is uncertain. Given the first-token feature vector x, we obtain the routing score s(x) in Eqn. 2 via a Gradient Boosting Decision Tree (Friedman 2001) that is trained once on a held-out routing set Dcal with labels y ∈ { 0, 1} for ori-correct and ori-wrong respectively. Both Dcal and the test set are disjoint and the GBDT remains fixed during inference, so the router introduces no extra learnable parameters at deployment. 
+
+Conformal threshold calibration. A naive choice of deci-sion threshold may either skip too many ori-wrong samples or run grounding on too many ori-correct ones. To make the routing behavior controllable, we adopt a conformal calibra-tion on the must-recall subset Dmr ⊆ D cal , containing all ori-wrong samples benefiting from grounding. Let {si}i∈D mr be the out-of-fold scores produced by the GBDT. For a target miscoverage rate α ∈ [0 , 1) , the routing threshold is set to: 
+
+sfloor = Qα
+
+ {si}i∈D mr 
+
+, (3) where Qα(·) denotes the empirical α-quantile. By construc-tion, at most an α fraction of must-recall samples falls below 
+
+sfloor , guaranteeing a controlled lower bound on the recall of difficult samples. Smaller α yields a lower threshold and a more conservative router that triggers grounding more often, while larger α allows aggressive skipping of easy samples. 
+
+Routing rule. Let Direct( I, Q ) denote the direct answer ob-tained from the single-token forward pass and let CG( I, Q )
+
+denote the answer produced by feeding the LPD ˆI back to the VLM. The final prediction of LazyMCoT is: 
+
+ˆy =
+
+(Direct( I, Q ), s(x) < s floor ,
+
+CG( I, Q ), s(x) ≥ sfloor . (4) Because s(x) is computed from the same forward pass as the direct answer and Dcal is routing-data only, no additional inference cost is introduced for skipped samples and no train-ing of the base VLM is required. This makes adaptive routing a lightweight plug-in that can be paired with any VLM. 
+
+Collaborative Grounding 
+
+Entity decomposition and parallel detection. For routed difficult samples, we first prompt the VLM with a rule-based template (Liu et al. 2025) to decompose Q into a list of Which building has a red and white  
+
+> striped antenna on its top? \n(A)
+> The building with the DB logo \n(B)
+> The building with the Deutsche
+> Bank logo \n(C) The building with
+> the Commerzbank logo \n(D) The
+> building with the Helaba logo
+> Question
+> <Answer>(D)</Answer>
+> Answer
+
+Key Information 
+
+Background Noise 
+
+Miss Key Information 
+
+> Answer
+> There is no red and white
+> striped antenna here.
+
+(b) Transformed Image (a) Original Image   
+
+> Which building has a red and white
+> striped antenna on its top? \n(A)
+> The building with the DB logo \n(B)
+> The building with the Deutsche
+> Bank logo \n(C) The building with
+> the Commerzbank logo \n(D) The
+> building with the Helaba logo
+> Question
+> <Answer>(C)</ Answer >
+
+Figure 3: Indiscriminately applied visual grounding can hurt easy samples. (a) On the original image, the base VLM directly localizes the key region and answers correctly. (b) After image scaling and localized cropping, the truncated context omits the key information while introducing background noise, misleading the model into a wrong answer. Density       
+
+> 𝑆 𝑥 =logit 𝑃 !"#$ topp ,Δ%&'()
+> (a)
+
+Routing score distribution 𝑆  𝑥     
+
+> Answer entropy 𝐻 𝑝 %(b)
+
+Score versus answer entropy 
+
+Figure 4: Statistical separability of ori-correct & ori-wrong samples on Qwen2.5-VL-7B. (a) First-token routing score s(x) shows distinct modes per class. (b) s(x) correlates monotonically with answer entropy H(˜ p), with ori-wrong samples clustering in the high-entropy region. canonical entities E = {e1, . . . , e M }. With E as queries, we run two complementary detectors in parallel. The vi-sual expert branch feeds E into SAM3 (Carion et al. 2025) to obtain a set of expert boxes Bexp . The attention branch 
+
+appends the prompt “Search the following entities in the images: E” to the VLM input and records the cross-modal attention A ∈ RT ×N , where T is the number of entity tokens and N is the number of visual tokens. Per entity token, the attention map is reshaped to the spatial grid, smoothed by a Gaussian kernel of bandwidth σ, normalized, and aggregated across entity tokens into a single saliency map: 
+
+A(I) = 1
+
+T
+
+> T
+
+X
+
+> t=1
+
+N gσ ∗ At
+
+, (5) where N (·) rescales the map to [0 , 1] . Connected components of the saliency map above a relative threshold τ on A(I) are converted into the attention boxes Batt .
+
+Two-stage refinement. We observe that Bexp tends to recall the most salient instances but may miss small or occluded Algorithm 1: Collaborative Grounding 
+
+Input : image I, question Q, base VLM f , visual expert S
+
+Parameter : kernel bandwidth σ, threshold τ
+
+Output : localized panel display ˆI
+
+1: Decompose Q into entity set E = {e1, . . . , e M } via f .
+
+2: Bexp ← S (I, E) (visual expert branch) 
+
+3: Run f with prompt “Search E in I” and record cross-modal attention A.
+
+4: Compute aggregated saliency A(I) by Eqn. 5. 
+
+5: Threshold A(I) at τ to obtain attention boxes Batt .
+
+6: B(1) ← B att ∪ B exp .
+
+7: ∆B ← ∅ 
+
+8: for each b ∈ B att not covered by Bexp do 
+
+9: Ib ← crop of I on the enlarged region of b.
+
+10: ∆B ← ∆B ∪ S (Ib, E).
+
+11: end for 
+
+12: B(2) ← B (1) ∪ ∆B
+
+13: Render B(2) on I with color borders and legends to obtain ˆI.
+
+14: return ˆI
+
+ones, whereas Batt covers question-relevant regions but is noisy. To exploit their complementarity, we couple the two sources by a two-stage detection procedure. In the first stage, we take the union B(1) = Batt ∪ B exp as a coarse evidence pool. In the second stage, for each box b ∈ B (1) att that is not already covered by Bexp , we crop I to the slightly enlarged region of b and re-query SAM3 with the same entities. The newly discovered boxes ∆B inside the crop are mapped back to image coordinates and appended to the evidence pool. The refined box set B(2) = B(1) ∪ ∆B is finally rendered as a localized panel display ˆI, in which each region is assigned a color and a textual legend so that the VLM can reason over multiple evidence patches in one forward pass. The complete procedure is summarized in Alg. 1. Input Image 𝑰               
+
+> Is the pillar box on the left or
+> right side of the man with the
+> cane? \n(A) left \n(B) right
+> Input Image 𝑰
+> What is the color of the
+> cart ?\n( A) red \n( B) white \n( C)
+> black \n( D) green
+> Single Token Forward
+> 𝑺 𝐟𝐥𝐨𝐨𝐫
+> 𝑺 𝐟𝐥𝐨𝐨𝐫
+> 𝑺 𝒙
+> 𝑺 𝒙 <𝑺 𝒇𝒍𝒐𝒐𝒓 <Answer>(D)</Answer>
+> Easy Sample
+> Direct Answer
+> Question 𝑸
+> Is the pillar box on the left or
+> right side of the man with the
+> cane? \n(A) left \n(B) right
+> Decompose
+> 1. pillar box 2. man with a cane
+> Entity Set
+
+𝜺   
+
+> Visual Expert
+> Branch
+> Attention Branch
+> Attention Boxes 𝓑 𝐚𝐭𝐭
+> Expert Boxes 𝓑 𝐞𝐱𝐩
+
+U      
+
+> 𝓑 𝐚𝐭𝐭 ⋃𝓑 𝐞𝐱𝐩
+> Localized Panel
+> Display
+> pillar box
+> man with a cane
+> Stage II
+> Refinement
+> Processed Image 𝑰 )
+> Vision -Language
+> Model
+
+U     
+
+> Union Operation
+> Iterative Path 𝑺 𝒙 ≥𝑺 𝐟𝐥𝐨𝐨𝐫
+> <Answer >(B)</ Answer>
+> Hard Sample
+> Collaborative
+> Grounding 𝑺 𝒙
+> Visual Expert
+
+Figure 5: Overview of the proposed LazyMCoT framework. (a) The Adaptive Routing utilizes first-token statistics from a single forward pass to dynamically bypass simple cases or route hard samples. (b) Collaborative Grounding integrates an attention branch and a visual expert to construct a localized panel display for precise VLM re-querying. 
+
+Experiments 
+
+Experiment Settings 
+
+Datasets & Metrics. We systematically evaluate our pro-posed method on three challenging benchmarks. (1) V* Bench (Wu and Xie 2024), which contains 191 images with an average resolution of 2246 ×1582 and focuses on Direct Attribute recognition (Att.) and Spatial Relationship reason-ing (Spa.). (2) HR-Bench (Wang et al. 2025a), which pro-vides 4K and 8K resolution images that are evenly split into 
+
+Single-Instance (Sin.) and Cross-Instance (Cro.) perception tasks. (3) TreeBench (Wang et al. 2026), comprising 405 images with an average resolution of 2152 ×1615, which covers fine-grained perception (e.g., Material Recognition, OCR) and multi-step reasoning (e.g., Occlusion, Compara-tive Analysis). Multiple-choice accuracy is adopted as the primary evaluation metric across all benchmarks. 
+
+Implementation Details. We employ SAM3 (Carion et al. 2025) as the visual expert, setting the maximum number of detected objects to k = 10 to balance performance and la-tency. LazyMCoT is evaluated across three different VLMs: Qwen2.5-VL-7B (Bai et al. 2025b), Qwen3-VL-8B (Bai et al. 2025a), and InternVL3-8B (Zhu et al. 2025). For the rout-ing strategy, we train a Gradient Boosting Decision Tree (GBDT) (Friedman 2001) classifier to determine the routing threshold without manual tuning. Conformal prediction is subsequently applied to the out-of-fold scores to ensure high recall for mispredicted samples. Please refer to Appendix Sec. A for further implementation details. 
+
+Main Results 
+
+Results on HR-Bench and V ∗. As reported in Tab. 1, LazyMCoT delivers consistent gains over the base VLMs across all three backbones, raising the average accuracy by 3.3, 7.9, and 8.4 points on InternVL3-8B, Qwen3-VL-8B, and Qwen2.5-VL-7B, respectively. Among training-free methods, LazyMCoT ranks first on every aggregate column and surpasses the HiDe baseline on average. Notably, on the Qwen2.5-VL-7B, our training-free framework matches or exceeds recent training-based grounding methods, achieving the best V ∗ average of 90 .6% without any parameter update. The improvement is most pronounced on tasks that demand fine-grained spatial localization (V ∗-Spa. +17 .1 points on Qwen2.5-VL-7B), confirming that our collaborative ground-ing effectively recovers small targets. 
+
+Results on TreeBench. TreeBench probes perception and reasoning beyond pure localization, where indiscriminate grounding can disrupt models with already accurate rea-soning chains. As shown in Tab. 2, on Qwen3-VL-8B HiDe degrades the average score from 43 .0% to 41 .7% because Method Training Free HR-Bench-4K HR-Bench-8K V*                                                                                                                                                                                                                       
+
+> Sin. Cro. Avg. Sin. Cro. Avg. Att. Spa. Avg. GPT-4o (OpenAI 2024) –70.00 48.00 59.00 62.00 49.00 55.50 ––66.00
+> InternVL3-8B-Instruct
+> Base (Zhu et al. 2025) –82.80 58.80 70.80 80.00 59.80 69.90 81.70 78.90 80.60 ViCrop (Khayatkhoei et al. 2025) ✓88.00 57.00 72.50 82.80 54.80 68.80 88.70 75.00 83.30 HiDe (Liu et al. 2025) ✓88.50 57.50 73.00 86.00 54.20 70.10 89.60 81.60 86.40
+> LazyMCoT (Ours) ✓89.50 58.80 74.10 89.80 53.00 71.40 89.70 83.90 87.30
+> ∆vs. InternVL3-8B-Instruct –↑6.70 –↑3.30 ↑9.80 ↓6.80 ↑1.50 ↑8.00 ↑5.00 ↑6.70
+> Qwen3-VL-8B-Instruct
+> Base (Bai et al. 2025a) –90.50 66.30 78.40 83.80 65.00 74.40 85.20 80.30 83.20
+> LazyMCoT (Ours) ✓94.30 66.50 80.40 90.80 64.00 77.40 92.20 89.50 91.10
+> ∆vs. Qwen3-VL-8B-Instruct –↑3.80 ↑0.20 ↑2.00 ↑7.00 ↓1.00 ↑3.00 ↑7.00 ↑9.20 ↑7.90
+> Qwen2.5-VL-7B-Instruct
+> Base (Bai et al. 2025b) –88.80 54.80 71.80 84.20 51.50 67.90 80.90 76.30 79.10 DeepEyes (Zheng et al. 2025) ✗91.30 59.00 75.10 86.80 58.50 72.60 92.10 86.80 90.00 Thyme-VL (Zhang et al. 2025) ✗91.00 63.00 77.00 86.50 57.50 72.00 83.50 80.30 82.20 TreeVGR (Wang et al. 2026) ✗89.50 61.50 72.70 84.40 57.20 69.80 86.10 85.50 85.90 ViCrop (Khayatkhoei et al. 2025) ✓90.50 57.50 74.00 85.50 53.00 69.30 89.60 71.10 82.20 Dyfo (Li et al. 2025) ✓89.20 53.50 71.30 86.50 53.20 69.80 82.60 86.80 84.30 ZoomRefine (Yu, Guan, and Gu 2025) ✓88.50 55.30 71.50 83.90 54.00 68.60 85.30 77.60 82.20 DeepScan (Li et al. 2026) ✓90.10 59.70 75.00 87.20 57.60 72.40 93.00 86.80 90.60
+> HiDe (Liu et al. 2025) ✓95.50 59.30 77.40 92.50 57.30 74.90 94.80 82.90 90.00
+> LazyMCoT (Ours) ✓96.20 59.00 77.60 93.80 57.00 75.40 92.20 88.20 90.60
+> ∆vs. Qwen2.5-VL-7B-Instruct –↑5.70 ↑1.50 ↑3.60 ↑8.30 ↑4.00 ↑6.10 ↑2.60 ↑17.1 ↑8.40
+
+Table 1: Quantitative results on HR-Bench and V ∗ benchmarks. For each backbone group, the best result is in bold and the second-best is underlined. LazyMCoT achieves competitive performance across all settings. every sample is forced into the grounding pipeline, whereas LazyMCoT lifts it to 43 .5% by routing only difficult cases through the visual expert. On the Qwen2.5-VL-7B backbone, LazyMCoT obtains 41 .7% average accuracy with balanced gains over both Perception ( +3 .4 points vs. base) and Reason-ing categories, outperforming all training-free competitors. These results confirm that adaptive routing is essential for benchmarks where blind grounding is detrimental. 
+
+Latency comparison. Fig. 6 reports the average per-sample wall-clock time on V* across three VLMs, comparing HiDe, w/o Adaptive Routing, and our full LazyMCoT. To ensure fair comparison, all experiments are conducted on a single NVIDIA H20 GPU with a batch size of 1. Adding collab-orative grounding alone is slightly slower than HiDe due to the SAM3 verification stage, but enabling the router lets the framework short-circuit on samples whose first-token statistics already indicate confident answers, reducing aver-age inference latency. Hence, LazyMCoT offers a balance of reasoning accuracy and efficiency for visual grounding. 
+
+Ablation Study 
+
+Effect of the two main components. Tab. 3 dissects Adap-tive Routing (AR) and Collaborative Grounding (CG). Forc-ing CG on every sample lifts V ∗ from 79 .1% to 90 .0% and HR-Bench-4K from 71 .8% to 77 .4% , but on TreeBench the gain is limited because indiscriminate grounding hurts easy reasoning samples. Plugging in AR further pushes V ∗ to 
+
+90 .6% and TreeBench to 41 .7% , indicating that the two components are complementary. CG provides the precision needed for hard cases, while AR shields the base VLM from unnecessary grounding on easy ones. 
+
+Figure 6: Adaptive routing yields the lower end-to-end la-tency. Average per-sample inference time on V ∗ for three VLM backbones under three configurations: HiDe, w/o Adaptive Routing, and the full LazyMCoT. The first-token fast-path lets LazyMCoT skip confident samples. 
+
+Two-stage visual expert refinement. Tab. 4 ablates CG’s inner structure. The attention branch ( Batt ) and the visual expert branch ( Bexp ) alone reach 80 .3% and 85 .9% on V ∗
+
+respectively, since each has its own failure mode, like noisy attention regions or missed small instances. Their Stage 1 union B(1) lifts V ∗ by 2.5 points over the stronger single source. Adding the Stage 2 refinement, which re-queries SAM3 inside enlarged attention crops to recover small or occluded targets, brings the final V ∗ to 90 .6% , validating that the two stages are necessary for accurate localization. 
+
+Effect of conformal miscoverage rate α. Tab. 5 sweeps the conformal miscoverage rate α that controls sfloor via Eqn. 3. A smaller α yields a lower threshold and a more Method Avg. Perception Reasoning                                                                                                    
+
+> Attributes
+> Material
+> Phy. State
+> Obj. Retr.
+> OCR
+> Per. Trans.
+> Ordering
+> Con. & Oc.
+> Spa. Cont.
+> Comparison
+> GPT-4o (OpenAI 2024) 46.90 51.70 61.50 65.20 43.80 69.10 18.80 38.60 48.80 72.40 43.20
+> Qwen2.5-VL-7B-Instruct
+> Base (Bai et al. 2025b) 37.00 55.20 53.80 56.50 62.50 27.90 20.00 35.10 39.00 44.80 43.20 Dyfo (Li et al. 2025) 39.30 58.60 69.20 56.50 62.50 35.30 21.20 35.10 41.50 44.80 40.90 ZoomRefine (Yu, Guan, and Gu 2025) 38.00 48.30 61.50 56.50 62.50 39.70 18.80 29.80 46.30 44.80 38.60 HiDe (Liu et al. 2025) 40.00 55.20 61.50 52.20 56.20 39.70 21.20 31.60 46.30 48.30 47.70
+> LazyMCoT (Ours) 41.70 58.60 61.50 56.50 68.80 39.70 21.20 31.60 46.30 48.30 54.50
+> Qwen3-VL-8B-Instruct
+> Base (Bai et al. 2025a) 43.00 55.20 61.50 69.60 75.00 45.60 18.80 28.10 41.50 69.00 50.00 HiDe (Liu et al. 2025) 41.70 48.30 46.20 65.20 75.00 45.60 15.30 24.60 53.70 65.50 52.30 LazyMCoT (Ours) 43.50 55.20 61.50 65.20 75.00 45.60 16.50 29.80 48.80 72.40 50.00
+
+Table 2: Quantitative results on the TreeBench benchmark. The best results for each VLM are highlighted in bold , and the second-best is underline. Our method effectively retains and improves the perception capability. HiDe LazyMCoT 
+
+Figure 7: Qualitative comparison on hard samples. HiDe and LazyMCoT results are shown in the top and bottom rows. By recovering small or co-occurring targets missed by HiDe, our method provides more complete evidence for VLM re-querying.                     
+
+> AR CG V∗HR-4K HR-8K TreeBench
+> ✗✗79.10 71.80 67.90 37.00
+> ✗✓90.00 77.40 74.90 40.00
+> ✓✓90.60 77.60 75.40 41.70
+
+Table 3: Ablation study on Adaptive Routing (AR) and Col-laborative Grounding (CG) across multiple benchmarks.                          
+
+> Batt Bexp Stage 2 V∗-Att. V∗-Spa. V∗-Avg.
+> ✓✗✗84.30 76.30 80.30
+> ✗✓✗88.70 82.90 85.90
+> ✓✓✗91.30 85.50 88.40
+> ✓✓✓92.20 88.20 90.60
+
+Table 4: Ablation study on the two-stage Collaborative Grounding pipeline on V* Bench. conservative router that triggers grounding on most samples, while a larger α aggressively skips and falls back to the base VLM. The sweet spot at α = 0 achieves the best V ∗ of 90 .6% 
+
+while sparing 24 .7% samples from the grounding pipeline, showing that conformal calibration offers a principled and tunable trade-off between accuracy and efficiency. 
+
+Case Study 
+
+Fig. 7 presents qualitative comparisons of the LPD produced by HiDe and our LazyMCoT on four representative hard samples from V ∗ and HR-Bench. HiDe relies on attention-                                             
+
+> αsfloor Skip Rate (%) V∗-Att. V∗-Spa. V∗-Avg. 0.00 −0.25 24.7 92.20 88.20 90.60
+> 0.05 −0.74 51.8 93.30 86.20 90.20 0.10 −4.61 58.1 94.10 82.40 89.25 0.15 0.01 62.3 91.40 87.30 89.85 0.20 0.20 64.9 89.10 83.20 86.65 0.30 0.47 71.2 86.20 79.60 83.45 0.50 0.94 84.8 82.80 77.10 80.45 0.70 1.29 94.2 81.10 76.50 79.25
+
+Table 5: Ablation on the conformal miscoverage rate α. Re-sults on V ∗ Bench with Qwen2.5-VL-7B. driven cropping and frequently misses the queried small tar-gets (e.g., scooter, baby carriage), or recalls only a subset of the relevant instances when multiple objects co-occur. In contrast, LazyMCoT couples cross-modal attention with a visual expert and further refines the evidence pool through Stage 2 re-querying inside enlarged attention crops. 
+
+Conclusion 
+
+We presented LazyMCoT , a training-free framework allo-cating visual grounding effort based on sample difficulty. Its 
+
+Adaptive Routing uses first-token statistics and conformal prediction to bypass easy samples. For routed samples, Col-laborative Grounding combines cross-modal attention and a visual expert to generate precise localized panel displays robust to small or occluded targets. Experiments demonstrate LazyMCoT achieves competitive accuracy, surpasses recent training-based methods, and reduces inference latency. This selective grounding paradigm offers a practical recipe for efficient visual reasoning with frozen VLMs. 
+
+References 
+
+Bai, J.; Bai, S.; Yang, S.; Wang, S.; Tan, S.; Wang, P.; Lin, J.; Zhou, C.; and Zhou, J. 2023. Qwen-VL: A Versatile Vision-Language Model for Understanding, Localization, Text Reading, and Beyond. arXiv:2308.12966. Bai, S.; Cai, Y.; Chen, R.; Chen, K.; Chen, X.; Cheng, Z.; Deng, L.; Ding, W.; Gao, C.; Ge, C.; et al. 2025a. Qwen3-vl technical report. arXiv preprint arXiv:2511.21631 .Bai, S.; Chen, K.; Liu, X.; Wang, J.; Ge, W.; Song, S.; Dang, K.; Wang, P.; Wang, S.; Tang, J.; Zhong, H.; Zhu, Y.; Yang, M.; Li, Z.; Wan, J.; Wang, P.; Ding, W.; Fu, Z.; Xu, Y.; Ye, J.; Zhang, X.; Xie, T.; Cheng, Z.; Zhang, H.; Yang, Z.; Xu, H.; and Lin, J. 2025b. Qwen2.5-VL Technical Report. arXiv:2502.13923. Carion, N.; Gustafson, L.; Hu, Y.-T.; Debnath, S.; Hu, R.; Suris, D.; Ryali, C.; Alwala, K. V.; Khedr, H.; Huang, A.; et al. 2025. Sam 3: Segment anything with concepts. arXiv preprint arXiv:2511.16719 .Chen, Z.; Wang, W.; Cao, Y.; Liu, Y.; Gao, Z.; Cui, E.; Zhu, J.; Ye, S.; Tian, H.; Liu, Z.; et al. 2024. Expanding performance boundaries of open-source multimodal models with model, data, and test-time scaling. arXiv preprint arXiv:2412.05271 .Dai, W.; Li, J.; Li, D.; Tiong, A.; Zhao, J.; Wang, W.; Li, B.; Fung, P. N.; and Hoi, S. 2023. Instructblip: Towards general-purpose vision-language models with instruction tuning. Ad-vances in neural information processing systems , 36: 49250– 49267. Friedman, J. H. 2001. Greedy function approximation: a gradient boosting machine. Annals of statistics , 1189–1232. Gao, Z.; Chen, Z.; Cui, E.; Ren, Y.; Wang, W.; Zhu, J.; Tian, H.; Ye, S.; He, J.; Zhu, X.; et al. 2024. Mini-internvl: a flexible-transfer pocket multi-modal model with 5% param-eters and 90% performance. Visual Intelligence , 2(1): 32. Gröpl, M.; Jung, J.; Kim, S.; Pollefeys, M.; and Hong, S. 2026. Entropy-Gradient Grounding: Training-Free Evi-dence Retrieval in Vision-Language Models. arXiv preprint arXiv:2604.08456 .Khayatkhoei, M.; Chhikara, P.; Ilievski, F.; et al. 2025. Mllms know where to look: Training-free perception of small visual details with multimodal llms. In International Conference on Learning Representations , volume 2025, 68194–68213. Li, G.; Xu, J.; Zhao, Y.; and Peng, Y. 2025. Dyfo: A training-free dynamic focus visual search for enhancing lmms in fine-grained visual understanding. In Proceedings of the Com-puter Vision and Pattern Recognition Conference , 9098– 9108. Li, J.; Li, D.; Savarese, S.; and Hoi, S. 2023. Blip-2: Boot-strapping language-image pre-training with frozen image en-coders and large language models. In International confer-ence on machine learning , 19730–19742. PMLR. Li, Y.; Zhan, H.; Chen, J.; Gong, Y.; Liu, Q.; and Lu, Y. 2026. Deepscan: A training-free framework for visually grounded reasoning in large vision-language models. arXiv preprint arXiv:2603.03857 .Liu, H.; Li, C.; Li, Y.; and Lee, Y. J. 2024a. Improved baselines with visual instruction tuning. In Proceedings of the IEEE/CVF conference on computer vision and pattern recognition , 26296–26306. Liu, H.; Li, C.; Li, Y.; Li, B.; Zhang, Y.; Shen, S.; and Lee, Y. J. 2024b. LLaVA-NeXT: Improved reasoning, OCR, and world knowledge. Liu, H.; Li, C.; Wu, Q.; and Lee, Y. J. 2023. Visual instruction tuning. Advances in neural information processing systems ,36: 34892–34916. Liu, S.; Zeng, Z.; Ren, T.; Li, F.; Zhang, H.; Yang, J.; Jiang, Q.; Li, C.; Yang, J.; Su, H.; et al. 2024c. Grounding dino: Marrying dino with grounded pre-training for open-set object detection. In European conference on computer vision , 38– 55. Springer. Liu, X.; Hu, Y.; Zou, Y.; Wu, L.; Xu, J.; and Zheng, B. 2025. HiDe: Rethinking The Zoom-IN method in High Resolu-tion MLLMs via Hierarchical Decoupling. arXiv preprint arXiv:2510.00054 .Morini, M.; Sarto, S.; Cornia, M.; and Baraldi, L. 2026. Look Twice: Training-Free Evidence Highlighting in Multimodal Large Language Models. arXiv preprint arXiv:2604.01280 .OpenAI. 2024. Openai-gpt-4o. Shafer, G.; and Vovk, V. 2008. A tutorial on conformal prediction. Journal of machine learning research , 9(3). Shen, H.; Zhao, K.; Zhao, T.; Xu, R.; Zhang, Z.; Zhu, M.; and Yin, J. 2025. Zoomeye: Enhancing multimodal llms with human-like zooming capabilities through tree-based im-age exploration. In Proceedings of the 2025 Conference on Empirical Methods in Natural Language Processing , 6613– 6629. Wang, H.; Li, X.; Huang, Z.; Wang, A.; Wang, J.; Zhang, T.; Bai, S.; Kang, Z.; Feng, J.; Zhuochen, W.; et al. 2026. Traceable Evidence Enhanced Visual Grounded Reasoning: Evaluation and Method. In The Fourteenth International Conference on Learning Representations .Wang, W.; Ding, L.; Zeng, M.; Zhou, X.; Shen, L.; Luo, Y.; Yu, W.; and Tao, D. 2025a. Divide, conquer and combine: A training-free framework for high-resolution image percep-tion in multimodal large language models. In Proceedings of the AAAI Conference on Artificial Intelligence , volume 39, 7907–7915. Wang, W.; Gao, Z.; Gu, L.; Pu, H.; Cui, L.; Wei, X.; Liu, Z.; Jing, L.; Ye, S.; Shao, J.; et al. 2025b. Internvl3. 5: Advancing open-source multimodal models in versatility, reasoning, and efficiency. arXiv preprint arXiv:2508.18265 .Wang, W.; Jing, Y.; Ding, L.; Wang, Y.; Shen, L.; Luo, Y.; Du, B.; and Tao, D. 2025c. Retrieval-augmented perception: High-resolution image perception meets visual rag. arXiv preprint arXiv:2503.01222 .Wu, P.; and Xie, S. 2024. V*: Guided Visual Search as a Core Mechanism in Multimodal LLMs. In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) , 13084–13094. Yu, X.; Guan, D.; and Gu, Y. 2025. Zoom-Refine: Boosting High-Resolution Multimodal Understanding via Localized Zoom and Self-Refinement. arXiv preprint arXiv:2506.01663 .Zhang, R.; Han, J.; Liu, C.; Gao, P.; Zhou, A.; Hu, X.; Yan, S.; Lu, P.; Li, H.; and Qiao, Y. 2023. Llama-adapter: Efficient fine-tuning of language models with zero-init attention. arXiv preprint arXiv:2303.16199 .Zhang, Y.-F.; Lu, X.; Yin, S.; Fu, C.; Chen, W.; Hu, X.; Wen, B.; Jiang, K.; Liu, C.; Zhang, T.; et al. 2025. Thyme: Think beyond images. arXiv preprint arXiv:2508.11630 .Zheng, Z.; Yang, M.; Hong, J.; Zhao, C.; Xu, G.; Yang, L.; Shen, C.; and Yu, X. 2025. Deepeyes: Incentivizing" thinking with images" via reinforcement learning. arXiv preprint arXiv:2505.14362 .Zhu, J.; Wang, W.; Chen, Z.; Liu, Z.; Ye, S.; Gu, L.; Tian, H.; Duan, Y.; Su, W.; Shao, J.; et al. 2025. Internvl3: Explor-ing advanced training and test-time recipes for open-source multimodal models. arXiv preprint arXiv:2504.10479 .Focus When Necessary: Adaptive Routing and Collaborative Grounding for Training-Free Visual Grounding Appendix 
+
+Content 
+
+This Appendix is organized as follows: 
+
+• Implementation Details. Hardware and reproducibility settings, VLM backbones and the SAM3 visual expert, the full Adaptive Routing training pipeline, and the Col-laborative Grounding hyperparameters. 
+
+• Dataset Information. Detailed descriptions of the four high-resolution multiple-choice benchmarks used in our experiments, including image source, resolution, task tax-onomy, and evaluation metric. 
+
+• More Statistical Features. Routing score and entropy diagnostic plots for all three VLMs, demonstrating that the proposed first-token statistics are VLM-agnostic. 
+
+• More Qualitative Results. Additional side-by-side com-parisons between HiDe and LazyMCoT, illustrating how Collaborative Grounding produces cleaner Localized Panel Displays for the VLM re-query. 
+
+• Some Inference Cases. End-to-end inference traces that compare the base VLM, HiDe, and LazyMCoT on some samples, showing the complementary roles of Adaptive Routing and Collaborative Grounding. 
+
+Implementation Details 
+
+For each VLM backbone, we conduct experiments on two NVIDIA H20 GPUs. To ensure reproducibility, we fix the random seeds for all libraries (Python, CUDA, PyTorch, and NumPy) to 2077 during the training process. 
+
+VLM Backbones and Visual Expert 
+
+LazyMCoT is evaluated on three open-source VLM backbones: Qwen2.5-VL-7B-Instruct (Bai et al. 2025b), Qwen3-VL-8B-Instruct (Bai et al. 2025a), and InternVL3-8B-Instruct (Zhu et al. 2025). All backbones remain frozen during inference and we use greedy decoding (do_sample=False ). Input images are resized so that their longest edge is at most maxp = 16 ,384 pixels to fit the dynamic-resolution encoders. We adopt SAM3 (Carion et al. 2025) as the unified visual expert and serve it as a sepa-rate FastAPI service that accepts entity texts as prompts and returns boxes, masks, and confidence scores. 
+
+Adaptive Routing 
+
+Feature extraction. For each test sample, we run a single forward pass with max_new_tokens = 1 and record the first answer token logits z ∈ RV . We then parse the can-didate option letters O from the question text via regular expression so that benchmarks with K ≥ 4 options are han-dled uniformly. The same forward pass also produces the direct answer letter, which is reused when the router decides to skip Collaborative Grounding. 
+
+Router training. We split the unified routing set Dcal by the base VLM into ori-correct ( y = 0 ) and ori-wrong ( y = 1 )samples and train a Gradient Boosting Decision Tree (Fried-man 2001) ( gθ ) with 300 estimators, max depth 3, and learn-ing rate 0.05 under 5-fold cross-validation. The out-of-fold (OOF) predicted probability ˆp(x) is mapped to the routing score s(x) = log ˆ p/ (1 − ˆp). Unless otherwise stated we adopt 
+
+α = 0 for the strictest must-recall guarantee. The trained router is serialized once into a JSON report. 
+
+Collaborative Grounding 
+
+Entity decomposition. The base VLM is prompted with a rule-based template (Liu et al. 2025) to decompose the question Q into a list of canonical entities E = {e1, . . . , e M }.The decomposition prompt is shwon as Fig. A. 
+
+Visual expert branch. Each entity in E is sent to SAM3 as an independent text prompt. We retain at most k = 10 boxes per entity and apply cross-entity NMS with IoU threshold 
+
+0.7 to remove duplicate detections of the same instance. 
+
+Attention branch. For each entity token we reshape the attention to the visual-token grid, apply a Gaussian blur with 
+
+σ = 3 , and linearly normalize the map to [0 , 1] . Connected components above the relative threshold τ = 0 .5 are con-verted into the attention boxes Batt .
+
+Per-VLM attention layers. The cross-modal attention consumed by the attention branch is read from the self-attention modules of the decoder, averaged over all atten-tion heads. Since different VLMs expose their most dis-criminative grounding signal at different depths, we select the attention source per VLM. For Qwen2.5-VL-7B and InternVL3-8B (both 28 decoder layers), we extract the at-tention of a single mid-level decoder layer, namely the 15 -th layer ( 1-indexed). For Qwen3-VL-8B (36 decoder layers), we instead aggregate the attention of all decoder layers, because its DeepStack multi-layer visual injection distributes ground-ing cues across depths so a single layer is insufficient. When more than one layer is used, the per-layer maps are first aver-aged over heads and then averaged across the selected layers to form the aggregated saliency map A(I).
+
+Dataset Information 
+
+We evaluate LazyMCoT on four challenging high-resolution multiple-choice benchmarks. All benchmarks adopt accu-racy as the primary evaluation metric. 
+
+V∗ Bench 
+
+V∗ Bench (Wu and Xie 2024) is introduced together with the V∗ visual search algorithm to evaluate the ability of multi-modal LLMs to localize and reason over small or visually inconspicuous targets in high-resolution natural scenes. The benchmark contains 191 images with an average resolution of 2246 × 1582 , sourced primarily from the SA-1B collec-tion. Each image is paired with a multiple-choice question that targets one of two abilities: (i) Direct Attribute Recogni-tion (Att.), which asks about color, material, shape, or other Prompt =
+
+"### Thinking Process 
+
+Before generating the final output, you must internally follow these steps in order: 
+
+1. **Identify Core Entities**: Read the entire question and identify all key noun phrases. For example, "the green surfboard, " " the purple umbrella." 
+
+2. **Deconstruct Attributes for Each Entity Individually**: **This is the critical step. Before considering the relationship bet ween entities, look at each entity 
+
+in isolation and apply Rules 2, 3, and 4 to fully deconstruct its attributes.** 
+
+* For instance, first process "the green surfboard" using Rule 2 to get `surfboard with green color`. 
+
+* Then, process "the purple umbrella" using Rule 2 to get `umbrella with purple color`. 
+
+3. **Handle Relationships Between Entities**: After all entities have been individually deconstructed, check for spatial or l ogi cal relationships between them 
+
+(Rule 5). If a relationship exists, you will list the **already deconstructed** entities as separate items. 
+
+4. **Assemble and Normalize**: 
+
+* Gather all the canonical entity strings you have transformed. 
+
+* Convert all text to lowercase. 
+
+* Join all entities into a single line, separated by a comma and a space (", "). 
+
+5. **Final Formatting**: Enclose the resulting single -line string within the `<FINAL_OUTPUT>` and `</FINAL_OUTPUT>` tags. 
+
+### Extraction Rules 
+
+**Rule 1: Simple Entities** 
+
+If a noun is not described by any modifiers, extract the noun itself. 
+
+* *Example*: "the scooter" becomes `scooter`. 
+
+**Rule 2: Adjective Attribute Deconstruction** 
+
+If an entity is modified by one or more adjectives, the format must be `noun with [property] [type]`. Chain multiple properti es consecutively. 
+
+* **Format**: `noun with [property1] [type1] with [property2] [type2]` 
+
+* **Common Type Mappings**: 
+
+* Colors (red, blue, black, silver) -> `color` 
+
+* Sizes (large, small, big) -> `size` 
+
+* Materials (wooden, metal, plastic) -> `material` 
+
+* *Example*: "the large blue truck" becomes `truck with large size with blue color`. 
+
+**Rule 3: Possessive Inversion** 
+
+Convert all possessive forms (e.g., `X's Y`) uniformly into the `Y of X` format. 
+
+* *Example*: "the woman's handbag" becomes `handbag of woman`. 
+
+**Rule 4: Attributive Prepositional Phrases** 
+
+If a prepositional phrase describes a component of an entity (e.g., "in a shirt"), preserve the structure and recursively app ly the rules to the entity within the 
+
+phrase. 
+
+* *Example*: "the man in the green shirt" becomes `man in a shirt with green color`. 
+
+**Rule 5: Relational Prepositional Phrases** 
+
+If a prepositional phrase describes a relationship between two separate entities (e.g., `next to`, `on the left of`), **extra ct the entities as separate items, but 
+
+only after each entity has been fully deconstructed according to the other rules.** Do not include the relational words in th e o utput. 
+
+* *Example 1 (Simple)*: "the dog on the left side of the scooter" becomes `dog, scooter`. 
+
+* **Example 2 (With Attributes)**: **"Is the green surfboard on the left side of the purple umbrella?" becomes `surfboard wit h g reen color, umbrella with 
+
+purple color`.** (Note: The surfboard and umbrella are first deconstructed individually, then listed as separate entities). 
+
+**Rule 6: Compound Nouns** 
+
+Recognized compound nouns should be treated as a single entity. 
+
+* *Example*: "the traffic light" becomes `traffic light`. 
+
+### Output Format Rules 
+
+1. **Sole Output**: The final and only output content must be enclosed within `<FINAL_OUTPUT>` and `</FINAL_OUTPUT>` tags. 
+
+2. **Single -Line Format**: The output must be a single continuous line of text. 
+
+3. **Delimiter**: Multiple entities must be separated by a comma followed by a space (", "). 
+
+4. **Lowercase**: All output characters must be in lowercase. 
+
+5. **Content Exclusion**: The final entity string must not include articles (a, an, the), question words (what, which, is), o r p urely relational words (side, next 
+
+to, of). 
+
+Now, following all the rules above, extract the entities from the question below: 
+
+{input_text }" 
+
+Decomposition Prompt Figure A: Decomposition prompt template intrinsic attributes of a small object, and (ii) Spatial Rela-tionship Reasoning (Spa.), which requires inferring relative positions between two or more objects. Because the queried targets occupy only a tiny fraction of the image, V ∗ Bench is widely used as a stress test for fine-grained visual grounding. 
+
+HR-Bench-4K and HR-Bench-8K 
+
+HR-Bench (Wang et al. 2025a) is the first benchmark ex-plicitly designed to evaluate MLLMs at 4K and 8K reso-lutions, addressing the gap that previous benchmarks rarely exceed 2K. HR-Bench provides two splits, HR-Bench-4K and HR-Bench-8K, each consisting of high-resolution im-ages that are evenly partitioned into two task types: Single-Instance Perception (Sin.), where the question concerns a single fine-grained object that may be small or inconspicu-ous, and Cross-Instance Perception (Cro.), where the ques-tion requires comparing or relating multiple instances across the image. Human accuracy is 87% (Wang et al. 2025a), highlighting the difficulty of high-resolution understanding and making HR-Bench an ideal testbed for visual grounding. 
+
+TreeBench 
+
+TreeBench (Wang et al. 2026) is a recent benchmark that probes both fine-grained perception and high-order reason-ing under traceable visual evidence. It is constructed by sam-pling 1,000 object-dense images from SA-1B and, after a three-stage manual quality control by eight LMM experts, re-tains 405 challenging multiple-choice VQA pairs. Each ques-tion is annotated with both the answer and the correspond-ing ground-truth bounding boxes, ensuring that the evalua-tion rewards genuine localization rather than language priors. The benchmark is organized into ten fine-grained categories grouped under two competencies: Perception (Attributes ,
+
+Material , Physical State , Object Retrieval , OCR ) and Rea-soning (Perspective Transformation , Ordering , Contact & Occlusion , Spatial Containment , Comparison ). 
+
+More statistical features 
+
+To verify that the proposed statistics in Sec. 3 generalize beyond a single VLM backbone, we report the same two di-agnostic plots on all three evaluated VLMs in Fig. B. The left panel of each row shows the distribution of the GBDT routing score s(x) for ori-correct and ori-wrong samples, while the right panel shows the joint distribution of s(x)
+
+versus the option entropy H(˜ p). Across Qwen2.5-VL-7B, InternVL3-8B, and Qwen3-VL-8B, the routing score con-sistently produces well-separated modes between the two classes, and is monotonically correlated with answer entropy with ori-wrong samples concentrated in the high-score, high-entropy region. This consistency confirms that the proposed first-token statistics are not VLM-specific artifacts, and that the same lightweight router can be calibrated for any frozen VLM without architectural assumptions. 
+
+More qualitative results 
+
+We provide additional qualitative comparisons on the three high-resolution benchmarks to illustrate how Collaborative Grounding helps the base VLM recover the correct answer 
+
+> (a) Qwen2.5-VL-7B-Instruct
+> (b) InternVL3-8B-Instruct
+> (c) Qwen3-VL-8B-Instruct
+
+Figure B: Statistical features for sample routing across VLM backbones. For each backbone, the left panel plots the routing score s(x) distribution, and the right panel plots 
+
+s(x) versus the option entropy H(˜ p). The same separability pattern holds across all backbones, validating that the pro-posed first-token statistics are VLM-agnostic. on hard samples. Fig. C, Fig. D, and Fig. E respectively present cases drawn from V ∗ Bench, TreeBench, and HR-Bench. For each case we show, from left to right, the original image with the question, the Localized Panel Display (LPD) generated by HiDe, and the LPD produced by our LazyM-CoT, accompanied by the predicted answers. Across all three benchmarks, HiDe frequently misses the queried small or co-occurring targets because its attention-only cropping is sensitive to noise, while LazyMCoT couples cross-modal at-tention with a SAM3 visual expert and further refines the evidence pool through Stage 2 re-querying. The resulting LPDs cover the question-relevant entities more completely and are decorated with per-entity color borders and textual legends, which guide the VLM to faithfully read off the cor-rect answer in a single re-query. Input HiDe LazyMCoT Figure C: Additional qualitative comparison on V ∗ Bench. Input HiDe LazyMCoT 
+
+Figure D: Additional qualitative comparison on TreeBench. Input HiDe LazyMCoT Figure E: Additional qualitative comparison on HR-Bench. 
+
+Some Inference Cases 
+
+Fig. F presents end-to-end inference traces of LazyMCoT alongside the base VLM and HiDe on five representative samples drawn from V ∗ Bench and HR-Bench. Each row shows, from left to right, the prediction of the original VLM on the raw image, the prediction of HiDe on its attention-only LPD, and the prediction of LazyMCoT on its Collaborative Grounding output. The first three rows correspond to hard samples on which the base Qwen2.5-VL-7B fails. Adaptive Routing identifies them as uncertain and dispatches them to Collaborative Grounding, which produces LPDs in which the queried entities are precisely highlighted by SAM3 col-ored boxes and textual legends. With this faithful evidence, the same VLM corrects its answer in a single re-query. The last two rows correspond to easy samples on which the base InternVL3-8B already answers correctly. Here HiDe’s forced grounding truncates the global context and misleads the VLM into wrong predictions, whereas Adaptive Routing tags the samples as confident and emits the direct answer imme-diately, as marked by the Direct Answer flag in the rightmost column. Together, these traces illustrate the complementary roles of the two components, Collaborative Grounding res-cues hard samples that the VLM cannot solve alone, while Adaptive Routing prevents Collaborative Grounding from interfering with samples that are already well solved. Is the blue luggage on the left 
+
+or right side of the bus? 
+
+(A) right 
+
+(B) left 
+
+<Answer>(B)</Answer> 
+
+Qwen2.5 -VL -7B Is the blue luggage on the left 
+
+or right side of the bus? 
+
+(A) right 
+
+(B) left 
+
+<Answer>(B)</Answer> 
+
+HiDe Is the blue luggage on the left 
+
+or right side of the bus? 
+
+(A) right 
+
+(B) left 
+
+<Answer>(A)</Answer> 
+
+LazyMCoT 
+
+From the viewpoint of the 
+
+individual striding forward on 
+
+the far left side of the scene 
+
+_ dressed in a dark blue coat 
+
+with gray hair _ what is the 
+
+relative direction of the 
+
+waiter/waitress currently 
+
+taking a customer's order, 
+
+who is wearing a white upper 
+
+garment and black trousers? 
+
+(A) Front left 
+
+(B) Front right 
+
+(C) Left rear 
+
+(D) Right rear 
+
+<Answer>(D)</Answer> 
+
+Qwen2.5 -VL -7B From the viewpoint of the 
+
+individual striding forward on 
+
+the far left side of the scene 
+
+_ dressed in a dark blue coat 
+
+with gray hair _ what is the 
+
+relative direction of the 
+
+waiter/waitress currently 
+
+taking a customer's order, 
+
+who is wearing a white upper 
+
+garment and black trousers? 
+
+(A) Front left 
+
+(B) Front right 
+
+(C) Left rear 
+
+(D) Right rear 
+
+<Answer>(B)</Answer> 
+
+HiDe From the viewpoint of the 
+
+individual striding forward on 
+
+the far left side of the scene 
+
+_ dressed in a dark blue coat 
+
+with gray hair _ what is the 
+
+relative direction of the 
+
+waiter/waitress currently 
+
+taking a customer's order, 
+
+who is wearing a white upper 
+
+garment and black trousers? 
+
+(A) Front left 
+
+(B) Front right 
+
+(C) Left rear 
+
+(D) Right rear 
+
+<Answer>(C)</Answer> 
+
+LazyMCoT 
+
+From the viewpoint of the 
+
+individual seated on the bench 
+
+engaged in a phone call, what 
+
+is the relative directional 
+
+position of the walking person 
+
+dressed in a light -toned shirt 
+
+and black trousers, holding a 
+
+briefcase in their left hand 
+
+and speaking on the phone 
+
+simultaneously? 
+
+(A) Front left 
+
+(B) Front right 
+
+(C) Left rear 
+
+(D) Right rear 
+
+<Answer>(B)</Answer> 
+
+Qwen2.5 -VL -7B From the viewpoint of the 
+
+individual seated on the bench 
+
+engaged in a phone call, what 
+
+is the relative directional 
+
+position of the walking person 
+
+dressed in a light -toned shirt 
+
+and black trousers, holding a 
+
+briefcase in their left hand 
+
+and speaking on the phone 
+
+simultaneously? 
+
+(A) Front left 
+
+(B) Front right 
+
+(C) Left rear 
+
+(D) Right rear 
+
+<Answer>(B)</Answer> 
+
+HiDe From the viewpoint of the 
+
+individual seated on the bench 
+
+engaged in a phone call, what 
+
+is the relative directional 
+
+position of the walking person 
+
+dressed in a light -toned shirt 
+
+and black trousers, holding a 
+
+briefcase in their left hand 
+
+and speaking on the phone 
+
+simultaneously? 
+
+(A) Front left 
+
+(B) Front right 
+
+(C) Left rear 
+
+(D) Right rear 
+
+<Answer>(A)</Answer> 
+
+LazyMCoT 
+
+Is the drum on the left or 
+
+right side of the yellow balloon? 
+
+(A) Left 
+
+(B) right 
+
+<Answer>(A)</Answer> 
+
+InternVL3 -8B Is the drum on the left or 
+
+right side of the yellow balloon? 
+
+(A) Left 
+
+(B) right 
+
+<Answer> </Answer> 
+
+HiDe Is the drum on the left or 
+
+right side of the yellow balloon? 
+
+(A) Left 
+
+(B) right 
+
+<Answer>(A)</Answer> 
+
+LazyMCoT 
+
+Direct Answer 
+
+What is written on the 
+
+parachute? 
+
+(A) SWOOP 
+
+(B) SWING 
+
+(C) SPRING 
+
+(D) SWIRL 
+
+<Answer>(A)</Answer> 
+
+InternVL3 -8B What is written on the 
+
+parachute? 
+
+(A) SWOOP 
+
+(B) SWING 
+
+(C) SPRING 
+
+(D) SWIRL 
+
+<Answer>(D)</Answer> 
+
+HiDe What is written on the 
+
+parachute? 
+
+(A) SWOOP 
+
+(B) SWING 
+
+(C) SPRING 
+
+(D) SWIRL 
+
+<Answer>(A)</Answer> 
+
+LazyMCoT 
+
+Direct Answer Figure F: End-to-end inference cases comparing the base VLM, HiDe, and LazyMCoT. The top three rows show hard samples where Adaptive Routing triggers Collaborative Grounding and LazyMCoT produces a clean LPD that recovers the correct answer. The bottom two rows show easy samples where the router emits a Direct Answer and bypasses grounding.
