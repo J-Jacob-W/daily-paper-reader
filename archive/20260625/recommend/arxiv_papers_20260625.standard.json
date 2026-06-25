@@ -1,0 +1,314 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-25T20:37:40.294791+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 0,
+    "deep_divecandidates": 7,
+    "deep_cap": 5,
+    "deep_selected": 5,
+    "quick_candidates": 2,
+    "quick_skim_target": 10,
+    "quick_selected": 2
+  },
+  "deep_dive": [
+    {
+      "id": "2606.19828v1",
+      "source": "arxiv",
+      "title": "3D-PLOT-LLM: Part-Level Object Tokens for 3D Large Language Models",
+      "abstract": "3D multimodal large language models (3D MLLMs) describe a 3D object as a whole but cannot address, name, or reason about its parts. Prior part-aware attempts add segmentation decoders, heavier 3D encoders, or bounding-box grammars at substantial parameter cost. We take a fundamentally different path: we reorganize the input token stream so that parts become directly addressable through the LLM's own vocabulary. Our model, 3D-PLOT-LLM, partitions the frozen point encoder's patches into K locally coherent regions and inserts, before each region's patch tokens, a learnable per-region marker and a reserved vocabulary token <part_k>; a Marker-Space Refinement (MSR) module then conditions each marker on its region's spatial statistics and adjacency neighbors. The model thus cites parts in its output and follows prompts that refer to parts by token, a capability absent from prior object-level 3D MLLMs. To probe this interface, we construct PartVerse-QA, a vocabulary-level part-QA benchmark adapted from PartVerse mesh annotations (77K training pairs and 588 held-out queries on disjoint object splits), on which 3D-PLOT-LLM reaches caption-to-slots Jaccard 0.459 and Exact-match 13.78%, with a slot-to-caption GPT-4o judge of 44.68. On the 3DCoMPaT-GrIn part-aware grounded description benchmark, 3D-PLOT-LLM outperforms PointLLM, Kestrel, PARIS3D, and SegPoint on every text-output metric, and ShapeLLM on 3 of 4, with up to +3.03 GPT-4o judge over PointLLM. On Objaverse whole-object captioning, adding PartVerse-QA at Stage 2 yields +0.65 SBERT and +1.85 GPT-4o over PointLLM, and tops PointLLM-PiSA on 4 of 5 traditional metrics (SBERT, SimCSE, BLEU-1, METEOR) despite targeting a different (part-grounded) objective. All with under 1M new trainable parameters on a frozen point encoder, an order of magnitude below prior part-aware 3D MLLMs, and no segmentation decoder or bounding-box head.",
+      "authors": [
+        "Jintang Xue",
+        "Xinyu Wang",
+        "Yixing Wu",
+        "Jingwen Chen",
+        "C. -C. Jay Kuo"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-06-18T06:12:59+00:00",
+      "link": "https://arxiv.org/pdf/2606.19828v1",
+      "tags": [
+        "query:multi-modal"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "3D multimodal LLM with part-level tokenization",
+      "llm_evidence_cn": "三维多模态大语言模型的部件级令牌化",
+      "llm_evidence": "三维多模态大语言模型的部件级令牌化",
+      "canonical_evidence": "三维多模态大语言模型的部件级令牌化",
+      "llm_tldr_en": "3D-PLOT-LLM reorganizes the token stream of 3D point clouds so that object parts become directly addressable through the LLM's own vocabulary, eliminating the need for segmentation decoders or bounding boxes.",
+      "llm_tldr_cn": "本文提出3D-PLOT-LLM，通过重新组织点云令牌流，使三维大语言模型能直接通过词汇表引用物体部件。该方法无需额外分割解码器或边界框，仅通过在令牌序列中插入可学习标记和保留词汇令牌实现部件级推理。实验证明该方法在部件命名和推理任务上优于现有方案，且参数开销极小。",
+      "llm_tldr": "本文提出3D-PLOT-LLM，通过重新组织点云令牌流，使三维大语言模型能直接通过词汇表引用物体部件。该方法无需额外分割解码器或边界框，仅通过在令牌序列中插入可学习标记和保留词汇令牌实现部件级推理。实验证明该方法在部件命名和推理任务上优于现有方案，且参数开销极小。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "vision language model architectures",
+      "matched_requirement_id": "req-22",
+      "selection_source": "carryover_cache",
+      "paper_id": "2606.19828v1"
+    },
+    {
+      "id": "2606.19882v1",
+      "source": "arxiv",
+      "title": "Multimodal Concept Bottleneck Models",
+      "abstract": "Concept Bottleneck Models (CBMs) enhance the interpretability of deep learning networks by aligning the features extracted from images with natural concepts. However, existing CBMs are constrained in their ability to generalize beyond a fixed set of predefined classes and the risk of non-concept information leakage, where predictive signals outside the intended concepts are inadvertently exploited. In this paper, we propose Multimodal Concept Bottleneck Model (MM-CBM) to address these issues and extend CBMs into CLIP. MM-CBM utilizes dual Concept Bottleneck Layers (CBLs) to align both the image and text embeddings into interpretable features. This allows us to perform new vision tasks like zero-shot classification or image retrieval in an interpretable way. Compared to existing methods, MM-CBM achieves up to 51.26% accuracy improvement on average across four standard benchmarks. Our method maintains high accuracy, staying within ~5% of black-box performance while offering greater interpretability.",
+      "authors": [
+        "Tongqing Shi",
+        "Ge Yan",
+        "Tuomas Oikarinen",
+        "Tsui-Wei Weng"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.LG"
+      ],
+      "published": "2026-06-18T07:41:50+00:00",
+      "link": "https://arxiv.org/pdf/2606.19882v1",
+      "tags": [
+        "query:multi-modal"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "multimodal alignment with dual concept bottleneck layers",
+      "llm_evidence_cn": "双概念瓶颈层实现多模态对齐",
+      "llm_evidence": "双概念瓶颈层实现多模态对齐",
+      "canonical_evidence": "双概念瓶颈层实现多模态对齐",
+      "llm_tldr_en": "Proposes Multimodal Concept Bottleneck Model (MM-CBM) extending CBMs to CLIP using dual bottleneck layers for image-text alignment, enabling interpretable zero-shot classification and retrieval.",
+      "llm_tldr_cn": "现有概念瓶颈模型泛化能力有限且存在非概念信息泄露风险。本文提出多模态概念瓶颈模型（MM-CBM），通过双概念瓶颈层对齐图像和文本嵌入，将CBM扩展到CLIP。该方法支持可解释的零样本分类和图像检索。实验表明，MM-CBM在保持高准确率的同时提供了更好的可解释性，为多模态对齐提供了新范式。",
+      "llm_tldr": "现有概念瓶颈模型泛化能力有限且存在非概念信息泄露风险。本文提出多模态概念瓶颈模型（MM-CBM），通过双概念瓶颈层对齐图像和文本嵌入，将CBM扩展到CLIP。该方法支持可解释的零样本分类和图像检索。实验表明，MM-CBM在保持高准确率的同时提供了更好的可解释性，为多模态对齐提供了新范式。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "multimodal alignment approaches",
+      "matched_requirement_id": "req-25",
+      "selection_source": "carryover_cache",
+      "paper_id": "2606.19882v1"
+    },
+    {
+      "id": "2606.19950v1",
+      "source": "arxiv",
+      "title": "Confidence Calibration for Multimodal LLMs: An Empirical Study through Medical VQA",
+      "abstract": "Multimodal Large Language Models (MLLMs) show great potential in medical tasks, but their elicited confidence often misaligns with actual accuracy, potentially leading to misdiagnosis or overlooking correct advice. This study presents the first comprehensive analysis of the relationship between accuracy and confidence in medical MLLMs. It proposes a novel method that combines Multi-Strategy Fusion-Based Interrogation (MS-FBI) with auxiliary expert LLM assessment, aiming to improve confidence calibration in Medical Visual Question Answering (VQA). Experiments demonstrate that our method reduces the Expected Calibration Error (ECE) by an average of 40\\% across three Medical VQA datasets, significantly enhancing MLLMs' reliability. The findings highlight the importance of domain-specific calibration for MLLMs in healthcare, offering a more trustworthy solution for AI-assisted diagnosis.",
+      "authors": [
+        "Yuetian Du",
+        "Yucheng Wang",
+        "Ming Kong",
+        "Tian Liang",
+        "Qiang Long",
+        "Bingdi Chen",
+        "Qiang Zhu"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.AI"
+      ],
+      "published": "2026-06-18T08:49:11+00:00",
+      "link": "https://arxiv.org/pdf/2606.19950v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "query:multi-modal"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "confidence calibration for MLLMs using multi-strategy fusion",
+      "llm_evidence_cn": "使用多策略融合的MLLM置信度校准",
+      "llm_evidence": "使用多策略融合的MLLM置信度校准",
+      "canonical_evidence": "使用多策略融合的MLLM置信度校准",
+      "llm_tldr_en": "First comprehensive analysis of accuracy-confidence misalignment in medical MLLMs, proposing a multi-strategy fusion-based interrogation method with expert LLM assessment to improve calibration.",
+      "llm_tldr_cn": "本文首次全面分析医学MLLM中置信度与准确率不匹配的问题，提出多策略融合询问结合专家LLM评估的方法来改进校准。在三个医学VQA数据集上，期望校准误差平均降低40%，显著提升了模型可靠性。",
+      "llm_tldr": "本文首次全面分析医学MLLM中置信度与准确率不匹配的问题，提出多策略融合询问结合专家LLM评估的方法来改进校准。在三个医学VQA数据集上，期望校准误差平均降低40%，显著提升了模型可靠性。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "How is multimodal fusion achieved in deep learning?",
+      "matched_requirement_id": "req-27",
+      "selection_source": "carryover_cache",
+      "paper_id": "2606.19950v1"
+    },
+    {
+      "id": "2606.19965v1",
+      "source": "arxiv",
+      "title": "ROSE: Benchmarking the Perception-to-Action Gap in Multimodal Models",
+      "abstract": "Multimodal large language models (MLLMs) are increasingly expected to act on visual information, yet the same scene may require different actions under different task contexts. How reliably can a model turn the same visual evidence into the action required by the current context? To answer this question, we introduce \\textsc{ROSE} (\\textbf{R}eference-conditioned \\textbf{O}ddity and \\textbf{S}ymbolic \\textbf{E}xecution), a controlled benchmark that holds the visual scene fixed while varying region constraints and required symbolic outputs. Through coupled counting and coordinate-action tasks, \\textsc{ROSE} tests whether models can infer an implicit majority reference and act on the resulting fine-grained visual evidence under changing contexts. Across nine recent MLLMs, performance drops by as much as 44.5 percentage points from counting-oriented tasks to region-conditioned action, despite 98.8\\% human performance. The gap persists on paired scenes and regions for which the same model returns the correct count, while global-click and matched local controls show that coordinate grounding explains only part of the loss, revealing a distinct, model-dependent bottleneck in turning shared visual evidence into context-specific actions.",
+      "authors": [
+        "Yihao Wang",
+        "Zijian He",
+        "Jie Ren",
+        "Keze Wang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.AI"
+      ],
+      "published": "2026-06-18T09:05:48+00:00",
+      "link": "https://arxiv.org/pdf/2606.19965v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "query:EEG-ODE-LN",
+        "query:multi-modal"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "benchmark for vision-language models",
+      "llm_evidence_cn": "视觉语言模型基准",
+      "llm_evidence": "视觉语言模型基准",
+      "canonical_evidence": "视觉语言模型基准",
+      "llm_tldr_en": "ROSE benchmark evaluates multimodal LLMs on perception-to-action gap using controlled visual tasks with varying contexts, revealing limitations in fine-grained visual reasoning.",
+      "llm_tldr_cn": "该论文提出了ROSE基准测试，通过保持视觉场景固定而改变区域约束和符号输出，评估多模态大语言模型在不同任务上下文下将视觉证据转化为所需动作的能力。实验表明现有模型在细粒度视觉推理中仍存在感知到行动的差距。",
+      "llm_tldr": "该论文提出了ROSE基准测试，通过保持视觉场景固定而改变区域约束和符号输出，评估多模态大语言模型在不同任务上下文下将视觉证据转化为所需动作的能力。实验表明现有模型在细粒度视觉推理中仍存在感知到行动的差距。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "vision language model architectures",
+      "matched_requirement_id": "req-22",
+      "selection_source": "carryover_cache",
+      "paper_id": "2606.19965v1"
+    },
+    {
+      "id": "2606.20044v1",
+      "source": "arxiv",
+      "title": "FUSE: Frequency-domain Unification and Spectral Energy Alignment for Multi-modal Object Re-Identification",
+      "abstract": "Despite significant progress in multi-modal Re-Identification (ReID), existing methods tend to emphasize low-frequency cues. Consequently, they focus on attributes such as color, illumination, and coarse appearance, while overlooking mid and high-frequency structures that encode geometric, textural, and identity-discriminative details. This imbalance leads to incomplete spectral representations and unstable cross-modal alignment. To overcome these limitations, we introduce FUSE, a frequency-domain framework that reformulates multi-modal ReID as a two-stage process of spectral disentanglement and energy alignment. The proposed Spectral Decomposition Module (SDM) adaptively partitions features into low, mid, and high-frequency subspaces, enabling hierarchical spectral modeling. The Cross-Modal Alignment Module (CAM) further enforces energy alignment and subspace complementarity across modalities via frequency-consistency regularization. In addition, FUSE incorporates learnable frequency modulation to enhance robustness under varying illumination and heterogeneous sensor conditions. Extensive experiments on RGBNT201, RGBNT100, and MSVR310 show that FUSE achieves 9.1\\% mAP and 9.5\\% Rank-1 improvements, establishing an interpretable frequency-domain paradigm for multi-modal representation learning.",
+      "authors": [
+        "Xuanhao Qi",
+        "Tom H. Luan",
+        "Yukang Zhang",
+        "Jinkai Zheng",
+        "Zhou Su",
+        "Shuwei Li",
+        "Lei Tan"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-06-18T10:21:32+00:00",
+      "link": "https://arxiv.org/pdf/2606.20044v1",
+      "tags": [
+        "query:multi-modal"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "frequency-domain framework for multi-modal ReID with spectral disentanglement and energy alignment",
+      "llm_evidence_cn": "频域框架实现多模态重识别，采用频谱解缠与能量对齐",
+      "llm_evidence": "频域框架实现多模态重识别，采用频谱解缠与能量对齐",
+      "canonical_evidence": "频域框架实现多模态重识别，采用频谱解缠与能量对齐",
+      "llm_tldr_en": "Proposes FUSE, a frequency-domain framework that reformulates multi-modal ReID as spectral disentanglement and energy alignment, addressing imbalanced spectral representations.",
+      "llm_tldr_cn": "多模态重识别方法偏重低频线索，忽略中高频结构。本文提出FUSE框架，将多模态重识别重新表述为频谱解缠与能量对齐两阶段过程。频谱分解模块自适应分割特征为低、中、高频，并通过能量对齐稳定跨模态表示，有效弥补了频谱不平衡问题，超越现有方法。",
+      "llm_tldr": "多模态重识别方法偏重低频线索，忽略中高频结构。本文提出FUSE框架，将多模态重识别重新表述为频谱解缠与能量对齐两阶段过程。频谱分解模块自适应分割特征为低、中、高频，并通过能量对齐稳定跨模态表示，有效弥补了频谱不平衡问题，超越现有方法。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "multimodal alignment approaches",
+      "matched_requirement_id": "req-25",
+      "selection_source": "carryover_cache",
+      "paper_id": "2606.20044v1"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2606.20477v1",
+      "source": "arxiv",
+      "title": "Scalable Training of Spatially Grounded 2D Vision-Language Models for Radiology",
+      "abstract": "We study how to train visually grounded vision-language models (VLMs) for radiology without manual spatial annotations. We introduce RefRad2D, a large-scale bilingual (German/English) dataset of 1.2M CT and MR image-text pairs derived from clinical practice, with task-specific VQA and spatial grounding subsets generated automatically via LLM-based curation and automated segmentation. Trained on this data, our model RadGrounder jointly performs report generation, visual question answering, and spatial grounding via bounding-box detection or segmentation. On external VQA benchmarks (Slake, VQA-RAD), RadGrounder achieves competitive results with specialized medical VLMs. Adding our clinical data to the training mixture improves open-ended VQA over fine-tuning on the downstream datasets alone, showing the transferability of our dataset. Crucially, adding grounding supervision does not degrade language quality, enabling spatially verifiable outputs at no cost to VQA performance.",
+      "authors": [
+        "Yusuf Salcan",
+        "Simon Ging",
+        "Robin Schirrmeister",
+        "Philipp Arnold",
+        "Elmar Kotter",
+        "Behzad Bozorgtabar",
+        "Thomas Brox"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.CL",
+        "cs.LG"
+      ],
+      "published": "2026-06-18T16:55:26+00:00",
+      "link": "https://arxiv.org/pdf/2606.20477v1",
+      "tags": [
+        "keyword:EEG-ODE-LN",
+        "keyword:multi-modal",
+        "keyword:neural-ode",
+        "query:EEG-ODE-LN",
+        "query:multi-modal",
+        "query:neural-ode"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "scalable training of spatially grounded 2D VLMs for radiology",
+      "llm_evidence_cn": "放射学空间定位的二维视觉语言模型训练",
+      "llm_evidence": "放射学空间定位的二维视觉语言模型训练",
+      "canonical_evidence": "放射学空间定位的二维视觉语言模型训练",
+      "llm_tldr_en": "Proposes RefRad2D dataset and RadGrounder model for joint report generation, VQA, and spatial grounding in radiology using LLM-based curation and automated segmentation.",
+      "llm_tldr_cn": "针对放射学中视觉语言模型缺乏空间定位标注的问题，本文构建了大规模双语（德/英）CT/MR图文对数据集RefRad2D，并训练了RadGrounder模型，该模型能同时进行报告生成、视觉问答和空间定位（目标检测或分割）。在外部VQA基准上取得了与专用医学VLM竞争的结果，且加入临床数据改善了开放域VQA性能，展示了可扩展训练的有效性。",
+      "llm_tldr": "针对放射学中视觉语言模型缺乏空间定位标注的问题，本文构建了大规模双语（德/英）CT/MR图文对数据集RefRad2D，并训练了RadGrounder模型，该模型能同时进行报告生成、视觉问答和空间定位（目标检测或分割）。在外部VQA基准上取得了与专用医学VLM竞争的结果，且加入临床数据改善了开放域VQA性能，展示了可扩展训练的有效性。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "vision language model architectures",
+      "matched_requirement_id": "req-22",
+      "selection_source": "carryover_cache",
+      "paper_id": "2606.20477v1",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "biorxiv-10-64898-2026-06-10-731476-v1",
+      "source": "biorxiv",
+      "title": "Virtual phenotypic screening discovers novel scaffolds inhibiting the PI3K/mTOR pathway",
+      "abstract": "Phenotypic drug discovery has yielded many first-in-class small-molecule drugs by discovering modulators of disease phenotypes in physiologically relevant cellular systems. However, high-content phenotypic assays lack the ultra-high-throughput scalability of target-based screens. Recent advances in virtual screening present an opportunity to address this bottleneck, but have been limited to simple phenotypes like viability, restricted to small repurposing libraries, or lack in-depth biological validation. Here, we present PhenoCompass, a multimodal co-embedding model that aligns compound structures and high-content phenotypic imaging to enable virtual phenotypic screening over billion-compound libraries. Following training on the Joint Undertaking in Morphology dataset with more than 100,000 Cell Painting compound profiles, retrospective validation with historical biochemical high-throughput screening data demonstrates that PhenoCompass ranks compounds according to their biochemical target engagement. Leveraging PhenoCompass, we performed a prospective screen of 3.8 billion Enamine REAL compounds for inhibitors of PI3K/mTOR pathway, a critical signaling cascade whose aberrant activation is a common tumor driver. This search identified 11 novel compounds with pathway-consistent Cell Painting readout and diverse scaffolds, a 54-fold enrichment over the training set. Orthogonal validation experiments using a FOXO3A reporter assay and direct kinase inhibition confirmed seven structurally novel inhibitors with distinct mechanisms of action. These results highlight the convergence of diverse molecular target profiles onto a shared morphological pathway signature and establish PhenoCompass as a robust framework for high-content phenotypic virtual screening.",
+      "authors": [
+        "Wu, A. P.",
+        "Yao, H.",
+        "Hoeckendorf, B.",
+        "Gaskins, G.",
+        "Kosaisawe, N.",
+        "Lu, Z.",
+        "Hanslovsky, P.",
+        "Mayba, O.",
+        "Skelton, N.",
+        "Scalia, G.",
+        "Moffat, J. G.",
+        "Biancalani, T.",
+        "Hütter, J.-C.",
+        "Richmond, D."
+      ],
+      "primary_category": "bioinformatics",
+      "categories": [
+        "bioinformatics"
+      ],
+      "published": "2026-06-14T00:00:00+00:00",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.06.10.731476v1.full.pdf",
+      "tags": [
+        "keyword:multi-modal"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "multimodal co-embedding of compound structures and phenotypic imaging",
+      "llm_evidence_cn": "化合物结构与表型成像的多模态共嵌入",
+      "llm_evidence": "化合物结构与表型成像的多模态共嵌入",
+      "canonical_evidence": "化合物结构与表型成像的多模态共嵌入",
+      "llm_tldr_en": "PhenoCompass aligns compound structures and high-content imaging for virtual phenotypic screening over billion-compound libraries.",
+      "llm_tldr_cn": "PhenoCompass是一种多模态共嵌入模型，将化合物结构与高内涵表型成像对齐，实现十亿级化合物库的虚拟表型筛选。该模型在训练后能够发现新的PI3K/mTOR通路抑制剂，展示了多模态融合在药物发现中的潜力。",
+      "llm_tldr": "PhenoCompass是一种多模态共嵌入模型，将化合物结构与高内涵表型成像对齐，实现十亿级化合物库的虚拟表型筛选。该模型在训练后能够发现新的PI3K/mTOR通路抑制剂，展示了多模态融合在药物发现中的潜力。",
+      "llm_tags": [
+        "query:multi-modal"
+      ],
+      "matched_query_tag": "query:multi-modal",
+      "matched_query_text": "multimodal learning methods",
+      "matched_requirement_id": "req-24",
+      "selection_source": "carryover_cache",
+      "paper_id": "biorxiv-10-64898-2026-06-10-731476-v1",
+      "quick_tier": "8plus"
+    }
+  ]
+}

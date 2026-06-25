@@ -1,0 +1,490 @@
+Title: FUSE: Frequency-domain Unification and Spectral Energy Alignment for Multi-modal Object Re-Identification
+
+URL Source: https://arxiv.org/pdf/2606.20044v1
+
+Published Time: Fri, 19 Jun 2026 00:51:52 GMT
+
+Number of Pages: 13
+
+Markdown Content:
+# FUSE: Frequency-domain Unification and Spectral Energy Alignment for Multi-modal Object Re-Identification 
+
+Xuanhao Qi 1 Tom H. Luan 1 Yukang Zhang 2 Jinkai Zheng 1 Zhou Su 1 Shuwei Li 3 Lei Tan 3
+
+# Abstract 
+
+Despite significant progress in multi-modal Re-Identification (ReID), existing methods tend to emphasize low-frequency cues. Consequently, they focus on attributes such as color, illumina-tion, and coarse appearance, while overlooking mid and high-frequency structures that encode ge-ometric, textural, and identity-discriminative de-tails. This imbalance leads to incomplete spectral representations and unstable cross-modal align-ment. To overcome these limitations, we intro-duce FUSE, a frequency-domain framework that reformulates multi-modal ReID as a two-stage process of spectral disentanglement and energy alignment. The proposed Spectral Decomposition Module (SDM) adaptively partitions features into low, mid, and high-frequency subspaces, enabling hierarchical spectral modeling. The Cross-Modal Alignment Module (CAM) further enforces en-ergy alignment and subspace complementarity across modalities via frequency-consistency regu-larization. In addition, FUSE incorporates learn-able frequency modulation to enhance robustness under varying illumination and heterogeneous sensor conditions. Extensive experiments on RGBNT201, RGBNT100, and MSVR310 show that FUSE achieves 9.1% mAP and 9.5% Rank-1 improvements, establishing an interpretable frequency-domain paradigm for multi-modal rep-resentation learning. 
+
+# 1. Introduction 
+
+Multi-modal re-identification (ReID) aims to match the same individual across non-overlapping cameras by inte-
+
+> 1
+
+School of Cyber Science and Engineering, Xi’an Jiaotong Uni-versity, Xi’an, China 2School of Informatics, Xiamen University, Xiamen, China 3National University of Singapore, Singapore. Cor-respondence to: Tom H. Luan <tom.luan@xjtu.edu.cn >, Shuwei Li <Shuwei@u.nus.edu >.
+
+Proceedings of the 43 rd International Conference on Machine Learning , Seoul, South Korea. PMLR 306, 2026. Copyright 2026 by the author(s). Low High Mid  
+
+> (a) Current spatial -domain network
+> (b ) Our proposed FUSE
+> Interaction
+> frequency -domain
+> Vision
+> Transformer
+> Vision
+> Transformer
+> Vision
+> Transformer
+> spatial -domain
+> Vision
+> Transformer
+
+Figure 1. Comparison between the proposed FUSE and main-stream spatial-domain structures. (a) Existing multi-modal ReID methods mainly rely on spatial domain fusion, but the in-herent low-frequency bias (Park & Kim, 2022; Wang et al., 2020) of both CNNs and ViTs causes models to predominantly capture global low-frequency semantics while neglecting mid and high-frequency details, leading to incomplete spectral representation and unstable cross-modal alignment. (b) The proposed FUSE explicitly models in the frequency domain, where spectral decom-position and energy alignment partition features into low, mid, and high-frequency subspaces, achieving semantically interpretable cross-modal feature fusion. 
+
+grating visual information from RGB, near-infrared (NIR), and thermal infrared (TIR) modalities. This capability is essential for reliable perception in intelligent surveillance, autonomous driving, and cross-environment visual under-standing. While deep learning–based single-modal ReID has achieved notable success (He et al., 2021; Luo et al., 2019; Sun et al., 2018; Tan et al., 2024a), its robustness re-mains limited under complex environmental variations (Ye et al., 2021; Niu et al., 2026; Tan et al., 2024b; Sun et al., 2025; Lei et al., 2024; Li et al., 2026a; Tan et al., 2026). Multi-modal ReID improves robustness by integrating com-plementary information across modalities, yet cross-modal feature alignment remains fragile under realistic perception conditions. Recent research in deep learning era start from CNN to ViT (Luo et al., 2019; Zhang et al., 2025c; Ma et al., 2026; Li et al., 2026b;c; Ma et al., 2023a; He et al., 2021). Based on this well-structured basic models, multi-modal ReID has focused on identity-level fusion (Wang et al., 2024a; 2025b;a), fine-grained feature complementarity (Feng et al., 1
+
+> arXiv:2606.20044v1 [cs.CV] 18 Jun 2026 FUSE: Frequency-domain Unification and Spectral Energy Alignment for Multi-modal Object Re-Identification
+
+2025; 2026), and frequency-domain interaction modeling (Yang et al., 2025; Zhang et al., 2024), achieving consider-able progress. However, most existing approaches remain limited to spatial or semantic alignment and fail to cap-ture spectral-level cross-modal discrepancies. As illustrated in Figure 1(a), existing multi-modal ReID methods rely on CNN- and ViT-base (Ma et al., 2024) spatial feature extraction and fusion (Ma et al., 2023b), yet these archi-tectures inherently favor low-frequency responses (Park & Kim, 2022; Wang et al., 2020). The resulting low-frequency dominance limits the ability to capture cross-modal mid and high-frequency differences and obscures intrinsic spectral disparities across modalities, resulting in unstable cross-modal alignment, where mid and high-frequency bands carry structurally and semantically discriminative informa-tion (Zhang et al., 2025b). As a result, the frequency repre-sentation becomes incomplete and ultimately leads to unsta-ble cross-modal alignment (Bo et al., 2025). These obser-vations highlight the limitations of spatial-domain modeling and motivate a reformulation of cross-modal fusion from a frequency-domain perspective, where spectral structures can be explicitly disentangled and coordinated. To address the above issue, we propose FUSE , a uni-fied frequency-domain framework for multi-modal re-identification. FUSE formulates the task as a two-stage process of spectral disentanglement and energy alignment, enabling robust and interpretable representation unification in the frequency space. In the first stage, the Spectral De-composition Module (SDM) adaptively decomposes fea-tures into low, mid, and high-frequency subspaces using learnable soft bandpass filters and applies energy-balance regularization to preserve mid-frequency dominance for stable structural consistency. Moreover, SDM adopts dif-ferentiated convolutional strategies across frequency bands, where dilated, standard, and depthwise separable convo-lutions are applied to capture global semantics, maintain structural coherence, and extract fine-grained textures, re-spectively. In the second stage, the Cross-Modal Alignment Module (CAM) computes band-wise amplitude statistics and learns affine parameters to align spectral energy and maintain subspace complementarity. During training, FUSE introduces adaptive spectral masks for dynamic perturba-tion and masking, improving robustness under illumination imbalance and modality noise. This two-stage design trans-forms cross-modal fusion from implicit spatial correlation into explicit spectral reasoning, achieving frequency-based, semantically consistent, and interpretable feature alignment. The contributions of this paper are summarized as follows: • We propose a frequency-domain framework named FUSE for multi-modal ReID. FUSE explicitly mod-els inter-band interactions in the frequency domain, enabling more complete spectral representations and enhancing multi-spectral object ReID. • We introduce a Spectral Decomposition Module (SDM) and a Cross-Modal Alignment Module (CAM), where SDM separates features into low, mid, and high-frequency subspaces to capture complementary spec-tral semantics, and CAM aligns the spectral energy distribution across modalities to stabilize cross-modal feature learning. • Extensive experiments conducted on three public multi-modal ReID datasets, namely RGBNT201, RGBNT100, and MSVR310, demonstrate the supe-rior performance of FUSE, improvement a 9.1% mAP and 9.5% Rank-1 on RGBNT201. 
+
+# 2. Related Work 
+
+Multi-modal object ReID improves recognition robustness by leveraging heterogeneous spectral inputs such as RGB, NIR, and TIR. Most prior work designs spatial-domain fusion mechanisms. Early CNN-based methods include PFNet (Zheng et al., 2021), which adopts progressive multi-spectral fusion for low-illumination robustness, and IEEE (Wang et al., 2022), which introduces information exchange and intra-class discrepancy maximization to strengthen modality-specific representations. To exploit structural re-lations across modalities, GPFNet (He et al., 2023) pro-poses graph-guided progressive fusion that aggregates multi-modal features by reasoning over relational topology. With the rise of ViTs, recent approaches explore token-level inter-action. H-ViT (Pan et al., 2022) introduces modality tokens at multiple stages to balance shared and private represen-tations, while TOP-ReID (Wang et al., 2024a) uses cyclic token permutation for fine-grained alignment. MambaPro (Wang et al., 2025a) leverages selective state-space aggre-gation for long-range interaction with linear complexity, improving scalability and robustness. DeMo (Wang et al., 2025b) incorporates modality-aware deformable aggrega-tion to enable flexible token correspondence and alleviate geometric misalignment, and IDEA (Wang et al., 2025c) employs text-inverted semantic guidance with deformable token fusion to enhance shared semantics and reduce multi-spectral gaps. Despite these advances, spatial fusion re-mains dominant and often struggles under RGB NIR TIR spectral mismatch, biasing networks toward low-frequency cues and under-representing mid and high-frequency iden-tity structure. This motivates frequency-domain modeling to capture spectral heterogeneity and improve cross-modal con-sistency. FDNM (Zhang et al., 2025b) decomposes features into Fourier amplitude and phase, where amplitude reflects modality variation and phase preserves geometric stability. MFENet (Gu et al., 2025) learns a low high frequency split, where low frequencies encode style and illumination and 2FUSE: Frequency-domain Unification and Spectral Energy Alignment for Multi-modal Object Re-Identification Vision Transformer Block 
+
+RGB 
+
+NIR 
+
+TIR 
+
+> Vision Transformer Block
+> Vision Transformer Block N
+> sp
+
+IN
+
+> sp
+
+IT
+
+> sp
+
+IT
+
+> sp
+
+IR
+
+> sp
+
+IR
+
+> sp
+
+I  
+
+> Cross -Modal Alignment Module
+> (CAM)
+> Spectral Decomposition Module (SDM)
+> Mid
+> Low
+> High
+> C
+> CCCCCCC
+> high -freq
+> mid -freq
+> low -freq
+> spatial R
+> sp
+
+I  N
+
+> sp
+
+I  T
+
+> sp
+
+I  , ,R N Tsp sp sp I I I  ce 
+
+> tri
+
+L
+
+L
+
++RFNFTFNT SRT SRN SRSNSTS 
+
+> CCConcat R
+> sd
+
+I  N
+
+> sd
+
+I  T
+
+> sd
+
+I  N
+
+> DFT
+
+I  N
+
+> IDFT
+
+I  T
+
+> DFT
+
+I  T
+
+> IDFT
+
+I  , ,R N T  
+
+> IDFT IDFT IDFT
+
+I I I  , ,R N T  
+
+> DFT DFT DFT
+
+I I I  IDFT IDFT IDFT R
+
+> DFT
+
+I  R
+
+> IDFT
+
+I  
+
+Figure 2. Overall architecture of FUSE. FUSE leverages frequency-domain modeling to enhance multi-modal person re-identification. Input images from RGB, NIR, and TIR modalities are processed by a shared Vision Transformer backbone to extract spatial features. The Spectral Decomposition Module (SDM) adaptively partitions features into frequency sub-bands and applies specialized enhancement, while the Cross-Modal Alignment Module (CAM) performs frequency-aware interaction and consistency alignment. Identity classification and triplet losses supervise the final fused representation. 
+
+high frequencies capture identity structure. TIENet (Yang et al., 2025) enhances geometric stability through progres-sive multi-level spectral interaction. EDITOR (Zhang et al., 2024) uses wavelet decomposition to obtain stable multi-scale frequency features and enables learnable spatial fre-quency token selection. Although effective, these methods rely on pre-defined frequency decompositions, lack princi-pled frequency semantics, and omit cross-modal spectral energy alignment, yielding unstable, less interpretable rep-resentations (Lu et al., 2024; 2025; Niu et al., 2025; Zheng et al., 2025b). This motivates FUSE, reframing cross-modal ReID through band-wise spectral disentanglement and en-ergy alignment for robust multi-frequency representations. 
+
+# 3. Methodology 
+
+An overview of the full architecture is presented in Figure 2. We propose FUSE, a modular framework that integrates frequency-domain modeling into multi-modal person re-identification. While existing methods predominantly rely on spatial-domain feature fusion, FUSE decomposes in-termediate representations into frequency sub-bands and aligns spectral statistics across modalities. The architecture has two components. The Spectral Decomposition Mod-ule (SDM) adaptively partitions features into low, mid, and high-frequency bands and performs band-specific enhance-ment. The Cross-Modal Alignment Module (CAM) models inter-modal interactions through frequency-aware attention and enforces global spectral consistency via regularization. By introducing frequency as an axis of representation and alignment, FUSE provides a principled and interpretable approach for reducing cross-modal discrepancies. 
+
+3.1. Spectral Decomposition Module (SDM) 
+
+We introduce SDM from the perspective of spectral dis-crepancies in Figure 2. RGB, NIR, and TIR exhibit dis-tinct energy patterns across low, mid, and high frequencies, leading to feature mixing and unstable cross-modal align-ment. SDM separates and models structural cues in different frequency bands by applying Discrete Fourier Transform (DFT) to ViT features, generating learnable radial masks, and performing band-specific convolutional enhancement to obtain complementary and stable spectral components. For efficient multi-modal representation learning, FUSE adopts a unified ViT backbone shared by RGB, NIR, and TIR, re-ducing model complexity and promoting early alignment. 3FUSE: Frequency-domain Unification and Spectral Energy Alignment for Multi-modal Object Re-Identification 
+
+The tokenized features for each modality are given by: 
+
+Iisp = ViT( Ii), i ∈ { R, N, T }, (1) where IR ∈ RC×H×W , IN ∈ RC×H×W , and IT ∈
+
+RC×H×W denote the RGB, NIR and TIR images, respec-tively. The tokenized features IRsp , INsp and ITsp , each with shape RC×H×W , are extracted from the last ViT layer. To uncover spectral characteristics inherent in spatial rep-resentations, SDM transforms tokenized RGB, NIR, and TIR features into the frequency domain using the two-dimensional DFT. This operation yields modality-specific Fourier spectra IRDF T , INDF T , and ITDF T , which provide a unified frequency-domain representation across modalities and serve as input to SDM’s learnable radial decomposition. 
+
+F(u, v ) = 1
+
+√HW 
+
+> H−1
+
+X 
+
+> h=0
+> W−1
+
+X
+
+> w=0
+
+x(h, w )e−j2π( hu H + wv W ), (2) where j denotes the imaginary unit. (u, v ) are the discrete frequency indices along the horizontal and vertical axes of the 2D spectrum. F(·) denotes the 2D DFT, and F−1(·)
+
+denotes the inverse discrete Fourier transform (IDFT). 
+
+IiDF T = F(Iisp ), i ∈ { R, N, T }. (3) The inherent spectral differences across modalities make robust multi-modal alignment difficult, and fixed-threshold band definitions often fail under such variability. To address this challenge, SDM obtains a learnable frequency represen-tation. SDM abstracts the 2D frequency plane into a radial function centered at the Direct Current (DC) component 
+
+(u0, v 0) and partitions along the radial axis. Here, (u, v )
+
+denotes frequency-bin indices on the shifted 2D spectrum, 
+
+u ∈ 0, . . . , H − 1 and v ∈ 0, . . . , W − 1. Under FFT shift, the DC center is fixed at (u0, v 0) =   H
+
+> 2
+
+ ,  W
+
+> 2
+
+ . The maximal usable radius is Rmax = 12 min( H, W ). For any 
+
+(u, v ), the radial distance is computed as: 
+
+d(u, v ) = p(u − u0)2 + ( v − v0)2. (4) The frequency allocation is parameterized by a three-dimensional vector θ = [ θL, θ M , θ H ]. This vector is a set of model weights optimized end-to-end via backpropagation. Its Softmax-normalized form defines the learnable, relative proportions [rL, r M , r H ] of the allocation: 
+
+[rL, r M , r H ] = softmax( θ). (5) These proportions adaptively induce three continuous and non-overlapping radial intervals within Rmax , correspond-ing to the Low-Frequency RL, Mid-Frequency RM , and High-Frequency RH subspaces: 
+
+RL = [0 , r LRmax ],RM = ( rLRmax , (rL + rM )Rmax ],RH = (( rL + rM )Rmax , R max ].
+
+(6) Each frequency coordinate is then assigned to one of these intervals according to its distance d(u, v ), producing mutu-ally exclusive annular masks Mi:
+
+Mi(u, v ) = Id(u, v ) ∈ Ri
+
+, i ∈ { L, M, H }. (7) where I[·] denotes the indicator function that equals 1 if the condition holds and 0 otherwise. To preserve structural advantages from frequency disen-tanglement, each spectral subspace is processed with an operator whose spatial inductive bias matches its frequency band. Low-frequency features ML vary slowly across space and encode global semantics, so dilated convolution ( d=2 )enlarges the receptive field to capture smooth patterns. Mid-frequency features MM represent meso-scale structures such as contours and local shapes, making standard 3×3
+
+convolution a natural fit. High-frequency features MH con-tain fine textures and sharp transitions; depthwise convo-lution preserves channel-wise details while avoiding over-smoothing, maintaining discriminative high-frequency cues. 
+
+XL = DConv 3x3 (ML), (8) 
+
+XM = Conv 3x3 (MM ), (9) 
+
+XH = DWConv 3x3 (MH ). (10) To restore a complete spatial representation from the disen-tangled components, we apply the Inverse Discrete Fourier Transform (IDFT). The enhanced spatial feature maps (XL, X M , X H ) are aggregated by summation, combining their enhanced spectral components. The two-dimensional inverse transform F−1 is then applied to the aggregated result to obtain enhanced spatial features IiIDF T :
+
+IiIDF T = F−1(XH +XM +XL), i ∈ { R, N, T }. (11) To capture modality-shared channel dependencies, we first apply Global Average Pooling (GAP) to RGB, NIR, and TIR features to obtain compact channel descriptors. These descriptors are then refined by a lightweight 1D convolution with a kernel size k, and a sigmoid σ activation produces the normalized channel weights: 
+
+XiC = σ(Conv k
+
+> 1D
+
+(GAP( Iisp ))) , i ∈ { R, N, T }. (12) With the frequency-enhanced features and modality-shared channel weights in place, SDM integrates them into the orig-inal spatial representation through residual modulation. The enhanced feature IiIDF T is first reweighted by the channel attention map XiC , and the result is added to the original ViT feature Iisp to form the final decomposed representation: 
+
+Iisd = Iisp +  IiIDF T ⊙ XiC
+
+, i ∈ { R, N, T }. (13) This residual fusion preserves spatial semantics while inject-ing frequency-aware structural cues, yielding a more stable and discriminative multi-modal representation. 4FUSE: Frequency-domain Unification and Spectral Energy Alignment for Multi-modal Object Re-Identification TSNorm Norm Norm 
+
+> Multi -head
+> Cross Attention
+> Add & Norm
+> Feed Forward
+> Add NSNS
+
+QVK
+
+> Concat RFRSNT S
+
+Figure 3. The architecture of the Cross-Modal Alignment Mod-ule (CAM). It utilizes the concatenated NIR and TIR tokens ( SN T )as Key/Value and uses RGB tokens SR as the Query for refinement via multi-head cross-attention. 
+
+3.2. Cross-Modal Alignment Module (CAM) 
+
+As illustrated in Figure 3, SDM disentangles features into frequency sub-bands, but RGB, NIR, and TIR still show dis-tinct amplitude and energy patterns that cause cross-modal inconsistency. To address this, we design the Cross-Modal Alignment Module (CAM), which leverages frequency-domain complementarity and spectral alignment to reduce modality-specific biases. CAM performs frequency-aware cross-modal attention and introduces an energy-consistency constraint to produce stable fused representations. CAM takes spatial features IRca , I Nca , I Tca as inputs and outputs the aligned representation Ica through cross-modal interaction. Without loss of generality, we start with the RGB stream. CAM adopts a Multi-Head Cross-Attention (MHCA) mod-ule with Nh heads for all-to-one aggregation across modali-ties. Concretely, the token sequence SR ∈ RM ×D from IRca 
+
+is projected to form the query matrix Q ∈ RM ×D . The ag-gregated tokens SN T = Concat (SN , S T ) ∈ R2M ×D from NIR and TIR are projected to produce key K and value V .The interaction between IRca and modalities (N, T ) in the 
+
+h-th head is computed as: 
+
+ˆF hR = σ( QhKh⊤
+
+√d )V h, (14) where σ denotes the softmax function and (·)⊤ represents matrix transposition. Qh ∈ RM ×d, Kh, V h ∈ R2M ×d, and 
+
+d = D/N h. The outputs of Nh heads ( ˆF 1
+
+> R
+
+, . . . , ˆF Nh 
+
+> R
+
+) are concatenated into ˆFR ∈ RM ×D .This operation corresponds to a single-round, all-to-one frequency-aware alignment, where the target modality ag-gregates complementary cues from the other two modalities. The same symmetric procedure is applied to all modalities: 
+
+FR = LN(MHCA( SR, S N T )) ,FN = LN(MHCA( SN , S RT )) ,FT = LN(MHCA( ST , S RN )) .
+
+(15) Aggregating the operations across all modalities, the entire single-round alignment process is succinctly summarized by the following function: 
+
+FR, F N , F T = CAM( IRca , I Nca , I Tca ). (16) Finally, the aligned feature sequences are concatenated to form the fused representation Ica :
+
+Ica = Concat( FR, F N , F T ). (17) Unlike TOP-ReID’s relay fusion that cyclically permutes class tokens to attend to the next modality’s patches, CAM builds a unified K/V by concatenating the other modalities’ tokens and applies symmetric all-to-one cross-attention, let-ting each modality access full multimodal context in one pass for complementary aggregation. 
+
+3.3. Objective Function Frequency Consistency Loss Lf req . To address the spec-tral discrepancies between heterogeneous modalities and en-force spectral alignment, we introduce the Lf req as a struc-tural regularization term. This loss ensures that modality-specific features, processed by the SDM module, possess consistent global spectral characteristics across modalities. Given the input features IRsd , I Nsd , I Tsd from each modality, we first apply the 2D DFT to obtain their amplitude spectra 
+
+|IRsd |, |INsd |, |ITsd |. Then, we extract the compact spectral de-scriptor GR, G N , G T for each modality by applying GAP across spatial dimensions: 
+
+GR, G N , G T = GAP( |IRsd |, |INsd |, |ITsd |). (18) The loss function is designed to minimize the average pair-wise cosine distance between the global spectral descriptors of different modalities: 
+
+Lf req = 2
+
+M (M − 1) 
+
+X
+
+> 1≤i<j ≤M
+
+(1 − GiGj
+
+∥Gi∥2∥Gj ∥2
+
+), (19) where M is the number of modalities, and Gi and Gj are frequency descriptors for modalities i and j, respectively. Minimizing Lf req encourages feature representations with consistent spectral characteristics across modalities. The overall training objective is to minimize the total loss function Ltotal , which combines the representation learning objectives with the spectral regularization term. The total loss is defined as: 
+
+Ltotal = Lid + Ltri + λf req Lf req , (20) 5FUSE: Frequency-domain Unification and Spectral Energy Alignment for Multi-modal Object Re-Identification 
+
+Table 1. Performance comparison on RGBNT201. The best and second results are in bold and underlined, respectively. 
+
+Methods RGBNT201 mAP R-1 R-5 R-10 Single 
+
+MUDeep (Qian et al., 2017) 23.8 19.7 33.1 44.3 HACNN (Li et al., 2018) 21.3 19.0 34.1 42.8 MLFN (Chang et al., 2018) 26.1 24.2 35.9 44.1 PCB (Sun et al., 2018) 32.8 28.1 37.4 46.9 OSNet (Zhou et al., 2019) 25.4 22.3 35.1 44.7 CAL (Rao et al., 2021) 27.6 24.3 36.5 45.7 
+
+> Multi
+
+HAMNet (Li et al., 2020) 27.7 26.3 41.5 51.7 PFNet (Zheng et al., 2021) 38.5 38.9 52.0 58.4 IEEE (Wang et al., 2022) 47.5 44.4 57.1 63.6 DENet (Zheng et al., 2023a) 42.4 42.2 55.3 64.5 LRMM (Wu et al., 2025) 52.3 53.4 64.6 73.2 HTT (Wang et al., 2024b) 71.1 73.4 83.1 87.3 EDITOR (Zhang et al., 2024) 66.5 68.3 81.1 88.2 RSCNet (Yu et al., 2024) 68.2 72.5 - -TOP-ReID (Wang et al., 2024a) 72.3 76.6 84.7 89.4 WTSF-ReID(Yu et al., 2025) 67.9 72.2 83.4 89.7 DESANet (Dong et al., 2025) 74.6 77.6 87.1 91.3 PromptMA (Zhang et al., 2025a) 78.4 80.9 87.0 88.9 DeMo (Wang et al., 2025b) 79.0 82.3 88.8 92.0 IDEA (Wang et al., 2025c) 80.2 82.1 90.0 93.3 
+
+FUSE 81.4 86.1 91.5 93.8 
+
+where Lid denotes the identity loss, Ltri represents the triplet loss, and Lf req is our proposed frequency consis-tency loss. The hyperparameter λf req balances the strength of the spectral regularization. This combined objective en-sures that the model learns discriminative feature represen-tations while effectively maintaining cross-modal spectral consistency, thereby significantly enhancing the robustness of feature alignment. 
+
+# 4. Experiments 
+
+4.1. Implementation Datasets. We evaluate our method on three widely used multi-modal ReID datasets. RGBNT201 (Zheng et al., 2021) contains 4,787 aligned RGB, NIR, and TIR images from 201 identities. RGBNT100 (Li et al., 2020) is a large-scale vehicle dataset with 17,250 RGB–NIR–TIR triples col-lected under diverse and challenging conditions. MSVR310 (Zheng et al., 2022) is a smaller but high-quality vehicle dataset with 2,087 image triples captured across varying environments and time periods. 
+
+Evaluation protocols. To assess the performance of our method, we adopt mean Average Precision (mAP) and Cu-mulative Matching Characteristics (CMC) at Rank-1, Rank-5, and Rank-10. These metrics are standard in this field and provide a comprehensive evaluation of the model’s effective-
+
+Table 2. Performance comparison on RGBNT100 and MSVR310. The best and second results are in bold and underlined, respectively. 
+
+Methods RGBNT100 MSVR310 mAP R-1 mAP R-1 Single 
+
+PCB (Sun et al., 2018) 57.2 83.5 23.2 42.9 MGN (Wang et al., 2018) 58.1 83.1 26.2 44.3 DMML (Chen et al., 2019) 58.5 82.0 19.1 31.1 BoT (Luo et al., 2019) 78.0 95.1 23.5 38.4 OSNet (Zhou et al., 2019) 75.0 95.6 28.7 44.8 Circle Loss (Sun et al., 2020) 59.4 81.7 22.7 34.2 HRCN (Zhao et al., 2021) 67.1 91.8 23.4 44.2 TransReID (He et al., 2021) 75.6 92.9 18.4 29.6 AGW (Ye et al., 2021) 73.1 92.7 28.9 46.9 
+
+> Multi
+
+HAMNet (Li et al., 2020) 74.5 93.3 27.1 42.3 PFNet (Zheng et al., 2021) 68.1 94.1 23.5 37.4 GAFNet (Guo et al., 2022) 74.4 93.4 - -GPFNet (He et al., 2023) 75.0 94.5 - -CCNet (Zheng et al., 2023b) 77.2 96.3 36.4 55.2 HTT (Wang et al., 2024b) 75.7 92.6 - -RSCNet (Yu et al., 2024) 82.3 96.6 39.5 49.6 TOP-ReID (Wang et al., 2024a) 81.2 96.4 35.9 44.6 EDITOR (Zhang et al., 2024) 82.1 96.4 39.0 49.3 LRMM (Wu et al., 2025) 78.6 96.7 36.7 49.7 FACENet (Zheng et al., 2025a) 81.5 96.9 36.2 54.1 WTSF-ReID (Yu et al., 2025) 82.2 96.5 39.2 49.1 MambaPro (Wang et al., 2025a) 83.9 94.7 47.0 56.5 DESANet (Dong et al., 2025) 82.1 97.4 39.2 47.8 DeMo (Wang et al., 2025b) 86.2 97.6 49.2 59.8 IDEA (Wang et al., 2025c) 87.2 96.5 47.0 62.4 
+
+FUSE 88.5 96.9 50.1 65.7 
+
+ness. Additionally, we report the number of parameters and FLOPs to analyze computational complexity of our model. 
+
+Implementation Details. We implement our model using PyTorch and run experiments on an NVIDIA 3090 GPU. The visual encoder is initialized with pre-trained CLIP. In-put images are resized to 256 × 128 for RGBNT201 and 
+
+128 × 256 for RGBNT100 and MSVR310. Data augmenta-tion follows standard practice, including random horizontal flipping, cropping, and random erasing. The mini-batch size is set to 128 for RGBNT100 and RGBNT201, and 64 
+
+for MSVR310, with dataset-specific sampling strategies. We use Adam with an initial learning rate of 3.5 × 10 −4,while the encoder learning rate is 5 × 10 −6. The model is trained for 45 epochs on RGBNT201 and RGBNT100, and 
+
+50 epochs on MSVR310. 
+
+4.2. Comparison with State-of-the-Art Methods 1
+
+> 1
+
+See Sec. A.1 for evaluation under missing-modality scenarios and Sec. A.2 for computational cost and efficiency. 
+
+6FUSE: Frequency-domain Unification and Spectral Energy Alignment for Multi-modal Object Re-Identification                                                                                           
+
+> Table 3. Comparison with different modules. We show the best score in bold.
+> Index Modules Metrics Average CAM SDM mAP R-1 R-5 R-10
+> 1××76.0 77.8 87.1 90.4 82.8 2✓×77.2 80.4 87.6 91.6 84.2 3×✓79.7 82.1 90.2 92.3 86.1 4✓✓80.8 84.1 91.5 93.5 87.5
+> Table 4. Performance analysis under different frequency for SDM. We show the best score in bold.
+> SDM Metrics Average Low Mid High mAP R-1 R-5 R-10
+> 10075.4 78.7 86.5 90.9 82.9 01072.2 73.4 84.1 88.4 79.5 00169.0 73.8 83.6 88.4 78.7 0.2 0.4 0.4 77.2 80.4 87.6 91.6 84.2 0.4 0.2 0.2 78.5 81.2 88.2 91.9 84.9 0.3 0.3 0.3 79.7 82.1 90.2 92.3 86.1
+
+We perform comparisons with state-of-the-art (SOTA) meth-ods on three multi-modal ReID datasets and demonstrate competitive results compared with previous work. 
+
+Multi-modal Person ReID. In Table 1, we compare our proposed FUSE method with existing single-spectral and multi-modal approaches on the challenging RGBNT201 dataset. The results show that multi-modal methods gener-ally outperformed their single-spectral counterparts, under-scoring the effectiveness of leveraging complementary infor-mation from different image spectra for multi-modal Person ReID. Among single-spectral methods, PCB achieved the highest performance, with an mAP of 32.8% and an R-1 of 28.1%. Among multi-modal methods, our FUSE model es-tablished a new SOTA across all ranking metrics, achieving 81.4% mAP and 86.1% R-1. Compared to the previously prominent baseline TOP-ReID (72.3% mAP and 76.6% R-1), FUSE demonstrated a substantial performance leap, with absolute gains of 9.1% in mAP and 9.5% in R-1. Fur-thermore, against the next-best multi-modal method, IDEA (80.2% mAP and 82.1% R-1), FUSE showed a further im-provement of 1.2% in mAP and a significant 4.0 percentage point increase in R-1. These gains substantiate the efficacy of the FUSE design, which leverages Frequency-domain Unification and Spectral Energy Alignment for robust cross-modal discriminative feature learning. 
+
+Multi-modal Vehicle ReID. In Table 2, we compare our proposed FUSE method with existing single-spectral and multi-modal approaches on the RGBNT100 and MSVR310 datasets. The results consistently demonstrate that multi-modal methods achieve superior performance compared to single-spectral methods, underscoring the effectiveness of utilizing complementary cross-modal information. Among single-spectral methods, OSNet and AGW achieve the high-                                                                                  
+
+> Table 5. Comparison with different λf req for FUSE. We show the best score in bold. Scale of λf req mAP R-1 R-5 R-10 Average 0.0 80.8 84.1 91.5 93.5 87.5 0.1 81.4 86.1 91.5 93.8 88.2
+> 0.2 80.2 83.1 89.8 92.7 86.5 0.3 79.9 82.7 90.2 92.9 86.4
+> Table 6. Comparison with different kernel size for FUSE. We show the best score in bold. Kernel Size mAP R-1 R-5 R-10 Average 3,5,7 78.8 82.5 86.7 90.1 84.5 3,7,5 81.2 84.2 91.4 93.5 87.6 5,3,7 79.4 83.0 90.4 92.2 86.3 5,7,3 78.7 82.4 86.6 90.0 84.5 7,3,5 81.0 84.0 91.2 93.2 87.4 7,5,3 78.6 82.3 86.5 90.0 84.5
+> 3,3,3 81.4 86.1 91.5 93.8 88.2
+> 5,5,5 80.6 83.1 90.9 93.2 87.0 7,7,7 79.3 82.8 91.1 94.4 86.9
+
+est R-1 on RGBNT100 (95.6%) and MSVR310 (46.9%), respectively. On the large-scale RGBNT100 dataset, our FUSE method establishes a new SOTA mAP of 88.5%, representing an absolute improvement of 1.3% over the second-best method (IDEA at 87.2%). Although our R-1 of 96.9% is slightly lower than DeMo, it remains competi-tive. On the challenging MSVR310 dataset, FUSE achieves full SOTA performance, leading both primary metrics. Our mAP reaches 50.1%, advancing the previous SOTA by 0.9% over DeMo (49.2%). Crucially, our R-1 accuracy of 65.7% outperforms the previous SOTA (IDEA at 62.4%) by 3.3%. These gains validate FUSE’s performance and generaliza-tion, attributing efficacy to our Frequency-domain Unifica-tion and Spectral Energy Alignment framework. 
+
+4.3. Ablation Study 
+
+To evaluate the contribution and interplay of each com-ponent within FUSE, we conduct ablation studies on the RGBNT201 dataset. The detailed performance metrics are summarized in Table 3. 
+
+Ablation Study of Core Components. To thoroughly eval-uate the contribution and necessity of the CAM and the SDM, which are the core components of FUSE, we conduct comprehensive ablation studies on the RGBNT201 dataset. The detailed results are summarized in Table 3. Our base-line uses a shared Vision Transformer backbone, achieving 76.0% mAP and 77.8% R-1 accuracy. 
+
+Cross-Modal Alignment Module. Building upon the base framework, we first integrate the CAM. This integration enhances performance, boosting mAP by an absolute 1.2 % (to 77.2%) and significantly improving Rank-1 accuracy by 2.6 % (to 80.4%). This validates that CAM effectively 7FUSE: Frequency-domain Unification and Spectral Energy Alignment for Multi-modal Object Re-Identification 
+
+Table 7. Comparison with different Lid , Ltri and Lf req for FUSE. We show the best score in bold. 
+
+Lid Ltri Lf req mAP R-1 
+
+✓ × × 45.5 44.4 
+
+× ✓ × 74.2 77.9 
+
+✓ ✓ × 80.8 84.1 
+
+✓ ✓ ✓ 81.4 86.1 
+
+enhances the overall model performance by enforcing fine-grained cross-modal feature alignment. 
+
+Spectral Decomposition Module. Next, we introduce the SDM to the base framework. The SDM demonstrates an even more substantial contribution, achieving a strong mAP of 79.7% and R-1 of 82.1%. This represents a massive gain of 3.7% in mAP and 4.3 % in R-1 over the baseline. This result strongly validates that SDM is the dominant component, enhancing accuracy by effectively disentangling and processing features in the frequency domain, which is crucial for robust identity-discriminative feature extraction. 
+
+FUSE. Our complete FUSE model, integrating both CAM and SDM, achieves the optimal performance across all met-rics, with 80.8% mAP and 84.1% R-1. This final configu-ration outperforms the best single-component model SDM only by an additional 1.1 % in mAP and 2.0 % in R-1. This final gain confirms the powerful synergistic effect between the CAM (alignment) and SDM (decomposition), demon-strating that the combination of frequency-domain process-ing and cross-modal alignment mechanisms is necessary to achieve the ultimate SOTA performance. 
+
+4.4. More Analysis Performance analysis under different frequency for SDM. We analyze the weight distribution of the Low, Mid, and High-frequency components in Table 4. Using only a single band, the Low-frequency setting (1, 0, 0) performs best with 75.4% mAP and 78.7% R-1, reflecting its role in capturing global identity cues. Mid and High-frequency bands perform notably worse, showing that any single band is insufficient for robust cross-modal discrimination. Com-bining all three bands yields a clear performance gain, with the equal-weight configuration (0.3, 0.3, 0.3) achieving 79.7% mAP and 82.1% R-1, surpassing the best single-band result by 4.3% mAP. These results confirm that SDM benefits from jointly leveraging complementary information across all spectral bands. 
+
+Analysis of the Lf req Weight. To evaluate the effect of the proposed Auxiliary Frequency Consistency Loss Lf req and determine its optimal weight λf req , we conduct a hyperpa-rameter analysis summarized in Table 5. Without this loss (λf req = 0 .0), the model achieves 80.8% mAP and 84.1% Rank-1. Introducing a moderate constraint ( λf req = 0 .1)Low Frequency Mid Frequency High Frequency               
+
+> RGB NIR TIR Ours RGB NIR TIR Ours
+> Low Frequency Mid Frequency High Frequency
+> RGB NIR TIR Ours RGB NIR TIR Ours
+
+Figure 4. Visualization of response distributions across fre-quency bands. Band-wise responses of RGB, NIR, TIR, and ours. Low-frequency components are largely consistent across modalities, whereas mid and high-frequency bands exhibit stronger discrepancies and artifacts. Our method produces coherent mid and high-frequency structures with less modality-specific noise, yielding a stable multi-frequency representation. 
+
+yields the best performance, improving to 81.4% mAP and 86.1% Rank-1. Larger weights ( λf req = 0 .2, 0.3) lead to performance drops, indicating over-regularization that suppresses modality-specific cues. These results show that balancing discriminative learning with spectral alignment is essential, and λf req = 0 .1 is adopted as the optimal setting. 
+
+Performance analysis different kernel size for FUSE. We investigate the impact of different convolution configura-tions on model performance in Table 6. Adopting larger kernel sizes, such as the (7, 7, 7) configuration, results in suboptimal performance with 79.3% mAP and 82.8% R-1, suggesting that excessive receptive fields tend to over-smooth fine-grained spectral details. Similarly, hybrid con-figurations with varying scales (e.g., 3, 5, 7) fail to yield improvement, indicating that complex spatial biases do not necessarily enhance feature distinctiveness. In contrast, the uniform small kernel configuration (3, 3, 3) achieves the optimal performance of 81.4% mAP and 86.1% R-1, sur-passing the large-kernel setting by 2.1% mAP. These results confirm that a compact and consistent spatial inductive bias is most effective for preserving the structural integrity of disentangled frequency representations. 
+
+Analysis of Loss Functions. To evaluate each supervision term, we conduct ablation experiments on Lid , Ltri , and 
+
+Lf req . Table 7 shows that standard Lid and Ltri establish a solid baseline (80.8% mAP, 84.1% Rank-1). By incorporat-ing Lf req , FUSE achieves 81.4% mAP and 86.1% Rank-1, yielding gains of 0.6% and 2.0%. This enhancement vali-dates that Lf req facilitates cross-modal spectral alignment by providing complementary characteristics overlooked by spatial losses. These gains confirm that spectral consis-tency is essential for robust multi-modal learning, ensuring 8FUSE: Frequency-domain Unification and Spectral Energy Alignment for Multi-modal Object Re-Identification 
+
+identity-discriminative detail and stability. 
+
+Visualization of responses in different frequency bands. 
+
+To qualitatively examine band-wise behavior across modal-ities, we visualize the low-frequency, mid-frequency, and high-frequency responses of RGB, NIR, TIR, and our out-put, across two representative test cases. The low-frequency maps are relatively consistent across modalities, mainly re-flecting the pedestrian silhouette and global intensity layout. In contrast, the mid and high-frequency maps reveal stronger modality-specific patterns, including noticeable cross-modal discrepancies and stripe-like artifacts. Compared with indi-vidual modalities, our method produces cleaner and more coherent structures in the mid and high bands while sup-pressing modality-dependent noise, resulting in a more sta-ble multi-frequency representation. 
+
+# 5. Conclusion 
+
+In this paper, we propose FUSE , a novel framework for multi-modal object ReID that enhances spectral representa-tion and robustness through frequency-domain disentan-glement and alignment. Specifically, we introduce the Spectral Decomposition Module (SDM) to adaptively parti-tion features into low, mid, and high-frequency subspaces, thereby ensuring complete spectral representation. Follow-ing this, the Cross-Modal Alignment Module (CAM) en-forces fine-grained cross-modal feature alignment to effec-tively mitigate heterogeneity. Extensive experiments on the RGBNT201, RGBNT100, and MSVR310 datasets demon-strate the effectiveness and efficiency of our model. 
+
+# Acknowledgments 
+
+This work was supported in part by the National Natural Science Foundation of China under Grant U23A20276, and in part by the Guangdong Basic and Applied Basic Research Foundation under Grant 2024A1515110260. 
+
+# Impact Statement 
+
+This paper presents work whose goal is to advance the field of Machine Learning. There are many potential societal consequences of our work, none of which we feel must be specifically highlighted here. 
+
+# References 
+
+Bo, Y., Zhu, Y., Li, L., and Zhang, H. Famnet: Frequency-aware matching network for cross-domain few-shot medi-cal image segmentation. In Proceedings of the AAAI Con-ference on Artificial Intelligence , volume 39, pp. 1889– 1897, 2025. Chang, X., Hospedales, T. M., and Xiang, T. Multi-level fac-torisation net for person re-identification. In Proceedings of the IEEE conference on computer vision and pattern recognition , pp. 2109–2118, 2018. Chen, G., Zhang, T., Lu, J., and Zhou, J. Deep meta metric learning. In Proceedings of the IEEE/CVF international conference on computer vision , pp. 9547–9556, 2019. Dong, W., Yang, X., Cheng, D., Wang, N., and Gao, X. Escaping modal interactions: An efficient desanet for multi-modal object re-identification. IEEE Transactions on Image Processing , 2025. Feng, Y., Li, J., Xie, C., Tan, L., and Ji, J. Multi-modal ob-ject re-identification via sparse mixture-of-experts. In In-ternational Conference on Machine Learning , pp. 16796– 16807. PMLR, 2025. Feng, Y., Li, J., Hu, J., Zhang, Y., Tan, L., and Ji, J. Mdreid: Modality-decoupled learning for any-to-any multi-modal object re-identification. Advances in Neural Information Processing Systems , 38:42584–42605, 2026. Gu, H., Yang, X., Lu, R., Pu, L., Han, S., and Wu, M. Dis-covering multi-frequency embedding for visible-infrared person re-identification. IEEE Transactions on Circuits and Systems for Video Technology , 2025. Guo, J., Zhang, X., Liu, Z., and Wang, Y. Generative and at-tentive fusion for multi-spectral vehicle re-identification. In 2022 7th International Conference on Intelligent Com-puting and Signal Processing (ICSP) , pp. 1565–1572. IEEE, 2022. He, Q., Lu, Z., Wang, Z., and Hu, H. Graph-based pro-gressive fusion network for multi-modality vehicle re-identification. IEEE Transactions on Intelligent Trans-portation Systems , 24(11):12431–12447, 2023. He, S., Luo, H., Wang, P., Wang, F., Li, H., and Jiang, W. Transreid: Transformer-based object re-identification. In 
+
+Proceedings of the IEEE/CVF international conference on computer vision , pp. 15013–15022, 2021. Langley, P. Crafting papers on machine learning. In Langley, P. (ed.), Proceedings of the 17th International Conference on Machine Learning (ICML 2000) , pp. 1207–1216, Stan-ford, CA, 2000. Morgan Kaufmann. Lei, T., Zhang, Y., Han, K., Dai, P., Zhang, Y., Wu, Y., and Ji, R. Rle: A unified perspective of data augmentation for cross-spectral re-identification. Advances in Neural Infor-mation Processing Systems , 37:126977–126996, 2024. Li, H., Li, C., Zhu, X., Zheng, A., and Luo, B. Multi-spectral vehicle re-identification: A challenge. In Proceedings of the AAAI Conference on Artificial Intelligence , vol-ume 34, pp. 11345–11353, 2020. 9FUSE: Frequency-domain Unification and Spectral Energy Alignment for Multi-modal Object Re-Identification 
+
+Li, Q., Li, J., Zhang, Y., Tan, L., Chen, J., and Ji, J. Gsalign: Geometric and semantic alignment network for aerial-ground person re-identification. Advances in Neural In-formation Processing Systems , 38:93785–93805, 2026a. Li, S., Tan, L., and Tan, R. T. Bridging day and night: Target-class hallucination suppression in unpaired image translation. In Proceedings of the AAAI Conference on Artificial Intelligence , volume 40, pp. 6424–6432, 2026b. Li, S., Tan, L., and Tan, R. T. White-balance first, adjust later: Cross-camera color constancy via vision-language evaluation. In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition , pp. 1331– 1341, 2026c. Li, W., Zhu, X., and Gong, S. Harmonious attention network for person re-identification. In Proceedings of the IEEE conference on computer vision and pattern recognition ,pp. 2285–2294, 2018. Lu, Y., Lin, Y., Yang, M., Peng, D., Hu, P., and Peng, X. De-coupled contrastive multi-view clustering with high-order random walks. In Proceedings of the AAAI conference on artificial intelligence , volume 38, pp. 14193–14201, 2024. Lu, Y., Yang, M., Peng, D., Hu, P., Lin, Y., and Peng, X. Llava-reid: Selective multi-image questioner for interactive person re-identification. arXiv preprint arXiv:2504.10174 , 2025. Luo, H., Gu, Y., Liao, X., Lai, S., and Jiang, W. Bag of tricks and a strong baseline for deep person re-identification. In 
+
+Proceedings of the IEEE/CVF conference on computer vision and pattern recognition workshops , pp. 0–0, 2019. Ma, Y., Jin, T., Zheng, X., Wang, Y., Li, H., Wu, Y., Jiang, G., Zhang, W., and Ji, R. Ompq: Orthogonal mixed pre-cision quantization. In Proceedings of the AAAI confer-ence on artificial intelligence , volume 37, pp. 9029–9037, 2023a. Ma, Y., Li, H., Zheng, X., Xiao, X., Wang, R., Wen, S., Pan, X., Chao, F., and Ji, R. Solving oscillation prob-lem in post-training quantization through a theoretical perspective. In Proceedings of the IEEE/CVF Confer-ence on Computer Vision and Pattern Recognition , pp. 7950–7959, 2023b. Ma, Y., Li, H., Zheng, X., Ling, F., Xiao, X., Wang, R., Wen, S., Chao, F., and Ji, R. Outlier-aware slicing for post-training quantization in vision transformer. In Forty-first International Conference on Machine Learning , 2024. Ma, Y., Zheng, X., Xu, J., Xu, X., Ling, F., Zheng, X., Kuang, H., Li, H., Wang, X., Xiao, X., et al. Flow caching for autoregressive video generation. arXiv preprint arXiv:2602.10825 , 2026. Niu, K., Yu, H., Zhao, M., Fu, T., Yi, S., Lu, W., Li, B., Qian, X., and Xue, X. Chatreid: Open-ended interactive person retrieval via hierarchical progressive tuning for vision language models. In Proceedings of the IEEE/CVF International Conference on Computer Vision , pp. 24245– 24254, 2025. Niu, K., Yu, H., Fu, T., Zhao, M., Li, B., Qian, X., and Xue, X. Fdgreid: Federated domain generalization for person re-identification. Machine Learning , 115(1):22, 2026. Pan, W., Wu, H., Zhu, J., Zeng, H., and Zhu, X. H-vit: Hybrid vision transformer for multi-modal vehicle re-identification. In CAAI international conference on artifi-cial intelligence , pp. 255–267. Springer, 2022. Park, N. and Kim, S. How do vision transformers work? 
+
+arXiv preprint arXiv:2202.06709 , 2022. Qian, X., Fu, Y., Jiang, Y.-G., Xiang, T., and Xue, X. Multi-scale deep learning architectures for person re-identification. In Proceedings of the IEEE international conference on computer vision , pp. 5399–5408, 2017. Rao, Y., Chen, G., Lu, J., and Zhou, J. Counterfactual attention learning for fine-grained visual categorization and re-identification. In Proceedings of the IEEE/CVF international conference on computer vision , pp. 1025– 1034, 2021. Sun, Y., Zheng, L., Yang, Y., Tian, Q., and Wang, S. Beyond part models: Person retrieval with refined part pooling (and a strong convolutional baseline). In Proceedings of the European conference on computer vision (ECCV) , pp. 480–496, 2018. Sun, Y., Cheng, C., Zhang, Y., Zhang, C., Zheng, L., Wang, Z., and Wei, Y. Circle loss: A unified perspective of pair similarity optimization. In Proceedings of the IEEE/CVF conference on computer vision and pattern recognition ,pp. 6398–6407, 2020. Sun, Z., Tan, L., Shen, Y., Cai, C., Sun, X., Dai, P., Cao, L., and Ji, R. Flexireid: Adaptive mixture of expert for multi-modal person re-identification. In International Confer-ence on Machine Learning , pp. 57680–57693. PMLR, 2025. Tan, L., Dai, P., Chen, J., Cao, L., Wu, Y., and Ji, R. Part-former: Awakening latent diverse representation from vision transformer for object re-identification. arXiv preprint arXiv:2408.16684 , 2024a. Tan, L., Xia, J., Liu, W., Dai, P., Wu, Y., and Cao, L. Oc-cluded person re-identification via saliency-guided patch transfer. In Proceedings of the AAAI conference on artifi-cial intelligence , volume 38, pp. 5070–5078, 2024b. 10 FUSE: Frequency-domain Unification and Spectral Energy Alignment for Multi-modal Object Re-Identification 
+
+Tan, L., Li, W., Dai, P., Chen, J., Cao, L., and Ji, R. Know-ing where to focus: Attention-guided alignment for text-based person search: L. tan et al. International Journal of Computer Vision , 134(2):72, 2026. Wang, G., Yuan, Y., Chen, X., Li, J., and Zhou, X. Learning discriminative features with multiple granularities for person re-identification. In Proceedings of the 26th ACM international conference on Multimedia , pp. 274–282, 2018. Wang, H., Wu, X., Huang, Z., and Xing, E. P. High-frequency component helps explain the generalization of convolutional neural networks. In Proceedings of the IEEE/CVF conference on computer vision and pattern recognition , pp. 8684–8694, 2020. Wang, Y., Liu, X., Zhang, P., Lu, H., Tu, Z., and Lu, H. Top-reid: Multi-spectral object re-identification with token permutation. In Proceedings of the AAAI conference on artificial intelligence , volume 38, pp. 5758–5766, 2024a. Wang, Y., Liu, X., Yan, T., Liu, Y., Zheng, A., Zhang, P., and Lu, H. Mambapro: Multi-modal object re-identification with mamba aggregation and synergistic prompt. In Pro-ceedings of the AAAI Conference on Artificial Intelli-gence , volume 39, pp. 8150–8158, 2025a. Wang, Y., Liu, Y., Zheng, A., and Zhang, P. Decoupled feature-based mixture of experts for multi-modal object re-identification. In Proceedings of the AAAI Conference on Artificial Intelligence , volume 39, pp. 8141–8149, 2025b. Wang, Y., Lv, Y., Zhang, P., and Lu, H. Idea: Inverted text with cooperative deformable aggregation for multi-modal object re-identification. In Proceedings of the Computer Vision and Pattern Recognition Conference , pp. 29701– 29710, 2025c. Wang, Z., Li, C., Zheng, A., He, R., and Tang, J. Interact, embed, and enlarge: Boosting modality-specific repre-sentations for multi-modal person re-identification. In 
+
+Proceedings of the AAAI conference on artificial intelli-gence , volume 36, pp. 2633–2641, 2022. Wang, Z., Huang, H., Zheng, A., and He, R. Heterogeneous test-time training for multi-modal person re-identification. In Proceedings of the AAAI Conference on Artificial In-telligence , volume 38, pp. 5850–5858, 2024b. Wu, D., Liu, Z., Chen, Z., Gan, S., Tan, K., Wan, Q., and Wang, Y. Lrmm: Low rank multi-scale multi-modal fu-sion for person re-identification based on rgb-ni-ti. Expert Systems with Applications , 263:125716, 2025. Yang, X., Dong, W., Cheng, D., Wang, N., and Gao, X. Tienet: A tri-interaction enhancement network for mul-timodal person reidentification. IEEE Transactions on Neural Networks and Learning Systems , 2025. Ye, M., Shen, J., Lin, G., Xiang, T., Shao, L., and Hoi, S. C. Deep learning for person re-identification: A survey and outlook. IEEE transactions on pattern analysis and machine intelligence , 44(6):2872–2893, 2021. Yu, Z., Huang, Z., Hou, M., Pei, J., Yan, Y., Liu, Y., and Sun, D. Representation selective coupling via token spar-sification for multi-spectral object re-identification. IEEE Transactions on Circuits and Systems for Video Technol-ogy , 2024. Yu, Z., Huang, Z., Hou, M., Yan, Y., and Liu, Y. Wtsf-reid: Depth-driven window-oriented token selection and fusion for multi-modality vehicle re-identification with knowledge consistency constraint. Expert Systems with Applications , 274:126921, 2025. Zhang, P., Wang, Y., Liu, Y., Tu, Z., and Lu, H. Magic tokens: Select diverse tokens for multi-modal object re-identification. In Proceedings of the IEEE/CVF confer-ence on computer vision and pattern recognition , pp. 17117–17126, 2024. Zhang, S., Luo, W., Cheng, D., Xing, Y., Liang, G., Wang, P., and Zhang, Y. Prompt-based modality alignment for ef-fective multi-modal object re-identification. IEEE Trans-actions on Image Processing , 2025a. Zhang, Y., Wang, H., Lu, Y., Yan, Y., and Li, X. Frequency domain nuances mining for visible-infrared person re-identification. IEEE Transactions on Information Foren-sics and Security , 2025b. Zhang, Y., Yan, Y., Lu, Y., and Wang, H. Adaptive middle modality alignment learning for visible-infrared person re-identification. International Journal of Computer Vision ,133(4):2176–2196, 2025c. Zhao, J., Zhao, Y., Li, J., Yan, K., and Tian, Y. Heteroge-neous relational complement for vehicle re-identification. In Proceedings of the IEEE/CVF international conference on computer vision , pp. 205–214, 2021. Zheng, A., Wang, Z., Chen, Z., Li, C., and Tang, J. Robust multi-modality person re-identification. In Proceedings of the AAAI conference on artificial intelligence , volume 35, pp. 3529–3537, 2021. Zheng, A., Zhu, X., Ma, Z., Li, C., Tang, J., and Ma, J. Multi-spectral vehicle re-identification with cross-directional consistency network and a high-quality bench-mark. arXiv preprint arXiv:2208.00632 , 2022. 11 FUSE: Frequency-domain Unification and Spectral Energy Alignment for Multi-modal Object Re-Identification 
+
+Zheng, A., He, Z., Wang, Z., Li, C., and Tang, J. Dynamic enhancement network for partial multi-modality per-son re-identification. arXiv preprint arXiv:2305.15762 ,2023a. Zheng, A., Zhu, X., Ma, Z., Li, C., Tang, J., and Ma, J. Cross-directional consistency network with adaptive layer normalization for multi-spectral vehicle re-identification and a high-quality benchmark. Information Fusion , 100: 101901, 2023b. Zheng, A., Ma, Z., Sun, Y., Wang, Z., Li, C., and Tang, J. Flare-aware cross-modal enhancement network for multi-spectral vehicle re-identification. Information Fusion ,116:102800, 2025a. Zheng, X., Ma, Y., Xi, T., Zhang, G., Ding, E., Li, Y., Chen, J., Tian, Y., and Ji, R. An information theory-inspired strategy for automated network pruning. International Journal of Computer Vision , 133(8):5455–5482, 2025b. Zhou, K., Yang, Y., Cavallaro, A., and Xiang, T. Omni-scale feature learning for person re-identification. In 
+
+Proceedings of the IEEE/CVF international conference on computer vision , pp. 3702–3712, 2019. 12 FUSE: Frequency-domain Unification and Spectral Energy Alignment for Multi-modal Object Re-Identification 
+
+# A. Supplemental Material 
+
+A.1. Evaluation on Missing-Modality Scenarios 
+
+In real-world applications, sensor limitations or environmental factors often lead to incomplete modality inputs, making model robustness under these conditions a critical concern for deployment. Following the standard evaluation protocol, we assess the performance of FUSE under all six possible missing-modality configurations on the RGBNT201 dataset, with detailed results presented in Table 8. The results confirm that single-spectral methods suffer from severe performance degradations when image spectra are missing; for instance, the best single-spectral method, PCB, only achieves an average mAP of 19.7%. Multi-modal methods demonstrate better intrinsic robustness, with TOP-ReID setting a strong baseline, achieving an average mAP of 44.4% and R-1 45.4%. However, our proposed FUSE consistently and substantially outperforms all competitors in these challenging scenarios, achieving the new SOTA in all six configurations and the average metrics. FUSE reaches an average mAP of 49.9%, demonstrating a significant absolute gain of 5.5% over TOP-ReID. Our average R-1 also reaches 50.7%, surpassing TOP-ReID by 5.3%. This superior resilience validates FUSE’s robustness and intrinsic capability, achieved without specialized modules, directly owing to our Frequency-domain Unification and Spectral Energy Alignment framework.                                                                                                                                                                        
+
+> Table 8. Performance of missing-modality settings on RGBNT201. “M (X)” means missing the X image modality. The best and second results are in bold and underlined, respectively.
+> Methods M (RGB) M (NIR) M (TIR) M (RGB+NIR) M (RGB+TIR) M (NIR+TIR) Average mAP R-1 mAP R-1 mAP R-1 mAP R-1 mAP R-1 mAP R-1 mAP R-1 Single
+> HACNN (Li et al., 2018) 12.5 11.1 20.5 19.4 16.7 13.3 9.2 6.2 6.3 2.2 14.8 12.0 13.3 10.7 MUDeep (Qian et al., 2017) 19.2 16.4 20.0 17.2 18.4 14.2 13.7 11.8 11.5 6.5 12.7 8.5 15.9 12.9 OSNet (Zhou et al., 2019) 19.8 17.3 21.0 19.0 18.7 14.6 12.3 10.9 9.4 5.4 13.0 10.2 15.7 12.9 MLFN (Chang et al., 2018) 20.2 18.9 21.1 19.7 17.6 11.1 13.2 12.1 8.3 3.5 13.1 9.1 15.6 12.4 CAL (Rao et al., 2021) 21.4 22.1 24.2 23.6 18.0 12.4 18.6 20.1 10.0 5.9 17.2 13.2 18.2 16.2 PCB (Sun et al., 2018) 23.6 24.2 24.4 25.1 19.9 14.7 20.6 23.6 11.0 6.8 18.6 14.4 19.7 18.1
+> Multi
+> PFNet (Zheng et al., 2021) --31.9 29.8 25.5 25.8 ----26.4 23.4 --DENet (Zheng et al., 2023a) --35.4 36.8 33.0 35.4 ----32.4 29.2 --TOP-ReID (Wang et al., 2024a) 54.4 57.5 64.3 67.6 51.9 54.5 35.3 35.4 26.2 26.0 34.1 31.7 44.4 45.4 DESANet (Dong et al., 2025) 54.1 55.1 65.0 67.3 56.6 56.6 35.7 38.2 28.5 28.8 34.2 29.8 45.7 46.0
+> FUSE 62.7 64.0 70.9 73.7 58.0 55.1 39.6 42.3 26.4 26.6 41.5 42.7 49.9 49.9
+
+A.2. Computational Cost and Efficiency 
+
+Table 9 summarizes the computational cost of FUSE and representative recent methods in terms of parameters and FLOPs. FUSE attains the best efficiency profile, achieving the lowest cost on both metrics with 59.3M parameters and 24.7G FLOPs. Compared with HTT, FUSE reduces the parameter count from 85.6M to 59.3M and decreases FLOPs from 33.1G to 24.7G, indicating a substantially lighter architecture. The gap is more pronounced relative to EDITOR, where FUSE nearly halves the parameters (117.5M vs. 59.3M) and cuts computation by a large margin (38.6G vs. 24.7G). While TOP-ReID achieves competitive FLOPs, it remains markedly less parameter-efficient, requiring 278.2M parameters with 34.5G FLOPs. Overall, these results demonstrate that FUSE delivers frequency-domain modeling and cross-modal alignment with significantly reduced model size and computation, making it more practical for scalable training and deployment.   
+
+> Table 9. Comparison of computational cost with methods. We show the best result in bold.
+
+Methods Params(M) Flops(G) 
+
+HTT (Wang et al., 2024b) 85.6 33.1 EDITOR (Zhang et al., 2024) 117.5 38.6 TOP-ReID (Wang et al., 2024a) 278.2 34.5 DeMo (Wang et al., 2025b) 98.8 35.1 MambaPro (Wang et al., 2025a) 160.3 25.2 DESANet (Dong et al., 2025) 256.9 33.1 Ours 59.3 24.7 
+
+13
